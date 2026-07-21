@@ -1,0 +1,96 @@
+{
+  "source_pdf": "SkillOpt/2605.23904v2.pdf",
+  "generated_by": "step2-parser (pymupdf 1.28.0 region-render, caption-anchored)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "SkillOpt/parsed/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1 Overview of SkillOpt. The target model executes tasks with a current skill, an additional frontier optimizer model converts trajectories into bounded add/delete/replace skill edits, and a held-out gate accepts only edits that improve validation performance. Accepted edits are exported as a reusable skill artifact, while rejected edits become negative feedback for later updates.",
+      "nearby_text": "k, while the epoch-wise slow/meta update preserves longer-horizon regularities. Figure 1 gives a schematic view of this loop. The deployed output is a compact best_skill.md file of roughly 300–2,000 tokens, with the adapted model and execution harness remaining fixed.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "SkillOpt/parsed/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 2 Pipeline of SkillOpt. A frozen target model executes a rollout batch with the current skill; an optimizer model performs minibatch reflection over successes and failures, proposes bounded add/delete/replace edits, merges and ranks them under a scheduled edit budget, and accepts the candidate skill only through a held-out validation gate. Across epochs, the slow/meta update retains longer-horizon lessons without changing the target model.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "SkillOpt/parsed/assets/images/picture-003.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 1 Main results on held-out test splits. Scores are percentages; within each model–harness block, bold marks the best measured entry and underlining marks the second-best entry for each benchmark. Blue cells denote SkillOpt, and small green/red subscripts show the absolute change relative to the No skill row of the same model in the same harness. We omit ALFWorld under Codex and Claude Code harnesses because ALFWorld requires persistent embodied-environment interaction. SkillOpt is the best-or-tied entry on every measured cell of the table, with positive gains over the no-skill baseline throughout.",
+      "nearby_text": "Table 1 is the main result matrix. Counting every (target model, benchmark, harness) cell as one comparison and the strongest of the no-skill, human-skill, LLM-skill, Trace2Skill, TextGrad,",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "SkillOpt/parsed/assets/images/picture-004.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 2 Hyperparameter analysis for the text optimizer. Each panel changes one scalar or scheduling factor from the default setting unless noted. Panel (a) fixes the split to 4:1:5 train/selection/test; the 1-example, 20%, 40%, and 80% rows use subsets of the training partition, and the 100% row reuses the completed 4:1:5 split-ratio run. Panel (b) sweeps the reflection mini-batchsize Bm; panel (c) sweeps the rollout batchsize B.",
+      "nearby_text": "Table 2, Figure 3, and Table 3 test the design choices in the optimizer using GPT–5.5 as both the target and the optimizer. The overall message is that SkillOpt benefits from sufficient evidence, a bounded textual learni",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "SkillOpt/parsed/assets/images/picture-005.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 3 Component ablations for learning-rate form, rejected buffer, and epoch-wise slow/meta update. Light-blue rows mark the default setting within each component group; the learning-rate group uses the default lr=4 setting. Bold values mark the best measured result within that group and benchmark. The without-rejected-buffer row uses the matched no-buffer ablation setting.",
+      "nearby_text": "Table 2, Figure 3, and Table 3 test the design choices in the optimizer using GPT–5.5 as both the target and the optimizer. The overall message is that SkillOpt benefits from sufficient evidence, a bounded textual learning rate, rejected-edit",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "SkillOpt/parsed/assets/images/picture-006.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 4 Transfer of optimized skills across three axes. (a) Cross-model: a skill optimized for the source model is deployed on the target model. (b) Cross-harness: a skill trained inside the source harness is evaluated inside the target harness, all on GPT–5.5. (c) Cross-benchmark: the source benchmark skill is evaluated on the target benchmark across three target models. Baseline is the target’s no-skill score, Direct is the in-domain SkillOpt score, and Transferred applies the source skill without further optimization. Subscripts show the change over the target baseline. The GPT–5.4→GPT–5.4 transferred cells in (a) are marked – because source and target match (i.e. no transfer occurs); we still report the GPT–5.4 baseline and in-domain SkillOpt score (taken from Table 1) in those rows for reference. Every remaining row in (a)–(c) is a positive transfer (no row falls below the target’s no-skill baseline).",
+      "nearby_text": "- specific prompt. We test three shifts: deploying a skill across model scales (Table 4), moving it across execution harnesses (Table 4), and applying it to nearby math benchmarks, including OlympiadBench [41] and Omni-MATH [14] (Table 4). Table 5 then asks how much of the gain depends on optimizer",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "SkillOpt/parsed/assets/images/picture-007.png",
+      "type": "figure",
+      "page": 12,
+      "caption": "Figure 3 Performance trends across epoch checkpoints on three benchmarks: (a) SpreadsheetBench, (b) SearchQA, and (c) LiveMath. For each checkpoint, we report the training rollout score, the selection-best score on the validation set, and the final performance on the unseen test set. The results show how skill quality evolves during optimization and whether the checkpoint preferred by validation selection aligns with the checkpoint that yields the best generalization to the test set.",
+      "nearby_text": "Table 2, Figure 3, and Table 3 test the design choices in the optimizer using GPT–5.5 as both the target and the optimizer. The overall message is that SkillOpt benefits from sufficient evidence, a bounded textual learning rate,",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-008",
+      "file": "SkillOpt/parsed/assets/images/picture-008.png",
+      "type": "table",
+      "page": 14,
+      "caption": "Table 5 Effect of optimizer strength. Each (benchmark, target) pair is optimized either by a strong frontier optimizer (GPT–5.5, bolded) or by a target-matched optimizer that shares the target model; everything else in the SkillOpt loop is held fixed. Gains over the target’s no-skill baseline are shown as small green subscripts; the same baseline is used for both optimizer settings within a row. The optimizer runs only during offline training, so the stronger-optimizer column adds zero cost at deployment.",
+      "nearby_text": "ds every baseline even for GPT–5.4-nano, and the optimizer-strength analysis in Table 5 shows that a target-matched optimizer recovers much of the gain. Finally, the harness results show that the method is not just exploiting one skill format: EvoSkill already improves the Codex SpreadsheetBench cel",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "SkillOpt/parsed/assets/images/picture-009.png",
+      "type": "table",
+      "page": 14,
+      "caption": "Table 6 Cost and edit economy of the GPT–5.5 / GPT–5.5 (student / teacher) skill runs. Initial and final best_skill.md lengths are in tokens; Edits is the number of accepted bounded updates; Cost / pt is training tokens per absolute test-point gain. One representative learned rule per benchmark is shown in Figure 4.",
+      "nearby_text": "aten in every direct-chat model row while the learned artifacts remain compact (Table 6). It is also not only optimizer capacity: SkillOpt leads every baseline even for GPT–5.4-nano, and the optimizer-strength analysis in Table 5 shows that a target-matched optimizer recovers much of the gain. Final",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "SkillOpt/parsed/assets/images/picture-010.png",
+      "type": "figure",
+      "page": 15,
+      "caption": "Figure 4 Representative learned rules, one per benchmark, extracted from the final best_skill.md of the GPT–5.5 / GPT–5.5 runs in Table 6. Each rule is verbatim from the deployed skill. Notably, every rule is procedural rather than instance-specific, and several encode forms of discipline (answer formatting, evidence binding, search-frontier management) that frontier models do not apply zero-shot.",
+      "nearby_text": "What does a learned skill actually say? Figure 4 reproduces one representative learned rule per benchmark, taken verbatim from the final best_skill.md of each case study in Table 6. Three observations stand out. First, the rules are procedural rather than inst",
+      "parser_confidence": "high"
+    }
+  ]
+}
