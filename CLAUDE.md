@@ -8,7 +8,7 @@ repo talks to Hugo directly.
 
 | Step | Role | Runs in this repo? | Skill |
 |---|---|---|---|
-| 1 | Writer + Reviewer — turns a source doc + discussion into `article.md` | Yes | `.claude/skills/blog-writer/` (see below — may not exist yet) |
+| 1 | Writer + Reviewer — turns discussion notes + an image manifest into `article.md` | Yes | `.claude/skills/blog-writer/` |
 | 2 | Parser — extracts figures/tables from the PDF into an image manifest | Yes | `.claude/skills/pdf-figure-table-parser/` |
 | 3 | Publisher — wires `article.md` + manifest + images into a Hugo post | No (separate repo) | n/a |
 
@@ -63,15 +63,16 @@ manifest that doesn't exist.
 | User says (roughly) | Do this |
 |---|---|
 | "針對 `<dir>` 開始 parse pdf" / "parse the PDF in `<dir>`" / "extract figures/tables from `<dir>`" | Use the **`pdf-figure-table-parser`** skill against the PDF in `<dir>/`. Output goes to `<dir>/assets/image-manifest.json` + `<dir>/assets/images/` (see canonical path above). |
-| "開始產生 blog" / "generate the blog (post) for `<dir>`" / "write the article for `<dir>`" | Use the **Step 1 Writer/Reviewer skill** against `<dir>/`. Check the available-skills list for one covering "Writer + Reviewer loop producing article.md" — it's expected to live at `.claude/skills/blog-writer/` (see note below if it isn't there yet). |
+| "開始產生 blog" / "generate the blog (post) for `<dir>`" / "write the article for `<dir>`" | Use the **`blog-writer`** skill (`.claude/skills/blog-writer/`) against `<dir>/`. |
 | Ambiguous ("do the pipeline for `<dir>`", no PDF/manifest yet) | Run Step 2 first, then Step 1, per the ordering constraint above. |
 
-**If the Step 1 skill isn't installed yet**: it's meant to be added as a
-sibling of `pdf-figure-table-parser` under `.claude/skills/`. If a user asks
-you to "generate the blog" and no such skill is present, say so rather than
-improvising the Writer/Reviewer loop from memory — the actual spec (writing
-quality bar, the Writer⇄Reviewer loop mechanics, the `figure-map` contract)
-has more detail than fits here, and is what that skill is meant to encode.
+Both skills are self-contained: don't wait for the user to paste in a spec
+document before running either one, and don't ask for one. Whatever spec
+material was used to originally write a skill has already been folded into
+that skill's `SKILL.md` + `references/` — treat the skill itself as the
+current, authoritative source, not something to improvise around from
+memory or from a one-off doc the user happens to attach to a particular
+task.
 
 ## Global rules that apply to both steps
 
@@ -84,11 +85,17 @@ which step you're doing:
   files themselves. If you find yourself about to open a PNG or a PDF page
   render "just to check," stop — that defeats the reason this pipeline has
   a separate parsing step at all.
+- **Step 1 never reads the source PDF either — notes/chatlog only.** The
+  general pipeline contract *permits* the Writer to read the PDF's text for
+  facts. In this repo, don't: treat the topic dir's notes/chatlog file as
+  the sole source of facts for `article.md`, and treat the manifest's
+  `caption`/`page`/`type`/`nearby_text` fields as the sole source of figure
+  context. This is a deliberate, standing house rule for this repo (established
+  through direct instruction, not an oversight) — it keeps Step 1 fast and
+  keeps the PDF-reading work concentrated in Step 2, where it belongs. Step
+  2, by contrast, reads the PDF directly — that's its entire job.
 - **Never invent a manifest id.** If an article references a figure/table id
   with no matching manifest entry, that's a bug to surface, not paper over.
-- **Prefer the PDF over the chat log/notes for facts.** The notes file is a
-  discussion or outline and may contain misreadings; the PDF is the source
-  of truth.
 - **Fail loud, not silent.** A missing or low-confidence image is worse to
   hide than to flag. Step 2 marks uncertain extractions
   `parser_confidence: "low"`; Step 1 uses the `NO-MANIFEST` note when
@@ -132,3 +139,17 @@ human-readable caption, and a single fenced ```` ```figure-map ```` block at
 the very end (machine-readable, one entry per referenced id, giving Step 3
 enough to match ids to real images). No Hugo front matter or shortcodes
 belong in this file — that's Step 3's job in the Hugo repo, not this one.
+
+**Write the prose body in Traditional Chinese, Taiwan usage (台灣繁體中文)**
+— not English, not Simplified Chinese. This applies to headings, alt text,
+and visible captions too. It should also read like a Taiwanese AI/software
+engineer wrote it by hand for a technical audience, not like generic
+AI-generated writing — the `blog-writer` skill's `references/writing-style.md`
+has the concrete dos/don'ts. The one thing that stays in English verbatim is
+each `figure-map` entry's `references_manifest_caption` — it has to match
+the manifest's own (English, paper-native) caption text exactly, since
+that's what Step 3 uses to confirm the join.
+
+The target reader has never read the source paper. Readability and
+correctness for that reader matter more than brevity or cleverness — when
+in doubt, explain rather than assume.
