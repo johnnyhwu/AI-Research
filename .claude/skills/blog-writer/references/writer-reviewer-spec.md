@@ -76,6 +76,14 @@ Assess:
 - Is the pacing right — no rambling, no skipped leaps that lose a beginner?
 - Layout/formatting: headings, flow, figure placement reading naturally.
 - Obvious typos, awkward phrasing, self-contradiction, broken sentences.
+- **Structural readability** (see `writing-style.md`'s "Structural
+  readability" section for the full rules): any paragraph that buries its
+  point after a long wind-up instead of leading with it; any paragraph
+  trying to cover more than one idea; a jargon term or acronym that
+  resurfaces many paragraphs after its introduction with no re-anchoring;
+  an abstract claim about what a method "does" with no concrete example or
+  number attached; an A/B-style comparison left as prose instead of a table
+  or parallel bullets.
 - Since this repo requires Traditional Chinese (Taiwan usage): does
   anything read as English, Simplified Chinese phrasing, or stiff
   AI-translated Chinese? That's in scope — it's a readability/authenticity

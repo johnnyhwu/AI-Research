@@ -78,6 +78,40 @@ tics. Avoid these specifically:
   addressing the reader as if hosting a webinar. A technical blog post
   states things; it doesn't announce that it's about to state things.
 
+## Structural readability (beyond voice)
+
+Correct, well-voiced prose can still be hard to follow if it's structured
+poorly. These are mechanical, checkable rules — distinct from the voice tics
+above, and just as often the actual cause when a reader says "the content is
+right but I had trouble reading it":
+
+- **One idea per paragraph, 2-3 sentences, lead with the point.** Put the
+  paragraph's main claim in its first sentence, not buried at the end after
+  three sentences of wind-up. If a paragraph is doing two things, split it.
+  As a rough ceiling, a paragraph that runs past ~150 字 (full-width
+  characters) is usually trying to do too much — that's a sign to split it,
+  not evidence the section is "thorough."
+- **Don't let the opening stall.** Get to the actual substance quickly — a
+  long lead-in before the first concrete claim reads as padding, not as
+  scene-setting.
+- **When a term/abbreviation resurfaces much later, re-anchor it briefly.**
+  If you defined an acronym or a named concept early on and it reappears
+  several paragraphs later, don't assume the reader still holds it in
+  working memory — a short parenthetical reminder ("...（也就是前面提到的
+  XXX）...") costs one clause and saves the reader from scrolling back up.
+  You don't need to re-explain it in full, just re-anchor it.
+- **Every abstract mechanism needs one concrete example or scenario.**
+  "這個方法能讓模型更有效率" on its own tells a first-time reader nothing they
+  can hold onto. Follow any abstract claim about what a method *does* with a
+  concrete case: a number, a before/after, or a situation an engineer would
+  recognize. This is the same instinct as this repo's "target reader has
+  never read the paper" rule (see `SKILL.md`), applied at the paragraph
+  level instead of the whole-article level.
+- **A/B comparisons belong in a table or clearly parallel bullets, not
+  buried in a paragraph of running prose.** If you're contrasting two
+  methods/settings across more than one dimension, lay it out so the reader
+  can scan the contrast instead of reconstructing it from sentences.
+
 ## What natural Taiwanese engineer voice sounds like instead
 
 - Direct, slightly conversational, but still precise — closer to a senior

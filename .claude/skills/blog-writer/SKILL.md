@@ -135,7 +135,13 @@ the repo's fail-loud-not-silent rule.
    > correctness (you have no way to verify facts, so don't try). Assess:
    > is it easy to follow for a newcomer, is the pacing right, does
    > layout/figure placement read naturally, and are there typos, awkward
-   > phrasing, or self-contradictions? Since this article should be written
+   > phrasing, or self-contradictions? Also flag structural readability
+   > problems: a paragraph that buries its point after a long wind-up
+   > instead of leading with it, a paragraph doing more than one thing, a
+   > jargon term/acronym that resurfaces much later with no reminder of
+   > what it means, an abstract claim about what a method "does" with no
+   > concrete example attached, or an A/B comparison left as prose instead
+   > of a table/parallel bullets. Since this article should be written
    > in Traditional Chinese (Taiwan usage), also flag anything that reads as
    > English, Simplified Chinese, or awkward/AI-sounding translationese —
    > that's a readability/authenticity problem, squarely in scope. Do not
