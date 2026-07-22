@@ -103,6 +103,30 @@ see it, so it shouldn't pretend to) and do **not** comment on the trailing
    `REVIEW_APPROVED_NO_CHANGES`. After 3 cycles, keep the latest version
    regardless of remaining feedback.
 
+### Applying revisions without burning context
+
+When acting on Reviewer feedback, match the edit tool to the shape of the
+fix — don't default to rewriting the whole file:
+
+- **Localized fixes** (a term, a sentence, a wrong stat, one paragraph):
+  use targeted `Edit` calls against the exact text. Don't re-derive or
+  re-quote surrounding paragraphs you aren't changing.
+- **Systematic/mechanical fixes that touch most of the document** (e.g.
+  normalizing half-width punctuation to full-width throughout, a
+  find-and-replace of one term everywhere) — do **not** re-plan it by
+  writing out "original → fixed" for every paragraph and then re-emit the
+  entire file via `Write`. That reproduces the article's full text two or
+  three times over (once in your own reasoning, once or twice more in tool
+  calls) for a change that's fundamentally mechanical. Prefer a short
+  script (`sed`/Python via Bash) that applies the substitution across the
+  file in place, then spot-check the diff. Reserve `Write`-the-whole-file
+  for cases where the structure or narrative itself is being reworked, not
+  for style/punctuation sweeps.
+
+This matters because the Writer's own reasoning tokens and each tool call's
+content both count against context — a punctuation sweep should cost
+roughly what the fix itself costs, not multiples of the article's length.
+
 ## Output
 
 - `<dir>/article.md`, containing the article body + the trailing
