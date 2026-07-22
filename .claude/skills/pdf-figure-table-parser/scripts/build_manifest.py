@@ -27,7 +27,15 @@ Optional:
                             standard letter/A4 page size).
     --margin-x FLOAT       Horizontal crop margin in points from each page
                             edge (default: auto, from the page's own text
-                            margins).
+                            margins). Only used as a fallback for visuals
+                            where no drawings/images are found in their
+                            vertical band (see auto_crop_hbounds).
+    --min-caption-width FLOAT
+                            Minimum caption block width to accept as a real
+                            caption (default 400). Lower this for two-column
+                            papers, where a caption sitting in a single
+                            column can be ~220pt wide instead of spanning
+                            the full page.
 """
 import argparse
 import os
@@ -91,10 +99,11 @@ def main():
     ap.add_argument("--crop-top-override", default="")
     ap.add_argument("--zoom", type=float, default=3.0)
     ap.add_argument("--margin-x", type=float, default=None)
+    ap.add_argument("--min-caption-width", type=float, default=400.0)
     args = ap.parse_args()
 
     doc = lib.open_doc(args.pdf)
-    captions = lib.find_captions(doc)
+    captions = lib.find_captions(doc, min_caption_width=args.min_caption_width)
     if not captions:
         print("No Figure/Table captions detected. Nothing to extract.", file=sys.stderr)
         sys.exit(1)
@@ -104,7 +113,6 @@ def main():
     captions_by_page = {}
     for c in captions:
         captions_by_page.setdefault(c["page"], []).append(c)
-    column_width = lib.estimate_column_width(all_blocks)
 
     overrides = parse_overrides(args.crop_top_override)
 
@@ -118,15 +126,6 @@ def main():
         page = doc[page_no - 1]
         page_w = page.rect.width
 
-        if args.margin_x is not None:
-            margin_x = args.margin_x
-        elif column_width:
-            # Pad a bit beyond the estimated body-text column so the crop
-            # doesn't clip content that pokes slightly into the margin.
-            margin_x = max((page_w - column_width) / 2 - 10, 15.0)
-        else:
-            margin_x = 45.0
-
         key = (page_no, kind, num)
         if key in overrides:
             top = overrides[key]
@@ -136,7 +135,13 @@ def main():
             source = "auto heuristic"
 
         bottom = c["bbox"][1] - 3
-        rect = pymupdf.Rect(margin_x, top, page_w - margin_x, bottom)
+        if args.margin_x is not None:
+            left, right = args.margin_x, page_w - args.margin_x
+            hsource = "explicit --margin-x"
+        else:
+            left, right = lib.auto_crop_hbounds(page, top, bottom, c["bbox"])
+            hsource = "drawings/images/caption"
+        rect = pymupdf.Rect(left, top, right, bottom)
 
         fname = f"picture-{i:03d}.png"
         fpath = os.path.join(images_dir, fname)
@@ -165,7 +170,7 @@ def main():
 
         manifest_images.append(entry)
         print(f"  {entry['id']}: page {page_no} {kind} {num} -> {fname} "
-              f"({w}x{h}px, crop-top={top:.1f} via {source}, confidence={confidence})")
+              f"({w}x{h}px, crop-top={top:.1f} via {source}, hbounds via {hsource}, confidence={confidence})")
 
     manifest = {
         "source_pdf": args.source_pdf_repo_path,

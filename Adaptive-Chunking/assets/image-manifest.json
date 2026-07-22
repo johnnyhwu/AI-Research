@@ -1,0 +1,114 @@
+{
+  "source_pdf": "Adaptive-Chunking/2603.25333v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "Adaptive-Chunking/assets/images/picture-001.png",
+      "type": "table",
+      "page": 2,
+      "caption": "Table 1: Corpus statistics per domain. Tokens were counted using OpenAI o200k_base tok- enizer (Byte-pair encoding).",
+      "nearby_text": "The overall statistics of the collection are pre- sented in Table 1.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-002",
+      "file": "Adaptive-Chunking/assets/images/picture-002.png",
+      "type": "table",
+      "page": 4,
+      "caption": "Table 2: Chunk sizes in tokens (OpenAI’s o200k_base) and runtime statistics. Chunking methods marked with ∗are included in the Adaptive Chunking results. Those marked with † were not post-processed; ** was computed considering asynchronous API calls.",
+      "nearby_text": "The corresponding chunk sizes and runtime statis- tics are shown in Table 2.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-003",
+      "file": "Adaptive-Chunking/assets/images/picture-003.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 1: Spearman correlation (ρ) between chunk- ing metrics, computed using the metric results for each document and chunking method.",
+      "nearby_text": "Spearman correlations in Figure 1 are weak to mod- erate (−0.44<ρ<0.31), implying that the five metrics capture complementary phenomena rather than a single latent factor. Two notable tensions emerge:",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "Adaptive-Chunking/assets/images/picture-004.png",
+      "type": "figure",
+      "page": 6,
+      "caption": "Figure 2: Hybrid search retrieval pipeline.",
+      "nearby_text": "ne combining keyword-based and seman- tic retrieval, reranking, and generation (Figure 2). Here are the different steps:",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "Adaptive-Chunking/assets/images/picture-005.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 3: Chunking performance results (% mean ± % st. dev.) for References Completeness (RC), Intrachunk Cohesion (ICC), Document Contextual Coherence (DCC), Block Integrity (BI), and Size Compliance (SC). “LC\" denotes LangChain, and s is the chunk size parameter in tokens. Rows marked with ∗are included in the Adaptive Chunking results; those with † were not post-processed and are here for reference and comparison. Differences between Adaptive Chunking and all individual methods are statistically significant (Wilcoxon signed-rank test, p < 0.001).",
+      "nearby_text": "Overview. Table 3 reports our five intrinsic met- rics: References Completeness (RC), Intrachunk Cohesion (ICC), Document Contextual Coherence (DCC), Block Integrity (BI), and Size Compliance (SC), together with their mean across",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "Adaptive-Chunking/assets/images/picture-006.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 4: Results for chunking method selection in the Adaptive Chunking method with respect to the entire document corpus. Other chunking methods were not selected and omitted here.",
+      "nearby_text": "he recursive splitter with s=1100 achieves the highest average intrinsic score, Table 4 shows that the Adaptive policy chooses page (post- processed) for 48% of documents and recursive s=1100 for 42%; the LLM-regex and recursive s=600 variants account for the remainder (6% and 3%). This dispersion r",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "Adaptive-Chunking/assets/images/picture-007.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 5: RAG performance results (% mean) evaluated using OpenAI’s GPT-4.1 (temperature = 0) as the LLM judge. Retrieval Completeness is evaluated for all queries, while Answer Correctness skips queries where the model decided not to provide an answer (insufficient context). Highest scores per column are marked in bold; “LC\" means LangChain. Retrieval Completeness differences are statistically significant (Wilcoxon signed-rank, p < 0.05).",
+      "nearby_text": "Retrieval quality. Table 5 shows that Adap- tive Chunking improves Retrieval Completeness to 67.68%, outpacing LangChain recursive de- fault (58.08%, +9.60 pp) and raw page chunking (59.09%, +8.59 pp). In relative terms, these are ~16.5–18",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-008",
+      "file": "Adaptive-Chunking/assets/images/picture-008.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 6: Runtime per evaluation component. All embeddings were computed using jina- embeddings-v3 sentence transformer, and the entity-pronoun pairs were extracted using Sapienza NLP maverick-mes-ontonotes.",
+      "nearby_text": "Evaluation cost. Table 6 shows Document Con- textual Coherence (15:58) and entity–pronoun ex- traction (13:13) dominate evaluation time, whereas computing chunk embeddings (3:04) and to- ken metrics (0:17) are comparatively inexpen- sive",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "Adaptive-Chunking/assets/images/picture-009.png",
+      "type": "figure",
+      "page": 15,
+      "caption": "Figure 3: LLM Regex splitter pipeline. From markdown input and a token budget, the system builds a context-aware prompt, obtains a delimiter regex from the LLM, and applies it to split the document into chunks.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-010",
+      "file": "Adaptive-Chunking/assets/images/picture-010.png",
+      "type": "figure",
+      "page": 15,
+      "caption": "Figure 4: Regex separators list for recursive splitters, adapted to our Markdown parser outputs. The list is sorted from highest to lowest priority.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-011",
+      "file": "Adaptive-Chunking/assets/images/picture-011.png",
+      "type": "figure",
+      "page": 16,
+      "caption": "Figure 5: Split–then–merge recursive splitter pipeline. Text is recursively split following a priority list of separators until each piece is ≤chunk size, then merged forward into chunks; when the next piece would exceed chunk size, a new chunk starts with up to chunk overlap tokens of backtracked overlap.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-012",
+      "file": "Adaptive-Chunking/assets/images/picture-012.png",
+      "type": "table",
+      "page": 17,
+      "caption": "Table 7 reports the detailed effect of our two-stage post-processing pipeline on Size Compliance (SC) and overall mean chunking scores. The pipeline consists of: (1) oversized re-split, applied only to chunks exceeding 1100 tokens, and (2) tiny-chunk merge, applied only to chunks smaller than 100 tokens, with a maximum merged size of 1150 tokens. The “–” symbol indicates that a particular step was not required for that method (e.g., our recursive splitters with s = 1100 or s = 600 already produce well-sized chunks in the raw output).",
+      "nearby_text": "Table 7: Effect of post-processing on Size Compliance (SC) and the final mean chunking score. Columns follow the sequential pipeline raw (no post-processing) →oversized re-split →tiny-chunk merge. Oversized re-split is o",
+      "parser_confidence": "low"
+    }
+  ]
+}
