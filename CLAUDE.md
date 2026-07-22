@@ -8,7 +8,7 @@ repo talks to Hugo directly.
 
 | Step | Role | Runs in this repo? | Skill |
 |---|---|---|---|
-| 1 | Writer + Reviewer — turns a source doc + discussion into `article.md` | Yes | `.claude/skills/blog-writer/` (see below — may not exist yet) |
+| 1 | Writer + Reviewer — turns discussion notes + an image manifest into `article.md` | Yes | `.claude/skills/blog-writer/` |
 | 2 | Parser — extracts figures/tables from the PDF into an image manifest | Yes | `.claude/skills/pdf-figure-table-parser/` |
 | 3 | Publisher — wires `article.md` + manifest + images into a Hugo post | No (separate repo) | n/a |
 
@@ -21,8 +21,8 @@ obvious from the files alone.
 
 Each source document gets its own top-level directory at the repo root —
 e.g. `SkillOpt/`. Think of this as playing the role of `docs/<slug>/` from
-the pipeline's shared contract, just without a `docs/` prefix: this repo
-puts each topic's directory straight at the root.
+the broader pipeline's usual layout, just without a `docs/` prefix: this
+repo puts each topic's directory straight at the root.
 
 Expected contents of a topic directory, once both steps have run:
 
@@ -63,20 +63,19 @@ manifest that doesn't exist.
 | User says (roughly) | Do this |
 |---|---|
 | "針對 `<dir>` 開始 parse pdf" / "parse the PDF in `<dir>`" / "extract figures/tables from `<dir>`" | Use the **`pdf-figure-table-parser`** skill against the PDF in `<dir>/`. Output goes to `<dir>/assets/image-manifest.json` + `<dir>/assets/images/` (see canonical path above). |
-| "開始產生 blog" / "generate the blog (post) for `<dir>`" / "write the article for `<dir>`" | Use the **Step 1 Writer/Reviewer skill** against `<dir>/`. Check the available-skills list for one covering "Writer + Reviewer loop producing article.md" — it's expected to live at `.claude/skills/blog-writer/` (see note below if it isn't there yet). |
+| "開始產生 blog" / "generate the blog (post) for `<dir>`" / "write the article for `<dir>`" | Use the **`blog-writer`** skill (`.claude/skills/blog-writer/`) against `<dir>/`. |
 | Ambiguous ("do the pipeline for `<dir>`", no PDF/manifest yet) | Run Step 2 first, then Step 1, per the ordering constraint above. |
 
-**If the Step 1 skill isn't installed yet**: it's meant to be added as a
-sibling of `pdf-figure-table-parser` under `.claude/skills/`. If a user asks
-you to "generate the blog" and no such skill is present, say so rather than
-improvising the Writer/Reviewer loop from memory — the actual spec (writing
-quality bar, the Writer⇄Reviewer loop mechanics, the `figure-map` contract)
-has more detail than fits here, and is what that skill is meant to encode.
+Both skills are self-contained and are the sole source of truth for how to
+do Step 1 / Step 2 in this repo. No spec document will be supplied alongside
+a task — don't wait for one, and don't ask for one. Whatever material was
+originally used to write a skill has already been folded into that skill's
+`SKILL.md` + `references/`; treat the skill itself as current and complete,
+not something to reconstruct from memory or from an outside document.
 
 ## Global rules that apply to both steps
 
-These come from the pipeline's shared contract and matter regardless of
-which step you're doing:
+These matter regardless of which step you're doing:
 
 - **Never load image files into context.** Step 2 extracts visuals using
   file/text-level tools only (see the parser skill for how). Step 1 reads
@@ -84,11 +83,16 @@ which step you're doing:
   files themselves. If you find yourself about to open a PNG or a PDF page
   render "just to check," stop — that defeats the reason this pipeline has
   a separate parsing step at all.
+- **Step 1 never reads the source PDF either — notes/chatlog only.** Treat
+  the topic dir's notes/chatlog file as the sole source of facts for
+  `article.md`, and the manifest's `caption`/`page`/`type`/`nearby_text`
+  fields as the sole source of figure context. This is a deliberate,
+  standing house rule for this repo, established through direct instruction
+  — it keeps Step 1 fast and keeps the PDF-reading work concentrated in Step
+  2, where it belongs. Step 2, by contrast, reads the PDF directly — that's
+  its entire job.
 - **Never invent a manifest id.** If an article references a figure/table id
   with no matching manifest entry, that's a bug to surface, not paper over.
-- **Prefer the PDF over the chat log/notes for facts.** The notes file is a
-  discussion or outline and may contain misreadings; the PDF is the source
-  of truth.
 - **Fail loud, not silent.** A missing or low-confidence image is worse to
   hide than to flag. Step 2 marks uncertain extractions
   `parser_confidence: "low"`; Step 1 uses the `NO-MANIFEST` note when
@@ -132,3 +136,17 @@ human-readable caption, and a single fenced ```` ```figure-map ```` block at
 the very end (machine-readable, one entry per referenced id, giving Step 3
 enough to match ids to real images). No Hugo front matter or shortcodes
 belong in this file — that's Step 3's job in the Hugo repo, not this one.
+
+**Write the prose body in Traditional Chinese, Taiwan usage (台灣繁體中文)**
+— not English, not Simplified Chinese. This applies to headings, alt text,
+and visible captions too. It should also read like a Taiwanese AI/software
+engineer wrote it by hand for a technical audience, not like generic
+AI-generated writing — the `blog-writer` skill's `references/writing-style.md`
+has the concrete dos/don'ts. The one thing that stays in English verbatim is
+each `figure-map` entry's `references_manifest_caption` — it has to match
+the manifest's own (English, paper-native) caption text exactly, since
+that's what Step 3 uses to confirm the join.
+
+The target reader has never read the source paper. Readability and
+correctness for that reader matter more than brevity or cleverness — when
+in doubt, explain rather than assume.

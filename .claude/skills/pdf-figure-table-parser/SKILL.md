@@ -151,10 +151,10 @@ Many academic tables have no ruling lines at all (just whitespace/alignment)
 -- `pdfplumber`'s line-based table detection needs actual drawn lines to
 find column/row boundaries, so it often finds nothing or something
 fragmented on these. This isn't a bug in the script, and it isn't worth
-fighting hard: the parser spec this manifest schema comes from explicitly
-prefers an honest `parser_confidence: low` + image-only entry over a
-structured table that silently mangled a cell (merged headers, misaligned
-columns). `build_manifest.py` already applies this policy automatically.
+fighting hard: this repo's manifest schema explicitly prefers an honest
+`parser_confidence: low` + image-only entry over a structured table that
+silently mangled a cell (merged headers, misaligned columns).
+`build_manifest.py` already applies this policy automatically.
 
 If you want to push further on a specific ruleless table by hand: lowering
 `pdfplumber`'s word-clustering `x_tolerance` (e.g. `page.extract_words(x_tolerance=1.5)`
