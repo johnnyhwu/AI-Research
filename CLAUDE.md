@@ -91,6 +91,15 @@ These matter regardless of which step you're doing:
   — it keeps Step 1 fast and keeps the PDF-reading work concentrated in Step
   2, where it belongs. Step 2, by contrast, reads the PDF directly — that's
   its entire job.
+- **The same boundary cuts the other way: Step 2 has no business opening
+  the notes/chatlog file either.** Step 2's job is to read the PDF's own
+  structure (captions, drawings, embedded images) and produce the manifest
+  — the discussion notes describe *what a human wants written about the
+  paper later*, which is Step 1's concern, not Step 2's. Opening it "just to
+  understand the paper better" doesn't change what gets extracted and only
+  burns context reading a file (often hundreds of lines) that this step has
+  no use for. If you need to sanity-check which figures/tables actually
+  matter, that's what the paper's own captions are for.
 - **Never invent a manifest id.** If an article references a figure/table id
   with no matching manifest entry, that's a bug to surface, not paper over.
 - **Fail loud, not silent.** A missing or low-confidence image is worse to

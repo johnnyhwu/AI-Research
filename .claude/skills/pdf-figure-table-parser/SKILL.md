@@ -87,13 +87,28 @@ it's the reason a separate parsing step is worth having at all.
      cross-reference like "Table 2, Figure 3, and Table 3 test the design
      choices...", not the real caption -- the real caption for the same
      number, found elsewhere, is always the longer match, so the longer one
-     wins when there's a collision).
+     wins when there's a collision). A caption block also has to be at least
+     `--min-caption-width` points wide (default 400) to be accepted, which
+     filters out narrow incidental matches -- **but on a two-column paper, a
+     caption that sits inside a single column can legitimately be only
+     ~200-230pt wide.** If `inspect_pdf.py` finds suspiciously few captions
+     for a paper you know has more figures/tables, check whether it's
+     two-column (see below) and rerun with e.g. `--min-caption-width 150`.
    - Estimates the top boundary of each visual's region (`auto_crop_top`):
      the bottom edge of the nearest preceding "paragraph-like" block on the
      same page (full-width prose, or another visual's own caption -- both
      work as a lower bound), falling back to a fixed top-of-page margin when
      nothing qualifies (typical for a figure sitting at the very top of a
      page, right after a page break).
+   - Derives the left/right bounds of each visual's region (`auto_crop_hbounds`):
+     the union of every vector-drawing and raster-image bbox that's fully
+     contained in the visual's vertical band, widened by the caption's own
+     bbox as a floor. This reads the PDF's own drawing commands as ground
+     truth for where a figure's or table's ink actually is, rather than
+     guessing from a single page-wide column-width estimate -- see below for
+     why that guess reliably breaks on two-column papers. Pass `--margin-x`
+     to force a fixed page-edge margin instead (an explicit escape hatch,
+     not needed in normal use).
    - Renders each region to `picture-NNN.png` at 3x zoom (~216 DPI) via
      `page.get_pixmap(clip=...)`.
    - Attempts clean structured-table extraction via `pdfplumber` for table
@@ -122,12 +137,11 @@ it's the reason a separate parsing step is worth having at all.
 
 The heuristic in step 3 assumes a fairly standard single/double-column
 academic layout. It can misjudge unusual pages: a figure that floats
-mid-column with body text both above and below it, a caption placed *above*
-its visual instead of below, or a two-column layout where the "paragraph
-width" estimate doesn't match a particular section. When a rendered image's
-pixel dimensions look implausible (e.g. absurdly short/tall, or you notice
-two visuals' regions must have overlapped because their combined heights
-exceed the page), don't open the PNG to check -- instead:
+mid-column with body text both above and below it, or a caption placed
+*above* its visual instead of below. When a rendered image's pixel
+dimensions look implausible (e.g. absurdly short/tall, or you notice two
+visuals' regions must have overlapped because their combined heights exceed
+the page), don't open the PNG to check -- instead:
 
 ```bash
 python scripts/dump_blocks.py path/to/paper.pdf <page_num>
@@ -144,6 +158,33 @@ just below the last real paragraph and just above the caption), then rerun
 ```
 
 (format: `page:kind:num=y`, comma-separated for multiple overrides).
+
+## Two-column papers: what to watch for
+
+A two-column academic layout (very common for conference-style papers, less
+so for arXiv preprints in general but not rare) routinely mixes
+**full-width** floats (a wide table spanning both columns) with
+**single-column** floats (a figure or table confined to one column) on the
+same document. Two symptoms show up together and both trace back to the
+same root cause -- a single-column-width assumption baked into a heuristic:
+
+- `inspect_pdf.py` finds fewer captions than the paper actually has ->
+  the missing ones are single-column-width captions getting filtered by
+  `--min-caption-width`'s default of 400. Fix: rerun `inspect_pdf.py`/
+  `build_manifest.py` with a lower value (e.g. `150`) once you confirm
+  (`dump_blocks.py`) that the "missing" captions really are narrower,
+  single-column blocks and not noise.
+- A full-width table renders cropped to roughly one column's width, with
+  the other half cut off -> this was `auto_crop_hbounds`'s predecessor bug:
+  it derived one page-wide margin from the *median* body-text column width,
+  which is representative of the many single-column paragraphs but wrong
+  for the few floats that span both columns. `auto_crop_hbounds` now reads
+  each visual's own drawing/image bboxes instead, so this shouldn't recur --
+  but if you ever see it, `--margin-x` is still there as a manual override,
+  and comparing pixel widths across all extracted visuals (they should
+  cluster into one or two consistent widths -- "one column" and "full
+  width" -- not a continuum) is a fast, image-free way to spot which entries
+  are off.
 
 ## Why tables often end up low-confidence, and why that's fine
 
