@@ -1,20 +1,18 @@
 ---
 name: blog-writer
-description: Use this skill whenever you need to write or revise article.md for a topic directory in this repo's blog-writing pipeline (Step 1 -- Writer + Reviewer), triggered by phrases like "開始產生 blog", "generate the blog/post for <dir>", "write the article for <dir>", or "幫 <dir> 寫文章". Turns a topic directory's discussion-notes/chatlog file (never the source PDF, never any image) plus its image-manifest.json's text fields (caption/page/type/nearby_text only) into a polished, platform-neutral article.md written in Traditional Chinese (Taiwan usage), through an in-session Writer <-> Reviewer loop where the Reviewer runs as an independent subagent that reads article.md from disk rather than having it pasted in. This skill is fully self-contained -- it does not need any externally supplied spec document (shared-contract.md, writer-spec.md, etc.) to run; everything from those has already been folded in here.
+description: Use this skill whenever you need to write or revise article.md for a topic directory in this repo's blog-writing pipeline (Step 1 -- Writer + Reviewer), triggered by phrases like "開始產生 blog", "generate the blog/post for <dir>", "write the article for <dir>", or "幫 <dir> 寫文章". Turns a topic directory's discussion-notes/chatlog file (never the source PDF, never any image) plus its image-manifest.json's text fields (caption/page/type/nearby_text only) into a polished, platform-neutral article.md written in Traditional Chinese (Taiwan usage), through an in-session Writer <-> Reviewer loop where the Reviewer runs as an independent subagent that reads article.md from disk rather than having it pasted in. This skill is fully self-contained: no external spec document is needed or will be supplied to run it -- this file plus references/ is the complete, current spec.
 ---
 
 # Blog Writer (Step 1: Writer + Reviewer)
 
 ## Why this skill exists
 
-This encodes the Step 1 spec of this repo's 3-step blog pipeline (see the
-repo's `CLAUDE.md` for the pipeline overview). The spec used to bootstrap
-this skill was a pair of one-off markdown documents (`00-shared-contract.md`,
-`01-writer-spec.md`) that a user pasted in for a single task — those files
-are **not** stored in this repo and will not be available to a future
-session. Everything from them that matters operationally has been folded
-into this `SKILL.md` and its `references/` docs, so a future invocation of
-this skill needs nothing beyond this folder plus the topic directory itself.
+This is the complete, current spec for Step 1 of this repo's 3-step blog
+pipeline (see the repo's `CLAUDE.md` for the pipeline overview). No external
+document backs this up and none will be supplied alongside a future task —
+this `SKILL.md` plus its `references/` docs is the whole spec. A future
+invocation of this skill needs nothing beyond this folder plus the topic
+directory itself.
 
 ## The hard rules (read before doing anything else)
 

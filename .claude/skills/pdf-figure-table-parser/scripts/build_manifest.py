@@ -59,8 +59,8 @@ def try_table_markdown(pdf_path, page_no, rect):
     (ruled-line) strategy, restricted to the visual's own crop region. Many
     academic tables have no ruling lines at all, in which case this reliably
     returns nothing usable -- that's expected, not a bug, and the caller
-    should fall back to the image with parser_confidence: low, per the
-    parser spec. Returns markdown string or None.
+    should fall back to the image with parser_confidence: low. Returns
+    markdown string or None.
     """
     if pdfplumber is None:
         return None

@@ -1,8 +1,8 @@
 # Image reference convention + figure-map schema
 
-This is the full version of the convention summarized in `SKILL.md`, adapted
-from the original `00-shared-contract.md`. That file isn't stored in this
-repo, so this is the authoritative copy for this skill going forward.
+This is the full version of the convention summarized in `SKILL.md`. There
+is no more complete version elsewhere — treat this as the authoritative
+spec, not a summary of some other document.
 
 ## Why the split exists
 

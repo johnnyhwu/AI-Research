@@ -21,8 +21,8 @@ obvious from the files alone.
 
 Each source document gets its own top-level directory at the repo root —
 e.g. `SkillOpt/`. Think of this as playing the role of `docs/<slug>/` from
-the pipeline's shared contract, just without a `docs/` prefix: this repo
-puts each topic's directory straight at the root.
+the broader pipeline's usual layout, just without a `docs/` prefix: this
+repo puts each topic's directory straight at the root.
 
 Expected contents of a topic directory, once both steps have run:
 
@@ -66,18 +66,16 @@ manifest that doesn't exist.
 | "開始產生 blog" / "generate the blog (post) for `<dir>`" / "write the article for `<dir>`" | Use the **`blog-writer`** skill (`.claude/skills/blog-writer/`) against `<dir>/`. |
 | Ambiguous ("do the pipeline for `<dir>`", no PDF/manifest yet) | Run Step 2 first, then Step 1, per the ordering constraint above. |
 
-Both skills are self-contained: don't wait for the user to paste in a spec
-document before running either one, and don't ask for one. Whatever spec
-material was used to originally write a skill has already been folded into
-that skill's `SKILL.md` + `references/` — treat the skill itself as the
-current, authoritative source, not something to improvise around from
-memory or from a one-off doc the user happens to attach to a particular
-task.
+Both skills are self-contained and are the sole source of truth for how to
+do Step 1 / Step 2 in this repo. No spec document will be supplied alongside
+a task — don't wait for one, and don't ask for one. Whatever material was
+originally used to write a skill has already been folded into that skill's
+`SKILL.md` + `references/`; treat the skill itself as current and complete,
+not something to reconstruct from memory or from an outside document.
 
 ## Global rules that apply to both steps
 
-These come from the pipeline's shared contract and matter regardless of
-which step you're doing:
+These matter regardless of which step you're doing:
 
 - **Never load image files into context.** Step 2 extracts visuals using
   file/text-level tools only (see the parser skill for how). Step 1 reads
@@ -85,15 +83,14 @@ which step you're doing:
   files themselves. If you find yourself about to open a PNG or a PDF page
   render "just to check," stop — that defeats the reason this pipeline has
   a separate parsing step at all.
-- **Step 1 never reads the source PDF either — notes/chatlog only.** The
-  general pipeline contract *permits* the Writer to read the PDF's text for
-  facts. In this repo, don't: treat the topic dir's notes/chatlog file as
-  the sole source of facts for `article.md`, and treat the manifest's
-  `caption`/`page`/`type`/`nearby_text` fields as the sole source of figure
-  context. This is a deliberate, standing house rule for this repo (established
-  through direct instruction, not an oversight) — it keeps Step 1 fast and
-  keeps the PDF-reading work concentrated in Step 2, where it belongs. Step
-  2, by contrast, reads the PDF directly — that's its entire job.
+- **Step 1 never reads the source PDF either — notes/chatlog only.** Treat
+  the topic dir's notes/chatlog file as the sole source of facts for
+  `article.md`, and the manifest's `caption`/`page`/`type`/`nearby_text`
+  fields as the sole source of figure context. This is a deliberate,
+  standing house rule for this repo, established through direct instruction
+  — it keeps Step 1 fast and keeps the PDF-reading work concentrated in Step
+  2, where it belongs. Step 2, by contrast, reads the PDF directly — that's
+  its entire job.
 - **Never invent a manifest id.** If an article references a figure/table id
   with no matching manifest entry, that's a bug to surface, not paper over.
 - **Fail loud, not silent.** A missing or low-confidence image is worse to

@@ -1,10 +1,8 @@
 # Writer ⇄ Reviewer spec (full detail)
 
 This is the full version of the quality bar and loop mechanics summarized in
-`SKILL.md`. It's adapted from the original `01-writer-spec.md` this skill
-was built from — that file no longer exists in this repo, so treat this as
-the authoritative copy going forward, not a summary of something more
-complete elsewhere.
+`SKILL.md`. There is no more complete version elsewhere — treat this as the
+authoritative spec, not a summary of some other document.
 
 ## Writing quality bar
 

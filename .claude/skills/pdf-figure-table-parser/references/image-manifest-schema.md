@@ -1,10 +1,11 @@
 # image-manifest.json schema
 
-This is the schema `build_manifest.py` writes. It matches the shared
-contract used by this repo's blog-writing pipeline (Step 1 Writer / Step 2
-Parser / Step 3 Publisher), so a manifest built with this skill can be
-handed directly to those downstream steps. If you're using this skill
-outside that pipeline, treat this as a sensible default you can adapt.
+This is the schema `build_manifest.py` writes. It matches what this repo's
+blog-writing pipeline expects (see the repo's `CLAUDE.md` for the pipeline
+overview) — Step 1 (`blog-writer`) reads a manifest built with this skill
+directly, and Step 3 (in the separate Hugo repo) consumes it too. If you're
+using this skill outside that pipeline, treat this as a sensible default you
+can adapt.
 
 ```json
 {
