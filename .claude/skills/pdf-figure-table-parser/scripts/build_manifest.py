@@ -25,11 +25,13 @@ Optional:
         visual).
     --zoom FLOAT           Render zoom factor (default 3.0, ~216 DPI at
                             standard letter/A4 page size).
-    --margin-x FLOAT       Horizontal crop margin in points from each page
-                            edge (default: auto, from the page's own text
-                            margins). Only used as a fallback for visuals
-                            where no drawings/images are found in their
-                            vertical band (see auto_crop_hbounds).
+    --margin-x FLOAT       Force a fixed horizontal crop margin in points
+                            from each page edge for every visual, overriding
+                            the default per-visual drawing/image-based
+                            bounds (see auto_crop_hbounds in pdf_parser_lib.py).
+                            Not needed in normal use -- only as a manual
+                            escape hatch if the automatic bounds are wrong
+                            for a specific document.
     --min-caption-width FLOAT
                             Minimum caption block width to accept as a real
                             caption (default 400). Lower this for two-column
