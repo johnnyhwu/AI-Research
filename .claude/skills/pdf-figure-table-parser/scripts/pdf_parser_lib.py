@@ -121,6 +121,52 @@ def auto_crop_top(page_no, caption_bbox, captions_by_page, default_margin=58.0):
     return best_y1 + 8.0
 
 
+def auto_crop_hbounds(page, top, bottom, caption_bbox, pad=8.0, min_width=40.0, band_tol=2.0):
+    """
+    Tight horizontal bounds for a visual's region, derived from the actual
+    vector drawings / raster images sitting in its vertical band [top,
+    bottom] on the page -- ground truth for where the visual's ink actually
+    is, unlike a single global column-width guess.
+
+    Needed for papers that mix full-width and single-column floats in a
+    two-column layout (common in academic PDFs): a fixed per-page margin
+    computed from the median single-column text width crops full-width
+    tables down to one column's width, and conversely a full-width margin
+    leaves single-column figures swimming in blank space or bleeding into
+    the other column. Reading the region's own drawing/image bboxes sidesteps
+    guessing which case applies.
+
+    Always returns (x0, x1): the caption's own bbox is the floor (a
+    ruleless table with no drawn lines -- e.g. no gridlines at all -- still
+    has to crop *something*, and the caption's width is the only reliable
+    signal left in that case), widened by any drawings/images found in the
+    band above/below it.
+    """
+    rects = [pymupdf.Rect(caption_bbox)]
+    for d in page.get_drawings():
+        r = d["rect"]
+        if r.x1 < r.x0 or r.y1 < r.y0:
+            continue  # reversed/invalid rect, not just a zero-thickness ruling line
+        if r.y0 >= top - band_tol and r.y1 <= bottom + band_tol:
+            # Full containment, not mere overlap -- a page-spanning
+            # decorative/background rect can poke into the band at one edge
+            # without actually being part of this visual, and would
+            # otherwise blow the crop out to near-full-page width.
+            rects.append(r)
+    for info in page.get_image_info():
+        r = pymupdf.Rect(info["bbox"])
+        if r.x1 < r.x0 or r.y1 < r.y0:
+            continue  # reversed/invalid rect, not just a zero-thickness ruling line
+        if r.y0 >= top - band_tol and r.y1 <= bottom + band_tol:
+            rects.append(r)
+    x0 = min(r.x0 for r in rects)
+    x1 = max(r.x1 for r in rects)
+    if x1 - x0 < min_width:
+        return None
+    page_w = page.rect.width
+    return max(0.0, x0 - pad), min(page_w, x1 + pad)
+
+
 def find_nearby_text(blocks, caption_bboxes, kind, num, window_before=80, window_after=220):
     """
     First mention of 'Figure N' / 'Table N' in the document body outside of
