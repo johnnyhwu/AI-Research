@@ -111,6 +111,14 @@ right but I had trouble reading it":
   buried in a paragraph of running prose.** If you're contrasting two
   methods/settings across more than one dimension, lay it out so the reader
   can scan the contrast instead of reconstructing it from sentences.
+- **An explicit, concise 前言 (intro) and 結論 (conclusion), each its own
+  heading.** 前言 goes right after the title and should let the reader grasp
+  the article's point and scope within a couple of short paragraphs — get
+  to what the piece is about and why it matters, don't scene-set. 結論 goes
+  at the very end and should be a quick recap of the core takeaways, not a
+  re-argued restatement of the whole body. If either section runs as long
+  as a full body section, that's a sign it's doing too much — trim it, it
+  isn't "thoroughness."
 
 ## What natural Taiwanese engineer voice sounds like instead
 

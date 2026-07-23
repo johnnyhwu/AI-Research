@@ -97,6 +97,13 @@ the repo's fail-loud-not-silent rule.
    in `references/writer-reviewer-spec.md`):
    - Structure around a narrative arc, not a replay of the chat log turn by
      turn.
+   - Give the piece an explicit, concise `## 前言` (intro) right after the
+     title and a `## 結論` (conclusion) as the last section before the
+     `figure-map` block. 前言 should let a reader grasp the article's point
+     and scope in a couple of short paragraphs — not a scene-setting essay.
+     結論 should be a quick recap of the core takeaways — not a re-argued
+     restatement of the whole body. If either one runs as long as a full
+     body section, cut it down.
    - Explain methods from first principles; plain language before symbols.
    - Be honest about limitations/caveats the notes surfaced — no uncritical
      praise.
@@ -141,7 +148,12 @@ the repo's fail-loud-not-silent rule.
    > jargon term/acronym that resurfaces much later with no reminder of
    > what it means, an abstract claim about what a method "does" with no
    > concrete example attached, or an A/B comparison left as prose instead
-   > of a table/parallel bullets. Since this article should be written
+   > of a table/parallel bullets. Check specifically that the article opens
+   > with a concise 前言 (intro) and closes with a concise 結論 (conclusion)
+   > as their own headed sections — flag a missing or unheaded intro/
+   > conclusion, an intro that stalls before making its point, or a
+   > conclusion that re-argues the whole piece instead of quickly recapping
+   > it. Since this article should be written
    > in Traditional Chinese (Taiwan usage), also flag anything that reads as
    > English, Simplified Chinese, or awkward/AI-sounding translationese —
    > that's a readability/authenticity problem, squarely in scope. Do not
@@ -180,6 +192,8 @@ the repo's fail-loud-not-silent rule.
 
 - `article.md` exists, reads well to a naive reader, and honestly reflects
   the notes/chatlog (including any limitations/caveats it raised).
+- It opens with a concise `## 前言` and closes with a concise `## 結論`,
+  neither one padded into a full body section.
 - Every body image `src` is a manifest `id` (or the file carries the
   `NO-MANIFEST` note and figures are referenced only in prose).
 - The trailing `figure-map` block is valid JSON and covers every referenced

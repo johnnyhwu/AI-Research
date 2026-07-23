@@ -14,6 +14,9 @@ Checks:
   - no Hugo-style {{< ... >}} / {{% ... %}} shortcode syntax anywhere
   - the NO-MANIFEST fallback, if present, is used consistently (empty
     figure-map, no img- references in the body)
+  - a "## 前言" heading exists (should be the first ## section, right after
+    the title) and a "## 結論" heading exists (should be the last ## section
+    before the figure-map block)
   - a rough CJK-density check on the prose, as a signal the file may have
     come out in English (or some other non-Chinese-majority language) by
     mistake
@@ -30,6 +33,7 @@ import re
 import sys
 
 IMG_REF_RE = re.compile(r"!\[[^\]]*\]\((img-[0-9]+)\)")
+H2_HEADING_RE = re.compile(r"^##\s+(.*)$", re.MULTILINE)
 HUGO_SHORTCODE_RE = re.compile(r"\{\{[%<].*?[%>]\}\}", re.DOTALL)
 FIGURE_MAP_RE = re.compile(r"```figure-map\s*\n(.*?)\n```", re.DOTALL)
 NO_MANIFEST_LINE = "<!-- NO-MANIFEST: figures referenced descriptively; Step 3 must match manually -->"
@@ -130,6 +134,17 @@ def main():
 
     # Rough CJK-density check on the prose, excluding the figure-map block itself.
     prose = text[: fm_match.start()] if fm_match else text
+
+    headings = H2_HEADING_RE.findall(prose)
+    if not any("前言" in h for h in headings):
+        errors.append("No \"## 前言\" heading found -- the article needs an explicit, concise intro section.")
+    elif "前言" not in headings[0]:
+        warnings.append("\"## 前言\" exists but isn't the first ## section -- it should come right after the title.")
+    if not any("結論" in h for h in headings):
+        errors.append("No \"## 結論\" heading found -- the article needs an explicit, concise conclusion section.")
+    elif "結論" not in headings[-1]:
+        warnings.append("\"## 結論\" exists but isn't the last ## section -- it should be the final section before figure-map.")
+
     visible = VISIBLE_CHAR_RE.findall(prose)
     cjk = CJK_RE.findall(prose)
     if len(visible) > 200:  # skip the check on trivially short files
