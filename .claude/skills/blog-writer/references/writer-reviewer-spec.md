@@ -13,6 +13,10 @@ The article is the actual thing an end reader will see. Hold this bar:
   whole thing first, decide what the actual story is (what problem does this
   solve, what's the key idea, why should a reader care), and write toward
   that arc.
+- **Explicit, concise 前言/結論.** See `writing-style.md`'s structural
+  readability rules — a `## 前言` right after the title that orients the
+  reader in a couple of short paragraphs, and a `## 結論` at the end that's
+  a quick recap, not a restatement of the whole piece.
 - **Not a firehose, not a haiku.** Avoid rambling and avoid burying the
   point, but also avoid being so terse a newcomer can't follow. Assume an
   interested reader who is *not* an expert in this specific paper, but is a
@@ -83,7 +87,9 @@ Assess:
   resurfaces many paragraphs after its introduction with no re-anchoring;
   an abstract claim about what a method "does" with no concrete example or
   number attached; an A/B-style comparison left as prose instead of a table
-  or parallel bullets.
+  or parallel bullets; a missing or unheaded 前言/結論, an intro that stalls
+  before making its point, or a conclusion that re-argues the whole piece
+  instead of quickly recapping it.
 - Since this repo requires Traditional Chinese (Taiwan usage): does
   anything read as English, Simplified Chinese phrasing, or stiff
   AI-translated Chinese? That's in scope — it's a readability/authenticity
@@ -138,15 +144,9 @@ roughly what the fix itself costs, not multiples of the article's length.
 ## Output
 
 - `<dir>/article.md`, containing the article body + the trailing
-  `figure-map` block.
-- Do not modify anything under `<dir>/assets/` — that's Step 2's territory.
+  `figure-map` block. Do not modify anything under `<dir>/assets/` — that's
+  Step 2's territory.
 
-## Definition of done
-
-- `article.md` exists, reads well to a naive reader, and honestly reflects
-  the notes/chatlog.
-- Every body image `src` is a manifest `id` (or the file carries the
-  `NO-MANIFEST` note and references figures only in prose).
-- The trailing `figure-map` block is valid JSON and covers every referenced
-  id.
-- No Hugo-specific syntax anywhere in the file.
+The full "Definition of done" checklist lives in `SKILL.md`, not repeated
+here — this file is scope-limited to the quality bar and the review loop
+mechanics above.
