@@ -1,0 +1,42 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-06-29-stochastic-gradient-descent-%e4%bb%8b%e7%b4%b9/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "Stochastic-Gradient-Descent/assets/images/Deep-Learning-Cost-Function.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "利用 Cost Function 評估 Neural Network 中參數的好壞",
+      "nearby_text": "Cost Function 的目的就是要評估目前 Neural Network 中參數（包含 Weight 與 Bias）的好壞。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "Stochastic-Gradient-Descent/assets/images/gradient-descent-1.png",
+      "type": "figure",
+      "page": null,
+      "caption": "依樣畫葫蘆，更新 Neural Network 中的 weight 與 bias",
+      "nearby_text": "我們了解如何更新參數 v 來使 Cost Function 數值下降。在這裡，我們只需要依樣畫葫蘆，將 v 換成 Neural Network 中的參數：Weight 與 Bias。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "Stochastic-Gradient-Descent/assets/images/stochastic-gradient-descent-1.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "左式為 m 筆訓練資料計算出來的平均 Gradient，右式為所有訓練資料計算出來的平均 Gradient。左式應該愈接近右式愈好",
+      "nearby_text": "Batch Size 應該要夠大，讓我們可以僅僅用這一個 Mini-Batch 的訓練資料，計算出來的平均 Gradient，可以愈近似整個訓練資料集計算出來的平均 Gradient。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "Stochastic-Gradient-Descent/assets/images/stochastic-gradient-descent-in-neural-network.png",
+      "type": "figure",
+      "page": null,
+      "caption": "利用 Stochastic Gradient Descent 更新 Neural Network 中的參數",
+      "nearby_text": "當我們利用 Stochastic Gradient Descent 更新 Neural Network 中的參數時，Weight 與 Bias 的更新方式為：每一次都會從整個訓練資料集中「隨機」抓出一個 Mini-Batch 的資料。",
+      "parser_confidence": "high"
+    }
+  ]
+}

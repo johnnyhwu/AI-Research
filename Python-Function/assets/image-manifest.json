@@ -1,0 +1,15 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-02-24-python-function/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "Python-Function/assets/images/feature-image-15.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "Python 中的函式 (Function) 觀念 文章題圖 [source: Pixabay]",
+      "nearby_text": "在前幾篇的 Python 教學文章中，我們介紹到了函式 (Function) 這一個名詞，並使用了一些 Python 中的內建函式 (Built-in Function)。在本篇文章中，我們將會理解 Python 中函式的概念，並學習定義自己的函式。",
+      "parser_confidence": "high"
+    }
+  ]
+}

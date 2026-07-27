@@ -1,0 +1,42 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-01-27-machine-learning-prepare-dataset/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "Machine-Learning-Prepare-Dataset/assets/images/machine-learning-five-steps.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "用機器學習解決問題的第二步驟：建立資料集",
+      "nearby_text": "「建立資料集」可以說是五個步驟中最重要的一步，因為當我們想透過機器學習的技術解決問題時，「資料」是一定需要準備的，且資料品質的好壞也會大大影響最後訓練出來的模型。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "Machine-Learning-Prepare-Dataset/assets/images/data-preprocessing-in-ml.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "資料集準備與前處理佔據機器學習專案的大量時間",
+      "nearby_text": "根據統計，利用機器學習解決任務時，「資料準備」花了將近 80% 的時間，「其他步驟」則總共使用 20% 的時間。可見資料準備的過程其實相當的重要也不簡單！",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "Machine-Learning-Prepare-Dataset/assets/images/prepare-dataset-in-ml.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "機器學習中資料集的準備包含四個步驟",
+      "nearby_text": "建立資料集的過程又可以拆分成以下 4 個步驟：Data Collection、Data Inspection、Summary Statistics、Data Visualization。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "Machine-Learning-Prepare-Dataset/assets/images/data-visualization.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "透過多種圖表進行資料視覺化 [source: FineReport]",
+      "nearby_text": "Data Visualization 也就是「資料視覺化」。透過各種類型的圖表將資料「視覺化」，也就是資料不再是生硬的數字，而是一張張有意義的圖表。",
+      "parser_confidence": "high"
+    }
+  ]
+}

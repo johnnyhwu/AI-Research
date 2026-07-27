@@ -1,0 +1,60 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-01-26-python-boolean-operator/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "Python-Boolean-Operator/assets/images/flow-control-chart.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "流程圖 [source: Automate the Boring Stuff with Python]",
+      "nearby_text": "我們從「Start」出發，首先遇到了「Is raining?」的判斷，如果是「Yes」則前往「Have umbrella?」、如果是「No」則前往「Go outside.」。因為流程圖中多了這些判斷的時刻，使得我們從「Start」走到「End」可以有多種不同的選擇。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "Python-Boolean-Operator/assets/images/compare-operator-in-programming.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "程式中常見的比較運算子",
+      "nearby_text": "生活中常見的 Comparison Operator 有：「等於」、「不等於」、「大於」、「小於」、「大於或等於」與「小於或等於」。在 Python 程式中的對照寫法如下圖所示。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "Python-Boolean-Operator/assets/images/truth-table-for-and-operator.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "“and” operator 的真值表 (Truth Table) [source: Automate the Boring Stuff with Python]",
+      "nearby_text": "and：如果兩個布林數值都是 True，則回傳 True；若存在一個 False，則回傳 False。下圖為「and」的 Truth Table，列出「and」的所有組合。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "Python-Boolean-Operator/assets/images/truth-table-for-or-operator.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "“or” operator 的真值表 (Truth Table) [source: Automate the Boring Stuff with Python]",
+      "nearby_text": "or：如果其中一個布林數值為 True，則回傳 True；若兩個都是 False，則回傳 False。下圖為 or 的 Truth Table，列出 or 的所有情況。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "Python-Boolean-Operator/assets/images/truth-table-for-not-operator.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "“not” operator 的真值表 (Truth Table) [source: Automate the Boring Stuff with Python]",
+      "nearby_text": "not 只會接受「一個」布林數值，並回傳這個布林數值的「相反」。下圖為 not 的 Truth Table，列出 not 的所有情況。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "Python-Boolean-Operator/assets/images/expression-1.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "Boolean Expression 的計算過程",
+      "nearby_text": "以 not ((2 != 3) or (10 <= 6)) 為例，首先會先執行 (2 != 3) 得到 True，再執行 (10 <= 6) 得到 False，將兩者 or 在一起得到 True，最後再進行最外層的 not 得到 False。",
+      "parser_confidence": "high"
+    }
+  ]
+}

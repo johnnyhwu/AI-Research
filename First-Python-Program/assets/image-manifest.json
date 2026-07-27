@@ -1,0 +1,42 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-01-26-first-python-program/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "First-Python-Program/assets/images/input-and-output-device-of-cimputer.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "電腦有許多輸入與輸出裝置",
+      "nearby_text": "電腦的輸入裝置還包含：「滑鼠」、「鍵盤」、「攝影機」；輸出裝置包含：「印表機」、「螢幕」與「喇叭」。我們可以在程式中自由地決定要處理哪一個輸入裝置的資訊，並將結果輸出到哪一個輸出裝置。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "First-Python-Program/assets/images/python-program.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "第一個 Python 程式",
+      "nearby_text": "開啟 Colab，將下圖的程式碼一字不漏地打在 Colab 上並且執行！執行上面的程式碼時，會有兩次「輸入」的機會，執行完後應該會類似程式碼下方 (黑色字體) 的結果。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "First-Python-Program/assets/images/python-len-function.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "透過 Python 中的 len( ) 函式取得字串長度",
+      "nearby_text": "len( ) 函式會回傳我們傳入的字串的長度。len( ) 所回傳的字串長度為整數型別 (int)。在程式中，我們因為需要進行字串加法，所以將整數型別 (int) 的 3 轉為字串型別 (str) 的 '3'。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "First-Python-Program/assets/images/python-type-conversion.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "Python 中的型別轉換",
+      "nearby_text": "透過 str( ) 將整數 3 轉為字串 '3'；透過 int( ) 將字串 '3' 轉為整數 3；透過 float( ) 將字串 '3' 轉為浮點數 3.0。",
+      "parser_confidence": "high"
+    }
+  ]
+}
