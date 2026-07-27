@@ -1,0 +1,51 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-03-01-parallel-programming-distributed-memory-model/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "Parallel-Programming-Distributed-Memory-Model/assets/images/distributed-memory-model.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "Distributed Memory Model 示意圖",
+      "nearby_text": "在 Multi-Process Program 中，一個 Program 由許多 Process 組成，每一個 Process 之間彼此獨立，擁有自己獨立的 Memory，每一個 Process 也同時被不同的 Core/Processor 執行。如上圖所示，一個 Program 中包含 3 個 Process，分別在 3 個 Processor 上執行。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "Parallel-Programming-Distributed-Memory-Model/assets/images/message-passing-interface.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "透過 Message Passing Interface 實現 Process 之間的溝通 [source: Parallel Programming Course from NYCU]",
+      "nearby_text": "在電腦上，Message Passing 的實作方式有很多種，為了減輕程式開發者的負擔，通常會使用函式庫所提供的 Message Passing Interface (MPI) 實現 Process 之間的溝通。透過 MPI，程式開發者不需要煩惱實際 Process 之間是如何溝通的。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "Parallel-Programming-Distributed-Memory-Model/assets/images/distributed-memory-model-example.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "Distributed Memory Model 範例",
+      "nearby_text": "如上圖所示，我們有一個 Array 包含了兩個元素 A1 與 A2。我們希望將這兩個元素經過 f Function 的運算後再總和起來得到 S。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "Parallel-Programming-Distributed-Memory-Model/assets/images/distributed-memory-model-example-1.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "兩個 Processor 分別處理各自的元素，並將結果寄給另外一個 Processor [source: Parallel Programming Course from NYCU]",
+      "nearby_text": "上圖呈現 2 個 Processor 執行任務時的虛擬碼。2 個 Processor 分別運算自己負責的元素，並存於 xlocal 中，再將 xlocal 寄 (send) 給另外一個 Processor，並接收 (receive) 對方的結果。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "Parallel-Programming-Distributed-Memory-Model/assets/images/distributed-memory-model-example-2.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "兩個 Processor 不要同時 Send 與 Receive 解決可能發生的 Deadlock [source: Parallel Programming Course from NYCU]",
+      "nearby_text": "解決上述 Deadlock 最簡單的方式，即是確保兩個 Processor 不要同時傳送 (send) 訊息。因此，上圖將 Processor 2 的 send 與 receive 順序對調。",
+      "parser_confidence": "high"
+    }
+  ]
+}

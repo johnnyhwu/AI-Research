@@ -1,0 +1,33 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-02-09-create-first-line-bot/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "Create-First-Line-Bot/assets/images/LINE-Messaging-API.jpeg",
+      "type": "figure",
+      "page": null,
+      "caption": "LINE Messaging API 頁面",
+      "nearby_text": "回到 LINE Developers Console，進入 Messaging API 分頁。滑到頁面最下方找到 Channel access token，如果還沒 issue 過就先按下 issue，再把生成的 token 複製下來。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "Create-First-Line-Bot/assets/images/webhook-setting.jpeg",
+      "type": "figure",
+      "page": null,
+      "caption": "Webhook 設定",
+      "nearby_text": "同樣在 Messaging API 的分頁下，可以看到設定 Webhook URL 的欄位。把 Django App 部署到 Heroku 後會拿到一個 URL，在後面加上 callback 就是這裡要填的 Webhook URL。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "Create-First-Line-Bot/assets/images/qrcode.jpeg",
+      "type": "figure",
+      "page": null,
+      "caption": "掃描 QR Code 將 LINE Bot 加為好友",
+      "nearby_text": "最後，透過這個 LINE Bot 的 QR Code 將它加為好友並傳送訊息，如果它回覆一模一樣的內容，就表示整條流程都通了。",
+      "parser_confidence": "high"
+    }
+  ]
+}
