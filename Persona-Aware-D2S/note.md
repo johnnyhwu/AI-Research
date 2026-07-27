@@ -11,6 +11,10 @@
 
 這篇論文提出「end-user specification-aware document-to-slides generation」任務——讓同一篇論文可以依照「受眾是不是專家」「簡報要長還是短」，生成四種不同版本的投影片大綱與內容。方法上用 SFT + 輕量版 preference fine-tuning（借用 Decision Transformer 的 reward-conditioning 技巧）訓練 LLM，但**產出僅止於文字大綱與內容，不含排版/視覺設計**，且訓練資料規模極小（80 筆），架構上需要為每種 persona 配置獨立訓練模型，泛化性與 scalability 都存在明顯疑慮。
 
+<img src="figures/figure1_persona_example.png" alt="Figure 1: Persona-Aware-D2S 對同一篇論文，針對 Business Client 與 Research Talk 兩種受眾生成不同內容的範例" width="650">
+
+*對應原文 **Figure 1**（p.2664）：同一篇論文（DOC2PPT）針對「Business Client」（左，重點是應用場景與整體流程）與「Research Talk」（右，重點是模型架構細節如 Document Reader/Progress Tracker/Object Placer/Paraphraser）產生完全不同的投影片內容——這張圖是整篇論文核心動機的視覺化。*
+
 ---
 
 ## 1. 核心挑戰（Challenges）
@@ -64,6 +68,10 @@ p(O | C, B, L)  ≈  p(t | IN)          ← Stage 1：Outline Generation
 ```
 
 > ⚠️ **原文 notation 瑕疵**：§3.1 把 Outline Generation 的目標寫成 `P(t | IN)`，但 §3.2 描述 Content Extraction 時公式仍誤寫成 `P(t | IN)`，應該是 `P(Su | IN)`。讀原文公式時需注意，此為論文寫作疏漏。
+
+<img src="figures/figure2_pipeline.png" alt="Figure 2: Persona-Aware D2S 完整 pipeline 流程圖，包含 Topic Generator、Content Extractor 與 Reward Model 訓練流程" width="750">
+
+*對應原文 **Figure 2**（p.2667）：完整 pipeline 視覺總覽——上半部是 Topic Generation 的 SFT→P-F 流程（含 Reward Model 訓練與人類回饋），下半部是 Content Extraction 的對應流程，最後匯入 Summarization+Alignment 產出 Slide1/Slide2/Slide3。這張圖對應本筆記 Stage 1–3 的完整資料流，建議搭配下方文字說明對照閱讀。*
 
 ---
 
@@ -151,6 +159,13 @@ loss = -E_{x~train}[ log(sigmoid(s_w - s_r)) ]
 
 > ⚠️ **方法論斷層（我的觀察，論文未解釋）**：Stage 1、2 都投入大量心力做 SFT+P-F，但對最終使用者體驗影響最大的 Stage 3 卻完全沒有客製化訓練，資源分配不對稱，論文沒有說明原因。
 
+**具體案例：Pipeline 最終輸出長什麼樣子**
+
+<img src="figures/figure6_left_nonexpert.png" alt="Figure 6 左：P-F 模型針對 non-expert 產生的 Model Details 投影片" width="480">
+<img src="figures/figure6_right_expert.png" alt="Figure 6 右：P-F 模型針對 expert 產生的 Model Details 投影片" width="480">
+
+*對應原文 **Figure 6**（p.2671，來源論文：Zhang et al., 2019）：同一個標題「Model Details」，左邊是 P-F 模型針對 **non-expert** 產生的版本（解釋了 LSTM、semantic similarity 等術語，內容較少），右邊是針對 **expert** 產生的版本（直接進入訓練細節與網路架構，沒有術語解釋）。這是驗證整個 pipeline（Stage 1+2+3）最終效果的最直接方式——你可以直接比對兩邊的用詞密度與細節深度。*
+
 **Hallucination 處理方式**：沒有做自動化事實查核，而是讓標註者對「Relevance of content」評分，用這個分數間接代表有沒有幻覺（§6.1.3）。
 
 > ⚠️ **我的批評**：用「相關性」proxy「幻覺」不夠嚴謹——內容可以「跟標題高度相關」但同時「捏造論文沒講過的細節」，這種類型的幻覺測不出來。
@@ -163,6 +178,10 @@ loss = -E_{x~train}[ log(sigmoid(s_w - s_r)) ]
 | Readability | +1.0 |
 | Coverage | -0.05（幾乎不變） |
 | Relevance | 0（不變） |
+
+<img src="figures/figure5_alignment_ablation.png" alt="Figure 5: Summarization+Alignment 前後，Coherence/Coverage/Readability/Relevance 四項指標的長條圖對照" width="500">
+
+*對應原文 **Figure 5**（p.2670）：紅色=Alignment 後、藍色=Alignment 前。可以清楚看到 Readability 與 Coherence 兩個柱子紅色明顯高於藍色，Coverage 與 Relevance 則幾乎持平——這張圖是上方文字表格的原始視覺來源。*
 
 這是全篇論文中證據力相對紮實的實驗——直接 before/after 對照，證實摘要+重排確實提升可讀性與連貫性，且沒有明顯犧牲內容涵蓋度。但樣本數僅10篇，評分者也非獨立第三方。
 
@@ -283,6 +302,10 @@ P(i 贏 j) = 實力_i / (實力_i + 實力_j)
 ---
 
 ## 6. 整體結論
+
+<img src="figures/table4_final_eval.png" alt="Table 4: 四種 persona 配置下，Zero-shot/Few-shot/SFT-F/P-F 的 ROUGE-1/2/L 端到端評測結果" width="700">
+
+*對應原文 **Table 4**（p.2670）：完整 pipeline（Topic Gen + Content Extraction + Summarization）在四種 persona 配置下的端到端 ROUGE 評測。SFT-F 與 P-F 全面壓過 Zero-shot/Few-shot；P-F 在多數配置勝出，但 **Expert-Short** 這個配置反而是 SFT-F 更好（可對照表中 R-1=0.17 vs 0.13）。這張表是「fine-tuning 確實有效」這個結論的主要量化依據，也是本筆記 §4、§6 評估工程 ROI 時引用的原始數字來源。*
 
 **研究價值**：中等偏低。核心貢獻是「定義新任務 + 建立新資料集」，方法論本身（SFT + RLHF-lite 組合）沒有原創性，都是直接沿用 Christiano et al. 2017（RLHF）、Chen et al. 2021（Decision Transformer）的現成技術拼裝。論文能中 EACL 2024 long paper，主要吃在任務定義的新穎性，而非方法創新。
 
