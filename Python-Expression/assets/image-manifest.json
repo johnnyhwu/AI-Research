@@ -1,0 +1,24 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-01-25-python-expression/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "Python-Expression/assets/images/expression.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "Expression 的概念",
+      "nearby_text": "Expression 由兩種東西組成：Value (數值) 與 Operator (運算子)。以更白話的方式理解，Expression 就是數學的「算式」，裡面包含了很多「數值」以及「運算符號」。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "Python-Expression/assets/images/syntax-error.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "程式初學者常見的錯誤：Syntax Error",
+      "nearby_text": "「Syntax Error」是在寫程式時經常會看到的錯誤訊息，表示「語法錯誤」，也就是電腦告訴我們：你寫的 code 語法有問題。以上圖而言，我們原本希望計算 1 + 3 * 4，卻漏打了 3。",
+      "parser_confidence": "high"
+    }
+  ]
+}
