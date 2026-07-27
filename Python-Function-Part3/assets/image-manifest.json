@@ -1,0 +1,24 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-05-14-python-function-part3/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "Python-Function-Part3/assets/images/python-scope.png",
+      "type": "figure",
+      "page": null,
+      "caption": "表示「text」這個變數並沒有被宣告過",
+      "nearby_text": "在函式外面呼叫 print(text) 時，電腦會顯示 text 變數並沒有被宣告過的錯誤訊息。原因在於 say_hello() 函式會形成一個 Local Scope，text 屬於這個 Local Scope 中的 Local Variable。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "Python-Function-Part3/assets/images/python-scope.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "text1 這個變數並沒有被定義過",
+      "nearby_text": "當電腦在執行 say_hello2() 函式時，發現 text1 變數並沒有被宣告過。原因在於每一個函式所形成的 Local Scope 都是彼此獨立互不影響的。",
+      "parser_confidence": "high"
+    }
+  ]
+}
