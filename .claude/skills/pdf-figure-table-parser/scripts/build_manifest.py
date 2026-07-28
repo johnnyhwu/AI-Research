@@ -133,7 +133,7 @@ def main():
             top = overrides[key]
             source = "manual override"
         else:
-            top = lib.auto_crop_top(page_no, c["bbox"], captions_by_page)
+            top = lib.auto_crop_top(page_no, c["bbox"], captions_by_page, page_w)
             source = "auto heuristic"
 
         bottom = c["bbox"][1] - 3
