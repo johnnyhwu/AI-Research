@@ -86,13 +86,33 @@ def estimate_column_width(blocks):
     return statistics.median(widths)
 
 
-def auto_crop_top(page_no, caption_bbox, captions_by_page, default_margin=58.0):
+def caption_column(bbox, page_width, full_width_frac=0.55):
+    """
+    Classify a caption/rect bbox as 'left', 'right', or 'full' relative to a
+    two-column page layout, purely from its own horizontal extent -- no
+    hardcoded column geometry, so it works across differently-sized pages.
+
+    A bbox wide enough to plausibly span both columns (>= full_width_frac of
+    the page width) is 'full'; otherwise it's classified by which half of
+    the page its center falls in. Used to keep same-page, opposite-column
+    visuals from contaminating each other's crop bounds (see auto_crop_top
+    and auto_crop_hbounds below).
+    """
+    x0, x1 = bbox[0], bbox[2]
+    mid = page_width / 2.0
+    if (x1 - x0) >= page_width * full_width_frac:
+        return "full"
+    return "left" if (x0 + x1) / 2.0 < mid else "right"
+
+
+def auto_crop_top(page_no, caption_bbox, captions_by_page, page_width, default_margin=58.0):
     """
     Heuristic top boundary for a visual's region: the bottom edge of the
-    nearest *other caption* above this one on the same page, if any (e.g.
-    Table 3 starts right after Table 2's caption ends). Falls back to a
-    fixed top-of-content margin when there's no such caption -- the common
-    case of a visual sitting at the top of a page, right after a page break.
+    nearest *other caption* above this one on the same page and in the same
+    column, if any (e.g. Table 3 starts right after Table 2's caption ends).
+    Falls back to a fixed top-of-content margin when there's no such caption
+    -- the common case of a visual sitting at the top of a page/column,
+    right after a page break.
 
     Deliberately anchors only on other captions, not on generic "paragraph
     looking" text blocks: a table's own row text or a figure's own internal
@@ -101,17 +121,25 @@ def auto_crop_top(page_no, caption_bbox, captions_by_page, default_margin=58.0):
     Captions are a much safer signal since they're already positively
     identified by find_captions().
 
-    This assumes the common academic-paper convention of floats sitting at
-    the top of a page (or stacked back-to-back down a page) rather than
+    Column-aware: on a two-column page, a single-column caption only looks
+    at other captions in the *same* column (or full-width captions, which
+    are a valid boundary for either column) -- otherwise a caption in the
+    opposite column that happens to sit higher on the page would wrongly
+    bound this one, chopping the visual down to almost nothing. This
+    assumes the common academic-paper convention of floats sitting at the
+    top of a page/column (or stacked back-to-back down one) rather than
     floating mid-column with body text both above and below. For that
-    layout, or two-column papers, inspect with dump_blocks.py (via
-    inspect_pdf.py) and pass an explicit --crop-top-override instead of
-    trusting this heuristic blindly.
+    layout, inspect with dump_blocks.py (via inspect_pdf.py) and pass an
+    explicit --crop-top-override instead of trusting this heuristic blindly.
     """
     cap_y0 = caption_bbox[1]
+    target_col = caption_column(caption_bbox, page_width)
     best_y1 = None
     for other in captions_by_page.get(page_no, []):
         if other["bbox"] == caption_bbox:
+            continue
+        other_col = caption_column(other["bbox"], page_width)
+        if other_col != "full" and other_col != target_col:
             continue
         y1 = other["bbox"][3]
         if y1 < cap_y0 and (best_y1 is None or y1 > best_y1):
@@ -121,7 +149,7 @@ def auto_crop_top(page_no, caption_bbox, captions_by_page, default_margin=58.0):
     return best_y1 + 8.0
 
 
-def auto_crop_hbounds(page, top, bottom, caption_bbox, pad=8.0, min_width=40.0, band_tol=2.0):
+def auto_crop_hbounds(page, top, bottom, caption_bbox, pad=8.0, min_width=40.0, band_tol=2.0, col_tol=15.0):
     """
     Tight horizontal bounds for a visual's region, derived from the actual
     vector drawings / raster images sitting in its vertical band [top,
@@ -136,18 +164,39 @@ def auto_crop_hbounds(page, top, bottom, caption_bbox, pad=8.0, min_width=40.0, 
     the other column. Reading the region's own drawing/image bboxes sidesteps
     guessing which case applies.
 
+    Column-aware on top of that: two single-column visuals that sit side by
+    side (e.g. a table in the left column and a figure in the right column,
+    both spanning the same y-range) would otherwise both see each other's
+    drawings within the shared vertical band, blowing each one's width out
+    to near-full-page. When the target caption is single-column, candidate
+    drawings/images are restricted to the same side of the page (with a
+    small col_tol so ink that legitimately abuts the column gutter isn't
+    excluded); a full-width caption's band isn't restricted, since it's
+    meant to span both columns.
+
     Always returns (x0, x1): the caption's own bbox is the floor (a
     ruleless table with no drawn lines -- e.g. no gridlines at all -- still
     has to crop *something*, and the caption's width is the only reliable
     signal left in that case), widened by any drawings/images found in the
     band above/below it.
     """
+    page_w = page.rect.width
+    col = caption_column(caption_bbox, page_w)
+    mid = page_w / 2.0
+
+    def in_column(r):
+        if col == "full":
+            return True
+        if col == "left":
+            return r.x1 <= mid + col_tol
+        return r.x0 >= mid - col_tol
+
     rects = [pymupdf.Rect(caption_bbox)]
     for d in page.get_drawings():
         r = d["rect"]
         if r.x1 < r.x0 or r.y1 < r.y0:
             continue  # reversed/invalid rect, not just a zero-thickness ruling line
-        if r.y0 >= top - band_tol and r.y1 <= bottom + band_tol:
+        if r.y0 >= top - band_tol and r.y1 <= bottom + band_tol and in_column(r):
             # Full containment, not mere overlap -- a page-spanning
             # decorative/background rect can poke into the band at one edge
             # without actually being part of this visual, and would
@@ -157,13 +206,12 @@ def auto_crop_hbounds(page, top, bottom, caption_bbox, pad=8.0, min_width=40.0, 
         r = pymupdf.Rect(info["bbox"])
         if r.x1 < r.x0 or r.y1 < r.y0:
             continue  # reversed/invalid rect, not just a zero-thickness ruling line
-        if r.y0 >= top - band_tol and r.y1 <= bottom + band_tol:
+        if r.y0 >= top - band_tol and r.y1 <= bottom + band_tol and in_column(r):
             rects.append(r)
     x0 = min(r.x0 for r in rects)
     x1 = max(r.x1 for r in rects)
     if x1 - x0 < min_width:
         return None
-    page_w = page.rect.width
     return max(0.0, x0 - pad), min(page_w, x1 + pad)
 
 

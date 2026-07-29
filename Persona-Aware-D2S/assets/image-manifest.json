@@ -1,0 +1,222 @@
+{
+  "source_pdf": "Persona-Aware-D2S/2024.eacl-long.163.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "Persona-Aware-D2S/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 1,
+      "caption": "Figure 1: Output from our proposed Persona-Aware- D2S model showing the type of content preferred by end-users of two different persona while demonstrating the main pipeline of a conference paper.",
+      "nearby_text": "w for business users, balancing complexity with time constraints. For instance (Figure 1), in a meeting with general public/businessmen, technical-heavy content might decrease engagement, as they might be only in- terested in knowing overall use-case instead of a detailed model architecture.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "Persona-Aware-D2S/assets/images/picture-002.png",
+      "type": "table",
+      "page": 2,
+      "caption": "Table 1: Statistics of Persona-Aware-D2S-Dataset. We have users who are experts (E) and novices (N) and pre- sentation types that are short (S) and long (L). This dataset enables research of personalized NLP genera- tion, enhancing user engagement by creating presenta- tions across various disciplines.",
+      "nearby_text": "er of slides are 4.56 and 7.6 and average number of tokens are 125.2 and 580.6 (Table 1). 87.34% of slide outlines have fewer than 4 tokens, the top-3 frequent uni- grams are Introduction, Motivation, Solution and top-3 bigrams include Problem Statement, Related Work, Solution Approach. SciDuet samp",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-003",
+      "file": "Persona-Aware-D2S/assets/images/picture-003.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 2: Shows the entire information flow of Persona-Aware D2S-Model Pipeline. Initially, LLM for Topic Generator is trained with supervision from Persona-Aware D2S dataset, followed by finetuning using human- feedback to produce Fine-tuned LM for Topic Generator. For each generated slide outline, we filter content from document to extract relevant snippet for the title, the final content generator LLM is fine-tuned with Human Feedback. The content for all slide outlines are summarized and aligned to produce a logically coherent slide deck.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "Persona-Aware-D2S/assets/images/picture-004.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 2: Performance Comparison of Different Method- ologies of Topic-Generation where it highlights that Supervised Fine-Tuning (SFT-F-TG) and Preference Fine-Tuning (P-F-TG) methodologies significantly out- perform Zero-Shot (ZS-TG) and Few-Shot (FS-TG) in Rouge-1, Rouge-2, and Rouge-L metrics.",
+      "nearby_text": "ed evaluation for the topic generation module, and the results are tabulated in Table 2. Besides, when we use chunked candidate set of relevant sentences and pass it to CE module, our maximum recall stands (token limit of the candi- dates is 2500) at 78.89%. Even after that, aver- age F1-scores sign",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "Persona-Aware-D2S/assets/images/picture-005.png",
+      "type": "figure",
+      "page": 6,
+      "caption": "Figure 3: Average User Ratings by Experts on generated topics (Human-created and 3 model-created).",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "Persona-Aware-D2S/assets/images/picture-006.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 3: Evaluation Results of content Extraction on test set. Rows for each model shows performance with different input features: Abstract (A), Title (T), Back- ground of audience (B), and Length of presentation (L). The brackets indicate standard deviation after running on different prompt variations. SFT-F and P-F method- ologies outperform others across all evaluation metrics.",
+      "nearby_text": "res significantly improve by 12% after finetuning GPT-3.5-turbo over baselines (Table 3). Moreover, Table 4 indicates that our P-F model outperforms all other baselines on end-to-end per- formance evaluation of slide generation for all the configurations except Expert-Short where SFT-F is the winnin",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "Persona-Aware-D2S/assets/images/picture-007.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 4: Final Evaluation of Slides using the Persona-Aware-D2S pipeline (topic generation, content extraction, summmarization) for all four persona-aware configurations on Rouge-1, Rouge-2 and Rouge-L measures, showing that P-F models outperform others on all configuration except Expert-Short. The P-F model consistently outperforms other methodologies in the final evaluation of the pipeline, achieving the highest scores in Rouge-1, Rouge-2, and Rouge-L measures across almost all configurations. Notably, the P-F model excels in both expert and non-expert settings for long presentations. However, in the Expert-Short configuration, the SFT-F model shows superior performance, suggesting its effectiveness in concise content summarization for expert audiences.",
+      "nearby_text": "prove by 12% after finetuning GPT-3.5-turbo over baselines (Table 3). Moreover, Table 4 indicates that our P-F model outperforms all other baselines on end-to-end per- formance evaluation of slide generation for all the configurations except Expert-Short where SFT-F is the winning candidate.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-008",
+      "file": "Persona-Aware-D2S/assets/images/picture-008.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 5: Our Expert-Long Configuration significantly outperforms existing D2S pipeline with higher Rouge-1 (R-1), Rouge-2 (R-2), and Rouge-L (R-L).",
+      "nearby_text": "e results outper- forming those of the leading model in the original D2S Paper (Table 5).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "Persona-Aware-D2S/assets/images/picture-009.png",
+      "type": "figure",
+      "page": 7,
+      "caption": "Figure 5: Average User Ratings (1–5) on 10 randomly sampled slide decks after Summarization+Alignment (Step-3) compared to extractive approach of slide gener- ation (Step-2) indicating that summarization and align- ment is important for improved user experience.",
+      "nearby_text": "tent in slides fetched from the document are relevant to the slide topic/title. Figure 5 shows improvement on co- herence (+0.5) and readability (+1), with minimal impact on coverage (-0.05) and relevance (0).",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-010",
+      "file": "Persona-Aware-D2S/assets/images/picture-010.png",
+      "type": "figure",
+      "page": 7,
+      "caption": "Figure 4: Average User Ratings by Non-Experts on generated topics (Human-created and 3 model-created).",
+      "nearby_text": "prehensibility of P-F higher than all other baselines, followed by SFT-F model (Figure 4). Even though the experts prefer more de- tailed, technical illustration-heavy topics that cater to their depth of knowledge, the non-experts prefer slide outlines that are less cluttered with technical jargons",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-011",
+      "file": "Persona-Aware-D2S/assets/images/picture-011.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Figure 6: Source: (Zhang et al., 2019) the left slide is produced by P-F model for non-experts on ‘Model Details’ with explanations of technical jargons and less details on network and the right slide is generated by P-F model on ‘Model Details’ with content explaining the nitty gritty details of training and no explanations of jargons.",
+      "nearby_text": "Details”, we obtain expert-long and non-expert-long config- uration of slides (Figure 6) and similar set of con- figurations for slide outline “Results” in Figure 9. The striking difference between the technical and non-technical presentations is amount of technical complexity rendered in front of",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-012",
+      "file": "Persona-Aware-D2S/assets/images/picture-012.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Figure 7: Average User Ratings by Experts on 4 slide configurations (Human-created and 3 model-created) in which experts rate our model-generated slides higher on all criteria compared to baselines, except coverage.",
+      "nearby_text": ", however on average non-experts’ rate comprehensibility lower for all slides. (Figure 7) Experts prefer human-generated slides on all the criteria, except coverage of the paper (-0.8). ZS-TG provides the highest coverage but the least relevance, experts rate the SFT-F and P-F generated models equal",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-013",
+      "file": "Persona-Aware-D2S/assets/images/picture-013.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Figure 8: Average User Ratings by Non-Experts on 4 slide configurations (Human-created and 3 model- created) in which non-experts rate our model-generated slides higher on all criteria compared to baselines, but comprehensibility is low overall.",
+      "nearby_text": "ate comprehensibility of all slides lower than their ratings on other criteria (Figure 8), on average their ratings displayed similar trends as followed by experts, thus we conduct a follow-up study (Section C).",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-014",
+      "file": "Persona-Aware-D2S/assets/images/picture-014.png",
+      "type": "figure",
+      "page": 12,
+      "caption": "Figure 9: The left slide is produced by P-F model for non-experts with explanations of phrases, and less technical jargons like ‘statistical significance’ and the right slide is a technical results-heavy presentation for experts.",
+      "nearby_text": "s (Figure 6) and similar set of con- figurations for slide outline “Results” in Figure 9. The striking difference between the technical and non-technical presentations is amount of technical complexity rendered in front of the audience on the",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-015",
+      "file": "Persona-Aware-D2S/assets/images/picture-015.png",
+      "type": "table",
+      "page": 12,
+      "caption": "Table 6: Delves into the question of how accurately both experts and non-experts can discern whether a presen- tation is tailored for a technical audience or one with limited technical knowledge. The results underscore an intriguing aspect of human perception, revealing that there is no unequivocal consensus, and this observation holds true both when individuals are examining slides created by humans and those generated by our models.",
+      "nearby_text": "ailored for long vs short pre- sentations. However, an interesting observation (Table 6) while distinguishing between technical vs non-technical presentation was that, the entropy be- tween decision-making is quite high, revealing that there is no unequivocal consensus, and this obser-",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-016",
+      "file": "Persona-Aware-D2S/assets/images/picture-016.png",
+      "type": "table",
+      "page": 12,
+      "caption": "Table 7: Distribution of Papers (%) in the Persona- Aware-D2S Dataset Across Tasks and Domains",
+      "nearby_text": "d into ten and five groups followed by manual verification by the first author (Table 7).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-017",
+      "file": "Persona-Aware-D2S/assets/images/picture-017.png",
+      "type": "table",
+      "page": 13,
+      "caption": "Table 8: Sample output predictions for topic generation algorithm.",
+      "nearby_text": "n-experts prefer slide outlines that are less cluttered with technical jargons (Table 8). On Length-based satisfaction, both the groups prefer SFT-F and PR-F outputs compared to that of ZS-F.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-018",
+      "file": "Persona-Aware-D2S/assets/images/picture-018.png",
+      "type": "table",
+      "page": 13,
+      "caption": "Table 9: Sheds light on the ability of both experts and non-experts to discern whether slides are tailored for short or long duration, revealing a striking consensus among individuals in making correct choice, whether they are examining slides crafted by human (94.4%) or those generated by our models (91.2%, 89.7%).",
+      "nearby_text": "for expert and non-expert audiences, using human-created, SFT-P and P-F models. Table 9 shows that 94.4% of the users could distinguish between the slides tailored for long vs short pre- sentations. However, an interesting observation (Table 6) while distinguishing between technical vs non-technical",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-019",
+      "file": "Persona-Aware-D2S/assets/images/picture-019.png",
+      "type": "figure",
+      "page": 14,
+      "caption": "Figure 10: Shows the survey form used to recruit participants in fields like Software Engineering, ML/Data Science, NLP, and Computer Vision and the main goal is to analyze the effectiveness of persona-tailored scientific slide generation. It measures the participant’s familiarity with NLP papers, presentation experience, and willingness to prepare for the task. Respondents are also asked about their frequency of creating AI-related presentations.",
+      "nearby_text": "prior AI conferences, we ask them to answer the following questions as shown in Figure 10 and also some additional questions J. The ones who have provided satisfac- tory answers to questions such as prior attendance to NLP conference, number of NLP papers they have read, answering convincing details",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-020",
+      "file": "Persona-Aware-D2S/assets/images/picture-020.png",
+      "type": "figure",
+      "page": 20,
+      "caption": "Figure 11: The slides generated from our baseline ZS-method based on the slide title “Methodology Description” which shows that in the first slide, we have some non-relevant content of “Addressing Two Problems”, and in the second slide, we have non-relevant content on Results.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-021",
+      "file": "Persona-Aware-D2S/assets/images/picture-021.png",
+      "type": "figure",
+      "page": 20,
+      "caption": "Figure 12: The slides generated from our proposed Persona-Aware-D2S-method based on the slide title “Methodol- ogy Description” which shows that in the first slide, we have some methods explained along with equations, and in the second slide, the model generates matrix, model and parameter estimation. Hence, non-relevant content is less compared to our baseline method. Moreover, it suffices the requirements of Expert Audience more than the content displayed by our baseline method.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-022",
+      "file": "Persona-Aware-D2S/assets/images/picture-022.png",
+      "type": "table",
+      "page": 21,
+      "caption": "Table 10: Shows the trade-off between using entire paper as candidates in 3.2 (higher number of GPT calls) vs the performance of recall in candidate filtering. The data shows a pattern where, as the average number of GPT calls increases, the precision slightly decreases, while recall significantly increases. This step was mostly done to chunk the input prompt (for GPT-3.5-turbo) to 4096 token limit, but we infer that making smaller number of GPT calls upto five might hurt the performance of candidate retrieval.",
+      "nearby_text": "Our proposed candidate-filtering approach saves GPT-calls by eight times Table 10 shows",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-023",
+      "file": "Persona-Aware-D2S/assets/images/picture-023.png",
+      "type": "table",
+      "page": 21,
+      "caption": "Table 11: Generalizability of our approach on three LLMs, where we report the zero-shot content extraction performance of all the models on the development set. All these models have the same set of slide outlines and the persona-aware constraints in their inputs to show a fair comparison. Stoked by the best performance of GPT-3.5-turbo, we conduct all our experiments in the main paper using that model.",
+      "nearby_text": "Generalizability of our approach with other LLMs Table 11 shows that almost any GPT- based LLMs can be leveraged with our approach. We conduct all experiments with GPT-3.5-turbo",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-024",
+      "file": "Persona-Aware-D2S/assets/images/picture-024.png",
+      "type": "table",
+      "page": 21,
+      "caption": "Table 12: Comparison of the ability of the expert authors (required time) to create their own presentations from scientific papers and tailored for non-expert audience having limited experience in NLP and Machine Learning with first-draft of slides generated from Zero-shot personalized approach (ZS-TG, ZS-CE, summarization and alignment), our proposed P-F approach and from scratch when they do not see any first draft.",
+      "nearby_text": "from our proposed model, baseline model and compared to starting from scratch. Table 12 indicates a majority con- sensus between authors that making presentations from scratch takes over one hour, but using ZS model’s output can cut it down to 45 to 60 minutes, and P-F can bring it below 30 minutes",
+      "parser_confidence": "low"
+    }
+  ]
+}
