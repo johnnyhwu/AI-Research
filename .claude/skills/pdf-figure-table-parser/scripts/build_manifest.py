@@ -23,6 +23,15 @@ Optional:
         y value when the automatic heuristic gets a page wrong (unusual
         layouts, two-column papers, captions above rather than below the
         visual).
+    --crop-bottom-override page:kind:num=y[,page:kind:num=y...]
+        Manually override the bottom boundary (default: 3pt above the
+        caption's own top edge, which assumes the caption sits below its
+        visual). Needed for the common academic-table convention of
+        captioning ABOVE the table: there the real content is below the
+        caption, so both --crop-top-override (set to just below the
+        caption) and --crop-bottom-override (set to just below the table's
+        last row) are needed together. Use dump_blocks.py to find the y
+        value just below the table's last row.
     --zoom FLOAT           Render zoom factor (default 3.0, ~216 DPI at
                             standard letter/A4 page size).
     --margin-x FLOAT       Force a fixed horizontal crop margin in points
@@ -99,6 +108,7 @@ def main():
     ap.add_argument("--out-dir", required=True, help="Directory to receive images/ and image-manifest.json")
     ap.add_argument("--source-pdf-repo-path", required=True, help="Value for the manifest's source_pdf field")
     ap.add_argument("--crop-top-override", default="")
+    ap.add_argument("--crop-bottom-override", default="")
     ap.add_argument("--zoom", type=float, default=3.0)
     ap.add_argument("--margin-x", type=float, default=None)
     ap.add_argument("--min-caption-width", type=float, default=400.0)
@@ -117,6 +127,7 @@ def main():
         captions_by_page.setdefault(c["page"], []).append(c)
 
     overrides = parse_overrides(args.crop_top_override)
+    bottom_overrides = parse_overrides(args.crop_bottom_override)
 
     images_dir = os.path.join(args.out_dir, "images")
     os.makedirs(images_dir, exist_ok=True)
@@ -136,7 +147,7 @@ def main():
             top = lib.auto_crop_top(page_no, c["bbox"], captions_by_page, page_w)
             source = "auto heuristic"
 
-        bottom = c["bbox"][1] - 3
+        bottom = bottom_overrides.get(key, c["bbox"][1] - 3)
         if args.margin_x is not None:
             left, right = args.margin_x, page_w - args.margin_x
             hsource = "explicit --margin-x"
@@ -149,7 +160,7 @@ def main():
         fpath = os.path.join(images_dir, fname)
         w, h = lib.render_crop(page, rect, fpath, zoom=args.zoom)
 
-        nearby = lib.find_nearby_text(all_blocks, caption_bboxes, kind, num)
+        nearby = lib.find_nearby_text(all_blocks, caption_bboxes, c["label"])
         entry_type = "table" if kind == "table" else "figure"
 
         table_md = None
