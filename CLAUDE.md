@@ -30,7 +30,16 @@ Each source document gets its own directory nested one level under either
 - **`done/<TopicDir>/`** — `article.md` exists. The moment Step 1 finishes
   writing `article.md` for a topic, move its directory from `in-progress/`
   to `done/` (`git mv in-progress/<TopicDir> done/<TopicDir>`) as part of
-  finishing that task.
+  finishing that task. `image-manifest.json`'s own `source_pdf` and every
+  image's `file` field are repo-relative paths baked in verbatim when Step 2
+  ran — and per the ordering constraint below, Step 2 always ran while the
+  topic was still under `in-progress/`. `git mv` doesn't rewrite file
+  contents, so after the move those baked-in paths still point at the old
+  `in-progress/<TopicDir>/...` location and `verify_manifest.py` will report
+  every image file missing. Fix this every time you do the move: rewrite
+  `in-progress/<TopicDir>/` to `done/<TopicDir>/` in both `source_pdf` and
+  every `images[].file` in the manifest, then re-run
+  `pdf-figure-table-parser`'s `verify_manifest.py` to confirm.
 
 Expected contents of a topic directory, once both steps have run:
 
@@ -76,7 +85,7 @@ manifest that doesn't exist.
 | User says (roughly) | Do this |
 |---|---|
 | "針對 `<dir>` 開始 parse pdf" / "parse the PDF in `<dir>`" / "extract figures/tables from `<dir>`" | Use the **`pdf-figure-table-parser`** skill against the PDF in `<dir>/` (look under `in-progress/<dir>/`, or `done/<dir>/` if re-parsing a finished topic). Output goes to `<dir>/assets/image-manifest.json` + `<dir>/assets/images/` (see canonical path above). |
-| "開始產生 blog" / "generate the blog (post) for `<dir>`" / "write the article for `<dir>`" | Use the **`blog-writer`** skill (`.claude/skills/blog-writer/`) against `<dir>/` (`in-progress/<dir>/`). Once `article.md` is written, `git mv` the directory into `done/`. |
+| "開始產生 blog" / "generate the blog (post) for `<dir>`" / "write the article for `<dir>`" | Use the **`blog-writer`** skill (`.claude/skills/blog-writer/`) against `<dir>/` (`in-progress/<dir>/`). Once `article.md` is written, `git mv` the directory into `done/` — and fix the manifest's baked-in paths as part of that move (see the `done/`/`in-progress/` section above). |
 | Ambiguous ("do the pipeline for `<dir>`", no PDF/manifest yet) | Run Step 2 first, then Step 1, per the ordering constraint above. The topic should be under `in-progress/` until Step 1 finishes, then moved to `done/`. |
 
 Both skills are self-contained and are the sole source of truth for how to

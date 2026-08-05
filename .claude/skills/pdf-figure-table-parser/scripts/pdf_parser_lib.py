@@ -13,7 +13,7 @@ import os
 
 import pymupdf
 
-CAPTION_RE = re.compile(r"^(Figure|Table)\s+(\d+)", re.IGNORECASE)
+CAPTION_RE = re.compile(r"^(Figure|Fig\.?|Table)\s+(\d+)", re.IGNORECASE)
 
 
 def norm(text):
@@ -36,16 +36,24 @@ def page_blocks(doc):
 
 def find_captions(doc, min_caption_width=400):
     """
-    Locate every 'Figure N' / 'Table N' caption in the document.
+    Locate every 'Figure N' / 'Fig. N' / 'Table N' caption in the document.
 
-    A caption is a text block that STARTS with "Figure N" / "Table N" (no
-    comma right after the number -- that pattern means the sentence is an
-    inline cross-reference like "Table 2, Figure 3, and Table 3 test ...",
-    not the caption itself). When the same (kind, num) is matched by more
-    than one block -- which happens because papers also refer to visuals in
-    running prose -- the longest matching block wins, since the real caption
-    is always the fullest description. A minimum width filter guards against
-    narrow incidental matches.
+    A caption is a text block that STARTS with "Figure N" / "Fig. N" /
+    "Table N" (no comma right after the number -- that pattern means the
+    sentence is an inline cross-reference like "Table 2, Figure 3, and Table
+    3 test ...", not the caption itself). When the same (kind, num) is
+    matched by more than one block -- which happens because papers also
+    refer to visuals in running prose -- the longest matching block wins,
+    since the real caption is always the fullest description. A minimum
+    width filter guards against narrow incidental matches.
+
+    "Figure"/"Fig."/"fig" all normalize to kind "figure" so a paper that
+    abbreviates its captions doesn't get treated as a different visual type.
+    The exact matched prefix (e.g. "Fig. 1") is kept separately as "label",
+    since that's the literal string this paper actually uses when
+    cross-referencing the same visual elsewhere in the body -- needed by
+    find_nearby_text, which must search for the paper's own phrasing rather
+    than an assumed spelled-out "Figure N".
     """
     candidates = {}
     for pno, page in enumerate(doc, start=1):
@@ -57,12 +65,14 @@ def find_captions(doc, min_caption_width=400):
                 continue
             if clean[m.end():m.end() + 1] == ",":
                 continue  # inline cross-reference, e.g. "Table 2, Figure 3, and ..."
-            key = (m.group(1).lower(), int(m.group(2)))
+            kind = "figure" if m.group(1).lower().startswith("fig") else "table"
+            key = (kind, int(m.group(2)))
             entry = {
                 "page": pno,
                 "bbox": (x0, y0, x1, y1),
                 "kind": key[0],
                 "num": key[1],
+                "label": norm(clean[:m.end()]),
                 "text": norm(clean),
             }
             if key not in candidates or len(entry["text"]) > len(candidates[key]["text"]):
@@ -215,13 +225,13 @@ def auto_crop_hbounds(page, top, bottom, caption_bbox, pad=8.0, min_width=40.0, 
     return max(0.0, x0 - pad), min(page_w, x1 + pad)
 
 
-def find_nearby_text(blocks, caption_bboxes, kind, num, window_before=80, window_after=220):
+def find_nearby_text(blocks, caption_bboxes, label, window_before=80, window_after=220):
     """
-    First mention of 'Figure N' / 'Table N' in the document body outside of
-    the caption itself -- gives Step-3-style downstream consumers context
+    First mention of the visual's own caption label (e.g. "Figure 3" or
+    "Fig. 3", exactly as the paper phrases it) in the document body outside
+    of the caption itself -- gives Step-3-style downstream consumers context
     for why the visual is referenced. None if no such mention exists.
     """
-    label = f"{kind.capitalize()} {num}"
     for blk in blocks:
         if (blk["page"], blk["bbox"]) in caption_bboxes:
             continue
