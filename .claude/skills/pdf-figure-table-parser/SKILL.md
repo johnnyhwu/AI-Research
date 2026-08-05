@@ -159,6 +159,31 @@ just below the last real paragraph and just above the caption), then rerun
 
 (format: `page:kind:num=y`, comma-separated for multiple overrides).
 
+**Caption-above-content is a separate case from a merely-wrong top boundary,
+and needs both overrides together.** `build_manifest.py`'s default bottom
+boundary is always "3pt above the caption's own top edge" -- correct for the
+usual figure convention (caption below the visual), but backwards for the
+common academic-table convention of captioning *above* the table. On a page
+like that, the real table content sits *below* the caption, so leaving the
+default bottom boundary in place crops the page header or blank space above
+the caption instead of the table -- `--crop-top-override` alone can't fix
+this, since it only moves the top edge and the bottom edge is still anchored
+above the caption. Use `dump_blocks.py` to find the y-coordinate just below
+the table's last row, and pass it via `--crop-bottom-override` (same
+`page:kind:num=y` format) alongside a `--crop-top-override` set to just below
+the caption:
+
+```bash
+--crop-top-override "5:table:1=326" --crop-bottom-override "5:table:1=442"
+```
+
+This convention (caption above, content below) is common enough for tables
+specifically that it's worth checking every table entry's rendered
+dimensions against `dump_blocks.py` output up front on any paper with
+ruleless/dense tables, rather than waiting for a visibly-wrong pixel size to
+notice it -- a crop that grabs the page's running header text instead of the
+table can still produce a plausible-looking, non-degenerate pixel size.
+
 ## Two-column papers: what to watch for
 
 A two-column academic layout (very common for conference-style papers, less
@@ -185,6 +210,19 @@ same root cause -- a single-column-width assumption baked into a heuristic:
   cluster into one or two consistent widths -- "one column" and "full
   width" -- not a continuum) is a fast, image-free way to spot which entries
   are off.
+
+The same low-`--min-caption-width` fix applies beyond two-column layouts,
+too: some single-column papers use a narrower-than-usual text column (e.g.
+~345pt instead of the ~400-480pt a US-letter/A4 page with normal margins
+usually gives you), and a small inset figure's caption can be narrower still
+if it sits beside other content rather than spanning the full column. If
+`inspect_pdf.py` finds zero or suspiciously few captions on a paper that
+isn't two-column, don't assume two-column-ness is the only possible cause --
+check the actual caption block widths with `dump_blocks.py` and lower
+`--min-caption-width` to whatever the real minimum is (down to a very low
+value like `50` is fine; the risk of noise from *other* short blocks
+matching the regex is low, since `find_captions` already requires the block
+to start with "Figure"/"Fig."/"Table" and reject inline cross-references).
 
 ## Why tables often end up low-confidence, and why that's fine
 
