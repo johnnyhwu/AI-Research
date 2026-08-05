@@ -19,15 +19,23 @@ obvious from the files alone.
 
 ## Topic directories
 
-Each source document gets its own top-level directory at the repo root —
-e.g. `SkillOpt/`. Think of this as playing the role of `docs/<slug>/` from
-the broader pipeline's usual layout, just without a `docs/` prefix: this
-repo puts each topic's directory straight at the root.
+Each source document gets its own directory nested one level under either
+`done/` or `in-progress/` at the repo root — e.g. `done/SkillOpt/` or
+`in-progress/RecursiveMAS/`. Think of this as playing the role of
+`docs/<slug>/` from the broader pipeline's usual layout, just with a
+`done/` or `in-progress/` prefix instead of `docs/`.
+
+- **`in-progress/<TopicDir>/`** — Step 1 hasn't produced `article.md` yet
+  (Step 2 may or may not have run). New topics start here.
+- **`done/<TopicDir>/`** — `article.md` exists. The moment Step 1 finishes
+  writing `article.md` for a topic, move its directory from `in-progress/`
+  to `done/` (`git mv in-progress/<TopicDir> done/<TopicDir>`) as part of
+  finishing that task.
 
 Expected contents of a topic directory, once both steps have run:
 
 ```
-<TopicDir>/
+<done-or-in-progress>/<TopicDir>/
   <original-paper>.pdf        # the source PDF -- keep its real filename,
                                # don't require it to be literally "source.pdf"
   <notes-or-chatlog>.<ext>    # the AI-discussion transcript / user's notes on
@@ -40,11 +48,16 @@ Expected contents of a topic directory, once both steps have run:
 ```
 
 **Canonical path for new topics**: put Step 2's output directly at
-`<TopicDir>/assets/image-manifest.json` and `<TopicDir>/assets/images/` —
-that's what Step 1 expects to find. (`SkillOpt/` itself is a first-cut
-exception: its manifest lives at `SkillOpt/parsed/assets/image-manifest.json`
+`<TopicDir>/assets/image-manifest.json` and `<TopicDir>/assets/images/`
+(under whichever of `done/`/`in-progress/` the topic currently lives in) —
+that's what Step 1 expects to find. (`done/SkillOpt/` itself is a first-cut
+exception: its manifest lives at `done/SkillOpt/parsed/assets/image-manifest.json`
 instead, from before this convention was written down. Don't replicate that
 extra `parsed/` nesting for new topics.)
+
+Many directories under `done/` predate this PDF-based pipeline entirely —
+they have `article.md` but no source PDF or manifest (old hand-written
+posts). Treat them as already done; there's nothing to parse for them.
 
 ## The ordering constraint
 
@@ -62,9 +75,9 @@ manifest that doesn't exist.
 
 | User says (roughly) | Do this |
 |---|---|
-| "針對 `<dir>` 開始 parse pdf" / "parse the PDF in `<dir>`" / "extract figures/tables from `<dir>`" | Use the **`pdf-figure-table-parser`** skill against the PDF in `<dir>/`. Output goes to `<dir>/assets/image-manifest.json` + `<dir>/assets/images/` (see canonical path above). |
-| "開始產生 blog" / "generate the blog (post) for `<dir>`" / "write the article for `<dir>`" | Use the **`blog-writer`** skill (`.claude/skills/blog-writer/`) against `<dir>/`. |
-| Ambiguous ("do the pipeline for `<dir>`", no PDF/manifest yet) | Run Step 2 first, then Step 1, per the ordering constraint above. |
+| "針對 `<dir>` 開始 parse pdf" / "parse the PDF in `<dir>`" / "extract figures/tables from `<dir>`" | Use the **`pdf-figure-table-parser`** skill against the PDF in `<dir>/` (look under `in-progress/<dir>/`, or `done/<dir>/` if re-parsing a finished topic). Output goes to `<dir>/assets/image-manifest.json` + `<dir>/assets/images/` (see canonical path above). |
+| "開始產生 blog" / "generate the blog (post) for `<dir>`" / "write the article for `<dir>`" | Use the **`blog-writer`** skill (`.claude/skills/blog-writer/`) against `<dir>/` (`in-progress/<dir>/`). Once `article.md` is written, `git mv` the directory into `done/`. |
+| Ambiguous ("do the pipeline for `<dir>`", no PDF/manifest yet) | Run Step 2 first, then Step 1, per the ordering constraint above. The topic should be under `in-progress/` until Step 1 finishes, then moved to `done/`. |
 
 Both skills are self-contained and are the sole source of truth for how to
 do Step 1 / Step 2 in this repo. No spec document will be supplied alongside
