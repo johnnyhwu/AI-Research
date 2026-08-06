@@ -1,0 +1,69 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-01-21-model-training-inference/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Model-Training-Inference/assets/images/machine-learning-process.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "Machine Learning 中主要分為這三個步驟 [source: Udacity]",
+      "nearby_text": "此三者的關係就像是「手拉坯」的過程！「模型」就像是一塊未經過雕塑的「黏土」，「訓練」則是透過我們的雙手去雕塑黏土的過程，「推論」則像是已經雕塑好的容器要進行測試。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Model-Training-Inference/assets/images/machine-learning-function.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "機器學習中的模型就是一個函式：輸入一張圖片，輸出這張圖片的類別",
+      "nearby_text": "模型可以想成一個「函式」(Function)。函式的概念很單純：輸入一個東西，輸出另外一個東西。例如，下圖是一個函式：輸入一張圖片，輸出這張圖片的類別。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/Model-Training-Inference/assets/images/machine-learning-function-1.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "機器學習中的模型就像是一個函式：輸入房子的坪數，輸出這間房子的價格",
+      "nearby_text": "又或者是下面這個函式：輸入房子的坪數，輸出這間房子的價格。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/Model-Training-Inference/assets/images/machine-learning-function-2.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "機器學習中的模型就像是一個複雜的函式，函式內包含 w1、w2 與 w3 三個參數",
+      "nearby_text": "既然已經了解模型其實就是函式，函式內當然有許多的參數。例如，下方的函式中就包含了 w1、w2 與 w3 三個參數。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/Model-Training-Inference/assets/images/linear-regression-model.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "紅色的線就是我們希望學到的模型",
+      "nearby_text": "如果將很多的 (坪數 => 價格) 的樣本，通通畫在一個二維平面上，如同圖中的藍色點點。我們希望模型透過這些藍色點點，可以自動調整自己的參數。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/Model-Training-Inference/assets/images/linear-regression-model-1.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "模型從 (1) 慢慢變成 (3)",
+      "nearby_text": "一開始的模型可能是一條水平線 (1)，模型調整一次參數後，變成稍微斜一點的直線 (2)，隨著模型調整愈多次參數，最終變成我們想要的模型 (3)。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/Model-Training-Inference/assets/images/model-inference.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "輸入房子的坪數，模型輸出預測的價格",
+      "nearby_text": "當我們得到一個只有坪數沒有價格的樣本時，就能透過我們已經訓練過的模型，進行價格的預測 (紅色點點)。",
+      "parser_confidence": "high"
+    }
+  ]
+}

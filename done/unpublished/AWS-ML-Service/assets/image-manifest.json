@@ -1,0 +1,15 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-02-11-aws-ml-service/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/AWS-ML-Service/assets/images/machine-learning-on-aws.jpeg",
+      "type": "figure",
+      "page": null,
+      "caption": "Machine Learning on AWS [source: AWS Machine Learning Foundation Course on Udacity]",
+      "nearby_text": "AWS (Amazon Web Service) 提供了許多 AI 與 ML Services。透過 AWS AI Services，開發者可以快速的將 AI 技術引入應用程式中。此外，機器學習領域的開發者也可以透過 AWS ML Services 中的 Amazon SageMaker 簡化機器學習的建置、訓練與部署的各項流程。",
+      "parser_confidence": "high"
+    }
+  ]
+}

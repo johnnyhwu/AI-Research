@@ -1,0 +1,51 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-02-17-neural-network-classify-handwritten-digit-image/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Neural-Network-Classify-Handwritten-Digit-Image/assets/images/hanwritten-digit.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "手寫數字圖像示意圖 [source: Neural Networks and Deep Learning]",
+      "nearby_text": "上圖呈現的就是一張手寫數字的圖像。我們希望訓練一個 Neural Network 能夠精確地辨識其中的每一個數字 —— 504192。辨識的過程分為兩個步驟：先進行圖像分割，再針對每一個數字圖像進行分類 (0 ~ 9)。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Neural-Network-Classify-Handwritten-Digit-Image/assets/images/neural-network-2.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "Neural Network 的設計 [source: Neural Networks and Deep Learning]",
+      "nearby_text": "Input Layer 中的每一個 Neuron 代表圖像中每一個 Pixel 的數值，因為圖像尺寸都是 28 × 28，所以 Input Layer 總共會有 784 個 Neuron；Hidden Layer 只用了一個，裡面有 15 個 Neuron；Output Layer 則包含 10 個 Neuron，分別代表數字 0 到 9。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/Neural-Network-Classify-Handwritten-Digit-Image/assets/images/mnist-top-left-feature.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "數字 0 的左上部分 [source: Neural Networks and Deep Learning]",
+      "nearby_text": "如果 Hidden Layer 中的第 1 個 Neuron 負責辨識上圖那樣的特徵，那麼它在計算權重乘積的總和時，就會給予那一部分的 Input Neuron 特別大的權重，其餘部分的權重則比較小。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/Neural-Network-Classify-Handwritten-Digit-Image/assets/images/mnist-feature.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "由左而右分別是數字 0 的右上、左下與右下部分 [source: Neural Networks and Deep Learning]",
+      "nearby_text": "同理，下方 3 種特徵分別由 Hidden Layer 的第 2、3 與 4 個 Neuron 負責。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/Neural-Network-Classify-Handwritten-Digit-Image/assets/images/mnist-zero.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "數字 0 的手寫圖像",
+      "nearby_text": "如果將這 4 種特徵合在一起，其實就是一張數字 0 的手寫圖像！",
+      "parser_confidence": "high"
+    }
+  ]
+}

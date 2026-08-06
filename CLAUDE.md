@@ -19,32 +19,61 @@ obvious from the files alone.
 
 ## Topic directories
 
-Each source document gets its own directory nested one level under either
-`done/` or `in-progress/` at the repo root — e.g. `done/SkillOpt/` or
-`in-progress/RecursiveMAS/`. Think of this as playing the role of
-`docs/<slug>/` from the broader pipeline's usual layout, just with a
-`done/` or `in-progress/` prefix instead of `docs/`.
+Each source document gets its own directory at the repo root, nested under
+one of **three** buckets that together track how far the topic has got:
+
+```
+in-progress/<TopicDir>/          Step 1 hasn't written article.md yet
+done/unpublished/<TopicDir>/     article.md exists, no Hugo post yet
+done/published/<TopicDir>/       article.md exists AND Step 3 has shipped it
+```
+
+Think of a bucket as playing the role of `docs/<slug>/` from the broader
+pipeline's usual layout, just with an `in-progress/` or `done/<state>/`
+prefix instead of `docs/`. Note that a topic under `done/` sits **two**
+levels down, not one — `done/published/SkillOpt/`, never `done/SkillOpt/`.
 
 - **`in-progress/<TopicDir>/`** — Step 1 hasn't produced `article.md` yet
   (Step 2 may or may not have run). New topics start here.
-- **`done/<TopicDir>/`** — `article.md` exists. The moment Step 1 finishes
-  writing `article.md` for a topic, move its directory from `in-progress/`
-  to `done/` (`git mv in-progress/<TopicDir> done/<TopicDir>`) as part of
-  finishing that task. `image-manifest.json`'s own `source_pdf` and every
-  image's `file` field are repo-relative paths baked in verbatim when Step 2
-  ran — and per the ordering constraint below, Step 2 always ran while the
-  topic was still under `in-progress/`. `git mv` doesn't rewrite file
-  contents, so after the move those baked-in paths still point at the old
-  `in-progress/<TopicDir>/...` location and `verify_manifest.py` will report
-  every image file missing. Fix this every time you do the move: rewrite
-  `in-progress/<TopicDir>/` to `done/<TopicDir>/` in both `source_pdf` and
-  every `images[].file` in the manifest, then re-run
-  `pdf-figure-table-parser`'s `verify_manifest.py` to confirm.
+- **`done/unpublished/<TopicDir>/`** — `article.md` exists but no post has
+  been published from it yet. This is where a topic lands the moment Step 1
+  finishes. **This bucket is the publishing queue**: when someone asks
+  "what's ready to publish?", this is the answer, and it's the only place
+  worth looking for the next Step 3 candidate.
+- **`done/published/<TopicDir>/`** — a Hugo post exists for this topic in
+  `HUGO_REPO` (`johnnyhwu/johnnyhwu.github.io`, under
+  `content/posts/<section>/<slug>/`). Topics here are finished; touch one
+  only when fixing an already-published post.
+
+### Moving a topic between buckets
+
+Two moves happen in the normal life of a topic, and **both** need the same
+manifest fix-up:
+
+1. Step 1 finishes writing `article.md` →
+   `git mv in-progress/<TopicDir> done/unpublished/<TopicDir>`. Do this as
+   part of finishing that task, not later.
+2. Step 3 publishes the post in `HUGO_REPO` →
+   `git mv done/unpublished/<TopicDir> done/published/<TopicDir>`. Step 3
+   runs in the *other* repo, so this move is a companion commit here; the
+   `hugo-paper-post` skill over there tells its operator to come back and
+   make it.
+
+`image-manifest.json`'s own `source_pdf` and every image's `file` field are
+repo-relative paths baked in verbatim when Step 2 ran — and per the ordering
+constraint below, Step 2 always ran while the topic was still under
+`in-progress/`. `git mv` doesn't rewrite file contents, so after a move
+those baked-in paths still point at the topic's old location and
+`verify_manifest.py` will report every image file missing. Fix this every
+time you move a directory: rewrite the bucket prefix in both `source_pdf`
+and every `images[].file` so each path reads
+`<new-bucket>/<TopicDir>/...`, then re-run `pdf-figure-table-parser`'s
+`verify_manifest.py` to confirm.
 
 Expected contents of a topic directory, once both steps have run:
 
 ```
-<done-or-in-progress>/<TopicDir>/
+<bucket>/<TopicDir>/
   <original-paper>.pdf        # the source PDF -- keep its real filename,
                                # don't require it to be literally "source.pdf"
   <notes-or-chatlog>.<ext>    # the AI-discussion transcript / user's notes on
@@ -58,15 +87,21 @@ Expected contents of a topic directory, once both steps have run:
 
 **Canonical path for new topics**: put Step 2's output directly at
 `<TopicDir>/assets/image-manifest.json` and `<TopicDir>/assets/images/`
-(under whichever of `done/`/`in-progress/` the topic currently lives in) —
-that's what Step 1 expects to find. (`done/SkillOpt/` itself is a first-cut
-exception: its manifest lives at `done/SkillOpt/parsed/assets/image-manifest.json`
-instead, from before this convention was written down. Don't replicate that
-extra `parsed/` nesting for new topics.)
+(under whichever bucket the topic currently lives in) — that's what Step 1
+expects to find. (`done/published/SkillOpt/` itself is a first-cut
+exception: its manifest lives at
+`done/published/SkillOpt/parsed/assets/image-manifest.json` instead, from
+before this convention was written down. Don't replicate that extra
+`parsed/` nesting for new topics.)
 
 Many directories under `done/` predate this PDF-based pipeline entirely —
-they have `article.md` but no source PDF or manifest (old hand-written
-posts). Treat them as already done; there's nothing to parse for them.
+they have `article.md` and a hand-curated `assets/` directory, but no
+source PDF (old hand-written blog posts, migrated in). Their manifests have
+`"source_pdf": null`. Treat them as already done; there's nothing to parse
+for them. They also often ship the original post's cover image (a
+`feature-image-*.jpg`) inside `assets/images/` **without** a matching
+manifest entry — that's deliberate, and Step 3 uses it as the post's
+`featuredImage`.
 
 ## The ordering constraint
 
@@ -84,9 +119,11 @@ manifest that doesn't exist.
 
 | User says (roughly) | Do this |
 |---|---|
-| "針對 `<dir>` 開始 parse pdf" / "parse the PDF in `<dir>`" / "extract figures/tables from `<dir>`" | Use the **`pdf-figure-table-parser`** skill against the PDF in `<dir>/` (look under `in-progress/<dir>/`, or `done/<dir>/` if re-parsing a finished topic). Output goes to `<dir>/assets/image-manifest.json` + `<dir>/assets/images/` (see canonical path above). |
-| "開始產生 blog" / "generate the blog (post) for `<dir>`" / "write the article for `<dir>`" | Use the **`blog-writer`** skill (`.claude/skills/blog-writer/`) against `<dir>/` (`in-progress/<dir>/`). Once `article.md` is written, `git mv` the directory into `done/` — and fix the manifest's baked-in paths as part of that move (see the `done/`/`in-progress/` section above). |
-| Ambiguous ("do the pipeline for `<dir>`", no PDF/manifest yet) | Run Step 2 first, then Step 1, per the ordering constraint above. The topic should be under `in-progress/` until Step 1 finishes, then moved to `done/`. |
+| "針對 `<dir>` 開始 parse pdf" / "parse the PDF in `<dir>`" / "extract figures/tables from `<dir>`" | Use the **`pdf-figure-table-parser`** skill against the PDF in `<dir>/` (look under `in-progress/<dir>/`, or `done/unpublished/<dir>/` — or `done/published/<dir>/` — if re-parsing a finished topic). Output goes to `<dir>/assets/image-manifest.json` + `<dir>/assets/images/` (see canonical path above). |
+| "開始產生 blog" / "generate the blog (post) for `<dir>`" / "write the article for `<dir>`" | Use the **`blog-writer`** skill (`.claude/skills/blog-writer/`) against `in-progress/<dir>/`. Once `article.md` is written, `git mv` the directory into `done/unpublished/` — and fix the manifest's baked-in paths as part of that move (see "Moving a topic between buckets" above). |
+| Ambiguous ("do the pipeline for `<dir>`", no PDF/manifest yet) | Run Step 2 first, then Step 1, per the ordering constraint above. The topic stays under `in-progress/` until Step 1 finishes, then moves to `done/unpublished/`. |
+| "哪些文章可以發布了？" / "what's ready to publish?" / "which topics are done but not published?" | List `done/unpublished/`. That bucket *is* the answer — no cross-referencing against the Hugo repo needed. |
+| "`<dir>` 已經發布了" / "mark `<dir>` as published" (usually after Step 3 shipped it in `HUGO_REPO`) | `git mv done/unpublished/<dir> done/published/<dir>`, fix the manifest's baked-in paths, re-run `verify_manifest.py`. |
 
 Both skills are self-contained and are the sole source of truth for how to
 do Step 1 / Step 2 in this repo. No spec document will be supplied alongside

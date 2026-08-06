@@ -62,7 +62,7 @@ canonical layout):
   your primary and, per the hard rule above, *only* source of facts.
 - `<dir>/assets/image-manifest.json` — normally at this canonical path, but
   check `CLAUDE.md`'s topic-directory section for any documented per-topic
-  exception (e.g. `SkillOpt/parsed/assets/image-manifest.json`) before
+  exception (e.g. `done/published/SkillOpt/parsed/assets/image-manifest.json`) before
   assuming the canonical path. Read only `id` / `caption` / `page` / `type` /
   `nearby_text` from each entry.
 
@@ -202,6 +202,12 @@ the repo's fail-loud-not-silent rule.
 - The prose is Traditional Chinese, Taiwan usage, and reads like a person
   wrote it — not translationese, not generic AI phrasing.
 - `verify_article.py` passes.
+- The topic directory has been moved out of `in-progress/` into
+  `done/unpublished/` (`git mv`), with the manifest's baked-in `source_pdf`
+  and `images[].file` paths rewritten to the new bucket and
+  `verify_manifest.py` re-run — see repo `CLAUDE.md`, "Moving a topic
+  between buckets". Writing `article.md` and leaving the directory under
+  `in-progress/` is an unfinished task, not a finished one.
 
 ## Files in this skill
 

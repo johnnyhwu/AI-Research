@@ -1,0 +1,15 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-05-14-conditional-vs-joint-probability/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Conditional-Vs-Joint-Probability/assets/images/feature-image.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "條件機率 vs 聯合機率 文章題圖 [source: Pixabay]",
+      "nearby_text": "三種基本機率類型中的「條件機率」與「聯合機率」經常使初學者分不清楚。因此，在本篇文章中，將會以更簡單的方式說明兩者的差別。此外，我們也會了解機率中「AND」、「OR」的概念。",
+      "parser_confidence": "high"
+    }
+  ]
+}

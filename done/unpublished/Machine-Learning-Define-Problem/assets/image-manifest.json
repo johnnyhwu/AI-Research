@@ -1,0 +1,42 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-01-27-machine-learning-define-problem/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Machine-Learning-Define-Problem/assets/images/machine-learning-in-five-steps.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "機器學習解決問題的五個步驟",
+      "nearby_text": "透過機器學習解決問題的五步驟，分別為：定義問題 (Define Problem)、建立資料集 (Build Dataset)、訓練模型 (Train Model)、評估模型 (Evaluate Model)、使用模型 (Use Model)。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Machine-Learning-Define-Problem/assets/images/define-problem-in-machine-learning.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "機器學習解決問題的第一步：定義問題",
+      "nearby_text": "以字面上的意思而言，「定義問題」就是了解想要解決的是什麼問題。在此步驟中，我們必須盡可能做到兩個目標：定義更具體的問題，以及辨識問題屬於機器學習中的什麼任務。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/Machine-Learning-Define-Problem/assets/images/supervised-learning-vs-unsupervised-learning.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "機器學習中監督式學習與非監督式學習的差異",
+      "nearby_text": "監督式與非監督式學習的關鍵差異，在於有沒有監督者在電腦旁邊監督它學習。當電腦答錯時，監督者會告訴電腦正確答案；換句話說，也就是有沒有準備資料的標籤 (Label)。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/Machine-Learning-Define-Problem/assets/images/task-in-machine-learning.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "機器學習中任務的簡單分類",
+      "nearby_text": "監督式學習中包含了「回歸」與「分類」的任務；非監督式學習則包含「分群」這項任務。",
+      "parser_confidence": "high"
+    }
+  ]
+}

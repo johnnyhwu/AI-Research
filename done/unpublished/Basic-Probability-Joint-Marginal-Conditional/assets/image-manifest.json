@@ -1,0 +1,24 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-03-27-basic-probability-joint-marginal-conditional/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Basic-Probability-Joint-Marginal-Conditional/assets/images/probabilty-multiplication-rule.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "機率中的乘法法則",
+      "nearby_text": "了解完三種的基本的機率後，接著介紹機率中的「乘法法則」(Multiplication Rule)。由上圖可以發現，乘法法則將我們前面所介紹的三種機率類型整合在一起！",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Basic-Probability-Joint-Marginal-Conditional/assets/images/---.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "透過文氏圖了解乘法法則",
+      "nearby_text": "P(B) 表示 B 事件發生的機率，也就是上圖的 B 圓圈；P(A) 表示 A 事件發生的機率，也就是上圖的 A 圓圈。P(A ∩ B) 表示 A 事件與 B 事件同時發生的機率，也就是上圖中兩個圈圈重疊的地方。",
+      "parser_confidence": "high"
+    }
+  ]
+}

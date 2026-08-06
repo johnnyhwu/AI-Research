@@ -1,0 +1,42 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-01-31-machine-learning-model-evaluate/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Machine-Learning-Model-Evaluate/assets/images/machine-learning-process-1.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "用機器學習解決問題的第四步驟：模型評估",
+      "nearby_text": "當模型完成訓練後，我們就可以來評估模型的好壞，也就是看看模型的訓練成果如何，我們稱之為「模型評估」(Model Evaluation)。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Machine-Learning-Model-Evaluate/assets/images/loss-function-for-regression.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "Regression 常用的 Loss Function [source: scikit-learn]",
+      "nearby_text": "上面兩張圖是在 scikit-learn 套件中，在評估「分類」與「回歸」模型時，經常用到的指標。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/Machine-Learning-Model-Evaluate/assets/images/loss-function-for-classification.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "Classification 常用的 Loss Function [source: scikit-learn]",
+      "nearby_text": "上面兩張圖是在 scikit-learn 套件中，在評估「分類」與「回歸」模型時，經常用到的指標。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/Machine-Learning-Model-Evaluate/assets/images/machine-learning-process-2.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "模型評估的結果如果不佳，可能是前面的某個步驟有問題",
+      "nearby_text": "模型評估的結果如果不好，則可能是前面幾個步驟出了問題，也許需要重新定義問題、建立資料集，或是重新訓練模型。",
+      "parser_confidence": "high"
+    }
+  ]
+}
