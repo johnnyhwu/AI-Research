@@ -1,0 +1,213 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-07-15-backpropagation-explain/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/published/Backpropagation-Explain/assets/images/neural-network.png",
+      "type": "figure",
+      "page": null,
+      "caption": "有 3 個 Layer 的 Neural Network",
+      "nearby_text": "如上圖所示，這是一個有 3 個 Layer 的 Neural Network，我們用「小寫 L」來表示第幾個 Layer。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/published/Backpropagation-Explain/assets/images/neural-network-with-weight-1.png",
+      "type": "figure",
+      "page": null,
+      "caption": "利用 w 來表示 Neural Network 中的 Weight",
+      "nearby_text": "我們利用 w 來表示 Neural Network 中的 Weight，其形式為 L – 1 Layer 中的第 k 個 Neuron 連接到 L Layer 中第 j 個 Neuron 的 Weight。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/published/Backpropagation-Explain/assets/images/neural-network-with-bias.png",
+      "type": "figure",
+      "page": null,
+      "caption": "用 b 來表示 Neural Network 中的 Bias",
+      "nearby_text": "我們利用 b 來表示 Neural Network 中的 Bias，其形式為 L Layer 中的第 k 個 Neuron 的 Bias。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "done/published/Backpropagation-Explain/assets/images/neural-network-with-activation.png",
+      "type": "figure",
+      "page": null,
+      "caption": "利用 a 表示 Neural Network 的 Activation",
+      "nearby_text": "我們利用 a 來表示 Neural Network 中的 Activation，其形式與 Bias 相同，都是指 L Layer 中的第 k 個 Neuron。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "done/published/Backpropagation-Explain/assets/images/calculate-activation.png",
+      "type": "figure",
+      "page": null,
+      "caption": "計算 Neural Network 中的 Activation",
+      "nearby_text": "Activation 的計算方式如上圖所示：前一個 Layer Activation 的 Weighted Sum 再加上 Bias，最後經過一個 Activation Function。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "done/published/Backpropagation-Explain/assets/images/calculate-activation-2.png",
+      "type": "figure",
+      "page": null,
+      "caption": "用 Vector 與 Matrix 表示 Activation 的計算",
+      "nearby_text": "為了方便起見，我們可以用 Matrix 或是 Vector 來表示整個 Layer 的資訊。這一個 Layer 的 Activation 其實就是前一個 Layer 的 Activation 乘以 Weight 後再加上 Bias，最後通過 Sigmoid Function。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-007",
+      "file": "done/published/Backpropagation-Explain/assets/images/weighted-input-of-neuron.png",
+      "type": "figure",
+      "page": null,
+      "caption": "用 z 表示 Neuron 的 Weighted Input",
+      "nearby_text": "我們將 Activation 算式中 Sigmoid Function 裡面的內容定義為 z，可以將 zl 想成是 L Layer 中 Neuron 的 Weighted Input。有了 zl，Activation 的計算又可以更進一步簡化：al = σ(zl)。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-008",
+      "file": "done/published/Backpropagation-Explain/assets/images/backpropagation-formula.png",
+      "type": "figure",
+      "page": null,
+      "caption": "Backpropagation 演算法四大公式",
+      "nearby_text": "Backpropagation 演算法主要包含四個重要的公式，正是透過這四個公式計算出所有的 ∂C/∂w 與 ∂C/∂b。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-009",
+      "file": "done/published/Backpropagation-Explain/assets/images/understand-backpropagation.png",
+      "type": "figure",
+      "page": null,
+      "caption": "想像 Neural Network 中住著一個小精靈",
+      "nearby_text": "我們想像在 Neural Network 中住著一個小精靈，如上圖所示，小精靈住在第二個 Layer 的第二個 Neuron。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-010",
+      "file": "done/published/Backpropagation-Explain/assets/images/understand-backpropagation-2.png",
+      "type": "figure",
+      "page": null,
+      "caption": "調皮的小精靈在 Neuron 的輸入加料",
+      "nearby_text": "這個小精靈非常調皮，會將這一個 Neuron 的輸入「加料」，使得這一個 Neuron 最終的輸出 (Activation) 由 σ(z) 變成 σ(z + Δz)。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-011",
+      "file": "done/published/Backpropagation-Explain/assets/images/backpropagation-formula-1.png",
+      "type": "figure",
+      "page": null,
+      "caption": "Backpropagation 公式 1",
+      "nearby_text": "BP(1) 是用來計算 Neural Network 中最後一個 Layer（Output Layer）中 Neuron 的 Error。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-012",
+      "file": "done/published/Backpropagation-Explain/assets/images/understand-backpropagation-formula-1-1.png",
+      "type": "figure",
+      "page": null,
+      "caption": "Output Layer 中 Neuron 的 z (Weighted Input)、a (Activation) 與 C (Cost Function) 的計算",
+      "nearby_text": "上圖呈現的是 Output Layer 中的第一個（也是唯一一個）Neuron 的 Weighted Input (z) 與 Activation (a) 的計算方式。因為這是 Output Layer 的 Neuron，因此 Neuron 的輸出又可以與正確答案比對，計算出目前的 Cost。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-013",
+      "file": "done/published/Backpropagation-Explain/assets/images/explain-backpropagation-formula-1.png",
+      "type": "figure",
+      "page": null,
+      "caption": "透過 Chain Rule 計算 C 對 z 的偏微分",
+      "nearby_text": "根據微積分的 Chain Rule，「C 對 z 的偏微分」等於「C 對 a 的偏微分」乘以「a 對 z 的偏微分」。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-014",
+      "file": "done/published/Backpropagation-Explain/assets/images/backpropagation-formula-2.png",
+      "type": "figure",
+      "page": null,
+      "caption": "Backpropagation 公式 2",
+      "nearby_text": "BP(2) 是根據目前 Layer 中 Neuron 的 Error，來計算前一個 Layer 中 Neuron 的 Error。透過 BP(1) 與 BP(2)，我們就能夠計算出 Neural Network 中所有 Neuron 的 Error。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-015",
+      "file": "done/published/Backpropagation-Explain/assets/images/understand-backpropagation-formula-2.png",
+      "type": "figure",
+      "page": null,
+      "caption": "利用 BP(2) 我們可以根據 L=3 的 Error 推算 L=2 的 Error",
+      "nearby_text": "如上圖所示，透過 BP(1) 我們已經計算出 L=3 的 Error，BP(2) 說明如何透過 L=3 的 Error 回推 L=2 的 Error。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-016",
+      "file": "done/published/Backpropagation-Explain/assets/images/understand-backpropagation-formula-2-1.png",
+      "type": "figure",
+      "page": null,
+      "caption": "第二個 Layer 中第一個 Neuron 的 z 與 Cost 的關係",
+      "nearby_text": "在第二個 Layer（L = 2）中有兩個 Neuron，我們就聚焦在第一個 Neuron。上圖的四個公式（① ~ ④）呈現的是這個 Neuron 的 z 與 Cost Function 的關係。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-017",
+      "file": "done/published/Backpropagation-Explain/assets/images/understand-backpropagation-formula-2-3.png",
+      "type": "figure",
+      "page": null,
+      "caption": "透過 Chain Rule 計算 Cost 對 Hidden Layer 中 Neuron 的 z 的偏微分",
+      "nearby_text": "因為 Cost Function 沒有辦法直接對這個 Neuron 的 z 計算偏微分，因此同樣必須透過微積分中的 Chain Rule，幫助我們計算。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-018",
+      "file": "done/published/Backpropagation-Explain/assets/images/understand-backpropagation-formula-2-4.png",
+      "type": "figure",
+      "page": null,
+      "caption": "③ 乘以 ④ 的結果我們在 BP(1) 時就算出來了",
+      "nearby_text": "又因為 ③ 乘以 ④ 的結果我們在 BP(1) 時就算出來了，因此可將算式改寫。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-019",
+      "file": "done/published/Backpropagation-Explain/assets/images/understand-backpropagation-formula-2-5.png",
+      "type": "figure",
+      "page": null,
+      "caption": "計算 ① 與 ② 的偏微分",
+      "nearby_text": "根據 ① 與 ② 的算式，我們可以輕鬆計算出其偏微分。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-020",
+      "file": "done/published/Backpropagation-Explain/assets/images/backpropagation-formula-3.png",
+      "type": "figure",
+      "page": null,
+      "caption": "Backpropagation 公式 3",
+      "nearby_text": "BP(3) 說明了 Cost Function 對 Bias 的偏微分其實就是這個 Neuron 的 Error。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-021",
+      "file": "done/published/Backpropagation-Explain/assets/images/understand-backpropagation-formula-3.png",
+      "type": "figure",
+      "page": null,
+      "caption": "透過 Chain Rule 計算 Cost 對 Bias 的偏微分",
+      "nearby_text": "算式 ① ～ ③ 呈現的是 Output Layer 中第一個 Neuron 的 Bias 與 Cost 的關係。由 Chain Rule 最後的計算結果，我們發現 ∂C/∂b 其實就是 δ。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-022",
+      "file": "done/published/Backpropagation-Explain/assets/images/backpropagation-formula-4.png",
+      "type": "figure",
+      "page": null,
+      "caption": "Backpropagation 公式 4",
+      "nearby_text": "BP(4) 說明 Cost Function 對 Weight 的偏微分就是這個 Neuron 的 Error 再乘以「輸入的 Activation」。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-023",
+      "file": "done/published/Backpropagation-Explain/assets/images/understand-backpropagation-formula-4.png",
+      "type": "figure",
+      "page": null,
+      "caption": "透過 Chain Rule 計算 Cost 對 Weight 的偏微分",
+      "nearby_text": "算式 ① ～ ③ 呈現的是 Output Layer 中第一個 Neuron 的第一個 Weight 與 Cost 的關係。Chain Rule 的計算過程基本上與 BP(3) 一樣。",
+      "parser_confidence": "high"
+    }
+  ]
+}

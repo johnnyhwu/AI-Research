@@ -12,9 +12,13 @@ and "source_pdf" fields, and quality checks resolve them against the
 current working directory.
 
 Usage:
-    python build_manifest.py --pdf SkillOpt/paper.pdf \\
-        --out-dir SkillOpt/parsed/assets \\
-        --source-pdf-repo-path SkillOpt/paper.pdf
+    python build_manifest.py --pdf in-progress/RecursiveMAS/paper.pdf \\
+        --out-dir in-progress/RecursiveMAS/assets \\
+        --source-pdf-repo-path in-progress/RecursiveMAS/paper.pdf
+
+    (Paths include the topic's bucket -- in-progress/, done/unpublished/ or
+    done/published/ -- because they are baked into the manifest verbatim.
+    See the repo CLAUDE.md's topic-directory section.)
 
 Optional:
     --crop-top-override page:kind:num=y[,page:kind:num=y...]

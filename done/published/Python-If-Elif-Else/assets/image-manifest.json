@@ -1,0 +1,33 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-01-26-python-if-elif-else/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/published/Python-If-Elif-Else/assets/images/flow-control-chart.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "生活中的流程圖",
+      "nearby_text": "我們了解到所謂的「流程控制」就是在流程圖中的「Is raining ?」或是「Have umbrella ?」。「流程控制」通常由兩部分所組成：「條件」與「條件成立時的任務」。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/published/Python-If-Elif-Else/assets/images/python-flow-control.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "流程控制就是由「條件」與「條件成立時執行的任務」所組成",
+      "nearby_text": "簡單來說，在程式裡的「流程控制」由兩部分所組成，分別為「條件」與「條件成立時的任務」。在 Python 中，「條件」就是最終可以變成一個布林值 (Boolean Value) 的 Expression。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/published/Python-If-Elif-Else/assets/images/python-flow-control-1.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "上述程式碼所對應到的流程圖 [source: Automate the Boring Stuff with Python]",
+      "nearby_text": "我們經常會在條件中放入變數，讓條件的判斷更有彈性：if name == 'Alice': print('Hi, ' + name)。這段程式碼所對應的流程圖為：",
+      "parser_confidence": "high"
+    }
+  ]
+}

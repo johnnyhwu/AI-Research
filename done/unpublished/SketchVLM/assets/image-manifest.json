@@ -1,0 +1,159 @@
+{
+  "source_pdf": "done/unpublished/SketchVLM/2604.22875v2.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Fig. 1: For complex questions, modern chatbots like ChatGPT often return long text responses (a) that are hard for users to understand, verify, and follow. In contrast, SketchVLM guides users (b) step-by-step by annotating the input image and grounding answers to relevant image regions—here, guiding a user how to check their car’s oil level (source: https://www.youtube.com/watch?v=tNNyu9S65E4).",
+      "nearby_text": "’s oil level, a visual annotation is easier to verify than a paragraph of text (Fig. 1) [26,31].",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 3,
+      "caption": "Fig. 2: Our sketchVLM (Gemini-3-Pro-Preview) draws more accurate predicted trajectories in Ball Drop (a); connects the dots more accurately (b); and sketches more plausible maze navigation paths (c). Nano Banana ( + ) often undesirably alters the image and draws implausible trajectories in ball drop and maze navigation. Specialist VLMs ( and ) ﬁne-tuned to sketch often fail to generalize to new tasks.",
+      "nearby_text": "the ball fall into?” (Fig. 2)) and is instructed to annotate its reasoning on the image before responding with a ﬁnal answer (Fig. 1). SVG conversion We parse the model’s XML output to a standardized SVG output that can be overlaid on top of",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-003.png",
+      "type": "table",
+      "page": 5,
+      "caption": "Table 1: Comparison of sketching models and methods. Annotation type describes the visual artifact used during reasoning: Vector overlay denotes structured, non- destructive marks (e.g., strokes/boxes/text) aligned to an image or canvas, while Image edit denotes pixel-space image modiﬁcation or synthesis that may change image con- tent. Input image is marked only when a provided image is the primary visual context (vs. blank canvas or purely generative visual thoughts). Free-form drawing indicates support for arbitrary stroke-like annotations beyond a ﬁxed mark set.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-004.png",
+      "type": "figure",
+      "page": 7,
+      "caption": "Fig. 3: Single-turn and multi-turn generation on the same VPCT sample. In (a) single- turn, SketchVLM receives the system prompt, the task prompt, and the input image, then outputs all annotations and the ﬁnal answer in a single model call. In (b) multi- turn, Turn 1 uses the same inputs and outputs one annotation. For later turns, the model reuses the system prompt, the task prompt, and the previous annotations, which are provided in both the rendered image and text form. This process repeats until the model outputs its ﬁnal text answer on the last turn.",
+      "nearby_text": "representations. The model then outputs its ﬁnal text answer on the last turn (Fig. 3). Visual prompting We evaluate the necessity of a coordinate grid for the model to reference speciﬁc points in an image. When omitting the grid, the model outputs coordinates on a normalized 1000↑1000 scale (Fig.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-005.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Fig. 4: Four approaches for making VLMs answer visual questions and annotate im- ages. (a) outputs text only. No drawings generated. (b) sketchVLM draws on the image while outputting text. (c) only edits the image. (d) + takes the edited image from and gives it to to respond.",
+      "nearby_text": "hat represent the SotA ap- proaches for producing visual annotations on images (Fig. 4):",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-006.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 2: SketchVLMs produce visual reasoning traces while maintaining competitive accuracy. + underperforms default , and ﬁne-tuned sketching models ( , ) perform near random chance on visual reasoning tasks.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-007.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 3: Ablation across inputs in single-turn mode. “Sketch” adds strokes/sys- tem prompt; “Grid” additionally overlays the coordinate grid. RMSE is reported for Connect-the-Dots while accuracy is reported for the other tasks. sketchVLM works best with the grid while sketchVLM works best without the grid",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-008.png",
+      "type": "figure",
+      "page": 10,
+      "caption": "Fig. 5: (a) + generates a di\"erent image and predicts an incorrect count. (c) directly outputs only a number without annotations and severely undercounts. In contrast, our sketchVLM (b) outputs the correct answer and produces visual anno- tations to explain its answer.",
+      "nearby_text": "he target objects and place numbered markers on each one (Secs. B.2 and D.4 and Fig. 5).",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-009.png",
+      "type": "figure",
+      "page": 11,
+      "caption": "Fig. 6: When prompted to outline the classes “person” and “sports-ball”, (c) re- places the original image with a newly generated one, whereas SketchVLM in (a) and (b) preserves the original image and draws shapes that accurately align with object boundaries and locations as compared to default (d) .",
+      "nearby_text": "els must localize objects by drawing rectangles or ovals (Secs. B.3 and D.5 and Fig. 6). 4. Part Labeling contains 985 images selected from PACO [37] and Pascal-Part [10], covering 52 object classes. We keep images with a single target object occupying at least 10% of the image area and with at leas",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-010.png",
+      "type": "figure",
+      "page": 12,
+      "caption": "Fig. 7: Qualitative comparison on the part labeling task. (b) SketchVLM places each part label directly on its corresponding region while preserving the original image, producing more interpretable part annotations than (a) or (c) .",
+      "nearby_text": "correct text labels at the corresponding part locations (Secs. B.4 and D.6 and Fig. 7). 5. Maze Navigation contains 200 generated 3 ↑3 grid mazes. We vary the shortest path length from 3 to 8 steps and create invalid paths by perturbing one direction in the ground-truth path. Models must trace a pr",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-011.png",
+      "type": "table",
+      "page": 13,
+      "caption": "Table 4: Labels placed by SketchVLMs land very close to the correct location. sketchVLM is more accurate than the baseline at every tolerance level, and sketchVLM matches it within a few pixels.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-012.png",
+      "type": "figure",
+      "page": 13,
+      "caption": "Fig. 8: From r = 0 (red) to modest dilation (r = 7, yel- low), small boundary o\"sets become visually negligible.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-013.png",
+      "type": "figure",
+      "page": 14,
+      "caption": "Fig. 9: Models are presented with a blank maze such as (a) or (c) and are asked to verify whether a proposed path from the green square to the red square is feasible through annotations (b) and (d). SketchVLMs correctly verify both valid and invalid paths by drawing the trajectory and marking where an invalid move occurs.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-014.png",
+      "type": "figure",
+      "page": 14,
+      "caption": "Fig. 10: SketchVLM generates the most accurate Ball Drop images compared to other baselines.",
+      "nearby_text": "accuracy, and sketchVLM reaches 96.0% accuracy on VPCT and 79.7% on Ball Drop (Fig. 10).",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-015",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-015.png",
+      "type": "table",
+      "page": 15,
+      "caption": "Table 5: VLM-judged annotation–text alignment (higher is better) and annotation quality (1–5, higher is better). Models ﬁne-tuned to generate annotations show lower alignment, while sketchVLM has the highest alignment and annotation quality.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-016",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-016.png",
+      "type": "figure",
+      "page": 16,
+      "caption": "Fig. 11: Low-quality annotations from ThinkMorph and ViLaSR may still lead to the correct ﬁnal answer, but contain logical errors that are harder for users to verify than the high-quality annotations from SketchVLMs.",
+      "nearby_text": "ty to interpret the model’s reasoning, even if the ﬁnal text answer is correct (Fig. 11). Experiment As described in Sec. 4.4, we measure drawing quality using a VLM-as-a-Judge approach with Gemini-3-Flash-Preview [12]. Each annotation is scored on a 1–5 rubric (Sec. E) in which the judge is asked t",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-017",
+      "file": "done/unpublished/SketchVLM/assets/images/picture-017.png",
+      "type": "figure",
+      "page": 17,
+      "caption": "Fig. 12: Multi-turn example of SketchVLM guiding a user through how to remove an image’s background. At each turn, the model receives a screenshot then annotates the screenshot with labeled arrows and highlights UI elements to indicate the next step.",
+      "nearby_text": "tasks that require multiple turns, such as removing the background of a photo (Fig. 12) or setting up an EC2 instance on AWS (Fig. A1). We therefore evaluate how multi- turn generation a\"ects model accuracy compared to single-turn, and identify the most e\"ective conﬁguration for multi-turn interact",
+      "parser_confidence": "high"
+    }
+  ]
+}

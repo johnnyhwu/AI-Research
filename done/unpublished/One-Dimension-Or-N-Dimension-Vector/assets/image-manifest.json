@@ -1,0 +1,24 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-06-15-one-dimension-or-n-dimension-vector/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/One-Dimension-Or-N-Dimension-Vector/assets/images/scalar-vector-matrix.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "Scalar、Vector 與 Matrix 的對照 [source: TensorFlow]",
+      "nearby_text": "Scalar 通常就是指一個數字 (Single Value)，它的 shape 中沒有任何元素，也就是沒有任何「軸」(Axes)，也可以稱其為 Rank-0 的 Tensor。Vector 指的是一個序列的數字 (List of Values)，它的 shape 中有一個元素。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/One-Dimension-Or-N-Dimension-Vector/assets/images/tensor.png",
+      "type": "figure",
+      "page": null,
+      "caption": "三個軸以上的 Tensor [source: TensorFlow]",
+      "nearby_text": "當軸數來到 3 個以上時，我們就通稱為 Tensor，此時的 shape 中有 3 個元素，也可以稱其為 Rank-3 的 Tensor。",
+      "parser_confidence": "high"
+    }
+  ]
+}

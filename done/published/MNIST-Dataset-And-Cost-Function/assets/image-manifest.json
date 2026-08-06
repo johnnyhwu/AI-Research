@@ -1,0 +1,33 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-03-03-mnist-dataset-and-cost-function/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/published/MNIST-Dataset-And-Cost-Function/assets/images/MNIST-Dataset.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "MNIST 資料集中的圖片 [source: Neural Networks and Deep Learning]",
+      "nearby_text": "針對「手寫數字圖像」分類問題，最有名的資料集是 MNIST 資料集 (MNIST Dataset)，MNIST 中包含了上萬張的手寫數字圖像以及每一張圖像正確的標籤 (Label)。下圖為 MNIST 資料集中的幾張範例圖片。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/published/MNIST-Dataset-And-Cost-Function/assets/images/one-hot-vector.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "用 10 個維度的向量表示數字 0 到 9",
+      "nearby_text": "我們會使用 y(x) 象徵該圖像所對應的實際數字。比較特別的是，y(x) 並不是一個數字，而是 10 個維度的向量。如果圖像中的數字是 0，則 10 維向量中的第 1 個數字是 1 其餘都是 0，以此類推。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/published/MNIST-Dataset-And-Cost-Function/assets/images/Deep-Learning-Cost-Function-1.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "損失函數 (Cost Function) 的樣子 [source: Neural Networks and Deep Learning]",
+      "nearby_text": "Cost Function C 是一個函數，會接受兩個數值：w 與 b。w 象徵 Neural Network 中所有的 weight；b 則象徵 Neural Network 中所有的 bias。給定 w 與 b，C 會計算一個數值，表示這組 w 與 b 的好壞程度。",
+      "parser_confidence": "high"
+    }
+  ]
+}

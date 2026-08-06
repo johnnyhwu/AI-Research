@@ -1,0 +1,24 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-02-09-understand-neural-network-for-deep-learning/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Understand-Neural-Network-For-Deep-Learning/assets/images/neural-network.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "3 個 Layer 的 Neural Network [source: Neural Networks and Deep Learning]",
+      "nearby_text": "一個基本的 Neural Network 通常會長得像上方這張圖一樣。最左邊的這些 Neuron 自然而然形成一個 Layer，稱為 Input Layer；Neural Network 最右邊的 Layer 則稱為 Output Layer。介於 Input Layer 與 Output Layer 之間的，則稱為 Hidden Layer。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Understand-Neural-Network-For-Deep-Learning/assets/images/neural-network-1.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "Neural Network 的基本組成：Input Layer、Output Layer 與 Hidden Layer [source: Neural Networks and Deep Learning]",
+      "nearby_text": "上圖是另外一個 Neural Network，擁有兩個 Hidden Layer。需要特別注意的是，這些由很多個 Layer 所組成的 Neural Network 又經常被稱為 Multilayer Perceptron，簡稱為 MLP。",
+      "parser_confidence": "high"
+    }
+  ]
+}

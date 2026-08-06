@@ -1,0 +1,69 @@
+{
+  "source_pdf": null,
+  "generated_by": "manual migration from posts/2022-01-25-python-variable-data-type/ (no source PDF -- images were already curated as part of the original blog post)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/published/Python-Variable-Data-Type/assets/images/python-variable.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "Python 中 Variable 的觀念",
+      "nearby_text": "本篇為 Python 程式語言入門教學的第 3 篇文章。在這篇文章中，我們將會了解 Python 中「變數」(Variable) 的概念以及資料類型 (Data Type)。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/published/Python-Variable-Data-Type/assets/images/expression.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "Expression 就是由 Value 與 Operator 所組成",
+      "nearby_text": "在前一篇文章中，我們了解到 Expression 其實就是由 Value 與 Operator 所組成的，且可以被 Evaluate 成單一個 Value。所謂的「資料型態」(Data Type) 指的就是 Value 所屬的類別。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/published/Python-Variable-Data-Type/assets/images/basic-data-type-in-python.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "Python 中最基本的資料類型",
+      "nearby_text": "Python 中最基本的三種 Data Type 為：Integer、Floating-Point 與 String。以下分別介紹這三種 Data Type 的觀念。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "done/published/Python-Variable-Data-Type/assets/images/syntax-error-1.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "字串必須由成對的「引號」包起來，否則產生 Syntax Error",
+      "nearby_text": "在 Python 中，字串 (String) 必須由「成對」的引號包覆起來，如果少了任一邊的引號，電腦就無法確定這個字串的範圍在哪裡，同樣也會產生 Syntax Error。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "done/published/Python-Variable-Data-Type/assets/images/type-error.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "String 與 Integer 相加將會導致 Type Error",
+      "nearby_text": "進行 String Concatenation 時，必須是兩個 String 的相加，如果其中一個不是 String 就會產生 Type Error。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "done/published/Python-Variable-Data-Type/assets/images/type-error-1.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "String 與 Floating-Point Number 相乘也會導致 Type Error",
+      "nearby_text": "在進行 String Replication 時，必須是一個 String 乘以一個 Integer，如果將 Integer 改成 Floating-Point，當然也會產生 Type Error。",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-007",
+      "file": "done/published/Python-Variable-Data-Type/assets/images/python-variable-1.jpg",
+      "type": "figure",
+      "page": null,
+      "caption": "Python 中的變數可以想成一個「箱子」，能夠存放一些值 [source: AUTOMATE THE BORING STUFF WITH PYTHON]",
+      "nearby_text": "變數在程式中所扮演的角色像是一個「箱子」，我們可以將一個 Value 放到箱子中。將一個 Value 存在變數中的過程稱為「Assignment」，在程式中是透過「等號」來完成。",
+      "parser_confidence": "high"
+    }
+  ]
+}
