@@ -51,9 +51,12 @@ Field notes:
 - **`parser_confidence`**: `"high"` | `"low"`. `build_manifest.py` marks
   figures `high` (region-render crops anchored precisely on caption/paragraph
   boundaries are reliable for born-digital PDFs) and tables `low` unless
-  `table_markdown` was successfully populated. When in doubt, `low` is the
-  safe choice -- a downstream step's job is to spot-check `low` entries, not
-  to blindly trust the manifest.
+  `table_markdown` was successfully populated. It additionally forces `low`
+  on any entry whose crop rectangle failed the geometry sanity checks
+  (`crop_warnings` in `pdf_parser_lib.py`: a near-empty region, or a figure
+  crop that is mostly body prose), printing a `SUSPECT CROPS` block naming
+  each one. When in doubt, `low` is the safe choice -- a downstream step's
+  job is to spot-check `low` entries, not to blindly trust the manifest.
 - **`table_markdown`** (optional, tables only): present only when
   `pdfplumber`'s structured extraction produced a clean, consistent-column
   table. Many academic tables have no ruling lines at all, in which case

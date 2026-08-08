@@ -130,25 +130,51 @@ def main():
     for c in captions:
         captions_by_page.setdefault(c["page"], []).append(c)
 
+    # Document-level layout, measured once: where the body text actually
+    # lives, and which blocks are running prose. Both feed the crop
+    # heuristics -- see content_area() in pdf_parser_lib.py for why a
+    # page-edge constant is not good enough.
+    prose = lib.prose_blocks(all_blocks)
+    area = lib.content_area(all_blocks)
+    top_margin = area.y0 - 4 if area is not None else 58.0
+    if area is None:
+        print("Note: too little body prose to measure a content area; "
+              "falling back to page-edge margins.", file=sys.stderr)
+
+    column_w = lib.estimate_column_width(all_blocks)
+    prose_bboxes = {(b["page"], b["bbox"]) for b in prose}
+    barriers = lib.flush_left_blocks(all_blocks, lib.column_left_edges(all_blocks),
+                                     column_width=column_w)
+    for b in barriers:
+        b["is_prose"] = (b["page"], b["bbox"]) in prose_bboxes
+
     overrides = parse_overrides(args.crop_top_override)
     bottom_overrides = parse_overrides(args.crop_bottom_override)
 
     images_dir = os.path.join(args.out_dir, "images")
     os.makedirs(images_dir, exist_ok=True)
 
+    ink_by_page = {}
     manifest_images = []
+    warned = []
     print(f"Detected {len(captions)} visual(s):\n")
     for i, c in enumerate(captions, start=1):
         page_no, kind, num = c["page"], c["kind"], c["num"]
         page = doc[page_no - 1]
         page_w = page.rect.width
 
+        if page_no not in ink_by_page:
+            ink_by_page[page_no] = lib.visual_ink_rects(page, area)
+        ink = lib.rects_in_column(ink_by_page[page_no], c["bbox"], page_w)
+
         key = (page_no, kind, num)
         if key in overrides:
             top = overrides[key]
             source = "manual override"
         else:
-            top = lib.auto_crop_top(page_no, c["bbox"], captions_by_page, page_w)
+            top = lib.auto_crop_top(page_no, c["bbox"], captions_by_page, page_w,
+                                    default_margin=top_margin, ink_rects=ink,
+                                    barriers=barriers, text_blocks=all_blocks, kind=kind)
             source = "auto heuristic"
 
         bottom = bottom_overrides.get(key, c["bbox"][1] - 3)
@@ -156,9 +182,16 @@ def main():
             left, right = args.margin_x, page_w - args.margin_x
             hsource = "explicit --margin-x"
         else:
-            left, right = lib.auto_crop_hbounds(page, top, bottom, c["bbox"])
-            hsource = "drawings/images/caption"
+            left, right = lib.auto_crop_hbounds(page, top, bottom, c["bbox"], ink_rects=ink)
+            hsource = "clipped ink/caption"
         rect = pymupdf.Rect(left, top, right, bottom)
+        if rect.height < 1 or rect.width < 1:
+            # An empty region can't be rendered at all (pymupdf raises), and a
+            # hard crash here would lose the other 16 good crops. Widen it to
+            # something renderable; crop_warnings flags it below and the entry
+            # lands as parser_confidence=low with a visible complaint.
+            rect = pymupdf.Rect(rect.x0, rect.y0,
+                                max(rect.x1, rect.x0 + 1), max(rect.y1, rect.y0 + 1))
 
         fname = f"picture-{i:03d}.png"
         fpath = os.path.join(images_dir, fname)
@@ -172,6 +205,11 @@ def main():
         if entry_type == "table":
             table_md = try_table_markdown(args.pdf, page_no, rect)
             confidence = "high" if table_md else "low"
+
+        problems = lib.crop_warnings(rect, page_no, prose, kind=kind)
+        if problems:
+            confidence = "low"
+            warned.append((f"img-{i:03d}", page_no, c["label"], problems))
 
         entry = {
             "id": f"img-{i:03d}",
@@ -197,6 +235,15 @@ def main():
     manifest_path = os.path.join(args.out_dir, "image-manifest.json")
     lib.save_json(manifest, manifest_path)
     print(f"\nWrote {manifest_path}")
+
+    if warned:
+        print(f"\nSUSPECT CROPS ({len(warned)}), marked parser_confidence=low:", file=sys.stderr)
+        for eid, page_no, label, problems in warned:
+            print(f" - {eid} (page {page_no}, {label}):", file=sys.stderr)
+            for p in problems:
+                print(f"     {p}", file=sys.stderr)
+        print("   Inspect with dump_blocks.py and rerun with the appropriate "
+              "--crop-top-override / --crop-bottom-override.", file=sys.stderr)
 
     # Manifest paths are repo-relative by convention (see module docstring),
     # so they resolve against the current working directory.

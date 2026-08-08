@@ -94,21 +94,28 @@ it's the reason a separate parsing step is worth having at all.
      ~200-230pt wide.** If `inspect_pdf.py` finds suspiciously few captions
      for a paper you know has more figures/tables, check whether it's
      two-column (see below) and rerun with e.g. `--min-caption-width 150`.
-   - Estimates the top boundary of each visual's region (`auto_crop_top`):
-     the bottom edge of the nearest preceding "paragraph-like" block on the
-     same page (full-width prose, or another visual's own caption -- both
-     work as a lower bound), falling back to a fixed top-of-page margin when
-     nothing qualifies (typical for a figure sitting at the very top of a
-     page, right after a page break).
+   - Measures the document's own layout once (`content_area`,
+     `column_left_edges`): the rectangle its body text prints inside, and the
+     x-coordinate(s) its text columns start at. Everything below is expressed
+     relative to these rather than to page-edge constants, so the heuristics
+     travel across paper templates. `inspect_pdf.py` prints both -- if they
+     look wrong, stop, because every crop will be wrong too.
+   - Estimates the top boundary of each visual's region (`auto_crop_top`) in
+     two stages: a *floor* nothing may cross (the content area's top edge, any
+     preceding caption on the same page/column, and the lowest body-column
+     text block above the caption), then a walk upward through the visual's
+     own ink from the lowest ink above the caption, stopping at the first real
+     whitespace gap. The floor is what keeps a mid-page figure from
+     swallowing the paragraph above it; the walk is what removes the blank
+     band between the floor and the figure.
    - Derives the left/right bounds of each visual's region (`auto_crop_hbounds`):
-     the union of every vector-drawing and raster-image bbox that's fully
-     contained in the visual's vertical band, widened by the caption's own
-     bbox as a floor. This reads the PDF's own drawing commands as ground
-     truth for where a figure's or table's ink actually is, rather than
-     guessing from a single page-wide column-width estimate -- see below for
-     why that guess reliably breaks on two-column papers. Pass `--margin-x`
-     to force a fixed page-edge margin instead (an explicit escape hatch,
-     not needed in normal use).
+     the union of every ink rect fully contained in the visual's vertical
+     band, widened by the caption's own bbox as a floor. This reads the PDF's
+     own drawing commands as ground truth for where a figure's or table's ink
+     actually is, rather than guessing from a single page-wide column-width
+     estimate -- see below for why that guess reliably breaks on two-column
+     papers. Pass `--margin-x` to force a fixed page-edge margin instead (an
+     explicit escape hatch, not needed in normal use).
    - Renders each region to `picture-NNN.png` at 3x zoom (~216 DPI) via
      `page.get_pixmap(clip=...)`.
    - Attempts clean structured-table extraction via `pdfplumber` for table
@@ -119,6 +126,15 @@ it's the reason a separate parsing step is worth having at all.
    - Finds a `nearby_text` snippet: the first place elsewhere in the
      document body that mentions the same "Figure N"/"Table N", useful for
      a downstream step trying to understand why the visual matters.
+   - Sanity-checks every crop rectangle against the page's text
+     (`crop_warnings`) and prints a `SUSPECT CROPS` block to stderr for any
+     that fail, forcing those entries to `parser_confidence: "low"`. Two
+     things get flagged: a degenerate (near-empty) region, which almost
+     always means the caption sits *above* its visual, and a figure crop
+     whose height is mostly body prose, which means the top boundary
+     overshot. Read that block -- it is the cheap, image-free signal that a
+     crop needs a manual override, and it exists precisely so a wrong crop
+     can't ship looking confident.
    - Writes `image-manifest.json` matching the schema in
      `references/image-manifest-schema.md`, and runs the quality checks
      (step 4) automatically before exiting.
@@ -133,15 +149,44 @@ it's the reason a separate parsing step is worth having at all.
    to the manifest (e.g. a downstream agent filling in a `table_markdown`
    by hand).
 
+## Clipped ink: why raw drawing bboxes can't be trusted
+
+`page.get_drawings()` reports each path's bbox *before* the clipping path is
+applied, and modern papers clip constantly -- any figure that embeds a
+screenshot or a cropped photo typically places the full raster far outside
+the page and shows a window onto it. Bboxes like `x=(-310, 681)` on a 612pt
+page are completely normal, and none of that ink is visible.
+
+Taking `min`/`max` over those bboxes, as `auto_crop_hbounds` originally did,
+stretches a figure's crop to the full page width: the render is mostly blank
+margin with the actual figure shrunk in the middle. `visible_drawing_rects`
+fixes this by replaying the clip stack from `page.get_drawings(extended=True)`
+(which additionally emits `clip`/`group` entries with a scissor rect and a
+nesting `level`) and intersecting each path with the clip actually in force.
+
+Placed **raster images** get no clip information from PyMuPDF at all, so
+`visual_ink_rects` handles them separately: an image whose bbox is not fully
+inside the page is dropped outright (it is a clipped backdrop, and its bbox
+describes the source, not what shows), and the rest are gated on the
+document's `content_area` widened by 4% of the page width. That tolerance
+lets a figure bleed a little into the margin while rejecting a raster that
+claims the whole margin. A document that genuinely runs figures deep into its
+margins is the case to reach for `--margin-x` on.
+
+`inspect_pdf.py` prints both counts per page ("N vector drawing item(s), M of
+them visible after clipping"). A large gap between the two means this paper
+clips heavily, and the crops depend on the clip-stack logic being right.
+
 ## When the automatic crop boundary gets a page wrong
 
 The heuristic in step 3 assumes a fairly standard single/double-column
-academic layout. It can misjudge unusual pages: a figure that floats
-mid-column with body text both above and below it, or a caption placed
-*above* its visual instead of below. When a rendered image's pixel
-dimensions look implausible (e.g. absurdly short/tall, or you notice two
-visuals' regions must have overlapped because their combined heights exceed
-the page), don't open the PNG to check -- instead:
+academic layout. It can still misjudge unusual pages -- most often a caption
+placed *above* its visual instead of below. `build_manifest.py`'s
+`SUSPECT CROPS` block flags the cases it can detect; a crop can also be
+subtly wrong without tripping it. When a rendered image's pixel dimensions
+look implausible (e.g. absurdly short/tall, or you notice two visuals'
+regions must have overlapped because their combined heights exceed the page),
+don't open the PNG to check -- instead:
 
 ```bash
 python scripts/dump_blocks.py path/to/paper.pdf <page_num>
@@ -184,6 +229,41 @@ ruleless/dense tables, rather than waiting for a visibly-wrong pixel size to
 notice it -- a crop that grabs the page's running header text instead of the
 table can still produce a plausible-looking, non-degenerate pixel size.
 
+### Figures that float mid-page
+
+A figure with body text above it and its caption below it used to be the
+worst case here: the top boundary anchored only on other *captions*, so with
+none above it on the page the crop started at the top-of-page margin and
+swallowed every heading and paragraph between there and the figure. This is
+now handled automatically -- `auto_crop_top`'s floor includes body-column
+text, and the ink walk closes the remaining gap -- but the mechanism is worth
+knowing, because it rests on one specific signal:
+
+**Body-column text is identified by its left edge, not by how it reads.** A
+paragraph or a section heading starts exactly on a column edge
+(`column_left_edges`); a figure's own internal text -- panel labels, axis
+labels, callouts, quoted model output -- is centred or indented inside the
+figure and lands at least a couple of points off it. `flush_left_blocks`
+splits them on that, plus a minimum width so a stray `(a)` at the far left of
+a figure isn't mistaken for a paragraph.
+
+Two consequences to keep in mind when a page still comes out wrong:
+
+- Widening `flush_left_blocks`' `tol` past ~2pt starts classifying
+  figure-internal text as body text, which crops figures to nothing. Fix the
+  page with `--crop-top-override` instead.
+- The ink walk crosses gaps up to `auto_crop_top`'s `max_gap` (36pt), which
+  covers the whitespace between stacked panel rows in a multi-row figure. A
+  figure with a genuinely larger internal gap loses its top rows; one whose
+  caption is separated from the page's text flow by less than that can pull
+  in a line of it. Both are override cases, not tuning cases.
+
+Papers that drop inline icons into running text (a model logo mid-sentence,
+say) are the reason the walk starts at the *lowest ink above the caption*
+rather than at the caption, and the reason the floor exists at all: those
+icons are real ink sitting inside body paragraphs and headings, and without
+a floor the walk would happily chain up through them.
+
 ## Two-column papers: what to watch for
 
 A two-column academic layout (very common for conference-style papers, less
@@ -204,8 +284,9 @@ same root cause -- a single-column-width assumption baked into a heuristic:
   it derived one page-wide margin from the *median* body-text column width,
   which is representative of the many single-column paragraphs but wrong
   for the few floats that span both columns. `auto_crop_hbounds` now reads
-  each visual's own drawing/image bboxes instead, so this shouldn't recur --
-  but if you ever see it, `--margin-x` is still there as a manual override,
+  each visual's own clip-corrected ink instead (see "Clipped ink" above), so
+  this shouldn't recur -- but if you ever see it, or the opposite symptom of
+  a figure marooned in blank margin, `--margin-x` is still there as a manual override,
   and comparing pixel widths across all extracted visuals (they should
   cluster into one or two consistent widths -- "one column" and "full
   width" -- not a continuum) is a fast, image-free way to spot which entries
