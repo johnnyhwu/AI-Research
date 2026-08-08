@@ -96,6 +96,244 @@ def estimate_column_width(blocks):
     return statistics.median(widths)
 
 
+def prose_blocks(blocks, column_width=None, min_chars=100, width_frac=0.75):
+    """
+    The subset of `blocks` that reads as running body prose: long *and* about
+    as wide as the document's own text column.
+
+    Both conditions are needed. Length alone lets a dense table row through
+    (they're easily 100+ characters); width alone lets a section heading
+    through. Used for two things: deriving the page's live content area
+    (content_area) and stopping a figure's crop from swallowing the
+    paragraph above it (auto_crop_top).
+    """
+    if column_width is None:
+        column_width = estimate_column_width(blocks)
+    out = []
+    for b in blocks:
+        if len(b["text"]) < min_chars:
+            continue
+        if column_width is not None and (b["bbox"][2] - b["bbox"][0]) < column_width * width_frac:
+            continue
+        out.append(b)
+    return out
+
+
+def column_left_edges(blocks, tol=2.0, min_share=0.1, min_count=3):
+    """
+    The x-coordinates at which this document's body text columns start --
+    one value for a single-column paper, two for a two-column one -- found by
+    clustering where its prose blocks repeatedly line up.
+
+    A column edge is used by *most* of the document's prose, so clusters are
+    kept only if they account for at least `min_share` of it. Without that,
+    the indent of a wide table's first column (dense enough to pass as prose)
+    registers as a second "column edge" and every figure on the page starts
+    getting bounded by table rows.
+    """
+    xs = sorted(b["bbox"][0] for b in prose_blocks(blocks))
+    if not xs:
+        return []
+    # Anchored, not chained: each value must be within tol of the cluster's
+    # first member. Chaining off the running last member lets a run of
+    # closely-spaced table indents (138.6, 140.0, 141.6, 143.3, ...) merge
+    # into one wide cluster that then passes the share test and gets treated
+    # as a real column edge.
+    clusters, current = [], [xs[0]]
+    for x in xs[1:]:
+        if x - current[0] <= tol:
+            current.append(x)
+        else:
+            clusters.append(current)
+            current = [x]
+    clusters.append(current)
+    threshold = max(min_count, min_share * len(xs))
+    return [statistics.median(c) for c in clusters if len(c) >= threshold]
+
+
+def flush_left_blocks(blocks, edges, column_width=None, tol=2.0, min_width_frac=0.35):
+    """
+    Text blocks that start exactly on a body-column's left edge and are wide
+    enough to be a real line of it -- body paragraphs, section headings,
+    running headers.
+
+    This is the signal `auto_crop_top` uses to know it has walked out of a
+    figure and into the page's text flow. Exact left-edge alignment is what
+    does most of the work: a figure's own internal text (panel labels,
+    callouts, quoted model output) is centred or indented inside the figure
+    and lands a few points off the column edge, so a tight `tol` separates
+    the two cleanly. Widening `tol` past ~2pt starts pulling figure-internal
+    text in and will crop figures to nothing -- use --crop-top-override
+    instead if a document needs that.
+
+    The width test catches what alignment alone misses: a subfigure label
+    "(a)" sitting at the far left of a figure can land within a point of the
+    column edge by coincidence, and treating that as the body-text boundary
+    would slice the figure in half.
+
+    Deliberately not the same test as `prose_blocks`: a section heading is
+    too short to read as prose but is every bit as much a boundary, and
+    conversely a dense table row reads as prose but is indented off the
+    column edge and must *not* act as a boundary.
+    """
+    if column_width is None:
+        column_width = estimate_column_width(blocks)
+    min_width = column_width * min_width_frac if column_width else 0.0
+    out = []
+    for b in blocks:
+        if (b["bbox"][2] - b["bbox"][0]) < min_width:
+            continue
+        if any(abs(b["bbox"][0] - e) <= tol for e in edges):
+            out.append(b)
+    return out
+
+
+def content_area(blocks, quantile=0.05):
+    """
+    The rectangle the document actually prints its body inside, derived from
+    where its own prose blocks sit -- no hardcoded page geometry, so it
+    adapts to whatever margins the paper's template uses.
+
+    Two crop bugs are fixed by knowing this rectangle:
+
+    - **Running headers/footers.** They live *outside* this rectangle (above
+      `y0`, below `y1`), so using `y0` as the top-of-content margin keeps a
+      page-top figure's crop from starting on "12 Collins, Bolton, Nguyen et
+      al.".
+    - **Ink that is drawn but never shown.** A figure that embeds a
+      screenshot commonly places the raster far outside the page and relies
+      on a clipping path to show only a window of it. `visible_drawing_rects`
+      recovers the true extent for vector drawings, but PyMuPDF exposes no
+      clip information for placed *images*, so an image bbox can claim to
+      cover the right margin (or run off the page entirely) when nothing of
+      it is visible there. Gating image bboxes on this rectangle -- widened
+      by a tolerance, since figures legitimately bleed a few points into the
+      margin -- throws those phantoms out.
+
+    x-bounds use a 5% quantile rather than min/max so one stray wide block
+    (a full-bleed float, a mis-measured ligature) can't inflate the area;
+    y-bounds use the true extremes, since the topmost and bottommost prose on
+    *some* page is exactly the live text band's edge.
+
+    Returns a pymupdf.Rect, or None if the document has too little prose to
+    measure (a slide deck, a poster) -- callers must handle None by falling
+    back to page-level bounds.
+    """
+    prose = prose_blocks(blocks)
+    if len(prose) < 5:
+        return None
+    xs0 = sorted(b["bbox"][0] for b in prose)
+    xs1 = sorted(b["bbox"][2] for b in prose)
+
+    def q(vals, p):
+        return vals[int(p * (len(vals) - 1))]
+
+    return pymupdf.Rect(
+        q(xs0, quantile),
+        min(b["bbox"][1] for b in prose),
+        q(xs1, 1.0 - quantile),
+        max(b["bbox"][3] for b in prose),
+    )
+
+
+def visible_drawing_rects(page):
+    """
+    Every vector drawing on the page, as the bbox of the part that is
+    *actually visible* -- its path bbox intersected with the clipping path in
+    effect when it was drawn.
+
+    `page.get_drawings()` reports the raw path bbox, which is a trap for crop
+    geometry: a figure built from a clipped screenshot routinely has paths
+    extending hundreds of points past the page edge (bboxes like
+    x=(-310, 681) on a 612pt-wide page are normal), all of it invisible.
+    Taking min/max over those bboxes blows a figure's crop out to the full
+    page width, padding the render with blank margin and shrinking the
+    figure. `page.get_drawings(extended=True)` additionally emits the `clip`
+    and `group` entries with the scissor rect and a nesting `level`, which is
+    everything needed to replay the clip stack and recover the visible
+    extent.
+
+    Entries clipped away to nothing are dropped, not returned as empty rects.
+    """
+    out = []
+    stack = []  # (level, clip rect), innermost last
+    for d in page.get_drawings(extended=True):
+        level = d.get("level") or 0
+        while stack and stack[-1][0] >= level:
+            stack.pop()
+        if d["type"] in ("clip", "group"):
+            clip = d.get("scissor") or d.get("rect")
+            if clip is not None:
+                stack.append((level, pymupdf.Rect(clip)))
+            continue
+        rect = pymupdf.Rect(d["rect"])
+        for _, clip in stack:
+            rect &= clip
+        if rect.is_empty or rect.is_infinite:
+            continue
+        out.append(rect)
+    return out
+
+
+def visual_ink_rects(page, content_rect=None, tol_frac=0.04):
+    """
+    Where this page's visual content actually puts ink: clip-corrected vector
+    drawings plus placed raster images, all clamped to what a reader can see.
+
+    This is the ground truth both crop heuristics run on -- auto_crop_top for
+    the vertical boundary, auto_crop_hbounds for the horizontal one.
+
+    Drawings come from visible_drawing_rects (exact, via the clip stack).
+    Images get the cruder treatment because PyMuPDF reports no clip for them:
+    an image placed partly off-page is dropped outright (it is being used as
+    a clipped backdrop, and its bbox describes the uncropped source, not what
+    shows), and what survives is gated on `content_rect` widened by
+    `tol_frac` of the page width. That tolerance is what lets a figure bleed
+    slightly into the margin while still rejecting a raster whose bbox claims
+    the whole margin. If a document genuinely runs figures far into its
+    margins, that gate is the thing to loosen -- or bypass it entirely with
+    build_manifest.py's --margin-x.
+    """
+    page_rect = page.rect
+    if content_rect is not None:
+        tol = page_rect.width * tol_frac
+        gate = pymupdf.Rect(content_rect.x0 - tol, page_rect.y0,
+                            content_rect.x1 + tol, page_rect.y1)
+    else:
+        gate = page_rect
+
+    out = []
+    for rect in visible_drawing_rects(page):
+        rect = rect & gate
+        if not rect.is_empty:
+            out.append(rect)
+    for info in page.get_image_info():
+        rect = pymupdf.Rect(info["bbox"])
+        if rect.x1 < rect.x0 or rect.y1 < rect.y0:
+            continue
+        if not page_rect.contains(rect):
+            continue  # clipped backdrop: bbox describes the source, not what shows
+        rect = rect & gate
+        if not rect.is_empty:
+            out.append(rect)
+    return out
+
+
+def rects_in_column(rects, caption_bbox, page_width, col_tol=15.0):
+    """
+    Restrict ink rects to the column the caption sits in, so a side-by-side
+    neighbour's ink can't be mistaken for this visual's own. A full-width
+    caption keeps everything. Mirrors auto_crop_hbounds' in_column test.
+    """
+    col = caption_column(caption_bbox, page_width)
+    if col == "full":
+        return list(rects)
+    mid = page_width / 2.0
+    if col == "left":
+        return [r for r in rects if r.x1 <= mid + col_tol]
+    return [r for r in rects if r.x0 >= mid - col_tol]
+
+
 def caption_column(bbox, page_width, full_width_frac=0.55):
     """
     Classify a caption/rect bbox as 'left', 'right', or 'full' relative to a
@@ -115,51 +353,115 @@ def caption_column(bbox, page_width, full_width_frac=0.55):
     return "left" if (x0 + x1) / 2.0 < mid else "right"
 
 
-def auto_crop_top(page_no, caption_bbox, captions_by_page, page_width, default_margin=58.0):
+def auto_crop_top(page_no, caption_bbox, captions_by_page, page_width,
+                  default_margin=58.0, ink_rects=None, barriers=None,
+                  text_blocks=None, kind="figure", max_gap=36.0, pad=6.0):
     """
-    Heuristic top boundary for a visual's region: the bottom edge of the
-    nearest *other caption* above this one on the same page and in the same
-    column, if any (e.g. Table 3 starts right after Table 2's caption ends).
-    Falls back to a fixed top-of-content margin when there's no such caption
-    -- the common case of a visual sitting at the top of a page/column,
-    right after a page break.
+    Top boundary for a visual's region, in two stages: a conservative *floor*
+    that nothing above may be crossed, then a tightening step that walks the
+    visual's own ink upward from the caption.
 
-    Deliberately anchors only on other captions, not on generic "paragraph
-    looking" text blocks: a table's own row text or a figure's own internal
-    labels can easily look like a paragraph (wide, many characters) and
-    would otherwise get mistaken for the boundary, cropping almost nothing.
-    Captions are a much safer signal since they're already positively
-    identified by find_captions().
+    The floor is the highest (numerically largest y) of:
 
-    Column-aware: on a two-column page, a single-column caption only looks
-    at other captions in the *same* column (or full-width captions, which
-    are a valid boundary for either column) -- otherwise a caption in the
-    opposite column that happens to sit higher on the page would wrongly
-    bound this one, chopping the visual down to almost nothing. This
-    assumes the common academic-paper convention of floats sitting at the
-    top of a page/column (or stacked back-to-back down one) rather than
-    floating mid-column with body text both above and below. For that
-    layout, inspect with dump_blocks.py (via inspect_pdf.py) and pass an
-    explicit --crop-top-override instead of trusting this heuristic blindly.
+    - `default_margin` -- the top of the page's live content. Pass
+      `content_area(...).y0` here rather than a page-edge constant, so a
+      figure at the top of a page doesn't start its crop on the running
+      header.
+    - the bottom edge of the nearest *other caption* above this one, on the
+      same page and in the same column (e.g. Table 3 starts right after Table
+      2's caption ends). Column-aware: a single-column caption ignores
+      captions in the opposite column, which would otherwise sit higher on
+      the page and chop this visual down to nothing. Full-width captions
+      bound either column.
+    - the bottom edge of the lowest `barriers` block above the caption in the
+      same column -- body text flush with a column's left edge, per
+      `flush_left_blocks`. This is what stops a figure that floats mid-page
+      (body text above it, caption below) from cropping the whole upper half
+      of the page, and it also keeps a page-top figure off the running
+      header. For tables, only barriers that are also body prose count: a
+      table indented off the column edge is the normal case this handles
+      safely, but a table typeset flush left would otherwise bound itself
+      away to nothing, and being conservative there is the older, safer
+      behaviour.
+
+    The tightening step then starts at the *lowest* ink above the caption and
+    repeatedly absorbs any ink rect that reaches within `max_gap` of the
+    region so far, stopping at the first real whitespace gap. That is what
+    actually removes the blank band between the floor and the figure, and it
+    is robust to the inline icons some papers drop into body text and section
+    headings -- those sit above the gap, so the walk never reaches them. Ink
+    for a single-column caption should be filtered with rects_in_column first.
+
+    Seeding on the lowest ink rather than on the caption matters: a figure
+    whose bottom row is a text label ("(a) Single-turn  (b) Multi-turn") can
+    easily leave 25pt between its last drawn ink and its caption, and a walk
+    seeded at the caption would never reach the figure at all.
+
+    Falls back to the floor when there is no ink at all in the region (a
+    figure drawn purely as text, a ruleless table).
     """
     cap_y0 = caption_bbox[1]
     target_col = caption_column(caption_bbox, page_width)
-    best_y1 = None
+
+    def same_column(bbox):
+        # A full-width visual spans both columns, so anything on the page can
+        # bound it. A single-column one is only bounded by its own column and
+        # by full-width blocks.
+        if target_col == "full":
+            return True
+        col = caption_column(bbox, page_width)
+        return col == "full" or col == target_col
+
+    floor = default_margin
     for other in captions_by_page.get(page_no, []):
-        if other["bbox"] == caption_bbox:
+        if other["bbox"] == caption_bbox or not same_column(other["bbox"]):
             continue
-        other_col = caption_column(other["bbox"], page_width)
-        if other_col != "full" and other_col != target_col:
+        if other["bbox"][3] < cap_y0:
+            floor = max(floor, other["bbox"][3] + 8.0)
+
+    for b in barriers or []:
+        if b["page"] != page_no or not same_column(b["bbox"]):
             continue
-        y1 = other["bbox"][3]
-        if y1 < cap_y0 and (best_y1 is None or y1 > best_y1):
-            best_y1 = y1
-    if best_y1 is None:
-        return default_margin
-    return best_y1 + 8.0
+        if kind == "table" and not b.get("is_prose"):
+            continue
+        if b["bbox"][3] < cap_y0:
+            floor = max(floor, b["bbox"][3] + 8.0)
+
+    # A boundary must never land inside a block of text. A wrapped section
+    # heading is the usual culprit: only its first line starts on the column
+    # edge, so the barrier's 8pt clearance lands between the two lines and the
+    # continuation (plus any inline icon on it) ends up inside the crop.
+    # This only ever runs from a floor a barrier put there, so it cannot walk
+    # into a figure: the bounded retry exists for a heading that wraps to more
+    # than two lines, not to chase text down the page.
+    for _ in range(5):
+        pushed = False
+        for b in text_blocks or []:
+            if b["page"] != page_no or not same_column(b["bbox"]):
+                continue
+            if b["bbox"][1] < floor < b["bbox"][3] < cap_y0:
+                floor = b["bbox"][3] + 8.0
+                pushed = True
+        if not pushed:
+            break
+
+    band = [r for r in (ink_rects or []) if r.y1 <= cap_y0 and r.y1 > floor]
+    if not band:
+        return floor
+
+    top = max(r.y1 for r in band)
+    grew = True
+    while grew:
+        grew = False
+        for r in band:
+            if r.y0 < top and r.y1 >= top - max_gap:
+                top = r.y0
+                grew = True
+    return max(floor, top - pad)
 
 
-def auto_crop_hbounds(page, top, bottom, caption_bbox, pad=8.0, min_width=40.0, band_tol=2.0, col_tol=15.0):
+def auto_crop_hbounds(page, top, bottom, caption_bbox, ink_rects=None,
+                      pad=8.0, min_width=40.0, band_tol=2.0, col_tol=15.0):
     """
     Tight horizontal bounds for a visual's region, derived from the actual
     vector drawings / raster images sitting in its vertical band [top,
@@ -189,10 +491,19 @@ def auto_crop_hbounds(page, top, bottom, caption_bbox, pad=8.0, min_width=40.0, 
     has to crop *something*, and the caption's width is the only reliable
     signal left in that case), widened by any drawings/images found in the
     band above/below it.
+
+    Candidates come from `visual_ink_rects`, which has already corrected each
+    drawing to its clipped (visible) extent and discarded off-page raster
+    backdrops. Feeding raw `page.get_drawings()` bboxes in here instead is
+    what used to stretch a figure's crop to the full page width on any paper
+    that clips embedded screenshots.
     """
     page_w = page.rect.width
     col = caption_column(caption_bbox, page_w)
     mid = page_w / 2.0
+
+    if ink_rects is None:
+        ink_rects = visual_ink_rects(page)
 
     def in_column(r):
         if col == "full":
@@ -202,20 +513,11 @@ def auto_crop_hbounds(page, top, bottom, caption_bbox, pad=8.0, min_width=40.0, 
         return r.x0 >= mid - col_tol
 
     rects = [pymupdf.Rect(caption_bbox)]
-    for d in page.get_drawings():
-        r = d["rect"]
-        if r.x1 < r.x0 or r.y1 < r.y0:
-            continue  # reversed/invalid rect, not just a zero-thickness ruling line
-        if r.y0 >= top - band_tol and r.y1 <= bottom + band_tol and in_column(r):
-            # Full containment, not mere overlap -- a page-spanning
-            # decorative/background rect can poke into the band at one edge
-            # without actually being part of this visual, and would
-            # otherwise blow the crop out to near-full-page width.
-            rects.append(r)
-    for info in page.get_image_info():
-        r = pymupdf.Rect(info["bbox"])
-        if r.x1 < r.x0 or r.y1 < r.y0:
-            continue  # reversed/invalid rect, not just a zero-thickness ruling line
+    for r in ink_rects:
+        # Full containment, not mere overlap -- a page-spanning
+        # decorative/background rect can poke into the band at one edge
+        # without actually being part of this visual, and would otherwise
+        # blow the crop out to near-full-page width.
         if r.y0 >= top - band_tol and r.y1 <= bottom + band_tol and in_column(r):
             rects.append(r)
     x0 = min(r.x0 for r in rects)
@@ -223,6 +525,44 @@ def auto_crop_hbounds(page, top, bottom, caption_bbox, pad=8.0, min_width=40.0, 
     if x1 - x0 < min_width:
         return None
     return max(0.0, x0 - pad), min(page_w, x1 + pad)
+
+
+def crop_warnings(rect, page_no, prose, kind="figure", min_dim=24.0, prose_frac=0.25):
+    """
+    Text-only sanity checks on a crop rectangle, so a wrong region gets
+    flagged instead of silently shipped as a confident-looking PNG (this
+    repo's "fail loud, not silent" rule). Returns a list of human-readable
+    warning strings; empty means nothing looked wrong.
+
+    Two things are checked:
+
+    - A degenerate rectangle. Usually means the caption sits *above* its
+      visual (the academic-table convention) so the default "crop everything
+      between the content top and the caption" region is empty page. The fix
+      is --crop-top-override plus --crop-bottom-override; see SKILL.md.
+    - A crop whose height is mostly body prose. Means the top boundary ran
+      away and swallowed the paragraph above the figure. Figures only:
+      a table's own rows legitimately read as prose, so the check would fire
+      on every correctly-cropped table.
+    """
+    warnings = []
+    if rect.width < min_dim or rect.height < min_dim:
+        warnings.append(f"degenerate crop region ({rect.width:.0f}x{rect.height:.0f}pt) -- "
+                        "caption is probably above its visual; see SKILL.md on "
+                        "--crop-top-override + --crop-bottom-override")
+    if kind != "table" and rect.height > 0:
+        covered = 0.0
+        for b in prose or []:
+            if b["page"] != page_no:
+                continue
+            overlap = pymupdf.Rect(b["bbox"]) & rect
+            if not overlap.is_empty:
+                covered += overlap.height
+        if covered > prose_frac * rect.height:
+            warnings.append(f"{covered / rect.height:.0%} of the crop height is body prose -- "
+                            "the top boundary probably overshot; check dump_blocks.py "
+                            "and pass --crop-top-override")
+    return warnings
 
 
 def find_nearby_text(blocks, caption_bboxes, label, window_before=80, window_after=220):
@@ -306,3 +646,4 @@ def save_json(obj, path):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w") as f:
         json.dump(obj, f, indent=2, ensure_ascii=False)
+        f.write("\n")

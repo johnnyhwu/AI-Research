@@ -21,13 +21,22 @@ def main():
     doc = lib.open_doc(sys.argv[1])
     print(f"pages: {doc.page_count}\n")
 
+    blocks = lib.page_blocks(doc)
+    area = lib.content_area(blocks)
+    print(f"body content area: {tuple(round(v, 1) for v in area) if area else None}")
+    print(f"body column left edge(s): {[round(e, 1) for e in lib.column_left_edges(blocks)]}")
+    print("(crops are bounded by these -- a wildly wrong content area means "
+          "the crop heuristics will be wrong too)\n")
+
     for pno, page in enumerate(doc, start=1):
         imgs = page.get_images(full=True)
         drawings = page.get_drawings()
         if not imgs and not drawings:
             continue
+        visible = lib.visible_drawing_rects(page)
         print(f"--- page {pno}: {len(imgs)} embedded raster image(s), "
-              f"{len(drawings)} vector drawing item(s)")
+              f"{len(drawings)} vector drawing item(s), "
+              f"{len(visible)} of them visible after clipping")
         for img in imgs:
             xref = img[0]
             info = doc.extract_image(xref)
