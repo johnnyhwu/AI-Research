@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Machine-Learning-Model-Training/assets/images/machine-learning-five-steps-1.jpg",
+      "file": "done/published/Machine-Learning-Model-Training/assets/images/machine-learning-five-steps-1.jpg",
       "type": "figure",
       "page": null,
       "caption": "用機器學習解決問題的第三步驟：模型訓練",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Machine-Learning-Model-Training/assets/images/tree-based-model.jpg",
+      "file": "done/published/Machine-Learning-Model-Training/assets/images/tree-based-model.jpg",
       "type": "figure",
       "page": null,
       "caption": "樹狀模型",
