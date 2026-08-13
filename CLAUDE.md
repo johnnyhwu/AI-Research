@@ -68,7 +68,10 @@ those baked-in paths still point at the topic's old location and
 time you move a directory: rewrite the bucket prefix in both `source_pdf`
 and every `images[].file` so each path reads
 `<new-bucket>/<TopicDir>/...`, then re-run `pdf-figure-table-parser`'s
-`verify_manifest.py` to confirm.
+`verify_manifest.py` to confirm. `verify_manifest.py` depends on `pymupdf`,
+which is not part of this environment's default toolchain — if it fails
+with `ModuleNotFoundError: No module named 'pymupdf'`, run
+`pip install pymupdf` first rather than treating it as a manifest problem.
 
 Expected contents of a topic directory, once both steps have run:
 
