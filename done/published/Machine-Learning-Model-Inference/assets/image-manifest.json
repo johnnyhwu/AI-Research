@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Machine-Learning-Model-Inference/assets/images/model-inference.jpg",
+      "file": "done/published/Machine-Learning-Model-Inference/assets/images/model-inference.jpg",
       "type": "figure",
       "page": null,
       "caption": "模型推論即是直接使用模型進行預測",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Machine-Learning-Model-Inference/assets/images/model-training-vs-model-inference.jpg",
+      "file": "done/published/Machine-Learning-Model-Inference/assets/images/model-training-vs-model-inference.jpg",
       "type": "figure",
       "page": null,
       "caption": "模型訓練 (Model Training) 與模型推論 (Model Inference)",

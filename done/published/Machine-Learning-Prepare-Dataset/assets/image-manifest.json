@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Machine-Learning-Prepare-Dataset/assets/images/machine-learning-five-steps.jpg",
+      "file": "done/published/Machine-Learning-Prepare-Dataset/assets/images/machine-learning-five-steps.jpg",
       "type": "figure",
       "page": null,
       "caption": "用機器學習解決問題的第二步驟：建立資料集",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Machine-Learning-Prepare-Dataset/assets/images/data-preprocessing-in-ml.jpg",
+      "file": "done/published/Machine-Learning-Prepare-Dataset/assets/images/data-preprocessing-in-ml.jpg",
       "type": "figure",
       "page": null,
       "caption": "資料集準備與前處理佔據機器學習專案的大量時間",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Machine-Learning-Prepare-Dataset/assets/images/prepare-dataset-in-ml.jpg",
+      "file": "done/published/Machine-Learning-Prepare-Dataset/assets/images/prepare-dataset-in-ml.jpg",
       "type": "figure",
       "page": null,
       "caption": "機器學習中資料集的準備包含四個步驟",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/Machine-Learning-Prepare-Dataset/assets/images/data-visualization.jpg",
+      "file": "done/published/Machine-Learning-Prepare-Dataset/assets/images/data-visualization.jpg",
       "type": "figure",
       "page": null,
       "caption": "透過多種圖表進行資料視覺化 [source: FineReport]",

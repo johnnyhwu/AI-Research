@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Machine-Learning-Define-Problem/assets/images/machine-learning-in-five-steps.jpg",
+      "file": "done/published/Machine-Learning-Define-Problem/assets/images/machine-learning-in-five-steps.jpg",
       "type": "figure",
       "page": null,
       "caption": "機器學習解決問題的五個步驟",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Machine-Learning-Define-Problem/assets/images/define-problem-in-machine-learning.jpg",
+      "file": "done/published/Machine-Learning-Define-Problem/assets/images/define-problem-in-machine-learning.jpg",
       "type": "figure",
       "page": null,
       "caption": "機器學習解決問題的第一步：定義問題",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Machine-Learning-Define-Problem/assets/images/supervised-learning-vs-unsupervised-learning.jpg",
+      "file": "done/published/Machine-Learning-Define-Problem/assets/images/supervised-learning-vs-unsupervised-learning.jpg",
       "type": "figure",
       "page": null,
       "caption": "機器學習中監督式學習與非監督式學習的差異",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/Machine-Learning-Define-Problem/assets/images/task-in-machine-learning.jpg",
+      "file": "done/published/Machine-Learning-Define-Problem/assets/images/task-in-machine-learning.jpg",
       "type": "figure",
       "page": null,
       "caption": "機器學習中任務的簡單分類",
