@@ -1,10 +1,10 @@
 {
-  "source_pdf": "in-progress/RAGU/2607.11683v1.pdf",
+  "source_pdf": "done/unpublished/RAGU/2607.11683v1.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "in-progress/RAGU/assets/images/picture-001.png",
+      "file": "done/unpublished/RAGU/assets/images/picture-001.png",
       "type": "figure",
       "page": 2,
       "caption": "Figure 1: Effect of model size on world-knowledge (CheGeKa) vs. language-skill (MultiQ) tasks in the Qwen2.5-Instruct family (F1 scores on MERA (Fenogenova et al., 2024)). CheGeKa F1 grows 21.1× from 0.5 B to 72 B; MultiQ only 4×. Log-linear slopes: 0.65 vs. 0.26.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "in-progress/RAGU/assets/images/picture-002.png",
+      "file": "done/unpublished/RAGU/assets/images/picture-002.png",
       "type": "figure",
       "page": 3,
       "caption": "Figure 2: End-to-end indexing pipeline. Documents are chunked, entities and relations are extracted under the NEREL schema, deduplicated and summarized, then grouped into communities via Leiden clustering. All artifacts persist across three swappable storage tiers (graph database, key-value store, vector store). Solid arrows indicate data flow between pipeline stages; dashed arrows indicate artifacts produced at each stage.",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "in-progress/RAGU/assets/images/picture-003.png",
+      "file": "done/unpublished/RAGU/assets/images/picture-003.png",
       "type": "table",
       "page": 4,
       "caption": "Table 1: Generation quality on GraphRAG-Bench (Medical domain). AC = Answer Correctness, Cov = Coverage, Faith = Faithfulness (all ×100). All systems use bge-large-en-v1.5 for embeddings and gpt-4o-mini for answer generation; only the graph-construction LLM varies. RAGU rows use ICL = 1 and Val = yes. Best per column in bold.",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "in-progress/RAGU/assets/images/picture-004.png",
+      "file": "done/unpublished/RAGU/assets/images/picture-004.png",
       "type": "figure",
       "page": 4,
       "caption": "Figure 3: Cross-over by task complexity on GraphRAG-Bench (Medical). All three systems use Meno-Lite-0.1 (7 B) as the index LLM and gpt-4o-mini for answer generation. (a) Answer Correctness: RAGU trails HippoRAG 2 on Fact Retrieval, but the gap closes and RAGU leads on Creative Generation. (b) Evidence Recall: RAGU retrieves the most complete context on all factoid levels. Task difficulty increases left to right.",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "in-progress/RAGU/assets/images/picture-005.png",
+      "file": "done/unpublished/RAGU/assets/images/picture-005.png",
       "type": "table",
       "page": 5,
       "caption": "Table 2: Multi-hop QA under two answer-generation protocols. AC = Answer Correctness, RL = ROUGE- L (×100). All systems use gte-multilingual-base for embeddings and gpt-4o-mini for answer generation; only the graph-construction LLM varies (GPT = gpt- oss-20b, Ours = Meno-Lite-0.1). (a) Verbose generation prompts (each system’s default). (b) Terse prompts forc- ing a single direct answer; HippoRAG 2 is unchanged across panels as its default already produces terse out- put. NaiveRAG is RAGU’s NaiveSearchEngine and shares our generation prompt. Best AC per column in bold.",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "in-progress/RAGU/assets/images/picture-006.png",
+      "file": "done/unpublished/RAGU/assets/images/picture-006.png",
       "type": "table",
       "page": 5,
       "caption": "Table 3: IE benchmark (knowledge-graph construction). NER = entity recognition (F1), RE = relation extraction (F1), Def = entity definition (chrF++), RDef = relation definition (chrF++), HM = harmonic mean of all four tasks.",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "in-progress/RAGU/assets/images/picture-007.png",
+      "file": "done/unpublished/RAGU/assets/images/picture-007.png",
       "type": "table",
       "page": 5,
       "caption": "Table 4: Entities extracted from the Ritchie passage.",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "in-progress/RAGU/assets/images/picture-008.png",
+      "file": "done/unpublished/RAGU/assets/images/picture-008.png",
       "type": "table",
       "page": 5,
       "caption": "Table 5: Relations extracted from the Ritchie passage (5 of 8 shown).",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "in-progress/RAGU/assets/images/picture-009.png",
+      "file": "done/unpublished/RAGU/assets/images/picture-009.png",
       "type": "figure",
       "page": 6,
       "caption": "Figure 4: Knowledge graph built from the Ritchie pas- sage. Nodes are typed entities; edges are typed relations. Two communities emerge: Ritchie’s professional legacy and the Bell Labs geographic cluster.",
@@ -85,7 +85,7 @@
     },
     {
       "id": "img-010",
-      "file": "in-progress/RAGU/assets/images/picture-010.png",
+      "file": "done/unpublished/RAGU/assets/images/picture-010.png",
       "type": "table",
       "page": 9,
       "caption": "Table 6: Engineering comparison between RAGU and HippoRAG 2, organized by the production risk each property addresses.",
@@ -94,7 +94,7 @@
     },
     {
       "id": "img-011",
-      "file": "in-progress/RAGU/assets/images/picture-011.png",
+      "file": "done/unpublished/RAGU/assets/images/picture-011.png",
       "type": "table",
       "page": 10,
       "caption": "Table 8: Approximate graph-construction (indexing) token volume and cost per document; query-time an- swer generation (gpt-4o-mini, common to all systems) is omitted. ∗marks empirical measurements from our experiments; the unmarked MS-GraphRAG count is an order-of-magnitude estimate.",
@@ -103,7 +103,7 @@
     },
     {
       "id": "img-012",
-      "file": "in-progress/RAGU/assets/images/picture-012.png",
+      "file": "done/unpublished/RAGU/assets/images/picture-012.png",
       "type": "table",
       "page": 10,
       "caption": "Table 7: Generation AC (×100) for selected RAGU configurations on GraphRAG-Bench Medical (ICL = 1, Val = yes unless noted).",
