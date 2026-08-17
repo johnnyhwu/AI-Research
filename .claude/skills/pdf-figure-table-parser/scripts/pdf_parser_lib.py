@@ -74,8 +74,16 @@ def find_captions(doc, min_caption_width=400):
                 "num": key[1],
                 "label": norm(clean[:m.end()]),
                 "text": norm(clean),
+                # A real caption separates the label from its description with
+                # ":" or "." ("Table 1: Generation quality ..."); a sentence that
+                # merely opens with the label runs straight on into prose
+                # ("Table 1 and Figure 3 reveal a cross-over ..."). That prose
+                # sentence is often the *longer* block, so the separator has to
+                # outrank length -- otherwise the cross-reference wins.
+                "separated": clean[m.end():m.end() + 1] in (":", "."),
             }
-            if key not in candidates or len(entry["text"]) > len(candidates[key]["text"]):
+            prev = candidates.get(key)
+            if prev is None or (entry["separated"], len(entry["text"])) > (prev["separated"], len(prev["text"])):
                 candidates[key] = entry
 
     captions = [c for c in candidates.values() if (c["bbox"][2] - c["bbox"][0]) >= min_caption_width]

@@ -1,0 +1,114 @@
+{
+  "source_pdf": "in-progress/RAGU/2607.11683v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "in-progress/RAGU/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1: Effect of model size on world-knowledge (CheGeKa) vs. language-skill (MultiQ) tasks in the Qwen2.5-Instruct family (F1 scores on MERA (Fenogenova et al., 2024)). CheGeKa F1 grows 21.1× from 0.5 B to 72 B; MultiQ only 4×. Log-linear slopes: 0.65 vs. 0.26.",
+      "nearby_text": "early with parameter count, whereas language skills scale markedly more slowly. Figure 1 tests this on the Qwen2.5-Instruct family (Yang et al., 2024): on CheGeKa (Taktasheva et al., 2022) (world-knowledge quiz), F1 increases 21.1× from 0.5 B to 72 B, while on MultiQ (all facts in-context), it incre",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "in-progress/RAGU/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 3,
+      "caption": "Figure 2: End-to-end indexing pipeline. Documents are chunked, entities and relations are extracted under the NEREL schema, deduplicated and summarized, then grouped into communities via Leiden clustering. All artifacts persist across three swappable storage tiers (graph database, key-value store, vector store). Solid arrows indicate data flow between pipeline stages; dashed arrows indicate artifacts produced at each stage.",
+      "nearby_text": "RAGU processes documents through six config- urable stages (Figure 2):",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "in-progress/RAGU/assets/images/picture-003.png",
+      "type": "table",
+      "page": 4,
+      "caption": "Table 1: Generation quality on GraphRAG-Bench (Medical domain). AC = Answer Correctness, Cov = Coverage, Faith = Faithfulness (all ×100). All systems use bge-large-en-v1.5 for embeddings and gpt-4o-mini for answer generation; only the graph-construction LLM varies. RAGU rows use ICL = 1 and Val = yes. Best per column in bold.",
+      "nearby_text": "Table 1 and Figure 3 reveal a cross-over. On the two factoid levels, HippoRAG 2 leads: its personalized PageRank pins down single facts (AC 72.4 vs. 54.2 for RAGU on Fact Retrieval, ∆=−18.2 pp). As tasks demand broad syn",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "in-progress/RAGU/assets/images/picture-004.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 3: Cross-over by task complexity on GraphRAG-Bench (Medical). All three systems use Meno-Lite-0.1 (7 B) as the index LLM and gpt-4o-mini for answer generation. (a) Answer Correctness: RAGU trails HippoRAG 2 on Fact Retrieval, but the gap closes and RAGU leads on Creative Generation. (b) Evidence Recall: RAGU retrieves the most complete context on all factoid levels. Task difficulty increases left to right.",
+      "nearby_text": "Table 1 and Figure 3 reveal a cross-over. On the two factoid levels, HippoRAG 2 leads: its personalized PageRank pins down single facts (AC 72.4 vs. 54.2 for RAGU on Fact Retrieval, ∆=−18.2 pp). As tasks demand broad synthe- sis rat",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "in-progress/RAGU/assets/images/picture-005.png",
+      "type": "table",
+      "page": 5,
+      "caption": "Table 2: Multi-hop QA under two answer-generation protocols. AC = Answer Correctness, RL = ROUGE- L (×100). All systems use gte-multilingual-base for embeddings and gpt-4o-mini for answer generation; only the graph-construction LLM varies (GPT = gpt- oss-20b, Ours = Meno-Lite-0.1). (a) Verbose generation prompts (each system’s default). (b) Terse prompts forc- ing a single direct answer; HippoRAG 2 is unchanged across panels as its default already produces terse out- put. NaiveRAG is RAGU’s NaiveSearchEngine and shares our generation prompt. Best AC per column in bold.",
+      "nearby_text": "cts overlap-based metrics. We therefore report two answer-generation protocols (Table 2): (a) each system’s default verbose prompt, and (b) a terse prompt that forces a single direct answer. Hip- poRAG 2 appears in both panels unchanged be- cause its default prompt already emits terse output, making",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "in-progress/RAGU/assets/images/picture-006.png",
+      "type": "table",
+      "page": 5,
+      "caption": "Table 3: IE benchmark (knowledge-graph construction). NER = entity recognition (F1), RE = relation extraction (F1), Def = entity definition (chrF++), RDef = relation definition (chrF++), HM = harmonic mean of all four tasks.",
+      "nearby_text": "Table 3 confirms the prediction: Meno-Lite-0.1 achieves the highest harmonic mean on our IE benchmark (Bondarenko, 2026a), outperforming Qwen2.5-32B by 12.5% relative—driven by rela-",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "in-progress/RAGU/assets/images/picture-007.png",
+      "type": "table",
+      "page": 5,
+      "caption": "Table 4: Entities extracted from the Ritchie passage.",
+      "nearby_text": "on. The two-stage extractor identifies 9 typed entities under the NEREL schema (Table 4). Stage 2 then extracts 8 relations, all constrained to this validated entity set (Table 5).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-008",
+      "file": "in-progress/RAGU/assets/images/picture-008.png",
+      "type": "table",
+      "page": 5,
+      "caption": "Table 5: Relations extracted from the Ritchie passage (5 of 8 shown).",
+      "nearby_text": "tage 2 then extracts 8 relations, all constrained to this validated entity set (Table 5).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "in-progress/RAGU/assets/images/picture-009.png",
+      "type": "figure",
+      "page": 6,
+      "caption": "Figure 4: Knowledge graph built from the Ritchie pas- sage. Nodes are typed entities; edges are typed relations. Two communities emerge: Ritchie’s professional legacy and the Bell Labs geographic cluster.",
+      "nearby_text": "Community detection. Leiden clustering parti- tions the 9-entity graph (Figure 4) into two com- munities: one centred on Dennis Ritchie and his creations (5 entities, 4 relations), the other linking Bell Laboratories, Murray Hill, New Jersey, and Alistair Ritchie through spatial and professi",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-010",
+      "file": "in-progress/RAGU/assets/images/picture-010.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 6: Engineering comparison between RAGU and HippoRAG 2, organized by the production risk each property addresses.",
+      "nearby_text": "rieval quality than by the engineering discipline of available implementations. Table 6 compares RAGU with HippoRAG 2 along the pro- duction risks we encountered while benchmark-",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-011",
+      "file": "in-progress/RAGU/assets/images/picture-011.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 8: Approximate graph-construction (indexing) token volume and cost per document; query-time an- swer generation (gpt-4o-mini, common to all systems) is omitted. ∗marks empirical measurements from our experiments; the unmarked MS-GraphRAG count is an order-of-magnitude estimate.",
+      "nearby_text": "Table 8 reports graph-construction (indexing) cost, a one-time per-document operation, separate from answer generation (query-time, recurring). All sys- tems share the same answer-generation model (gpt- 4o-mini via API),",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "in-progress/RAGU/assets/images/picture-012.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 7: Generation AC (×100) for selected RAGU configurations on GraphRAG-Bench Medical (ICL = 1, Val = yes unless noted).",
+      "nearby_text": "Table 7 reports generation AC for selected RAGU configurations. Full generation and retrieval results for all 11 configurations are in the repository.",
+      "parser_confidence": "low"
+    }
+  ]
+}

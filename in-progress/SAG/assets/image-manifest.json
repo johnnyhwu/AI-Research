@@ -1,0 +1,105 @@
+{
+  "source_pdf": "in-progress/SAG/2606.15971v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "in-progress/SAG/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1: Process and performance comparison of three RAG paradigms. NaiveRAG retrieves top-k chunks via dense vector similarity, offering good scalability, high speed, and low cost, but precision is limited by shallow semantic matching. GraphRAG extracts triples and builds a knowledge graph offline using an LLM; it enhances evidence organization capability, but incurs high construction cost and is difficult to update incrementally. SAG extracts events and entities with an LLM and activates dynamic hyperedge structures at query time via SQL; it balances retrieval quality, structural capability, and system overhead, while naturally supporting append-only incremental updates.",
+      "nearby_text": "ntities serving an indexing function, together defining a latent hyperedge (see Figure 1 for a comparison of the three paradigms). At query time, SQL drives deterministic event-entity association and local hyperedge activation, this structural path is combined with vector retrieval into a unified pi",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "in-progress/SAG/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 5,
+      "caption": "Figure 2: Architecture overview of SAG. In the offline phase, each chunk is transformed into one event and a set of entities, and written into SQL, vector, and full-text indices. In the online phase, the system performs initial recall, then query-time expansion, and finally completes selection over the compressed candidate set.",
+      "nearby_text": "Figure 2 presents the complete architecture of SAG, organized into offline and online phases. In the offline phase, each document chunk is transformed into one event and a set of entities, and written synchronously into",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "in-progress/SAG/assets/images/picture-003.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 1: Statistics of the evaluation subsets used in this study. For each dataset, we randomly sample 1,000 questions from the official development split. “Passages” refers to the number of passages in the local corpus constructed from the sampled questions’ supporting documents.",
+      "nearby_text": "selects. All experiments are conducted on the development set of each dataset. Table 1 summarizes the basic statistics of the three datasets.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "in-progress/SAG/assets/images/picture-004.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 2: Recall@2/5 of SAG and various baselines on three datasets under a unified underlying configuration (BGE-Large-EN-v1.5 + Qwen3.6-Flash). Values marked with * are taken from literature reports and serve only as background reference.",
+      "nearby_text": "el choices. Additionally, to situate SAG within the retrieval quality spectrum, Table 2 includes simple retrievers and large 7B-parameter embedding retrievers as background reference.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "in-progress/SAG/assets/images/picture-005.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 3: Ablation comparison of event-level indexing vs. triple-decomposition indexing (MuSiQue).",
+      "nearby_text": "icipating in SQL joins; the rest of the pipeline remains unchanged. As shown in Table 3, the triple-based SAG achieves Recall@5 of 77.1%, vs. 80.0% for the hyperedge version, both above HippoRAG 2’s 65.1%. HippoRAG 2’s core relational unit is the entity–relation–entity triple, placing it in the same",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "in-progress/SAG/assets/images/picture-006.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 4: Ablation study on the number of expansion hops in dynamic hyperedge construction (MuSiQue).",
+      "nearby_text": "sion hops H to 0 disables expansion while keeping everything else unchanged. As Table 4 shows, disabling expansion causes Recall@5 to drop from 80.0% to 69.4%, while Recall@1 remains nearly unchanged (36.2% vs. 35.7%). This pattern reveals what expansion actually contributes: it adds evidence that v",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "in-progress/SAG/assets/images/picture-007.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 5: Trade-off between candidate event count and token cost.",
+      "nearby_text": "from expanding the candidate pool, we investigate the effect of varying Kcand (Table 5). When the number of candidate events increases from 50 to 100, Recall@5 improves from 76.1% to 80.0%, a significant gain. Further expanding to 200 or 500 yields sharply diminishing marginal return: the marginal",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-008",
+      "file": "in-progress/SAG/assets/images/picture-008.png",
+      "type": "figure",
+      "page": 10,
+      "caption": "Figure 3: Token marginal benefit analysis",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-009",
+      "file": "in-progress/SAG/assets/images/picture-009.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 6: Comparison between lightweight reranker and LLM filtering in the final selection stage (MuSiQue).",
+      "nearby_text": "@5 on MuSiQue to drop from 80.0% to 62.2%, a decline of 17.8 percentage points (Table 6). A lightweight reranker scores each candidate independently and cannot jointly assess which subsets of events collectively form a complete reasoning chain. Given the compressed candidate set, the LLM can detect",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "in-progress/SAG/assets/images/picture-010.png",
+      "type": "table",
+      "page": 11,
+      "caption": "Table 7: LLM-based event selection vs. direct chunk-based selection (MuSiQue).",
+      "nearby_text": "the two paths while fixing the total candidate count at Kout = 10, as shown in Table 7. When Kevent = 0, the system degenerates to pure semantic retrieval, with Recall@5 at only 56.2%; with Kevent = 2, it rises to 73.3%; at Kevent = 5 (baseline), it reaches the optimum of 80.0%. The fact that even",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-011",
+      "file": "in-progress/SAG/assets/images/picture-011.png",
+      "type": "table",
+      "page": 11,
+      "caption": "Table 8: Retrieval results of SAG and HippoRAG 2 on MuSiQue under the NV-Embed-v2 configura- tion.",
+      "nearby_text": "ing embedding model, re-running both SAG and HippoRAG 2 on MuSiQue. As shown in Table 8, with NV-Embed- v2, SAG achieves Recall@5 of 81.7%, vs. HippoRAG 2’s 74.6%; when we switch back to BGE- Large-EN-v1.5, SAG remains stable at 80.0%, while HippoRAG 2 drops to 65.1%. HippoRAG 2 loses nearly 10 perc",
+      "parser_confidence": "low"
+    }
+  ]
+}
