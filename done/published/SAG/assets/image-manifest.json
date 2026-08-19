@@ -1,10 +1,10 @@
 {
-  "source_pdf": "done/unpublished/SAG/2606.15971v1.pdf",
+  "source_pdf": "done/published/SAG/2606.15971v1.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/SAG/assets/images/picture-001.png",
+      "file": "done/published/SAG/assets/images/picture-001.png",
       "type": "figure",
       "page": 2,
       "caption": "Figure 1: Process and performance comparison of three RAG paradigms. NaiveRAG retrieves top-k chunks via dense vector similarity, offering good scalability, high speed, and low cost, but precision is limited by shallow semantic matching. GraphRAG extracts triples and builds a knowledge graph offline using an LLM; it enhances evidence organization capability, but incurs high construction cost and is difficult to update incrementally. SAG extracts events and entities with an LLM and activates dynamic hyperedge structures at query time via SQL; it balances retrieval quality, structural capability, and system overhead, while naturally supporting append-only incremental updates.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/SAG/assets/images/picture-002.png",
+      "file": "done/published/SAG/assets/images/picture-002.png",
       "type": "figure",
       "page": 5,
       "caption": "Figure 2: Architecture overview of SAG. In the offline phase, each chunk is transformed into one event and a set of entities, and written into SQL, vector, and full-text indices. In the online phase, the system performs initial recall, then query-time expansion, and finally completes selection over the compressed candidate set.",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/SAG/assets/images/picture-003.png",
+      "file": "done/published/SAG/assets/images/picture-003.png",
       "type": "table",
       "page": 7,
       "caption": "Table 1: Statistics of the evaluation subsets used in this study. For each dataset, we randomly sample 1,000 questions from the official development split. “Passages” refers to the number of passages in the local corpus constructed from the sampled questions’ supporting documents.",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/SAG/assets/images/picture-004.png",
+      "file": "done/published/SAG/assets/images/picture-004.png",
       "type": "table",
       "page": 8,
       "caption": "Table 2: Recall@2/5 of SAG and various baselines on three datasets under a unified underlying configuration (BGE-Large-EN-v1.5 + Qwen3.6-Flash). Values marked with * are taken from literature reports and serve only as background reference.",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/SAG/assets/images/picture-005.png",
+      "file": "done/published/SAG/assets/images/picture-005.png",
       "type": "table",
       "page": 9,
       "caption": "Table 3: Ablation comparison of event-level indexing vs. triple-decomposition indexing (MuSiQue).",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "done/unpublished/SAG/assets/images/picture-006.png",
+      "file": "done/published/SAG/assets/images/picture-006.png",
       "type": "table",
       "page": 10,
       "caption": "Table 4: Ablation study on the number of expansion hops in dynamic hyperedge construction (MuSiQue).",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "done/unpublished/SAG/assets/images/picture-007.png",
+      "file": "done/published/SAG/assets/images/picture-007.png",
       "type": "table",
       "page": 10,
       "caption": "Table 5: Trade-off between candidate event count and token cost.",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "done/unpublished/SAG/assets/images/picture-008.png",
+      "file": "done/published/SAG/assets/images/picture-008.png",
       "type": "figure",
       "page": 10,
       "caption": "Figure 3: Token marginal benefit analysis",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "done/unpublished/SAG/assets/images/picture-009.png",
+      "file": "done/published/SAG/assets/images/picture-009.png",
       "type": "table",
       "page": 10,
       "caption": "Table 6: Comparison between lightweight reranker and LLM filtering in the final selection stage (MuSiQue).",
@@ -85,7 +85,7 @@
     },
     {
       "id": "img-010",
-      "file": "done/unpublished/SAG/assets/images/picture-010.png",
+      "file": "done/published/SAG/assets/images/picture-010.png",
       "type": "table",
       "page": 11,
       "caption": "Table 7: LLM-based event selection vs. direct chunk-based selection (MuSiQue).",
@@ -94,7 +94,7 @@
     },
     {
       "id": "img-011",
-      "file": "done/unpublished/SAG/assets/images/picture-011.png",
+      "file": "done/published/SAG/assets/images/picture-011.png",
       "type": "table",
       "page": 11,
       "caption": "Table 8: Retrieval results of SAG and HippoRAG 2 on MuSiQue under the NV-Embed-v2 configura- tion.",
