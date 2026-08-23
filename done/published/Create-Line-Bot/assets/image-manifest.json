@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Create-Line-Bot/assets/images/feature-image-7.jpg",
+      "file": "done/published/Create-Line-Bot/assets/images/feature-image-7.jpg",
       "type": "figure",
       "page": null,
       "caption": "LINE Bot 與 User 的互動方式 [source: LINE]",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Create-Line-Bot/assets/images/LINE-Developer-Console.jpg",
+      "file": "done/published/Create-Line-Bot/assets/images/LINE-Developer-Console.jpg",
       "type": "figure",
       "page": null,
       "caption": "LINE Developer Console 頁面 [source: LINE Developer]",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Create-Line-Bot/assets/images/create-provider.jpg",
+      "file": "done/published/Create-Line-Bot/assets/images/create-provider.jpg",
       "type": "figure",
       "page": null,
       "caption": "建立 Provider [source: LINE Developer]",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/Create-Line-Bot/assets/images/create-channel.jpg",
+      "file": "done/published/Create-Line-Bot/assets/images/create-channel.jpg",
       "type": "figure",
       "page": null,
       "caption": "建立 Channel [source: LINE Developer]",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/Create-Line-Bot/assets/images/create-channel-1.jpg",
+      "file": "done/published/Create-Line-Bot/assets/images/create-channel-1.jpg",
       "type": "figure",
       "page": null,
       "caption": "建立好的 Channel [source: LINE Developer]",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "done/unpublished/Create-Line-Bot/assets/images/messaging-API-setting-1.jpg",
+      "file": "done/published/Create-Line-Bot/assets/images/messaging-API-setting-1.jpg",
       "type": "figure",
       "page": null,
       "caption": "點選 Messaging API",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "done/unpublished/Create-Line-Bot/assets/images/messaging-API-setting.jpg",
+      "file": "done/published/Create-Line-Bot/assets/images/messaging-API-setting.jpg",
       "type": "figure",
       "page": null,
       "caption": "設定 LINE Bot 進入群組的權限",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "done/unpublished/Create-Line-Bot/assets/images/messaging-API-setting-2.jpg",
+      "file": "done/published/Create-Line-Bot/assets/images/messaging-API-setting-2.jpg",
       "type": "figure",
       "page": null,
       "caption": "不允許 LINE Bot 被加入群組",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "done/unpublished/Create-Line-Bot/assets/images/LINE-Bot-setting.jpg",
+      "file": "done/published/Create-Line-Bot/assets/images/LINE-Bot-setting.jpg",
       "type": "figure",
       "page": null,
       "caption": "停用「加入好友的歡迎訊息」",
@@ -85,7 +85,7 @@
     },
     {
       "id": "img-010",
-      "file": "done/unpublished/Create-Line-Bot/assets/images/LINE-Bot-setting-1.jpg",
+      "file": "done/published/Create-Line-Bot/assets/images/LINE-Bot-setting-1.jpg",
       "type": "figure",
       "page": null,
       "caption": "停用「自動回應訊息」、啟用「Webhook」",
@@ -94,7 +94,7 @@
     },
     {
       "id": "img-011",
-      "file": "done/unpublished/Create-Line-Bot/assets/images/add-LINE-biot-as-friend.jpg",
+      "file": "done/published/Create-Line-Bot/assets/images/add-LINE-biot-as-friend.jpg",
       "type": "figure",
       "page": null,
       "caption": "將 LINE Bot 加為好友",

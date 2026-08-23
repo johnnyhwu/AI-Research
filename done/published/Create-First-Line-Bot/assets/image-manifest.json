@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Create-First-Line-Bot/assets/images/LINE-Messaging-API.jpeg",
+      "file": "done/published/Create-First-Line-Bot/assets/images/LINE-Messaging-API.jpeg",
       "type": "figure",
       "page": null,
       "caption": "LINE Messaging API 頁面",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Create-First-Line-Bot/assets/images/webhook-setting.jpeg",
+      "file": "done/published/Create-First-Line-Bot/assets/images/webhook-setting.jpeg",
       "type": "figure",
       "page": null,
       "caption": "Webhook 設定",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Create-First-Line-Bot/assets/images/qrcode.jpeg",
+      "file": "done/published/Create-First-Line-Bot/assets/images/qrcode.jpeg",
       "type": "figure",
       "page": null,
       "caption": "掃描 QR Code 將 LINE Bot 加為好友",

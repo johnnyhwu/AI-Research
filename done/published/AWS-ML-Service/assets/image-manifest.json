@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/AWS-ML-Service/assets/images/machine-learning-on-aws.jpeg",
+      "file": "done/published/AWS-ML-Service/assets/images/machine-learning-on-aws.jpeg",
       "type": "figure",
       "page": null,
       "caption": "Machine Learning on AWS [source: AWS Machine Learning Foundation Course on Udacity]",

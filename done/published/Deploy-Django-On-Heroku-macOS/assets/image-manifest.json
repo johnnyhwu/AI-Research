@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Deploy-Django-On-Heroku-macOS/assets/images/feature-image-4.jpg",
+      "file": "done/published/Deploy-Django-On-Heroku-macOS/assets/images/feature-image-4.jpg",
       "type": "figure",
       "page": null,
       "caption": "將 Django App 部署到 Heroku（圖片來源：Heroku）",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Deploy-Django-On-Heroku-macOS/assets/images/feature-image-5.jpg",
+      "file": "done/published/Deploy-Django-On-Heroku-macOS/assets/images/feature-image-5.jpg",
       "type": "figure",
       "page": null,
       "caption": "Heroku 是以容器為基礎的 PaaS 平台（圖片來源：Heroku）",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Deploy-Django-On-Heroku-macOS/assets/images/heroku-directory-structure.jpg",
+      "file": "done/published/Deploy-Django-On-Heroku-macOS/assets/images/heroku-directory-structure.jpg",
       "type": "figure",
       "page": null,
       "caption": "目前專案資料夾中的檔案（建立 MyFirstProject 與 myapp 之後）",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/Deploy-Django-On-Heroku-macOS/assets/images/run-django-server.jpg",
+      "file": "done/published/Deploy-Django-On-Heroku-macOS/assets/images/run-django-server.jpg",
       "type": "figure",
       "page": null,
       "caption": "執行 Django 中的伺服器",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/Deploy-Django-On-Heroku-macOS/assets/images/django-home-page.jpg",
+      "file": "done/published/Deploy-Django-On-Heroku-macOS/assets/images/django-home-page.jpg",
       "type": "figure",
       "page": null,
       "caption": "Django 預設首頁",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "done/unpublished/Deploy-Django-On-Heroku-macOS/assets/images/project-directory-structure.jpg",
+      "file": "done/published/Deploy-Django-On-Heroku-macOS/assets/images/project-directory-structure.jpg",
       "type": "figure",
       "page": null,
       "caption": "目前專案資料夾中的檔案（新增 Heroku 所需檔案之前）",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "done/unpublished/Deploy-Django-On-Heroku-macOS/assets/images/project-directory-structure-1.jpg",
+      "file": "done/published/Deploy-Django-On-Heroku-macOS/assets/images/project-directory-structure-1.jpg",
       "type": "figure",
       "page": null,
       "caption": "目前專案資料夾中的檔案（新增 Procfile、requirements.txt 與 runtime.txt 之後）",
