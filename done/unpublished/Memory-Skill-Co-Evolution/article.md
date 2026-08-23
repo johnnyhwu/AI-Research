@@ -172,7 +172,7 @@ MSCE 的核心貢獻，不是「把 agent 的軌跡蒸餾成可呼叫的 skill�
   {
     "id": "img-007",
     "references_manifest_caption": "Table 4 Lifecycle operations for crystallized skills.",
-    "why_used": "完整列出 skill 上線後五種事件對應的操作與效果，讓讀者一次看懂生命週期管理的具體規則，而不用逐條在文字裡拆解。",
+    "why_used": "完整列出 skill 上線後六種事件對應的操作與效果，讓讀者一次看懂生命週期管理的具體規則，而不用逐條在文字裡拆解。",
     "agent_match_hint": "一張表格，三欄分別是事件、操作、效果，列出呼叫成功、執行失敗、使用者拒絕、新反例證據、來源 policy 大幅改寫、長期未使用等情境。"
   },
   {
