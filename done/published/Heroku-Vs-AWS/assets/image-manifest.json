@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Heroku-Vs-AWS/assets/images/aws-certificate.jpg",
+      "file": "done/published/Heroku-Vs-AWS/assets/images/aws-certificate.jpg",
       "type": "figure",
       "page": null,
       "caption": "AWS 的相關證照 [source: AWS]",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Heroku-Vs-AWS/assets/images/heroku-dashboard.jpg",
+      "file": "done/published/Heroku-Vs-AWS/assets/images/heroku-dashboard.jpg",
       "type": "figure",
       "page": null,
       "caption": "Heroku Dashboard [source: Heroku]",

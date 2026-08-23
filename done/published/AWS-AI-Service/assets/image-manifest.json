@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/AWS-AI-Service/assets/images/machine-learning-on-aws.jpeg",
+      "file": "done/published/AWS-AI-Service/assets/images/machine-learning-on-aws.jpeg",
       "type": "figure",
       "page": null,
       "caption": "AWS 在機器學習領域的產品大致分為 5 個面向 [source: AWS Machine Learning Foundation Course on Udacity]",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/AWS-AI-Service/assets/images/aws-au-service.jpeg",
+      "file": "done/published/AWS-AI-Service/assets/images/aws-au-service.jpeg",
       "type": "figure",
       "page": null,
       "caption": "AWS 所提供的 AI Services 一覽 [source: AWS Machine Learning Foundation Course on Udacity]",
