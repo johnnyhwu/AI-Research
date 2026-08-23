@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/PyTorch-ResNet-Image-Classifier/assets/images/feature-image-4.jpg",
+      "file": "done/published/PyTorch-ResNet-Image-Classifier/assets/images/feature-image-4.jpg",
       "type": "figure",
       "page": null,
       "caption": "利用 PyTorch 的 ResNet 快速建立一個圖像分類器 文章題圖 [source: Pixabay]",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/PyTorch-ResNet-Image-Classifier/assets/images/dog-1024x576.jpg",
+      "file": "done/published/PyTorch-ResNet-Image-Classifier/assets/images/dog-1024x576.jpg",
       "type": "figure",
       "page": null,
       "caption": "測試用圖片之一：狗 [source: www.princeton.edu]",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/PyTorch-ResNet-Image-Classifier/assets/images/cat-300x221.jpg",
+      "file": "done/published/PyTorch-ResNet-Image-Classifier/assets/images/cat-300x221.jpg",
       "type": "figure",
       "page": null,
       "caption": "測試用圖片之二：貓 [source: images.theconversation.com]",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/PyTorch-ResNet-Image-Classifier/assets/images/plane-1024x640.jpg",
+      "file": "done/published/PyTorch-ResNet-Image-Classifier/assets/images/plane-1024x640.jpg",
       "type": "figure",
       "page": null,
       "caption": "測試用圖片之三：飛機 [source: static.onecms.io]",

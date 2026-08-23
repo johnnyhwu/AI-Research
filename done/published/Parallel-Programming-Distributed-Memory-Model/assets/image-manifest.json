@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Parallel-Programming-Distributed-Memory-Model/assets/images/distributed-memory-model.jpg",
+      "file": "done/published/Parallel-Programming-Distributed-Memory-Model/assets/images/distributed-memory-model.jpg",
       "type": "figure",
       "page": null,
       "caption": "Distributed Memory Model 示意圖",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Parallel-Programming-Distributed-Memory-Model/assets/images/message-passing-interface.jpg",
+      "file": "done/published/Parallel-Programming-Distributed-Memory-Model/assets/images/message-passing-interface.jpg",
       "type": "figure",
       "page": null,
       "caption": "透過 Message Passing Interface 實現 Process 之間的溝通 [source: Parallel Programming Course from NYCU]",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Parallel-Programming-Distributed-Memory-Model/assets/images/distributed-memory-model-example.jpg",
+      "file": "done/published/Parallel-Programming-Distributed-Memory-Model/assets/images/distributed-memory-model-example.jpg",
       "type": "figure",
       "page": null,
       "caption": "Distributed Memory Model 範例",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/Parallel-Programming-Distributed-Memory-Model/assets/images/distributed-memory-model-example-1.jpg",
+      "file": "done/published/Parallel-Programming-Distributed-Memory-Model/assets/images/distributed-memory-model-example-1.jpg",
       "type": "figure",
       "page": null,
       "caption": "兩個 Processor 分別處理各自的元素，並將結果寄給另外一個 Processor [source: Parallel Programming Course from NYCU]",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/Parallel-Programming-Distributed-Memory-Model/assets/images/distributed-memory-model-example-2.jpg",
+      "file": "done/published/Parallel-Programming-Distributed-Memory-Model/assets/images/distributed-memory-model-example-2.jpg",
       "type": "figure",
       "page": null,
       "caption": "兩個 Processor 不要同時 Send 與 Receive 解決可能發生的 Deadlock [source: Parallel Programming Course from NYCU]",

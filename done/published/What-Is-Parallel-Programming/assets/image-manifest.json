@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/What-Is-Parallel-Programming/assets/images/serial-program.jpg",
+      "file": "done/published/What-Is-Parallel-Programming/assets/images/serial-program.jpg",
       "type": "figure",
       "page": null,
       "caption": "一個程式被拆解為一連串的指令被處理器執行",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/What-Is-Parallel-Programming/assets/images/parallel-programming.jpg",
+      "file": "done/published/What-Is-Parallel-Programming/assets/images/parallel-programming.jpg",
       "type": "figure",
       "page": null,
       "caption": "Parallel Programming 即是一個程式同時由多個處理器執行",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/What-Is-Parallel-Programming/assets/images/parallel-programming-vs-distributed-programming.jpg",
+      "file": "done/published/What-Is-Parallel-Programming/assets/images/parallel-programming-vs-distributed-programming.jpg",
       "type": "figure",
       "page": null,
       "caption": "Parallel Computing 與 Distributed Computing 的差別",
