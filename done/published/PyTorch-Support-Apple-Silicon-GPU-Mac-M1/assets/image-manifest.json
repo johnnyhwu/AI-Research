@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/PyTorch-Support-Apple-Silicon-GPU-Mac-M1/assets/images/pytorch.jpeg",
+      "file": "done/published/PyTorch-Support-Apple-Silicon-GPU-Mac-M1/assets/images/pytorch.jpeg",
       "type": "figure",
       "page": null,
       "caption": "PyTorch 於官方部落格宣布支援 Apple Silicon GPU",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/PyTorch-Support-Apple-Silicon-GPU-Mac-M1/assets/images/miniconda-installer.jpg",
+      "file": "done/published/PyTorch-Support-Apple-Silicon-GPU-Mac-M1/assets/images/miniconda-installer.jpg",
       "type": "figure",
       "page": null,
       "caption": "在 Terminal 中找到下載回來的 Miniconda 安裝 script",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/PyTorch-Support-Apple-Silicon-GPU-Mac-M1/assets/images/training-time.jpg",
+      "file": "done/published/PyTorch-Support-Apple-Silicon-GPU-Mac-M1/assets/images/training-time.jpg",
       "type": "figure",
       "page": null,
       "caption": "Training Time of M1 CPU vs M1 GPU on MNIST",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/PyTorch-Support-Apple-Silicon-GPU-Mac-M1/assets/images/vgg16-on-cifar10.jpg",
+      "file": "done/published/PyTorch-Support-Apple-Silicon-GPU-Mac-M1/assets/images/vgg16-on-cifar10.jpg",
       "type": "figure",
       "page": null,
       "caption": "VGG16 on CIFAR10 [source: sebastianraschka.com]",

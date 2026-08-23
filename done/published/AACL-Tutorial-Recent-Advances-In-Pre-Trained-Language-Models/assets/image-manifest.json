@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-5.07.03-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-5.07.03-PM.png",
       "type": "figure",
       "page": null,
       "caption": "2022 AACL Tutorial: Recent Advances in Pre-trained Language Models 的標題投影片 [source: 此 Tutorial 投影片的第一頁]",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-6.51.23-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-6.51.23-PM.png",
       "type": "figure",
       "page": null,
       "caption": "Pre-trained Language Model 學得到的是 Contextualized Word Representation",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-6.55.49-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-6.55.49-PM.png",
       "type": "figure",
       "page": null,
       "caption": "相同的 Word 在不同的 Context 下會有不同的意義，而產生不同的 Representation",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-7.00.50-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-7.00.50-PM.png",
       "type": "figure",
       "page": null,
       "caption": "BERT 的前面 Layer 學到 Surface 的意義，中間 Layer 學到 Syntactic 的知識，最後幾個 Layer 則是了解整段句子的 Semantic",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-7.18.04-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-7.18.04-PM.png",
       "type": "figure",
       "page": null,
       "caption": "Pre-trained Language Model 中每一層學到的資訊是會受到目前的 Input 影響的",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-7.20.40-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-7.20.40-PM.png",
       "type": "figure",
       "page": null,
       "caption": "BERT Embryology：理解 BERT 在訓練時期學到什麼資訊",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-7.26.48-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-7.26.48-PM.png",
       "type": "figure",
       "page": null,
       "caption": "Pre-trained Language Model 具有 Cross-Discipline 的能力",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-7.30.25-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-7.30.25-PM.png",
       "type": "figure",
       "page": null,
       "caption": "有經過 Pre-trained 的 Model (BERT) 表現得仍然比隨機初始化的 Model (rand) 還要好",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-8.19.29-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-8.19.29-PM.png",
       "type": "figure",
       "page": null,
       "caption": "BERT 在 Sentence-Level Representation 上學的不好",
@@ -85,7 +85,7 @@
     },
     {
       "id": "img-010",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-8.35.43-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-8.35.43-PM.png",
       "type": "figure",
       "page": null,
       "caption": "Anisotropy problem in BERT’s representation space",
@@ -94,7 +94,7 @@
     },
     {
       "id": "img-011",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-8.45.24-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-27-at-8.45.24-PM.png",
       "type": "figure",
       "page": null,
       "caption": "BERT-flow 和 BERT-whitening 提升 BERT 在 Sentence-Level Representation 的表現",
@@ -103,7 +103,7 @@
     },
     {
       "id": "img-012",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-7.51.56-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-7.51.56-PM.png",
       "type": "figure",
       "page": null,
       "caption": "DeCLUTR 透過一份 Document 中 Overlapping 或是 Adjacent 的 Span 來定義 Positive Sample",
@@ -112,7 +112,7 @@
     },
     {
       "id": "img-013",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-7.54.15-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-7.54.15-PM.png",
       "type": "figure",
       "page": null,
       "caption": "DeCLUTR 的表現勝過 BERT-flow 和 BERT-whitening",
@@ -121,7 +121,7 @@
     },
     {
       "id": "img-014",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-7.56.21-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-7.56.21-PM.png",
       "type": "figure",
       "page": null,
       "caption": "ConSERT 在 Token 的 Embedding Space 上做了各種 Augmentation 生成 Contrastive Learning 所需的 Positive Samples",
@@ -130,7 +130,7 @@
     },
     {
       "id": "img-015",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-8.03.39-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-8.03.39-PM.png",
       "type": "figure",
       "page": null,
       "caption": "ConSERT 的表現更勝 DeCLUTR",
@@ -139,7 +139,7 @@
     },
     {
       "id": "img-016",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-8.07.36-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-8.07.36-PM.png",
       "type": "figure",
       "page": null,
       "caption": "DINO 借助 GPT-2 的力量直接生成 Positive Sample",
@@ -148,7 +148,7 @@
     },
     {
       "id": "img-017",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-8.19.25-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-8.19.25-PM.png",
       "type": "figure",
       "page": null,
       "caption": "透過 BYOL 幫助 BERT 學習 Sentence Representation (效果不如有包含 Negative Sample 的 Contrastive Learning 方法)",
@@ -157,7 +157,7 @@
     },
     {
       "id": "img-018",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-9.41.31-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-9.41.31-PM.png",
       "type": "figure",
       "page": null,
       "caption": "SimCSE 使用 Dropout 來取代直接對 Input 進行 Augmentation",
@@ -166,7 +166,7 @@
     },
     {
       "id": "img-019",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-9.45.13-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-9.45.13-PM.png",
       "type": "figure",
       "page": null,
       "caption": "SimCSE 的做法勝過其他以 Data Augmentation 為基礎來生成 Positive Sample 的方法",
@@ -175,7 +175,7 @@
     },
     {
       "id": "img-020",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-10.02.31-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-10.02.31-PM.png",
       "type": "figure",
       "page": null,
       "caption": "Equivariant Contrastive Learning 中同時包含兩種 Task",
@@ -184,7 +184,7 @@
     },
     {
       "id": "img-021",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-10.09.42-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-10.09.42-PM.png",
       "type": "figure",
       "page": null,
       "caption": "DiffCSE 基於 Equivariant Contrastive Learning 的想法，透過兩種 Task 來訓練 Sentence Encoder",
@@ -193,7 +193,7 @@
     },
     {
       "id": "img-022",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-10.14.06-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-10.14.06-PM.png",
       "type": "figure",
       "page": null,
       "caption": "DiffCSE 比 SimCSE 表現得更好",
@@ -202,7 +202,7 @@
     },
     {
       "id": "img-023",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-10.20.17-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-28-at-10.20.17-PM.png",
       "type": "figure",
       "page": null,
       "caption": "透過設計 Prompt Template 來學習 Sentence 的 Embedding",
@@ -211,7 +211,7 @@
     },
     {
       "id": "img-024",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-3.05.12-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-3.05.12-PM.png",
       "type": "figure",
       "page": null,
       "caption": "RankEncoder 透過鄰居資訊來學習一個 Sentence 的 Embedding",
@@ -220,7 +220,7 @@
     },
     {
       "id": "img-025",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-3.13.37-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-3.13.37-PM.png",
       "type": "figure",
       "page": null,
       "caption": "透過 RankEncoder 學習出來的 Sentence Representation 達到 SOTA",
@@ -229,7 +229,7 @@
     },
     {
       "id": "img-026",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-4.03.19-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-4.03.19-PM.png",
       "type": "figure",
       "page": null,
       "caption": "一般的 Finetune 方式中，會對整個 Pre-trained Model 訓練在下游任務",
@@ -238,7 +238,7 @@
     },
     {
       "id": "img-027",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-4.14.09-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-4.14.09-PM.png",
       "type": "figure",
       "page": null,
       "caption": "Parameter-Efficient Fine-tuning 在 Pre-trained Model 中加入額外的模組，並只針對這個額外的模組進行 Finetune",
@@ -247,7 +247,7 @@
     },
     {
       "id": "img-028",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-4.35.34-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-4.35.34-PM.png",
       "type": "figure",
       "page": null,
       "caption": "Finetune 是希望改變 Pre-trained Model 的 Representation，使其在下游任務有更好的表現",
@@ -256,7 +256,7 @@
     },
     {
       "id": "img-029",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-4.42.11-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-4.42.11-PM.png",
       "type": "figure",
       "page": null,
       "caption": "Adapter 示意圖",
@@ -265,7 +265,7 @@
     },
     {
       "id": "img-030",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-4.51.21-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-4.51.21-PM.png",
       "type": "figure",
       "page": null,
       "caption": "LoRA 示意圖",
@@ -274,7 +274,7 @@
     },
     {
       "id": "img-031",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-4.54.32-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-4.54.32-PM.png",
       "type": "figure",
       "page": null,
       "caption": "LoRA 的作法是在 Transformer Layer 的 Feed-Forward Layer 旁額外加上一個分支",
@@ -283,7 +283,7 @@
     },
     {
       "id": "img-032",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-4.59.38-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-06-29-at-4.59.38-PM.png",
       "type": "figure",
       "page": null,
       "caption": "LoRA 模組會將原來的 Representation 投射到一個特別小的維度上後，再放大得到新的 Representation",
@@ -292,7 +292,7 @@
     },
     {
       "id": "img-033",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-07-01-at-5.15.52-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-07-01-at-5.15.52-PM.png",
       "type": "figure",
       "page": null,
       "caption": "Self-Attention 的原理",
@@ -301,7 +301,7 @@
     },
     {
       "id": "img-034",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-07-01-at-5.23.22-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-07-01-at-5.23.22-PM.png",
       "type": "figure",
       "page": null,
       "caption": "Prefix Tuning 就是在 Self-Attention Layer 的 Input Sequence 的前方再多加入一些 Vector",
@@ -310,7 +310,7 @@
     },
     {
       "id": "img-035",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-07-01-at-5.31.40-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-07-01-at-5.31.40-PM.png",
       "type": "figure",
       "page": null,
       "caption": "Soft Prompting 就是在 Embedding Layer 的輸出額外加上一些 Prefix Embedding",
@@ -319,7 +319,7 @@
     },
     {
       "id": "img-036",
-      "file": "done/unpublished/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-07-01-at-5.34.55-PM.png",
+      "file": "done/published/AACL-Tutorial-Recent-Advances-In-Pre-Trained-Language-Models/assets/images/Screen-Shot-2023-07-01-at-5.34.55-PM.png",
       "type": "figure",
       "page": null,
       "caption": "Hard Prompting 則是直接在 Input Sequence 中加入額外的 Word",
