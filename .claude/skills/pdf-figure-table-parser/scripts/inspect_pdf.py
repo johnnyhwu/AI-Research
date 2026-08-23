@@ -34,8 +34,11 @@ def main():
 
     blocks = lib.page_blocks(doc)
     area = lib.content_area(blocks)
+    col_edges = lib.column_left_edges(blocks)
+    two_column = lib.is_two_column_doc(col_edges, doc[0].rect.width)
     print(f"body content area: {tuple(round(v, 1) for v in area) if area else None}")
-    print(f"body column left edge(s): {[round(e, 1) for e in lib.column_left_edges(blocks)]}")
+    print(f"body column left edge(s): {[round(e, 1) for e in col_edges]} "
+          f"(-> treated as {'two-column' if two_column else 'single-column'} for crop bounds)")
     print("(crops are bounded by these -- a wildly wrong content area means "
           "the crop heuristics will be wrong too)\n")
 
