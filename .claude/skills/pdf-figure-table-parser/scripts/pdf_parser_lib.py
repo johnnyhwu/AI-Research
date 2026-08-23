@@ -81,9 +81,20 @@ def find_captions(doc, min_caption_width=400):
                 # sentence is often the *longer* block, so the separator has to
                 # outrank length -- otherwise the cross-reference wins.
                 "separated": clean[m.end():m.end() + 1] in (":", "."),
+                # A second, weaker signal for the same problem: some caption
+                # styles put the number on its own line ("Figure 2\nCross-domain
+                # transfer results.") with no ":"/"." right after it, so
+                # "separated" alone can't tell that apart from an inline
+                # reference like "Figure 2 shows that ...". But a real caption's
+                # title starts with a capitalized word right after the number;
+                # a run-on sentence continues in lowercase ("shows", "is",
+                # "demonstrates"). Only used as a tie-break under "separated".
+                "title_like": (lambda w: bool(w) and w[0].isupper())(clean[m.end():].lstrip()),
             }
             prev = candidates.get(key)
-            if prev is None or (entry["separated"], len(entry["text"])) > (prev["separated"], len(prev["text"])):
+            rank = (entry["separated"], entry["title_like"], len(entry["text"]))
+            prev_rank = (prev["separated"], prev["title_like"], len(prev["text"])) if prev else None
+            if prev is None or rank > prev_rank:
                 candidates[key] = entry
 
     captions = [c for c in candidates.values() if (c["bbox"][2] - c["bbox"][0]) >= min_caption_width]
