@@ -1,0 +1,96 @@
+{
+  "source_pdf": "done/unpublished/Memory-Skill-Co-Evolution/2607.16621v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Memory-Skill-Co-Evolution/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 1 Overview of MSCE with governed memory, skill crystallization, and dual-signal value backﬁlling.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Memory-Skill-Co-Evolution/assets/images/picture-002.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 1 Main results on EvoAgentBench. We report Pass@1 (%) and Cost across ﬁve domains. Cost is measured in chars for Math and turns for other domains. For Pass@1, the best results are shown in bold, and the second best results are underlined. Cost is reported as an eﬃciency reference and should be interpreted jointly with Pass@1, as lower cost may reﬂect premature termination or less extensive tool use.",
+      "nearby_text": "Results on EvoAgentBench. As shown in Table 1, MSCE achieves the best or tied-best Pass@1 in all ﬁve domains. Compared with the strongest non-MSCE baseline in each domain, it improves Pass@1 by 4.61 points on IR, 4.00 on Math, 15.39 on SE, and 5.17 on KW. On",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/Memory-Skill-Co-Evolution/assets/images/picture-003.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 2 Results on LoCoMo. We report LLM-judge (GPT-4o) scores for four question types, including single-hop, multi-hop, temporal reasoning, and open-domain questions, together with the overall judge score and overall F1 score. Higher is better for all metrics.",
+      "nearby_text": "Long-dialogue memory results. Table 2 reports LoCoMo results. MSCE achieves the best overall judge score and F1, outperforming the strongest baseline, SkillFlow-Evolve, by 2.01 and 1.18 points, respectively. It also obtains the highest scores on sing",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/Memory-Skill-Co-Evolution/assets/images/picture-004.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 3 Ablation results on EvoAgentBench. The top row shows the full MSCE method, while the following rows evaluate non-hierarchical and component-level ablations.",
+      "nearby_text": "Table 3 shows that all components contribute to performance and eﬃciency. The largest degradation comes from replacing MSCE with Flat Memory: Pass@1 drops by 15.38, 16.00, and 19.23 points on IR, Math, and SE, respective",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/Memory-Skill-Co-Evolution/assets/images/picture-005.png",
+      "type": "figure",
+      "page": 9,
+      "caption": "Figure 2 Cross-domain transfer results. Bars show the absolute Pass@1 improvement from intra to cross in percentage points, and the orange line shows the relative cost change.",
+      "nearby_text": "Figure 2 shows that cross-domain transfer improves Pass@1 across all six transfer pairs, with gains from +2.56 to +5.13 points and an average gain of +3.93 points, with cost decreasing in four of six pairs. The",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/Memory-Skill-Co-Evolution/assets/images/picture-006.png",
+      "type": "figure",
+      "page": 9,
+      "caption": "Figure 3 Long-horizon cumulative evolution under the lifelong learning protocol. The left panel shows Pass@1 across increasing accumulated training scales, and the right panel shows cost normalized by the corresponding p0 cost of each task category.",
+      "nearby_text": "Lifelong Evolution Figure 3 presents long-horizon evolution under the lifelong learning protocol, where p0 denotes the initial no-accumulation setting and p25, p50, and p100 denote increasing accumulated experience scales. Pass@1 improves",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/Memory-Skill-Co-Evolution/assets/images/picture-007.png",
+      "type": "table",
+      "page": 19,
+      "caption": "Table 4 Lifecycle operations for crystallized skills.",
+      "nearby_text": "lace. The detailed lifecycle operations for crystallized skills are provided in Table 4.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/Memory-Skill-Co-Evolution/assets/images/picture-008.png",
+      "type": "table",
+      "page": 19,
+      "caption": "Table 5 L1 traces from two distinct tasks demonstrating cross-task L2 policy induction. Task-level feedback (RA = 0.8, RB = 0.9) is backpropagated using reﬂection weights (α) to compute step values (V ).",
+      "nearby_text": "an agent resolving environment dependencies across two distinct tasks shown in Table 5.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/Memory-Skill-Co-Evolution/assets/images/picture-009.png",
+      "type": "table",
+      "page": 20,
+      "caption": "Table 6 Principal MSCE hyperparameters.",
+      "nearby_text": "are then reused on later evaluation. Hyperparameters are reported in Appendix (Table 6).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/Memory-Skill-Co-Evolution/assets/images/picture-010.png",
+      "type": "table",
+      "page": 21,
+      "caption": "Table 7 Eﬀect of LLM-simulated human feedback on EvoAgentBench. C0 denotes MSCE without simulated feedback, and C1 denotes MSCE with simulated feedback injected during training. Cost is measured in chars for Math and turns for other domains, so cost comparisons should be made within each domain.",
+      "nearby_text": "Results. Table 7 compares C0 and C1. Simulated feedback improves Pass@1 on four of the ﬁve domains, with the largest gains on KW and SE, where C1 improves Pass@1 by +13.79 and +7.69 points, respectively. Code and IR also improve",
+      "parser_confidence": "low"
+    }
+  ]
+}

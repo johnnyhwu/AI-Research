@@ -81,9 +81,20 @@ def find_captions(doc, min_caption_width=400):
                 # sentence is often the *longer* block, so the separator has to
                 # outrank length -- otherwise the cross-reference wins.
                 "separated": clean[m.end():m.end() + 1] in (":", "."),
+                # A second, weaker signal for the same problem: some caption
+                # styles put the number on its own line ("Figure 2\nCross-domain
+                # transfer results.") with no ":"/"." right after it, so
+                # "separated" alone can't tell that apart from an inline
+                # reference like "Figure 2 shows that ...". But a real caption's
+                # title starts with a capitalized word right after the number;
+                # a run-on sentence continues in lowercase ("shows", "is",
+                # "demonstrates"). Only used as a tie-break under "separated".
+                "title_like": (lambda w: bool(w) and w[0].isupper())(clean[m.end():].lstrip()),
             }
             prev = candidates.get(key)
-            if prev is None or (entry["separated"], len(entry["text"])) > (prev["separated"], len(prev["text"])):
+            rank = (entry["separated"], entry["title_like"], len(entry["text"]))
+            prev_rank = (prev["separated"], prev["title_like"], len(prev["text"])) if prev else None
+            if prev is None or rank > prev_rank:
                 candidates[key] = entry
 
     captions = [c for c in candidates.values() if (c["bbox"][2] - c["bbox"][0]) >= min_caption_width]
@@ -327,13 +338,34 @@ def visual_ink_rects(page, content_rect=None, tol_frac=0.04):
     return out
 
 
-def rects_in_column(rects, caption_bbox, page_width, col_tol=15.0):
+def is_two_column_doc(col_edges, page_width, gap_frac=0.25):
+    """
+    Whether this document actually has a two-column body layout, from the
+    document-wide `column_left_edges(...)` clusters: real if the widest and
+    narrowest edge differ by more than `gap_frac` of the page width (a real
+    second column starts well past the page's midpoint), not merely because
+    there's more than one cluster -- a single-column paper's nested-list
+    indentation also produces two close-together edges (e.g. 70.9 and 90.2,
+    ~19pt apart on a 612pt page), and treating that as "two columns" is what
+    makes `caption_column` misclassify a narrow, centered single-column
+    caption as living in a half-page column it doesn't actually share with
+    anything -- see `caption_column`'s `two_column` parameter.
+    """
+    if len(col_edges) < 2:
+        return False
+    return (max(col_edges) - min(col_edges)) > page_width * gap_frac
+
+
+def rects_in_column(rects, caption_bbox, page_width, col_tol=15.0, two_column=True):
     """
     Restrict ink rects to the column the caption sits in, so a side-by-side
     neighbour's ink can't be mistaken for this visual's own. A full-width
     caption keeps everything. Mirrors auto_crop_hbounds' in_column test.
+
+    `two_column` should be `is_two_column_doc(...)` for the whole document --
+    see `caption_column`.
     """
-    col = caption_column(caption_bbox, page_width)
+    col = caption_column(caption_bbox, page_width, two_column=two_column)
     if col == "full":
         return list(rects)
     mid = page_width / 2.0
@@ -342,7 +374,7 @@ def rects_in_column(rects, caption_bbox, page_width, col_tol=15.0):
     return [r for r in rects if r.x0 >= mid - col_tol]
 
 
-def caption_column(bbox, page_width, full_width_frac=0.55):
+def caption_column(bbox, page_width, full_width_frac=0.55, two_column=True):
     """
     Classify a caption/rect bbox as 'left', 'right', or 'full' relative to a
     two-column page layout, purely from its own horizontal extent -- no
@@ -353,7 +385,22 @@ def caption_column(bbox, page_width, full_width_frac=0.55):
     the page its center falls in. Used to keep same-page, opposite-column
     visuals from contaminating each other's crop bounds (see auto_crop_top
     and auto_crop_hbounds below).
+
+    `two_column` must be supplied by the caller (typically
+    `is_two_column_doc(column_left_edges(...), page_width)`, computed once
+    for the whole document) and short-circuits straight to 'full' when
+    false. Without this, a **single-column** paper with a short, centered
+    caption -- narrower than `full_width_frac` of the page purely because
+    it's a one-line caption, not because the document is two-column at all
+    -- gets its midpoint compared against the raw page center and is
+    misclassified as living in a "left" or "right" column. Everything
+    downstream then wrongly excludes that visual's own wider content (table
+    cells, chart ink) sitting past that arbitrary midpoint, clipping both
+    outer edges of the crop. This happened for real on two single-line-
+    caption, ruleless tables in one paper -- see `auto_crop_hbounds`.
     """
+    if not two_column:
+        return "full"
     x0, x1 = bbox[0], bbox[2]
     mid = page_width / 2.0
     if (x1 - x0) >= page_width * full_width_frac:
@@ -363,7 +410,8 @@ def caption_column(bbox, page_width, full_width_frac=0.55):
 
 def auto_crop_top(page_no, caption_bbox, captions_by_page, page_width,
                   default_margin=58.0, ink_rects=None, barriers=None,
-                  text_blocks=None, kind="figure", max_gap=36.0, pad=6.0):
+                  text_blocks=None, kind="figure", max_gap=36.0, pad=6.0,
+                  two_column=True):
     """
     Top boundary for a visual's region, in two stages: a conservative *floor*
     that nothing above may be crossed, then a tightening step that walks the
@@ -409,7 +457,7 @@ def auto_crop_top(page_no, caption_bbox, captions_by_page, page_width,
     figure drawn purely as text, a ruleless table).
     """
     cap_y0 = caption_bbox[1]
-    target_col = caption_column(caption_bbox, page_width)
+    target_col = caption_column(caption_bbox, page_width, two_column=two_column)
 
     def same_column(bbox):
         # A full-width visual spans both columns, so anything on the page can
@@ -417,7 +465,7 @@ def auto_crop_top(page_no, caption_bbox, captions_by_page, page_width,
         # by full-width blocks.
         if target_col == "full":
             return True
-        col = caption_column(bbox, page_width)
+        col = caption_column(bbox, page_width, two_column=two_column)
         return col == "full" or col == target_col
 
     floor = default_margin
@@ -468,8 +516,8 @@ def auto_crop_top(page_no, caption_bbox, captions_by_page, page_width,
     return max(floor, top - pad)
 
 
-def auto_crop_hbounds(page, top, bottom, caption_bbox, ink_rects=None,
-                      pad=8.0, min_width=40.0, band_tol=2.0, col_tol=15.0):
+def auto_crop_hbounds(page, top, bottom, caption_bbox, ink_rects=None, text_rects=None,
+                      pad=8.0, min_width=40.0, band_tol=2.0, col_tol=15.0, two_column=True):
     """
     Tight horizontal bounds for a visual's region, derived from the actual
     vector drawings / raster images sitting in its vertical band [top,
@@ -494,11 +542,22 @@ def auto_crop_hbounds(page, top, bottom, caption_bbox, ink_rects=None,
     excluded); a full-width caption's band isn't restricted, since it's
     meant to span both columns.
 
-    Always returns (x0, x1): the caption's own bbox is the floor (a
-    ruleless table with no drawn lines -- e.g. no gridlines at all -- still
-    has to crop *something*, and the caption's width is the only reliable
-    signal left in that case), widened by any drawings/images found in the
-    band above/below it.
+    Always returns (x0, x1): the caption's own bbox is the floor, widened by
+    any drawings/images *and text blocks* found in the band above/below it.
+    Text blocks matter because a **ruleless table (no drawn gridlines at
+    all) with a short, centered caption** has no vector ink whatsoever in its
+    band -- without also looking at text, the crop would collapse to just the
+    caption's own (often much narrower) width and silently clip the table's
+    outer columns on both sides. This bit only once: two single-line-caption
+    tables in one paper ("Table 4 Lifecycle operations...", "Table 6
+    Principal MSCE hyperparameters.") both rendered looking like ordinary,
+    correctly-sized crops -- nothing in `crop_warnings` catches a narrow
+    *width*, only a narrow height -- and only turned out wrong on a direct
+    visual check. Since [top, bottom] is already finalized by the time this
+    runs (by the auto heuristic or an explicit override), any text block
+    still inside that band is presumably part of the visual itself (table
+    cells, axis labels, panel titles) rather than stray prose, which is
+    already excluded upstream when the vertical bounds are picked.
 
     Candidates come from `visual_ink_rects`, which has already corrected each
     drawing to its clipped (visible) extent and discarded off-page raster
@@ -507,11 +566,13 @@ def auto_crop_hbounds(page, top, bottom, caption_bbox, ink_rects=None,
     that clips embedded screenshots.
     """
     page_w = page.rect.width
-    col = caption_column(caption_bbox, page_w)
+    col = caption_column(caption_bbox, page_w, two_column=two_column)
     mid = page_w / 2.0
 
     if ink_rects is None:
         ink_rects = visual_ink_rects(page)
+    if text_rects is None:
+        text_rects = [pymupdf.Rect(b[:4]) for b in page.get_text("blocks")]
 
     def in_column(r):
         if col == "full":
@@ -521,7 +582,7 @@ def auto_crop_hbounds(page, top, bottom, caption_bbox, ink_rects=None,
         return r.x0 >= mid - col_tol
 
     rects = [pymupdf.Rect(caption_bbox)]
-    for r in ink_rects:
+    for r in list(ink_rects) + list(text_rects):
         # Full containment, not mere overlap -- a page-spanning
         # decorative/background rect can poke into the band at one edge
         # without actually being part of this visual, and would otherwise

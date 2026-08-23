@@ -46,6 +46,17 @@ heuristics or a manual crop-boundary override (see below) -- not a peek.
 If the user hasn't stated this rule explicitly, apply it anyway by default;
 it's the reason a separate parsing step is worth having at all.
 
+One narrow, evidence-based caveat: a crop that's horizontally too narrow --
+outer table columns silently clipped while the image still comes out a
+plausible, non-degenerate size -- has no text-only signal in this skill at
+all (not `SUSPECT CROPS`, not `verify_manifest.py`; see "A single-column
+paper getting misclassified as two-column" and "Ruleless tables with no
+vector ink at all" below for two real instances). If a paper has any table
+with a short, centered, single-line caption, that specific risk is worth one
+direct look at the rendered PNG before calling the manifest done -- not a
+blanket exception to the rule, just the one failure class it structurally
+cannot catch on its own.
+
 ## Workflow
 
 1. **Set up dependencies once per environment.**
@@ -85,9 +96,19 @@ it's the reason a separate parsing step is worth having at all.
      is a block that *starts* with "Figure N"/"Table N" and isn't followed
      immediately by a comma (that comma pattern means it's an inline
      cross-reference like "Table 2, Figure 3, and Table 3 test the design
-     choices...", not the real caption -- the real caption for the same
-     number, found elsewhere, is always the longer match, so the longer one
-     wins when there's a collision). A caption block also has to be at least
+     choices...", not the real caption). When two blocks collide on the same
+     number, the tie-break checks, in order: (1) whether ":"/"." separates
+     the label from the description (a real caption), (2) whether the word
+     right after the number is capitalized (a title, as opposed to a
+     lowercase verb continuing a sentence -- "Figure 2 shows that..." is a
+     cross-reference even though it has no comma right after "2"), then (3)
+     length. This matters because a caption number sometimes sits on its own
+     line ("Figure 2\nCross-domain transfer results.", no ":"/"." at all),
+     which only tier (2) can tell apart from a same-shaped run-on sentence.
+     If a figure/table's crop ends up capturing prose from a much later page
+     instead of its own visual, suspect this collision before anything
+     else -- check `find_captions`' output for that (kind, num) by hand. A
+     caption block also has to be at least
      `--min-caption-width` points wide (default 400) to be accepted, which
      filters out narrow incidental matches -- **but on a two-column paper, a
      caption that sits inside a single column can legitimately be only
@@ -229,6 +250,21 @@ ruleless/dense tables, rather than waiting for a visibly-wrong pixel size to
 notice it -- a crop that grabs the page's running header text instead of the
 table can still produce a plausible-looking, non-degenerate pixel size.
 
+**A crop that lands on an *adjacent visual's* content is the sharpest version
+of this and `crop_warnings` cannot see it at all.** The "mostly prose" check
+only recognizes body paragraphs as a problem; a table's own data rows aren't
+classified as prose, so if `auto_crop_top`'s walk overshoots past one
+table's caption into a neighboring table's cells above it, the render comes
+out a perfectly plausible, non-degenerate size and ships with
+`parser_confidence` decided purely by whether `pdfplumber` found a
+structured table in the (wrong) region -- it can even say `"high"`. This
+happened twice on one paper (two entries out of seven tables), both times on
+tables that weren't in the `SUSPECT CROPS` list. The only reliable defense
+is the practice above taken literally: when a paper captions tables above
+their content, walk *every* table entry's final top/bottom against
+`dump_blocks.py` and confirm the y-range doesn't dip into the block above
+the visual's own caption -- don't stop once the flagged ones are fixed.
+
 ### Figures that float mid-page
 
 A figure with body text above it and its caption below it used to be the
@@ -263,6 +299,29 @@ say) are the reason the walk starts at the *lowest ink above the caption*
 rather than at the caption, and the reason the floor exists at all: those
 icons are real ink sitting inside body paragraphs and headings, and without
 a floor the walk would happily chain up through them.
+
+### A caption sitting in the middle of a multi-panel figure
+
+The default bottom boundary ("3pt above the caption's own top edge") assumes
+the caption is the *last* thing in the figure's region. Some multi-panel
+figures instead put the caption between two rows of sub-panels -- e.g. a
+top row of bar charts, then the caption, then a color legend and a second
+row of box plots labeled "(a) .../(b) ..." that the caption text never
+actually mentions by name. Nothing here trips `SUSPECT CROPS`: the auto crop
+stops cleanly at the caption and renders a normal-looking, correctly-sized
+image -- it's just missing the second half of the figure, and the next
+caption on the page (if any) gets an auto top boundary that starts *inside*
+that missing second half instead of above it, silently stealing content that
+belongs to the first figure.
+
+The tell is in `dump_blocks.py`'s output, not in `SUSPECT CROPS`: body-column
+text (a new section heading, a paragraph starting flush against
+`column_left_edges`) resumes only well after the *next* caption on the page,
+with figure-internal-looking blocks (panel titles, axis labels, legend
+entries) continuing in between. When that gap exists, both figures need
+manual boundaries: `--crop-bottom-override` on the first figure to extend
+through the legend/second row, and `--crop-top-override` on the second
+figure to start right where the first one now ends.
 
 ## Two-column papers: what to watch for
 
@@ -304,6 +363,59 @@ check the actual caption block widths with `dump_blocks.py` and lower
 value like `50` is fine; the risk of noise from *other* short blocks
 matching the regex is low, since `find_captions` already requires the block
 to start with "Figure"/"Fig."/"Table" and reject inline cross-references).
+
+### A single-column paper getting misclassified as two-column
+
+`caption_column` (used by `auto_crop_top` and `auto_crop_hbounds` to keep
+same-page opposite-column visuals from contaminating each other) used to
+classify purely from a caption's own width against the raw page width, with
+no idea whether the document actually *has* two columns. A **short, centered
+caption in an otherwise single-column paper** (a one-line caption like
+"Table 4 Lifecycle operations for crystallized skills.", much narrower than
+`full_width_frac` of the page) would get its midpoint compared against the
+bare page center and misclassified as living in a "left" or "right" half-page
+column that doesn't exist -- then everything past that arbitrary midpoint
+(the table's own wider cells) got excluded from its crop, clipping both
+outer columns. This produced a normal-looking, non-degenerate image every
+time -- `crop_warnings` has no signal for "this width looks too narrow" --
+and was only caught by directly viewing the rendered PNG.
+
+Fixed by computing a whole-document `is_two_column_doc(column_left_edges(...),
+page_width)` once in `build_manifest.py` and threading it through as
+`two_column=...` to `caption_column` and everything that calls it: a real
+second column starts well past the page's midpoint (its left edge differs
+from the first column's by more than ~25% of the page width), which is
+different from the ~15-20pt gap a single-column paper's nested-list
+indentation also produces between `column_left_edges` clusters. When
+`two_column` is false, `caption_column` always returns `"full"` regardless
+of the caption's own width, so no caption on a genuinely single-column paper
+can be excluded from content past an artificial half-page line.
+`inspect_pdf.py` now prints which way this went ("-> treated as
+single-column/two-column for crop bounds") right next to the column edges --
+check it on any paper with a short, narrow-captioned table, even one that
+otherwise looks perfectly single-column.
+
+### Ruleless tables with no vector ink at all
+
+A **ruleless table** (no drawn gridlines whatsoever -- common; see "Why
+tables often end up low-confidence" below) has zero vector drawings and no
+images in its band, so `auto_crop_hbounds` used to fall back entirely to the
+caption's own bbox as both floor *and* final width. That's fine when the
+caption is as wide as the table (most captions in this repo's papers are
+full descriptive paragraphs), but a short one-line caption is frequently
+*narrower* than the table beneath it -- same root cause as the
+two-column-misclassification bug above, and it compounds with it, since a
+narrow caption is also the trigger for that one. `auto_crop_hbounds` now
+also unions in text-block rects (not just vector/image ink) found in the
+already-finalized `[top, bottom]` band, so a ruleless table's own cell text
+sets its width even with zero drawn ink to go on. Both bugs together clipped
+two single-line-caption tables in one paper down to their caption's width,
+losing entire outer columns on both sides, and both instances passed every
+automated check (`SUSPECT CROPS`, `verify_manifest.py`) -- this class of bug
+is invisible to every text-only signal this skill has and was only found by
+directly viewing the rendered PNGs. If a paper has any short, centered table
+captions, that alone is reason enough to view those specific renders once
+before calling the manifest done, hard rule or not.
 
 ## Why tables often end up low-confidence, and why that's fine
 

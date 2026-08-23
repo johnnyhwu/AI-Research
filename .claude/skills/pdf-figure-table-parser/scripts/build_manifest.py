@@ -143,10 +143,19 @@ def main():
 
     column_w = lib.estimate_column_width(all_blocks)
     prose_bboxes = {(b["page"], b["bbox"]) for b in prose}
-    barriers = lib.flush_left_blocks(all_blocks, lib.column_left_edges(all_blocks),
-                                     column_width=column_w)
+    col_edges = lib.column_left_edges(all_blocks)
+    barriers = lib.flush_left_blocks(all_blocks, col_edges, column_width=column_w)
     for b in barriers:
         b["is_prose"] = (b["page"], b["bbox"]) in prose_bboxes
+
+    # Whole-document signal for caption_column/auto_crop_*: a real two-column
+    # layout, not just the close-together edges a single-column paper's
+    # nested-list indentation also produces (see is_two_column_doc). Without
+    # this, a narrow single-column caption gets misclassified as living in a
+    # "left"/"right" half-page column that doesn't actually exist, and its
+    # own wider content past the artificial midpoint gets excluded from the
+    # crop -- see auto_crop_hbounds' docstring.
+    two_column = lib.is_two_column_doc(col_edges, doc[0].rect.width)
 
     overrides = parse_overrides(args.crop_top_override)
     bottom_overrides = parse_overrides(args.crop_bottom_override)
@@ -155,6 +164,7 @@ def main():
     os.makedirs(images_dir, exist_ok=True)
 
     ink_by_page = {}
+    text_by_page = {}
     manifest_images = []
     warned = []
     print(f"Detected {len(captions)} visual(s):\n")
@@ -165,7 +175,11 @@ def main():
 
         if page_no not in ink_by_page:
             ink_by_page[page_no] = lib.visual_ink_rects(page, area)
-        ink = lib.rects_in_column(ink_by_page[page_no], c["bbox"], page_w)
+        ink = lib.rects_in_column(ink_by_page[page_no], c["bbox"], page_w, two_column=two_column)
+
+        if page_no not in text_by_page:
+            text_by_page[page_no] = [pymupdf.Rect(b["bbox"]) for b in all_blocks if b["page"] == page_no]
+        text_rects = lib.rects_in_column(text_by_page[page_no], c["bbox"], page_w, two_column=two_column)
 
         key = (page_no, kind, num)
         if key in overrides:
@@ -174,7 +188,8 @@ def main():
         else:
             top = lib.auto_crop_top(page_no, c["bbox"], captions_by_page, page_w,
                                     default_margin=top_margin, ink_rects=ink,
-                                    barriers=barriers, text_blocks=all_blocks, kind=kind)
+                                    barriers=barriers, text_blocks=all_blocks, kind=kind,
+                                    two_column=two_column)
             source = "auto heuristic"
 
         bottom = bottom_overrides.get(key, c["bbox"][1] - 3)
@@ -182,7 +197,9 @@ def main():
             left, right = args.margin_x, page_w - args.margin_x
             hsource = "explicit --margin-x"
         else:
-            left, right = lib.auto_crop_hbounds(page, top, bottom, c["bbox"], ink_rects=ink)
+            left, right = lib.auto_crop_hbounds(page, top, bottom, c["bbox"],
+                                                ink_rects=ink, text_rects=text_rects,
+                                                two_column=two_column)
             hsource = "clipped ink/caption"
         rect = pymupdf.Rect(left, top, right, bottom)
         if rect.height < 1 or rect.width < 1:
