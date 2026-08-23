@@ -1,10 +1,10 @@
 {
-  "source_pdf": "in-progress/ParseBench/2604.08538v3.pdf",
+  "source_pdf": "done/unpublished/ParseBench/2604.08538v3.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "in-progress/ParseBench/assets/images/picture-001.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-001.png",
       "type": "figure",
       "page": 1,
       "caption": "Figure 1: ParseBench comprises ∼2,000 human-verified enterprise document pages and more than 169K test rules, organized around five capability dimensions: tables, charts, content faithfulness, semantic formatting, and visual grounding. Each dimension targets a distinct class of agent-critical parsing failures.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "in-progress/ParseBench/assets/images/picture-002.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-002.png",
       "type": "table",
       "page": 2,
       "caption": "Table 1: Comparison of document parsing benchmarks. Subtask benchmarks evaluate a single capability on a narrow corpus; end-to-end benchmarks target multiple capabilities jointly. ParseBench covers all five capability dimensions on enterprise documents. Scale reflects the primary annotation unit (table/chart images for subtask benchmarks, document pages for end-to-end benchmarks).",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "in-progress/ParseBench/assets/images/picture-003.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-003.png",
       "type": "table",
       "page": 10,
       "caption": "Table 5: Main ParseBench results (%). Overall is the unweighted mean across all five dimensions. Bold marks the best score across all providers in each column; underlined values mark the second-best. *For visual grounding, Qwen uses a separate layout-only pipeline; 4 pages where that pipeline failed to return usable output are excluded. See Appendix C.2. †Docling’s visual-grounding score excludes 13 pages with pipeline failures.",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "in-progress/ParseBench/assets/images/picture-004.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-004.png",
       "type": "figure",
       "page": 11,
       "caption": "Figure 5: Quality vs. cost for all evaluated providers (Section 4.3). Per-page costs use publicly listed pay-as-you-go prices [1, 4, 7, 9, 10, 14, 18, 20, 23, 27].",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "in-progress/ParseBench/assets/images/picture-005.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-005.png",
       "type": "figure",
       "page": 17,
       "caption": "Figure 6: Distribution of chart characteristics in the benchmark dataset. Per-chart dimensions are computed over all 1,039 charts; the chart count dimension is computed per page.",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "in-progress/ParseBench/assets/images/picture-006.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-006.png",
       "type": "table",
       "page": 19,
       "caption": "Table 6: Per-provider evaluation configurations. All VLMs use the same standardized prompt per benchmark dimen- sion.",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "in-progress/ParseBench/assets/images/picture-007.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-007.png",
       "type": "table",
       "page": 21,
       "caption": "Table 7: Hardware and software configurations for self-hosted models. All deployments use Modal serverless GPU containers with on-demand scaling.",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "in-progress/ParseBench/assets/images/picture-008.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-008.png",
       "type": "table",
       "page": 22,
       "caption": "Table 8: Per-page cost (¢/page) across dataset categories for proprietary VLM configurations. All configurations include layout extraction. † marks default reasoning settings.",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "in-progress/ParseBench/assets/images/picture-009.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-009.png",
       "type": "table",
       "page": 25,
       "caption": "Table 9: Fine-grained rule-based layout metrics (%). Bold marks the best score in each column; underlined values mark the second-best.",
@@ -85,7 +85,7 @@
     },
     {
       "id": "img-010",
-      "file": "in-progress/ParseBench/assets/images/picture-010.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-010.png",
       "type": "table",
       "page": 26,
       "caption": "Table 10: Detection and attribution-only layout diagnostics (%). Bold marks the best score in each column; underlined values mark the second-best.",
@@ -94,7 +94,7 @@
     },
     {
       "id": "img-011",
-      "file": "in-progress/ParseBench/assets/images/picture-011.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-011.png",
       "type": "figure",
       "page": 26,
       "caption": "Figure 12: Difficulty-stratified layout element pass rate on two reported buckets, Easy and Hard, for LlamaParse and the three strongest specialized parsers. The right panel reports LlamaParse’s absolute lead over the next-best method in each bucket.",
@@ -103,7 +103,7 @@
     },
     {
       "id": "img-012",
-      "file": "in-progress/ParseBench/assets/images/picture-012.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-012.png",
       "type": "table",
       "page": 27,
       "caption": "Table 11: Deterministic page-level heuristic used to score page difficulty for the appendix Easy/Hard analysis. Pages with scores ≤3 are reported as Easy; all higher-scoring pages are reported as Hard.",
@@ -112,7 +112,7 @@
     },
     {
       "id": "img-013",
-      "file": "in-progress/ParseBench/assets/images/picture-013.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-013.png",
       "type": "figure",
       "page": 28,
       "caption": "Figure 13: Two contrasting predictions where GriTS and TEDS disagree with the table’s downstream usefulness. (a) A semantically wrong prediction that GriTS and TEDS round to ≈1.0. (b) A semantically equivalent rewrite that GriTS and TEDS heavily penalize. TRM ranks both correctly.",
@@ -121,7 +121,7 @@
     },
     {
       "id": "img-014",
-      "file": "in-progress/ParseBench/assets/images/picture-014.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-014.png",
       "type": "table",
       "page": 29,
       "caption": "Table 12: Two representative test rules for the OECD chart example (Sweden / Below upper secondary). The wide 0.5 relative tolerance on the Unadjusted rule reflects that the bar is very short (≈3 score points) and difficult to read precisely from the 3D chart; any estimate between 1.5 and 4.5 is accepted.",
@@ -130,7 +130,7 @@
     },
     {
       "id": "img-015",
-      "file": "in-progress/ParseBench/assets/images/picture-015.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-015.png",
       "type": "figure",
       "page": 30,
       "caption": "Figure 14: Source chart and provider outputs for the OECD chart example. (a) Source chart with Sweden / Below upper secondary marked in red. (b)–(e) Rendered table outputs (top portion shown); Sweden row highlighted in green (pass) or pink (fail). Gemini 3 Flash with minimal thinking omitted (no table, 0/10).",
@@ -139,7 +139,7 @@
     },
     {
       "id": "img-016",
-      "file": "in-progress/ParseBench/assets/images/picture-016.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-016.png",
       "type": "table",
       "page": 31,
       "caption": "Table 14: Per-provider Content Faithfulness scores on the Federal Register example. Each competitor exhibits a distinct failure mode: Textract duplicates content, Haiku 4.5 hallucinates text and jumbles column order, and Extend reads across columns row-wise.",
@@ -148,7 +148,7 @@
     },
     {
       "id": "img-017",
-      "file": "in-progress/ParseBench/assets/images/picture-017.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-017.png",
       "type": "figure",
       "page": 32,
       "caption": "Figure 15: Source page and provider outputs for the Federal Register example. (a) Source 3-column page. (b)– (e) Rendered outputs. LlamaParse Agentic correctly linearizes columns; Textract wraps them into an HTML table; Extend reads row-wise across columns; Haiku 4.5 hallucinates words and jumbles column order.",
@@ -157,7 +157,7 @@
     },
     {
       "id": "img-018",
-      "file": "in-progress/ParseBench/assets/images/picture-018.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-018.png",
       "type": "table",
       "page": 33,
       "caption": "Table 15: Per-provider Semantic Formatting scores on the infographic example. GPT-5 Mini preserves bold styling but flattens the heading hierarchy; Haiku 4.5 uses HTML tags instead of Markdown; Textract produces plain text with no formatting at all.",
@@ -166,7 +166,7 @@
     },
     {
       "id": "img-019",
-      "file": "in-progress/ParseBench/assets/images/picture-019.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-019.png",
       "type": "figure",
       "page": 33,
       "caption": "Figure 16: Source page and provider outputs for the infographic example. (a) Source page with 3-level heading hierarchy. (b)–(e) Rendered outputs. LlamaParse Agentic preserves hierarchy and bold titles; GPT-5 Mini flattens headings; Haiku 4.5 mixes HTML with Markdown; Textract produces plain text.",
@@ -175,7 +175,7 @@
     },
     {
       "id": "img-020",
-      "file": "in-progress/ParseBench/assets/images/picture-020.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-020.png",
       "type": "table",
       "page": 34,
       "caption": "Table 16: Per-provider Element Pass Rate and sub-metric scores on the Sappi annual report page (44 ground truth elements). The element pass rate requires all three sub-checks to pass simultaneously. Gemini 3 Flash detects some elements but misses over half; LandingAI and Haiku 4.5 produce only 6 predictions each and fail almost entirely.",
@@ -184,7 +184,7 @@
     },
     {
       "id": "img-021",
-      "file": "in-progress/ParseBench/assets/images/picture-021.png",
+      "file": "done/unpublished/ParseBench/assets/images/picture-021.png",
       "type": "figure",
       "page": 35,
       "caption": "Figure 17: Ground truth and predicted layout overlays for the Sappi annual report page. (a) Ground truth with 44 elements across Picture, Text, Section, and Page-footer classes. (b)–(e) Provider predictions. LlamaParse Agentic produces 48 predictions closely matching GT; Gemini detects only 21; LandingAI and Haiku 4.5 produce only 6 each.",
