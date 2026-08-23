@@ -7,18 +7,29 @@ the PDF or any rendered image in an image viewer / Read tool to "double
 check"; that defeats the whole point of this pipeline.
 
 Usage:
-    python inspect_pdf.py <pdf_path>
+    python inspect_pdf.py <pdf_path> [--min-caption-width N]
+
+    --min-caption-width defaults to 400, same as build_manifest.py. Lower it
+    (e.g. 150) to also see narrow single-column captions before deciding
+    what to pass to build_manifest.py -- see SKILL.md's two-column-papers
+    section for when this matters.
 """
 import sys
 import pdf_parser_lib as lib
 
 
 def main():
-    if len(sys.argv) != 2:
+    args = sys.argv[1:]
+    min_caption_width = 400.0
+    if "--min-caption-width" in args:
+        i = args.index("--min-caption-width")
+        min_caption_width = float(args[i + 1])
+        del args[i:i + 2]
+    if len(args) != 1:
         print(__doc__)
         sys.exit(1)
 
-    doc = lib.open_doc(sys.argv[1])
+    doc = lib.open_doc(args[0])
     print(f"pages: {doc.page_count}\n")
 
     blocks = lib.page_blocks(doc)
@@ -44,8 +55,8 @@ def main():
             print(f"    xref={xref} ext={info['ext']} w={info['width']} h={info['height']} "
                   f"rects={[tuple(round(v, 1) for v in r) for r in rects]}")
 
-    print("\nDetected captions:")
-    captions = lib.find_captions(doc)
+    print(f"\nDetected captions (min-caption-width={min_caption_width}):")
+    captions = lib.find_captions(doc, min_caption_width=min_caption_width)
     for c in captions:
         print(f"  page={c['page']} kind={c['kind']} num={c['num']} "
               f"bbox={tuple(round(v, 1) for v in c['bbox'])}")

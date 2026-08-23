@@ -85,9 +85,19 @@ it's the reason a separate parsing step is worth having at all.
      is a block that *starts* with "Figure N"/"Table N" and isn't followed
      immediately by a comma (that comma pattern means it's an inline
      cross-reference like "Table 2, Figure 3, and Table 3 test the design
-     choices...", not the real caption -- the real caption for the same
-     number, found elsewhere, is always the longer match, so the longer one
-     wins when there's a collision). A caption block also has to be at least
+     choices...", not the real caption). When two blocks collide on the same
+     number, the tie-break checks, in order: (1) whether ":"/"." separates
+     the label from the description (a real caption), (2) whether the word
+     right after the number is capitalized (a title, as opposed to a
+     lowercase verb continuing a sentence -- "Figure 2 shows that..." is a
+     cross-reference even though it has no comma right after "2"), then (3)
+     length. This matters because a caption number sometimes sits on its own
+     line ("Figure 2\nCross-domain transfer results.", no ":"/"." at all),
+     which only tier (2) can tell apart from a same-shaped run-on sentence.
+     If a figure/table's crop ends up capturing prose from a much later page
+     instead of its own visual, suspect this collision before anything
+     else -- check `find_captions`' output for that (kind, num) by hand. A
+     caption block also has to be at least
      `--min-caption-width` points wide (default 400) to be accepted, which
      filters out narrow incidental matches -- **but on a two-column paper, a
      caption that sits inside a single column can legitimately be only
@@ -229,6 +239,21 @@ ruleless/dense tables, rather than waiting for a visibly-wrong pixel size to
 notice it -- a crop that grabs the page's running header text instead of the
 table can still produce a plausible-looking, non-degenerate pixel size.
 
+**A crop that lands on an *adjacent visual's* content is the sharpest version
+of this and `crop_warnings` cannot see it at all.** The "mostly prose" check
+only recognizes body paragraphs as a problem; a table's own data rows aren't
+classified as prose, so if `auto_crop_top`'s walk overshoots past one
+table's caption into a neighboring table's cells above it, the render comes
+out a perfectly plausible, non-degenerate size and ships with
+`parser_confidence` decided purely by whether `pdfplumber` found a
+structured table in the (wrong) region -- it can even say `"high"`. This
+happened twice on one paper (two entries out of seven tables), both times on
+tables that weren't in the `SUSPECT CROPS` list. The only reliable defense
+is the practice above taken literally: when a paper captions tables above
+their content, walk *every* table entry's final top/bottom against
+`dump_blocks.py` and confirm the y-range doesn't dip into the block above
+the visual's own caption -- don't stop once the flagged ones are fixed.
+
 ### Figures that float mid-page
 
 A figure with body text above it and its caption below it used to be the
@@ -263,6 +288,29 @@ say) are the reason the walk starts at the *lowest ink above the caption*
 rather than at the caption, and the reason the floor exists at all: those
 icons are real ink sitting inside body paragraphs and headings, and without
 a floor the walk would happily chain up through them.
+
+### A caption sitting in the middle of a multi-panel figure
+
+The default bottom boundary ("3pt above the caption's own top edge") assumes
+the caption is the *last* thing in the figure's region. Some multi-panel
+figures instead put the caption between two rows of sub-panels -- e.g. a
+top row of bar charts, then the caption, then a color legend and a second
+row of box plots labeled "(a) .../(b) ..." that the caption text never
+actually mentions by name. Nothing here trips `SUSPECT CROPS`: the auto crop
+stops cleanly at the caption and renders a normal-looking, correctly-sized
+image -- it's just missing the second half of the figure, and the next
+caption on the page (if any) gets an auto top boundary that starts *inside*
+that missing second half instead of above it, silently stealing content that
+belongs to the first figure.
+
+The tell is in `dump_blocks.py`'s output, not in `SUSPECT CROPS`: body-column
+text (a new section heading, a paragraph starting flush against
+`column_left_edges`) resumes only well after the *next* caption on the page,
+with figure-internal-looking blocks (panel titles, axis labels, legend
+entries) continuing in between. When that gap exists, both figures need
+manual boundaries: `--crop-bottom-override` on the first figure to extend
+through the legend/second row, and `--crop-top-override` on the second
+figure to start right where the first one now ends.
 
 ## Two-column papers: what to watch for
 
