@@ -39,7 +39,12 @@ ParseBench 把「語意正確性」拆成五個維度，每個對應一種真的
 - **格式**：刪除線、上下標、粗體、超連結。
 - **視覺定位**：每個抽出的元素能不能追回頁面上的原始位置，這一項的動機是稽核。
 
-規模上總共有 2,078 頁、1,180 份文件、169,011 條規則。但這裡有兩個容易被行銷語言帶過去的細節：內容正確性跟格式這兩個維度共用同一批 507 份文件，只是套不同的規則集，所以「五個維度」實際上只對應四份資料集；而且這 16.9 萬條規則裡有 87% 集中在文字那份資料集，「169K test rules」聽起來很驚人，但主要是文字比對規則自動展開出來的量，不是 169K 個獨立設計出來的考點。
+規模上總共有 2,078 頁、1,180 份文件、169,011 條規則。
+
+![ParseBench 資料集統計表，列出五個維度各自的頁數、文件數與規則數](img-003)
+*表 2 — ParseBench 資料集統計，表格維度用的是連續指標 GTRM，沒有離散規則可數。（來源：原始論文）*
+
+但這裡有兩個容易被行銷語言帶過去的細節：內容正確性跟格式這兩個維度共用同一批 507 份文件，只是套不同的規則集，所以「五個維度」實際上只對應四份資料集；而且這 16.9 萬條規則裡有 87% 集中在文字那份資料集，「169K test rules」聽起來很驚人，但主要是文字比對規則自動展開出來的量，不是 169K 個獨立設計出來的考點。
 
 ## 表格怎麼評：從 TEDS、GriTS 到 TableRecordMatch
 
@@ -52,6 +57,9 @@ ParseBench 把「語意正確性」拆成五個維度，每個對應一種真的
 這兩個指標有一個共同的盲點：**它們把表頭格和資料格一視同仁**，對它們來說表頭只是「另一個格子」，沒有「表頭定義了整欄資料意義」這個概念。
 
 論文提出的 **TableRecordMatch（TRM）** 就是在補這個洞，做法是把表格從「格子的排列」改看成「一袋記錄」：一列變成一筆記錄，記錄裡每個值都用它所在欄的表頭當 key。「一袋」的意思是無序的，不管列怎麼排、欄怎麼排，袋子裡的內容都一樣——這就是它對排列不敏感的原因。反過來，表頭一旦掉了或錯位，每個值的 key 都變了，整袋記錄會全部對不上，這正是它想要的懲罰。這個概念其實來自關聯式資料庫（一列就是一筆有欄位名的記錄），數學形式是 Jaccard 相似度的變形。
+
+![TableRecordMatch 指標示意圖，展示預測記錄與正確答案記錄如何配對並逐格比對](img-005)
+*圖 2 — TableRecordMatch 指標示意：預測出來的記錄跟欄位，先跟正確答案配對，再用格子層級的一致性打分。（來源：原始論文）*
 
 公式長這樣：
 
@@ -70,7 +78,7 @@ RecordSim(g,p) = (兩邊都有、值也相等的欄位數) / (兩邊欄位的聯
 
 附錄的兩個對照例子把這個矛盾具體化了：
 
-![兩個對照範例，展示 GriTS 與 TEDS 對表格語意判斷失準的情況，TRM 判斷正確](img-013)
+![兩個對照範例，展示 GriTS 與 TEDS 對表格語意判斷失準的情況，TRM 判斷正確](img-024)
 *圖 13 — 兩個對照案例：(a) 表頭對調造成語意全錯，GriTS/TEDS 仍給高分；(b) 欄位重排但語意不變，GriTS/TEDS 卻重罰。TRM 兩邊都判對。（來源：原始論文）*
 
 (a) 表頭被對調，所有數字都掛錯年份，GriTS 給 0.998、TEDS 給 0.999，TRM 只給 0.480。(b) 欄位順序重排，語意完全等價，GriTS 卻給 0.740、TEDS 給 0.716，TRM 給滿分 1.000。這兩個數字讓「既有指標有問題」從主張變成事實，是全篇最值得記住的證據。
@@ -89,7 +97,7 @@ TRM 也不是萬用的，它整個前提是「一列等於一筆記錄，key 來
 
 一個具體的例子能看出容差怎麼跟著讀圖難度調整：
 
-![OECD 圖表範例的兩條測試規則，展示數值容差如何設定](img-014)
+![OECD 圖表範例的兩條測試規則，展示數值容差如何設定](img-025)
 *表 12 — OECD 圖表範例的兩條測試規則，示範容差怎麼跟著讀圖難度調整。（來源：原始論文）*
 
 同一張圖裡，數值為 10 的那個點容差只給 10%（接受區間 [9, 11]），另一個數值只有 3 的點容差卻寬到 50%（接受區間 [1.5, 4.5]）——因為那根長條在 3D 圖上非常短，很難精確讀出來。
@@ -106,16 +114,28 @@ TRM 也不是萬用的，它整個前提是「一列等於一筆記錄，key 來
 
 單一總分會掩蓋不同的失效模式，這點在下面這個例子看得特別清楚：
 
-![聯邦公報範例中，各家 provider 在內容正確性維度的得分與失效模式](img-016)
+![聯邦公報範例中，各家 provider 在內容正確性維度的得分與失效模式](img-028)
 *表 14 — 聯邦公報範例的內容正確性得分，各家 provider 的失效模式都不一樣。（來源：原始論文）*
 
 Textract 的問題是內容重複，Haiku 4.5 是幻覺加欄位順序打亂，Extend 則是跨欄橫向讀取。三種完全不同的病，但如果只看一個總分，你看不出來是哪一種——這正是拆成子分數的價值所在。
+
+這個維度的資料是從網路上隨機抓 500 份 PDF，每份取一頁，而且刻意排除了表格、圖表很多的頁面。內容正確性跟格式維度用的是同一批文件，只是套不同規則集：
+
+![內容正確性與格式維度共用的文件分類統計表](img-007)
+*表 4 — 內容正確性跟格式維度共用的文件分類統計。（來源：原始論文）*
+
+類別分佈很不平均——重排版（text_formatting）只有 10 份文件，而這批文件同時也拿去評格式維度，用 10 份文件去評「重度排版」能力，樣本明顯偏薄。
 
 順帶一提，`bag_of_digit_percent` 這條規則專門抓數字誤認（例如 OCR 把 6 看成 8），做法是統計輸出裡每個數字出現幾次，跟正確答案的分佈比。論文自己承認，只有在兩個數字出現頻率剛好相同、又剛好雙向互換時才會抓不到，這個條件相當苛刻，接受這個限制算合理。但這裡有個論文沒提到的更大的洞：這個規則本來就不看位置，所以「Revenue $2.0M, Cost $0.2M」被輸出成「Revenue $0.2M, Cost $2.0M」，數字分佈完全一樣，會直接放過。說來諷刺，論文開頭正是拿「2.0% 被讀成 0.2%」當核心動機案例，說這種錯誤會讓下游財務模型完全失真，但它自己的數字級檢查對這種位置交換偏偏是盲的。
 
 ## 格式：抓「有沒有意義的格式」，但公式有一個算反的地方
 
-這個維度只測帶有語意的格式，不測純裝飾：刪除線標示已作廢的內容（丟掉的話 agent 會把舊價當現價），上下標對應腳註或化學式（壓平的話 x² 會變成 x2），粗體標示定義詞或關鍵數值。每個類別都成對設計正反兩種規則，`is_strikeout` 抓「該標的沒標」，`is_not_strikeout` 抓「不該標的卻誤加」——只測正向會獎勵「什麼都標」，只測反向會獎勵「什麼都不標」，成對測試才公平。
+這個維度只測帶有語意的格式，不測純裝飾：刪除線標示已作廢的內容（丟掉的話 agent 會把舊價當現價），上下標對應腳註或化學式（壓平的話 x² 會變成 x2），粗體標示定義詞或關鍵數值。
+
+![格式失去語意的範例，展示來源片段、格式不敏感的 parser 輸出，以及下游 agent 因此產生的誤判](img-008)
+*圖 4 — 格式一旦丟失就會改變文件語意的具體例子。（來源：原始論文）*
+
+每個類別都成對設計正反兩種規則，`is_strikeout` 抓「該標的沒標」，`is_not_strikeout` 抓「不該標的卻誤加」——只測正向會獎勵「什麼都標」，只測反向會獎勵「什麼都不標」，成對測試才公平。
 
 子分數用的是加權調和平均，形式跟 F-score 一樣，只是把 precision／recall 換成正向規則跟反向規則各自的平均通過率。用調和平均的用意是對的：任一邊很低，總分就會被拉下來，換成算術平均就不會有這個效果（正向 1.0、反向 0.0，算術平均還有 0.5，調和平均會趨近 0）。
 
@@ -123,7 +143,7 @@ Textract 的問題是內容重複，Haiku 4.5 是幻覺加欄位順序打亂，E
 
 另外這個維度還有一個更根本的疑慮，一個資訊圖表的例子讓這個疑慮特別清楚：
 
-![資訊圖表範例中，各家 provider 在格式維度的得分](img-018)
+![資訊圖表範例中，各家 provider 在格式維度的得分](img-030)
 *表 15 — 資訊圖表範例的格式評分，凸顯輸出格式與語意理解被混在一起計分的問題。（來源：原始論文）*
 
 有個模型把文字都抓對了，但輸出的是 HTML 標籤（`<h3>`、`<strong>`）而不是 Markdown 語法，規則期待的是 `**text**`，於是整個 styling 分數直接歸零。一個能正確辨識出 `<strong>` 的模型，你很難說它「不理解語意格式」——它只是輸出格式不符合規則預期而已，這也部分解釋了主表裡那些接近 0 的分數到底是怎麼來的。
@@ -150,10 +170,10 @@ Textract 的問題是內容重複，Haiku 4.5 是幻覺加欄位順序打亂，E
 
 ## 排行榜數字：84.9% 這個第一名，要打多少折
 
-![品質與成本的散佈圖，橫軸為每頁成本，縱軸為整體分數](img-004)
+![品質與成本的散佈圖，橫軸為每頁成本，縱軸為整體分數](img-010)
 *圖 5 — 各家 provider 的品質與成本對照。（來源：原始論文）*
 
-![ParseBench 主要評測結果，各家 provider 在五個維度的得分](img-003)
+![ParseBench 主要評測結果，各家 provider 在五個維度的得分](img-009)
 *表 5 — ParseBench 主要結果，LlamaParse Agentic 以 84.9% 排名第一。（來源：原始論文）*
 
 論文宣稱的結果是 LlamaParse Agentic 以 84.9% 居冠，最強的外部競品是 Gemini 3 Flash（71.0%）跟 Reducto（67.8%）。這個第一名有三個理由要打折。
@@ -206,36 +226,60 @@ TEDS／GriTS 的失效模式（表頭對調拿 0.999、語意等價的欄位重�
   },
   {
     "id": "img-003",
+    "references_manifest_caption": "Table 2: ParseBench dataset statistics. The Text dataset serves both the Content Faithfulness and Semantic For- matting dimensions with different evaluation rules. Tables uses GTRM, a continuous metric (no discrete rules).",
+    "why_used": "具體支撐前一段講的規模數字（2,078 頁、169,011 條規則），也讓讀者看到「四份資料集」跟「規則數集中在文字維度」這兩個細節的來源。",
+    "agent_match_hint": "一張統計表，列出五個維度／資料集各自的頁數、文件數與規則數。"
+  },
+  {
+    "id": "img-005",
+    "references_manifest_caption": "Figure 2: Illustration of the TABLERECORDMATCH met- ric. Predicted records and columns are matched to those in the ground truth. Each matched record is scored by bi- nary cell-level agreement.",
+    "why_used": "搭配文字說明的「一袋記錄」概念，讓讀者在看到抽象公式跟算例之前先有一個視覺化的示意圖。",
+    "agent_match_hint": "一張示意圖，展示預測記錄跟正確答案記錄之間的配對關係，以及逐格比對的過程。"
+  },
+  {
+    "id": "img-007",
+    "references_manifest_caption": "Table 4: Content faithfulness and semantic formatting: shared document categories. The same corpus serves both dimensions, with different evaluation rules applied.",
+    "why_used": "佐證內容正確性資料集的類別分佈不均，尤其是重排版類別樣本過薄這一點。",
+    "agent_match_hint": "一張表格，列出文件類別名稱、描述跟文件數。"
+  },
+  {
+    "id": "img-008",
+    "references_manifest_caption": "Figure 4: Formatting loss changes document semantics. Each row shows a source snippet, what a formatting- unaware parser emits, and the resulting misinterpretation by a downstream agent.",
+    "why_used": "具體示範格式維度開頭列的三個例子（刪除線、上下標、粗體），讓抽象的失效模式有一個可以對照的視覺案例。",
+    "agent_match_hint": "一張表格或多列示意圖，每列展示原始片段、格式不敏感的 parser 輸出，以及下游誤判的結果。"
+  },
+  {
+    "id": "img-009",
     "references_manifest_caption": "Table 5: Main ParseBench results (%). Overall is the unweighted mean across all five dimensions. Bold marks the best score across all providers in each column; underlined values mark the second-best. *For visual grounding, Qwen uses a separate layout-only pipeline; 4 pages where that pipeline failed to return usable output are excluded. See Appendix C.2. †Docling’s visual-grounding score excludes 13 pages with pipeline failures.",
     "why_used": "呈現論文宣稱的主要排行榜結果，作為後續三個打折理由要拆解的對象。",
     "agent_match_hint": "一張主結果表，列出多家 provider 在 tables/charts/content/formatting/grounding/overall 六欄的百分比分數。"
   },
   {
-    "id": "img-004",
+    "id": "img-010",
     "references_manifest_caption": "Figure 5: Quality vs. cost for all evaluated providers (Section 4.3). Per-page costs use publicly listed pay-as-you-go prices [1, 4, 7, 9, 10, 14, 18, 20, 23, 27].",
     "why_used": "配合排行榜數字一起呈現，同時提醒讀者這張圖的成本資料來源不對等，不能直接拿來當定論。",
     "agent_match_hint": "一張散佈圖，橫軸是每頁成本，縱軸是整體品質分數，標示多家 provider 的位置。"
   },
   {
-    "id": "img-013",
+    "id": "img-024",
     "references_manifest_caption": "Figure 13: Two contrasting predictions where GriTS and TEDS disagree with the table’s downstream usefulness. (a) A semantically wrong prediction that GriTS and TEDS round to ≈1.0. (b) A semantically equivalent rewrite that GriTS and TEDS heavily penalize. TRM ranks both correctly.",
     "why_used": "這是全篇最有說服力的證據，把「舊指標跟任務不匹配」從主張變成具體可驗證的數字對照。",
     "agent_match_hint": "兩個並排的表格案例，(a) 是表頭對調的錯誤預測，(b) 是欄位重排但語意正確的預測，旁邊標示 GriTS/TEDS/TRM 三種分數。"
   },
   {
-    "id": "img-014",
+    "id": "img-025",
     "references_manifest_caption": "Table 12: Two representative test rules for the OECD chart example (Sweden / Below upper secondary). The wide 0.5 relative tolerance on the Unadjusted rule reflects that the bar is very short (≈3 score points) and difficult to read precisely from the 3D chart; any estimate between 1.5 and 4.5 is accepted.",
     "why_used": "具體示範 ChartDataPointMatch 的容差設定怎麼跟著讀圖難度調整，讓抽象的規則描述有一個可以對照的數字例子。",
     "agent_match_hint": "一張小表，列出兩條測試規則的 labels、value、相對容差跟接受區間。"
   },
   {
-    "id": "img-016",
+    "id": "img-028",
     "references_manifest_caption": "Table 14: Per-provider Content Faithfulness scores on the Federal Register example. Each competitor exhibits a distinct failure mode: Textract duplicates content, Haiku 4.5 hallucinates text and jumbles column order, and Extend reads across columns row-wise.",
     "why_used": "說明單一總分會掩蓋不同失效模式，各家 provider 的低分成因完全不同，是兩層平均設計的具體驗證案例。",
     "agent_match_hint": "一張表格，列出多家 provider 在同一份文件上的內容正確性分數，並附上各自的失效模式描述。"
   },
   {
-    "id": "img-018",
+    "id": "img-030",
     "references_manifest_caption": "Table 15: Per-provider Semantic Formatting scores on the infographic example. GPT-5 Mini preserves bold styling but flattens the heading hierarchy; Haiku 4.5 uses HTML tags instead of Markdown; Textract produces plain text with no formatting at all.",
     "why_used": "具體呈現「輸出格式不符合規則預期」跟「不理解語意格式」被混在一起計分的問題，佐證前段對格式維度的質疑。",
     "agent_match_hint": "一張表格，列出多家 provider 在格式維度的分數，其中有一欄分數異常偏低但實際輸出內容是正確的。"
