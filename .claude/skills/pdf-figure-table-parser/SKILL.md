@@ -97,8 +97,11 @@ cannot catch on its own.
      immediately by a comma (that comma pattern means it's an inline
      cross-reference like "Table 2, Figure 3, and Table 3 test the design
      choices...", not the real caption). When two blocks collide on the same
-     number, the tie-break checks, in order: (1) whether ":"/"." separates
-     the label from the description (a real caption), (2) whether the word
+     number, the tie-break checks, in order: (1) whether a separator
+     (`:` `.` `|` `—` `–`, optionally after a space) splits the label from
+     the description (a real caption -- the pipe form, "Figure 1 | Overall
+     architecture.", is a common house style and without it a longer
+     cross-reference sentence on the same number wins on length), (2) whether the word
      right after the number is capitalized (a title, as opposed to a
      lowercase verb continuing a sentence -- "Figure 2 shows that..." is a
      cross-reference even though it has no comma right after "2"), then (3)

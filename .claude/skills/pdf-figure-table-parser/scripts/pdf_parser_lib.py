@@ -80,7 +80,12 @@ def find_captions(doc, min_caption_width=400):
                 # ("Table 1 and Figure 3 reveal a cross-over ..."). That prose
                 # sentence is often the *longer* block, so the separator has to
                 # outrank length -- otherwise the cross-reference wins.
-                "separated": clean[m.end():m.end() + 1] in (":", "."),
+                # A pipe or dash separator ("Figure 1 | Performance landscape
+                # ...") is the same signal in a different house style, and is
+                # common enough that leaving it out lets a cross-reference win
+                # the tie-break on length alone. The separator may or may not
+                # be preceded by a space, so look past one.
+                "separated": clean[m.end():].lstrip()[:1] in (":", ".", "|", "—", "–"),
                 # A second, weaker signal for the same problem: some caption
                 # styles put the number on its own line ("Figure 2\nCross-domain
                 # transfer results.") with no ":"/"." right after it, so
