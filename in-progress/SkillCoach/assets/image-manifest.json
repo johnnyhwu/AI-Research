@@ -1,0 +1,69 @@
+{
+  "source_pdf": "in-progress/SkillCoach/2604.27488v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "in-progress/SkillCoach/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1 Performance Comparison of Original vs. Optimized Skills across Skill-X.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "in-progress/SkillCoach/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 3,
+      "caption": "Figure 2 Overview of Skills-Coach.",
+      "nearby_text": "pose Skills Coach, an automated framework for Skill Self-Evolution. As shown in Figure 2, this framework is designed to comprehensively evaluate and optimize the execution capability and robustness of Skills through a structured pipeline. Skills Coach comprises four core modules: First, the Diverse",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "in-progress/SkillCoach/assets/images/picture-003.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 1 Performance Comparison Between Original and Optimized Skills on Skill-X.",
+      "nearby_text": "We evaluate the performance of Skills-Coach on the Skill-X. As presented in Table 1, Skills-Coach demonstrates",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "in-progress/SkillCoach/assets/images/picture-004.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 2 Skill Performance Analysis: Original vs Optimized Results (48 Skills) organized by Improvement Level.",
+      "nearby_text": "Table 2 systematically evaluates the optimization results for 48 skills, demonstrating the significant effectiveness of the optimization strategy. In the Exceptional Improvement category, 23 skills showed score increases",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "in-progress/SkillCoach/assets/images/picture-005.png",
+      "type": "figure",
+      "page": 9,
+      "caption": "Figure 3 Comparison of Standard and Advanced Test Tasks Generated for Pollyreach.",
+      "nearby_text": "Figure 3 illustrates a comparison of basic and advanced test tasks designed for Pollyreach. Basic tasks assess the standard execution capability of Pollyreach commands, requiring the system to correctly parse command pat",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "in-progress/SkillCoach/assets/images/picture-006.png",
+      "type": "figure",
+      "page": 9,
+      "caption": "Figure 4 Key Contents from the Pollyreach Summary Report.",
+      "nearby_text": "Figure 4 presents key aspects of the Pollyreach optimization summary report. This report encompasses two principal dimensions: Per-Task Breakdown and Capability Boundary Analysis. It systematically illustrates comparativ",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-007",
+      "file": "in-progress/SkillCoach/assets/images/picture-007.png",
+      "type": "table",
+      "page": 12,
+      "caption": "Table 3 8 Evaluation Dimensions with 51 Specific Assessment Criteria",
+      "nearby_text": "As shown in Table 3, the generated samples encompass eight evaluation dimensions, comprising a total of 51 independent evaluation metrics. This ensures that the generated samples are not only functional but also meet professional-gr",
+      "parser_confidence": "low"
+    }
+  ]
+}
