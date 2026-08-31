@@ -1,10 +1,10 @@
 {
-  "source_pdf": "in-progress/SkillCoach/2604.27488v1.pdf",
+  "source_pdf": "done/unpublished/SkillCoach/2604.27488v1.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "in-progress/SkillCoach/assets/images/picture-001.png",
+      "file": "done/unpublished/SkillCoach/assets/images/picture-001.png",
       "type": "figure",
       "page": 2,
       "caption": "Figure 1 Performance Comparison of Original vs. Optimized Skills across Skill-X.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "in-progress/SkillCoach/assets/images/picture-002.png",
+      "file": "done/unpublished/SkillCoach/assets/images/picture-002.png",
       "type": "figure",
       "page": 3,
       "caption": "Figure 2 Overview of Skills-Coach.",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "in-progress/SkillCoach/assets/images/picture-003.png",
+      "file": "done/unpublished/SkillCoach/assets/images/picture-003.png",
       "type": "table",
       "page": 6,
       "caption": "Table 1 Performance Comparison Between Original and Optimized Skills on Skill-X.",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "in-progress/SkillCoach/assets/images/picture-004.png",
+      "file": "done/unpublished/SkillCoach/assets/images/picture-004.png",
       "type": "table",
       "page": 7,
       "caption": "Table 2 Skill Performance Analysis: Original vs Optimized Results (48 Skills) organized by Improvement Level.",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "in-progress/SkillCoach/assets/images/picture-005.png",
+      "file": "done/unpublished/SkillCoach/assets/images/picture-005.png",
       "type": "figure",
       "page": 9,
       "caption": "Figure 3 Comparison of Standard and Advanced Test Tasks Generated for Pollyreach.",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "in-progress/SkillCoach/assets/images/picture-006.png",
+      "file": "done/unpublished/SkillCoach/assets/images/picture-006.png",
       "type": "figure",
       "page": 9,
       "caption": "Figure 4 Key Contents from the Pollyreach Summary Report.",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "in-progress/SkillCoach/assets/images/picture-007.png",
+      "file": "done/unpublished/SkillCoach/assets/images/picture-007.png",
       "type": "table",
       "page": 12,
       "caption": "Table 3 8 Evaluation Dimensions with 51 Specific Assessment Criteria",
