@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/What-Is-Machine-Learning/assets/images/AI-vs-ML-vs-DL.jpg",
+      "file": "done/published/What-Is-Machine-Learning/assets/images/AI-vs-ML-vs-DL.jpg",
       "type": "figure",
       "page": null,
       "caption": "AI、ML 與 DL 之間的關係 [source: Nvidia]",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/What-Is-Machine-Learning/assets/images/algorithm-in-ML.jpg",
+      "file": "done/published/What-Is-Machine-Learning/assets/images/algorithm-in-ML.jpg",
       "type": "figure",
       "page": null,
       "caption": "Machine Learning 底下的演算法主要分為三種類別",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/What-Is-Machine-Learning/assets/images/machine-learning-vs-traditional-programming.jpg",
+      "file": "done/published/What-Is-Machine-Learning/assets/images/machine-learning-vs-traditional-programming.jpg",
       "type": "figure",
       "page": null,
       "caption": "Machine Learning 與 Traditional Programming 的差別 [source: Udacity]",
