@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/What-Is-Perceptron/assets/images/perceptron.jpg",
+      "file": "done/published/What-Is-Perceptron/assets/images/perceptron.jpg",
       "type": "figure",
       "page": null,
       "caption": "感知器 (Perceptron) 接收「多個」二元數值並輸出「一個」二元數值",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/What-Is-Perceptron/assets/images/perceptron-formula.jpg",
+      "file": "done/published/What-Is-Perceptron/assets/images/perceptron-formula.jpg",
       "type": "figure",
       "page": null,
       "caption": "以數學形式表示 Perceptron 的運作 [source: Neural Networks and Deep Learning]",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/What-Is-Perceptron/assets/images/perceptron-network.jpg",
+      "file": "done/published/What-Is-Perceptron/assets/images/perceptron-network.jpg",
       "type": "figure",
       "page": null,
       "caption": "多個 Perceptron 形成一個 Neural Network [source: Neural Networks and Deep Learning]",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/What-Is-Perceptron/assets/images/perceptron-formula-1.jpg",
+      "file": "done/published/What-Is-Perceptron/assets/images/perceptron-formula-1.jpg",
       "type": "figure",
       "page": null,
       "caption": "Perceptron 簡化後的數學算式 [source: Neural Networks and Deep Learning]",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/What-Is-Perceptron/assets/images/perceptron-as-nand-gate-2.jpg",
+      "file": "done/published/What-Is-Perceptron/assets/images/perceptron-as-nand-gate-2.jpg",
       "type": "figure",
       "page": null,
       "caption": "Perceptron 也可以運作得像 NAND Gate 一樣",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "done/unpublished/What-Is-Perceptron/assets/images/adder-using-nand-gate.jpeg",
+      "file": "done/published/What-Is-Perceptron/assets/images/adder-using-nand-gate.jpeg",
       "type": "figure",
       "page": null,
       "caption": "僅透過 NAND Gate 搭建一個加法器 [source: Wikimedia Commons]",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "done/unpublished/What-Is-Perceptron/assets/images/adder-using-perceptron.jpg",
+      "file": "done/published/What-Is-Perceptron/assets/images/adder-using-perceptron.jpg",
       "type": "figure",
       "page": null,
       "caption": "將加法器中的 NAND Gate 都替換成 Perceptron [source: Neural Networks and Deep Learning]",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "done/unpublished/What-Is-Perceptron/assets/images/adder-using-perceptron-1.jpg",
+      "file": "done/published/What-Is-Perceptron/assets/images/adder-using-perceptron-1.jpg",
       "type": "figure",
       "page": null,
       "caption": "將「兩條 -2」換成「一條 -4」[source: Neural Networks and Deep Learning]",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "done/unpublished/What-Is-Perceptron/assets/images/input-layer.jpg",
+      "file": "done/published/What-Is-Perceptron/assets/images/input-layer.jpg",
       "type": "figure",
       "page": null,
       "caption": "將 Neural Network 最左邊的輸入以 Perceptron 表示形成一個 Layer [source: Neural Networks and Deep Learning]",
