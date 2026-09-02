@@ -26,7 +26,12 @@ WikiSkill 把 agent 的工作空間切成三層:
 
 Wiki Layer 是這篇論文新加的中間層,裡面有三種檔案:`patterns/` 底下一堆 markdown 檔,一個檔案對應一個具體的失敗模式或成功策略;`logs.md` 按時間順序記錄每次迭代做了什麼;`skill-impact.md` 記錄每次提案內容、驗證分數、被接受或拒絕的結果。Skill Layer 每個 skill 資料夾則有兩個檔案:`SKILL.md` 是技能內容本身,`PURPOSE.md` 記錄這個技能是被 wiki 裡哪些 pattern 啟發、修改過的動機。
 
-三層架構是靜態的空間結構,實際運作靠四個角色依序互動一次迭代:Inference Agent 先用上一輪的 skill 集合跑訓練任務,結果寫入 Raw Layer(只能新增,不能存取 wiki);接著 Wiki Maintainer 用一次 LLM 呼叫,抽樣少量 trace 做根因分析,更新 wiki 的 pattern、index、log;然後 Skill Proposer 以多輪 ReAct agent 的方式,依序讀 wiki index、`skill-impact.md`、相關 pattern、原始 trace,提出一個 skill 的新建或修改(一次只改一個);最後 Gating & Rollback 在驗證集上測試候選 skill,分數進步就採用,沒進步就整組退回上一版,不論結果都把提案內容、diff、分數寫進 `skill-impact.md`,再進入下一輪。
+三層架構是靜態的空間結構,實際運作靠四個角色依序互動,跑完一次迭代:
+
+1. **Inference Agent** 用上一輪的 skill 集合跑訓練任務,結果寫入 Raw Layer(只能新增,不能存取 wiki)。
+2. **Wiki Maintainer** 用一次 LLM 呼叫,抽樣少量 trace 做根因分析,更新 wiki 的 pattern、index、log。
+3. **Skill Proposer** 以多輪 ReAct(交替進行推理與工具呼叫)agent 的方式,依序讀 wiki index、`skill-impact.md`、相關 pattern、原始 trace,提出一個 skill 的新建或修改(一次只改一個)。
+4. **Gating & Rollback** 在驗證集上測試候選 skill,分數進步就採用,沒進步就整組退回上一版,不論結果都把提案內容、diff、分數寫進 `skill-impact.md`,再進入下一輪。
 
 ![WikiSkill 框架示意圖:最底層是不可變的原始執行紀錄,中間是持續累積的 Wiki 知識層,最上層是實際會被注入 prompt 的 Skill 層,四個角色依序互動完成一次迭代。](img-002)
 *圖 2 — WikiSkill 框架總覽:Raw / Wiki / Skill 三層架構,以及一次迭代裡四個角色的互動順序。（來源:原始論文 Figure 2。）*
@@ -164,7 +169,7 @@ Wiki Layer 是這篇論文新加的中間層,裡面有三種檔案:`patterns/` �
 
 ## 結論
 
-WikiSkill 在「原始執行紀錄」跟「skill 文件」之間插入一層結構化、永不回滾的知識庫,讓 Skill Proposer 能站在跨迭代累積的證據上做判斷,消融實驗量出這個設計帶來 +15 個百分點的效果,是全文最紮實的證據。但論文最核心的論點——結構化知識勝過扁平歷史列表——並沒有被消融實驗直接驗證,跟其他方法的整體比較也混雜了 ReAct 探索預算的差異,這個缺口值得讀者自己心裡有數。如果你在做 agent skill 或 memory 系統,三層分離加上永不重置的知識庫這個設計模式值得直接參考;但不要把這篇論文當成演算法突破,它做的是紮實的系統化驗證,不是全新的想法。
+WikiSkill 在「原始執行紀錄」跟「skill 文件」之間插入一層結構化、永不回滾的知識庫,讓 Skill Proposer 能站在跨迭代累積的證據上做判斷——這是整篇論文最紮實的貢獻,也是本文的核心線索。它證得多紮實、哪裡還留著缺口,前一節已經拆開講過,這裡不重複。如果你在做 agent skill 或 memory 系統,三層分離加上永不重置的知識庫這個設計模式,值得直接拿去參考。
 
 ```figure-map
 [
