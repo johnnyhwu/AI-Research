@@ -1,0 +1,96 @@
+{
+  "source_pdf": "in-progress/WikiSkill/2608.27454v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "in-progress/WikiSkill/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 1,
+      "caption": "Figure 1 | WikiSkill consistently improves over both the no-skill baseline and existing skill- evolution methods. Interestingly, its advantage becomes more pronounced for stronger models. We report average accuracy across the evaluated benchmarks for each model using no skills or skills evolved by EvoSkill, SkillOpt, and WikiSkill (see Table 1 for details).",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "in-progress/WikiSkill/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 2 | Overview of the WikiSkill framework. The agent workspace is structured into three layers: immutable execution traces (Raw Layer), a persistent knowledge base that compounds across iterations (Wiki Layer), and active procedural instructions (Skills Layer). In each evolutionary loop, the Inference Agent runs rollouts (injecting active skills but restricting Wiki access), the Wiki Maintainer consolidates traces into the Wiki, and the Skill Proposer (with the ReAct mechanism) suggests updates while the Wiki is retained across all iterations.",
+      "nearby_text": "tured knowledge, and a Skill Layer that contains evolving procedural knowledge (Figure 2). Each iteration involves four components: an Inference Agent that executes rollouts using the current skills, a Wiki Maintainer that consolidates traces into the wiki, a Skill Proposer that uses the wiki and tr",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "in-progress/WikiSkill/assets/images/picture-003.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 1 | Method comparison across inference models and test sets. Each horizontal block evaluates a specific inference model without skills (No skill) and with skills developed by different skill-evolution methods. To ensure a fair comparison, all skill-evolution methods start with an empty skill set, and evolved skills are injected into the Inference Agent’s prompt at inference time. All reported scores are the average test performance across three independent runs of the full evolution process. Our method (WikiSkill) is highlighted. Bold indicates the best performance for each dataset; multiple bold results",
+      "nearby_text": "cross models and tasks and study whether evolved skills transfer across models. Table 1 presents the main skill-evolution results across models and tasks, including how the benefits of skill evolution vary with model scale, while Table 2 presents the cross-model skill transfer results. We analyze th",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "in-progress/WikiSkill/assets/images/picture-004.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 2 | Cross-model skill transfer results. We evaluate inference models using no skills (None) and skills evolved by WikiSkill with Qwen-3.5-4B, Qwen-3.6-27B, and Gemini-3.5-Flash as source models. Skills are injected into the Inference Agent’s system prompt at inference time. Highlighted rows indicate self-evolved skills, where the inference model and skill source are the same. The highest performance per benchmark within each model block is bolded. ‘−’ indicates that the source model reached 100% validation performance before skill evolution, so no skill was evolved.",
+      "nearby_text": "sks, including how the benefits of skill evolution vary with model scale, while Table 2 presents the cross-model skill transfer results. We analyze these results in detail below.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "in-progress/WikiSkill/assets/images/picture-005.png",
+      "type": "table",
+      "page": 11,
+      "caption": "Table 3 | Ablation study on WikiSkill using Gemini-3.5-Flash. We evaluate performance across benchmarks under four configurations that vary whether the Inference Agent and Skill Proposer have wiki access during skill evolution. When the Skill Proposer has no Wiki access, we also remove the Wiki Maintainer, eliminating persistent knowledge accumulation across iterations. The bottom row",
+      "nearby_text": "we ablate wiki access for the two components that can use it during evolution (Table 3). Specifically, using Gemini-3.5-Flash, we",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "in-progress/WikiSkill/assets/images/picture-006.png",
+      "type": "figure",
+      "page": 12,
+      "caption": "Figure 3 | Case study of Wiki-guided skill evolution on ALFWorld (Qwen-3.6-27B). The persistent Wiki Layer compiles cross-iteration patterns, an audit trail of past proposal diffs and acceptance decisions, and chronological history. Informed by the rejection of the skill proposal at Iteration 0, the proposer synthesizes the accepted skill update at Iteration 1, and later refines it with new pattern evidence. File contents are simplified for clarity.",
+      "nearby_text": "le of interactions between the Skill Layer and the Wiki Layer is illustrated in Figure 3 and explained in the case study in Section 5.3.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-007",
+      "file": "in-progress/WikiSkill/assets/images/picture-007.png",
+      "type": "table",
+      "page": 13,
+      "caption": "Table 4 | Statistics of evolved skills and wiki patterns across inference models (top) and bench- marks (bottom). For skills, we report the numbers of proposed/accepted creations and edits, along with average length in markdown lines. For wiki patterns, we report the numbers of creations and edits, along with average length in markdown lines. All wiki pattern creations and edits are retained.",
+      "nearby_text": "we analyze the wiki patterns accumulated and skills produced during evolution (Table 4) and when successful skill updates are accepted across iterations (Appendix Table 5).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-008",
+      "file": "in-progress/WikiSkill/assets/images/picture-008.png",
+      "type": "table",
+      "page": 20,
+      "caption": "Table 5 | Distribution of accepted skill updates across evolution iterations, grouped by model (top) and benchmark (bottom). Percentages indicate the proportion of accepted updates that occur",
+      "nearby_text": "e 4) and when successful skill updates are accepted across iterations (Appendix Table 5).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "in-progress/WikiSkill/assets/images/picture-009.png",
+      "type": "table",
+      "page": 20,
+      "caption": "Table 6 | Benchmark statistics, data splits, interaction modes, and available environment tools.",
+      "nearby_text": "Table 6 summarizes the sample counts across training, validation, and test splits, interaction modes, and available tools for each benchmark evaluated in our experiments. All task splits and available toolsets are strict",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "in-progress/WikiSkill/assets/images/picture-010.png",
+      "type": "table",
+      "page": 22,
+      "caption": "Table 7 | Comparison of optimizer API call complexity per evolution iteration across self- improving agent frameworks. 𝑁train = |Dtrain| denotes the number of training tasks, 𝐵denotes the batch size, 𝑇ReAct denotes the number of interactive ReAct reasoning turns used by the Skill Proposer agent in WikiSkill, 𝐾opt denotes the number of reflection and merging calls per step in SkillOpt, and 𝑐 denotes the reduction-tree branching factor in Trace2Skill. WikiSkill uses 𝐵= 𝑁train across all datasets. In full-batch mode, WikiSkill’s optimizer call count is independent of training set size 𝑁train, requiring 1 + 𝑇ReAct optimizer calls per iteration.",
+      "nearby_text": "Dtrain| training task instances), processed in minibatches of size 𝐵(𝐵≤𝑁train). Table 7 summarizes the per-iteration optimizer API call complexity for WikiSkill and prior methods.",
+      "parser_confidence": "low"
+    }
+  ]
+}
