@@ -1,0 +1,150 @@
+{
+  "source_pdf": "done/unpublished/Coding-Agents-Spend-Your-Money/2604.22750v2.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Coding-Agents-Spend-Your-Money/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 1,
+      "caption": "Figure 1: Agentic coding tasks cost significantly more tokens than Code Reasoning (single- turn problem solving without tool interaction) and Code Chat (multi-turn dialogue about a coding problem) tasks. Such a difference is largely driven by the increase of input tokens.",
+      "nearby_text": "tokens than chat (Crystalcare AI, 2023) and reasoning (Gu et al., 2024) tasks (Figure 1). Strikingly, input tokens, not output tokens, dominate the overall cost in agentic coding, even when token caching is enabled, consistent with recent analyses of token allocation across coding and reasoning tas",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Coding-Agents-Spend-Your-Money/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 2: Token cost is highly variable both across problems and across repeated runs of the same problem. (a) Per-instance mean ±1 SD across the four runs and eight models, with instances sorted by mean cost; the heavy right tail indicates that high-cost problems also exhibit the largest cross-run variance. (b) Per-model max/min cost ratio, averaged across the 500 instances; error bars show ±1 SD across instances. Together, these results suggest that token cost is highly variable, making upfront cost prediction fundamentally difficult.",
+      "nearby_text": "ed over four independent runs) and across different runs of the same prob- lem. Figure 2a shows the aggregated agent token usage and cost across problems and runs. We find that agents’ token usage has large variances across different problems. The most expensive problem, on average, costs ∼7 million",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/Coding-Agents-Spend-Your-Money/assets/images/picture-003.png",
+      "type": "figure",
+      "page": 5,
+      "caption": "Figure 3: Task accuracy and token cost across models. (a) Group-level accuracy and mean input tokens for each difficulty/model bin; the dashed line shows the overall trend. (b) Relative agent accuracy across cost quartiles, compared to the minimum-cost setting and estimated via mixed-effects regression. When working on the same problem, agent performance peaks at the intermediate-cost run and then saturates with higher costs.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/Coding-Agents-Spend-Your-Money/assets/images/picture-004.png",
+      "type": "figure",
+      "page": 5,
+      "caption": "Figure 4: When working on the same problem, high-cost runs are associated with repeated view and edits for the same file. Relative frequency of repeated file modifications (a) and repeated file views (b) across cost quartiles, compared to the minimum-cost setting and estimated via mixed-effects regression.",
+      "nearby_text": "analyzing repeated file view and modify actions across cost levels. As shown in Figure 4, the frequency of repeated viewing and editing sharply increases in the more expensive runs. This indicates that many expensive but failed runs have potentially redundant back-and-forth file access and re-editin",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/Coding-Agents-Spend-Your-Money/assets/images/picture-005.png",
+      "type": "figure",
+      "page": 6,
+      "caption": "Figure 5: Expert-rated task difficulty is a weak predictor of agent token consumption. Left: each vertical bar represents one of the 500 SWE-bench tasks, sorted by actual token consumption (low →high) and colored by human difficulty rating. The top reference strip shows the expected coloring under perfect alignment (clean light-to-dark gradient); the actual coloring below it is scrambled throughout. Dashed lines mark the <15 min and >1 hour group means. Right: density of token consumption per difficulty group, with substantial overlap across the full range.",
+      "nearby_text": "ur.” Is expert-perceived task difficulty a good predictor of agent token usage? Figure 5 shows the distribution of total token usage and compares it with the expected distribution if it were fully aligned with human-perceived difficulty. While overall resource consumption tends to rise with problem",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/Coding-Agents-Spend-Your-Money/assets/images/picture-006.png",
+      "type": "figure",
+      "page": 7,
+      "caption": "Figure 6: Token efficiency varies substantially across models and reflects model-specific behavior rather than task difficulty. (a) Mean total token usage vs. mean accuracy across all 500 SWE-bench instances; one point per model. (b) Model token usage on the shared success and failure tasks, blue dots show mean token usage on the shared success subset (n=230, solved by all models) and red diamonds show the shared failure subset (n=100, failed by all models). Models’ relative token usage remains consistent on both subsets, suggesting that token efficiency is an inherent characteristic of the model.",
+      "nearby_text": "ls, we first analyze the trade-off between task accuracy and token consumption. Figure 6a shows that models operating at higher token budgets generally achieve higher accuracy, but vary significantly in how well they navigate this trade-off. GPT-5 and GPT- 5.2 achieve strong accuracy at low cost, wh",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/Coding-Agents-Spend-Your-Money/assets/images/picture-007.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Figure 7: Fine-grained file interaction patterns on the shared success subset. For each model, we report the average number of overall and repeated file view actions (a) and modification actions (b).",
+      "nearby_text": "pecifically, we look at file view actions and modification actions. As shown in Figure 7, token-efficient models (GPT-5, GPT-5.2) perform fewer file views and modifications and have fewer repeated file actions. In contrast, higher-cost models such as Qwen3-Coder-480B, Claude Sonnet 4, and Kimi-K2 pe",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/Coding-Agents-Spend-Your-Money/assets/images/picture-008.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 1: Phases of agent trajectories. Percentages are computed over all rounds across Sonnet-4.5 runs.",
+      "nearby_text": "n the agent’s functional behavior: Setup, Explore, Fix, Validate, and Closeout. Table 1 describes each phase and reports its share of total rounds. The Fix and Explore phases together account for roughly two-thirds of all rounds, while Setup, Validate, and Closeout fill out the remaining third. For",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/Coding-Agents-Spend-Your-Money/assets/images/picture-009.png",
+      "type": "figure",
+      "page": 9,
+      "caption": "Figure 8: Phase-level token usage and cost dynamics. Input tokens dominate both raw token usage and dollar cost across phases.",
+      "nearby_text": "every phase, cache-read input tokens are the largest category by a wide margin (Figure 8a), reflecting the cumulative reuse of prior context. Non-cached input and cache-creation tokens track each other closely, consistent with newly introduced context being cached as soon as it enters the conversati",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/Coding-Agents-Spend-Your-Money/assets/images/picture-010.png",
+      "type": "figure",
+      "page": 10,
+      "caption": "Figure 9: Round-level token-cost dynamics of the agent trajectory on astropy astropy- 7336. The cost of cache read stably increases with the accumulation of the input contexts. Cost spikes are driven by discrete actions that introduce new content (file views, test execution, script generation, final summary).",
+      "nearby_text": "we zoom into a representative agent trajectory (on task astropy astropy-7336). Figure 9 shows the per-round cost decom- posed across the four token categories.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/Coding-Agents-Spend-Your-Money/assets/images/picture-011.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 2: Six representative rounds from the trajectory in Figure 9, grouped by their dominant cost source. Input-heavy rounds are driven by new content returned from tool calls; output- heavy rounds are driven by the agent’s own reasoning and generation.",
+      "nearby_text": "ile input tokens reflect the cost of reading test results and execution output. Table 2 further illustrates representative rounds and their dominant cost source. Rounds 10, 23, and 28 involve input-heavy tool calls like viewing new files, running tests, and cleaning",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/Coding-Agents-Spend-Your-Money/assets/images/picture-012.png",
+      "type": "figure",
+      "page": 11,
+      "caption": "Figure 10: Self-prediction performance and overhead across models. (a) Pearson correla- tion between predicted and actual token counts. (b) Overhead of self-prediction, measured as the ratio of prediction cost to actual task cost. Overall, predicting token usage before execution is challenging for all the tested models and there is much space for improving the prediction efficiency.",
+      "nearby_text": "Results Figure 10 summarizes prediction performance and overhead across the eight models. Overall, self-prediction achieves non-trivial but modest correlations with real token usage overall. Within the Claude Sonnet family, corr",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/Coding-Agents-Spend-Your-Money/assets/images/picture-013.png",
+      "type": "figure",
+      "page": 12,
+      "caption": "Figure 11: Predicted vs. real token usage across models. The dashed diagonal indicates perfect calibration. Agents systematically underestimate both input and output token usage.",
+      "nearby_text": "r- or underestimate, we compare the predicted and actual token distributions in Figure 11. Models consistently underestimate the tokens they need: most points fall below the diagonal for every model we tested. The bias is especially pronounced for input tokens, whose predictions stay compressed even",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/Coding-Agents-Spend-Your-Money/assets/images/picture-014.png",
+      "type": "figure",
+      "page": 16,
+      "caption": "Figure 12: Output-token analyses. Top: Group-level accuracy vs. mean output tokens by model, with mixed-effects trends controlling for model identity.Bottom: Mixed-effects coefficients (vs. MinCost) for repeated modify and view actions across cost levels.Higher costs reduce accuracy and sharply increase redundant file operations.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-015",
+      "file": "done/unpublished/Coding-Agents-Spend-Your-Money/assets/images/picture-015.png",
+      "type": "figure",
+      "page": 26,
+      "caption": "Figure 13: Self-prediction behavior without in-context demonstration (Sonnet 4.5 and GPT-5.2). The dashed diagonal indicates perfect calibration. Underestimation remains pronounced.",
+      "nearby_text": "s for Sonnet 4.5 and GPT-5.2, which remained instruction-compliant. As shown in Figure 13, underestimation persists, and becomes more severe, particularly for input tokens.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-016",
+      "file": "done/unpublished/Coding-Agents-Spend-Your-Money/assets/images/picture-016.png",
+      "type": "table",
+      "page": 26,
+      "caption": "Table 3: Self-prediction performance without in-context example. Correlation metrics degrade compared to the main setup with demonstration.",
+      "nearby_text": "Table 3 further shows that correlation with real token usage degrades substantially without the in-context example. These results indicate that the downward bias is not caused by example-induced anchoring; instead, the d",
+      "parser_confidence": "low"
+    }
+  ]
+}
