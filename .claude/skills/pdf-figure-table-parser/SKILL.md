@@ -3,7 +3,12 @@ name: pdf-figure-table-parser
 description: Use this skill whenever you need to extract figures, tables, or diagrams out of a PDF (especially an academic/arXiv paper) into image files plus a structured manifest, for a downstream step (a writer/summarizer agent, a blog pipeline, a report) that must never load the actual image bytes into its own context. Trigger this whenever the user mentions parsing a paper's PDF for figures/tables, building an image-manifest, or references tools like docling/marker/nougat for PDF visual extraction -- this skill's PyMuPDF-based approach works even when huggingface.co-hosted model downloads are blocked by network/egress policy (a common failure mode for docling and similar ML-model-backed parsers in sandboxed environments), and produces reliable, inspectable crops for born-digital PDFs without any OCR or vision model at all.
 ---
 
-# PDF Figure/Table Parser
+# PDF Figure/Table Parser (Step 1 in this repo's pipeline)
+
+In this repo this skill is **Step 1**: it runs *before* `blog-writer`
+(Step 2), because the Writer may only reference figures that actually got
+extracted. See the repo's `CLAUDE.md` for the pipeline overview. The skill
+itself is general-purpose and has no dependency on that pipeline.
 
 ## Why this skill exists
 
@@ -118,6 +123,10 @@ cannot catch on its own.
      ~200-230pt wide.** If `inspect_pdf.py` finds suspiciously few captions
      for a paper you know has more figures/tables, check whether it's
      two-column (see below) and rerun with e.g. `--min-caption-width 150`.
+     When it finds *zero*, it now re-runs detection with no width floor
+     itself and prints the threshold that would work — read that line
+     before doing anything else, since a 396pt caption filtered out by the
+     400 default looks exactly like a paper with no captions at all.
    - Measures the document's own layout once (`content_area`,
      `column_left_edges`): the rectangle its body text prints inside, and the
      x-coordinate(s) its text columns start at. Everything below is expressed
@@ -172,6 +181,23 @@ cannot catch on its own.
    every entry has the required keys. Run this again after any manual edit
    to the manifest (e.g. a downstream agent filling in a `table_markdown`
    by hand).
+
+## Symptom index
+
+Most of what follows is failure modes. Find your symptom here and jump
+straight to that section rather than reading the lot.
+
+| What you're seeing | Section |
+|---|---|
+| `0 visual(s) detected`, or fewer captions than the paper has | Workflow step 2 (read the printed hint first), then **Two-column papers** |
+| Crop is a few pixels tall (`SUSPECT CROPS`: degenerate) | **Multi-panel figures whose (a)/(b) sub-captions sit flush left** — the common case — or **When the automatic crop boundary gets a page wrong** for caption-above-content |
+| Crop swallowed the paragraph above the figure | **Figures that float mid-page** |
+| Crop is mostly blank margin, figure shrunk in the middle | **Clipped ink** |
+| Figure renders fine but is missing its lower half | **A caption sitting in the middle of a multi-panel figure** |
+| Table render is plausible but outer columns are cut off | **A single-column paper getting misclassified as two-column** and **Ruleless tables with no vector ink at all** — neither trips any automated check |
+| A crop landed on a *neighbouring* visual's content | **When the automatic crop boundary gets a page wrong** (`crop_warnings` cannot see this) |
+| `table_markdown` missing, table marked `parser_confidence: low` | **Why tables often end up low-confidence** — usually fine, no action needed |
+| Every page shows ~no text or drawings | Scanned PDF; this skill doesn't apply, see **Why this skill exists** |
 
 ## Clipped ink: why raw drawing bboxes can't be trusted
 
@@ -302,6 +328,35 @@ say) are the reason the walk starts at the *lowest ink above the caption*
 rather than at the caption, and the reason the floor exists at all: those
 icons are real ink sitting inside body paragraphs and headings, and without
 a floor the walk would happily chain up through them.
+
+### Multi-panel figures whose (a)/(b) sub-captions sit flush left
+
+This is the most common way a crop collapses, and it's worth recognizing on
+sight because the `SUSPECT CROPS` fix is a one-liner.
+
+A multi-panel figure usually labels its panels with a line like
+`(a) Across 500 problems, the most expensive instance costs ...`, set as a
+normal text block starting **flush against the body column edge**. That is
+exactly the signal `flush_left_blocks` uses to identify body prose (see the
+previous section), so `auto_crop_top` treats the sub-caption as a body-text
+floor and anchors the region just below it — leaving a band a few points
+tall between that floor and the real caption underneath. The render comes
+out a handful of pixels high and trips the degenerate-crop warning.
+
+One paper hit this on five of its thirteen figures, so expect it in batches
+rather than one-offs: if one multi-panel figure in a paper does this, check
+every other one.
+
+The fix is `--crop-top-override` **alone**, set above the figure's real top
+(usually just under the content area's top edge for a figure that starts a
+page). Do *not* reach for `--crop-bottom-override` here — the bottom
+boundary, 3pt above the caption, was already correct. That distinguishes
+this case from caption-above-content below, which needs both.
+
+Telling the two apart with `dump_blocks.py`: if the real content sits
+*below* the caption, it's caption-above. If the blocks immediately above
+the caption are `(a)`/`(b)` sub-captions with the figure's axis labels and
+panel text above *them*, it's this case.
 
 ### A caption sitting in the middle of a multi-panel figure
 

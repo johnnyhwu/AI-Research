@@ -2,7 +2,7 @@
 
 This is the schema `build_manifest.py` writes. It matches what this repo's
 blog-writing pipeline expects (see the repo's `CLAUDE.md` for the pipeline
-overview) — Step 1 (`blog-writer`) reads a manifest built with this skill
+overview) — Step 2 (`blog-writer`) reads a manifest built with this skill
 directly, and Step 3 (in the separate Hugo repo) consumes it too. If you're
 using this skill outside that pipeline, treat this as a sensible default you
 can adapt.

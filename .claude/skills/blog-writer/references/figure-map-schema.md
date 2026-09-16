@@ -31,6 +31,23 @@ work from.
   Writer-authored, in Traditional Chinese, not a copy-paste of the
   manifest's (usually English) caption field.
 
+### Numbering the visible captions
+
+The visible caption normally opens with a label (`圖 3 —`, `表 1 —`). **Number
+these sequentially in the article's own order, starting from 1, counting
+figures and tables separately.** Do *not* carry over the source paper's
+numbering.
+
+The reason is that the Writer references only the visuals that earn a place
+(see `writer-reviewer-spec.md`), so the paper's numbers will have gaps.
+Reusing them produces a visible jump — an article that goes 圖 11 → 圖 13
+because the paper's Figure 12 wasn't worth including — and a reader, who
+cannot see the paper, just concludes a figure is missing. This is a real
+review finding, not a hypothetical.
+
+Sequential renumbering has no downside downstream: Step 3 joins on the
+manifest `id` in the `figure-map` block, never on the visible label.
+
 ## At the end of article.md
 
 A single fenced ```` ```figure-map ```` block, valid JSON, one entry per
@@ -57,7 +74,7 @@ Field notes:
   `caption` field for that id — lets Step 3 confirm the join even if ids
   ever drift. **Keep this in whatever language the manifest caption is
   actually in** (normally English, since manifest captions are extracted
-  straight from the source paper by Step 2) — do not translate this field,
+  straight from the source paper by Step 1) — do not translate this field,
   even though the rest of the article is in Traditional Chinese. Translating
   it would break the verbatim-match guarantee Step 3 relies on.
 - **`why_used`**: Writer-authored explanation of why this visual was

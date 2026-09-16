@@ -610,10 +610,19 @@ def crop_warnings(rect, page_no, prose, kind="figure", min_dim=24.0, prose_frac=
 
     Two things are checked:
 
-    - A degenerate rectangle. Usually means the caption sits *above* its
-      visual (the academic-table convention) so the default "crop everything
-      between the content top and the caption" region is empty page. The fix
-      is --crop-top-override plus --crop-bottom-override; see SKILL.md.
+    - A degenerate rectangle. Two different causes produce this, and they
+      need different fixes, so the warning names both rather than guessing:
+      (a) the caption sits *above* its visual (the academic-table
+      convention), so the default "crop between the content top and the
+      caption" region is empty page -- needs --crop-top-override *and*
+      --crop-bottom-override; (b) the visual is a multi-panel figure whose
+      sub-panel labels ("(a) ...", "(b) ...") start flush against a body
+      column edge, so flush_left_blocks counts them as body text and
+      auto_crop_top floors the region just above them -- needs only
+      --crop-top-override, set above the figure's real top. Check which one
+      it is with dump_blocks.py: if real content sits *below* the caption
+      it's (a); if the blocks just above the caption are "(a)"/"(b)"
+      sub-captions with the figure's ink above them, it's (b).
     - A crop whose height is mostly body prose. Means the top boundary ran
       away and swallowed the paragraph above the figure. Figures only:
       a table's own rows legitimately read as prose, so the check would fire
@@ -622,8 +631,11 @@ def crop_warnings(rect, page_no, prose, kind="figure", min_dim=24.0, prose_frac=
     warnings = []
     if rect.width < min_dim or rect.height < min_dim:
         warnings.append(f"degenerate crop region ({rect.width:.0f}x{rect.height:.0f}pt) -- "
-                        "caption is probably above its visual; see SKILL.md on "
-                        "--crop-top-override + --crop-bottom-override")
+                        "either the caption sits above its visual (fix: --crop-top-override "
+                        "+ --crop-bottom-override) or this is a multi-panel figure whose "
+                        "(a)/(b) sub-captions were read as body text and floored the crop "
+                        "(fix: --crop-top-override alone, above the figure's real top). "
+                        "Check which with dump_blocks.py; see SKILL.md")
     if kind != "table" and rect.height > 0:
         covered = 0.0
         for b in prose or []:

@@ -1,13 +1,13 @@
 ---
 name: blog-writer
-description: Use this skill whenever you need to write or revise article.md for a topic directory in this repo's blog-writing pipeline (Step 1 -- Writer + Reviewer), triggered by phrases like "開始產生 blog", "generate the blog/post for <dir>", "write the article for <dir>", or "幫 <dir> 寫文章". Turns a topic directory's discussion-notes/chatlog file (never the source PDF, never any image) plus its image-manifest.json's text fields (caption/page/type/nearby_text only) into a polished, platform-neutral article.md written in Traditional Chinese (Taiwan usage), through an in-session Writer <-> Reviewer loop where the Reviewer runs as an independent subagent that reads article.md from disk rather than having it pasted in. This skill is fully self-contained: no external spec document is needed or will be supplied to run it -- this file plus references/ is the complete, current spec.
+description: Use this skill whenever you need to write or revise article.md for a topic directory in this repo's blog-writing pipeline (Step 2 -- Writer + Reviewer), triggered by phrases like "開始產生 blog", "generate the blog/post for <dir>", "write the article for <dir>", or "幫 <dir> 寫文章". Turns a topic directory's discussion-notes/chatlog file (never the source PDF, never any image) plus its image-manifest.json's text fields (caption/page/type/nearby_text only) into a polished, platform-neutral article.md written in Traditional Chinese (Taiwan usage), through an in-session Writer <-> Reviewer loop where the Reviewer runs as an independent subagent that reads article.md from disk rather than having it pasted in. This skill is fully self-contained: no external spec document is needed or will be supplied to run it -- this file plus references/ is the complete, current spec.
 ---
 
-# Blog Writer (Step 1: Writer + Reviewer)
+# Blog Writer (Step 2: Writer + Reviewer)
 
 ## Why this skill exists
 
-This is the complete, current spec for Step 1 of this repo's 3-step blog
+This is the complete, current spec for Step 2 of this repo's 3-step blog
 pipeline (see the repo's `CLAUDE.md` for the pipeline overview). No external
 document backs this up and none will be supplied alongside a future task —
 this `SKILL.md` plus its `references/` docs is the whole spec. A future
@@ -18,7 +18,7 @@ directory itself.
 
 1. **Never read the source PDF, and never open any image file, at any point
    in this workflow.** Not "just to double check" a fact, not "just to see"
-   a figure. Fact-checking against the PDF and rendering crops is Step 2's
+   a figure. Fact-checking against the PDF and rendering crops is Step 1's
    job, already done by the time this skill runs. Your only sources of fact
    are:
    - the topic directory's notes/chatlog file, and
@@ -66,9 +66,22 @@ canonical layout):
   assuming the canonical path. Read only `id` / `caption` / `page` / `type` /
   `nearby_text` from each entry.
 
-### If the manifest is missing, empty, or Step 2 hasn't run
+### If there's no manifest yet
 
-Still write the article, but:
+**First check whether the topic directory has a source PDF. If it does,
+stop and run Step 1 (`pdf-figure-table-parser`) against it, then come back
+and write with the manifest in hand.** Writing first and retrofitting
+figures later is not a shortcut: every descriptive mention has to be
+rewritten into a real `![](img-00N)` reference, the `figure-map` has to be
+built from scratch, and the whole Writer↔Reviewer loop below has to run a
+second time. Parsing first is cheaper than that, every time.
+
+The fallback below is only for topics where a manifest isn't achievable:
+no source PDF at all (the repo's migrated hand-written posts), or Step 1
+ran and couldn't extract anything usable. Say which of the two applies when
+you report the article as done.
+
+In that case, still write the article, but:
 - reference figures only **descriptively in prose** ("論文中的延遲對照圖表顯示…"),
   never inventing an id;
 - emit an **empty** `figure-map` block (`` ```figure-map\n[]\n``` ``);
