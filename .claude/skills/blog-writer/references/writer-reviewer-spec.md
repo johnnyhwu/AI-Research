@@ -145,7 +145,7 @@ roughly what the fix itself costs, not multiples of the article's length.
 
 - `<dir>/article.md`, containing the article body + the trailing
   `figure-map` block. Do not modify anything under `<dir>/assets/` — that's
-  Step 2's territory.
+  Step 1's territory.
 
 The full "Definition of done" checklist lives in `SKILL.md`, not repeated
 here — this file is scope-limited to the quality bar and the review loop

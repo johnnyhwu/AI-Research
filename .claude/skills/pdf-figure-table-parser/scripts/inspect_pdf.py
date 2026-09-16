@@ -65,6 +65,31 @@ def main():
               f"bbox={tuple(round(v, 1) for v in c['bbox'])}")
         print(f"    {c['text'][:180]}")
 
+    if not captions:
+        # The default threshold (400) is above the caption width of plenty of
+        # real papers -- a 396pt caption block filters out to zero and looks
+        # exactly like "this paper has no captions". Rather than make the
+        # reader go to dump_blocks.py to discover that, re-run the detection
+        # with no width floor and report what floor would actually work.
+        unfiltered = lib.find_captions(doc, min_caption_width=0)
+        if unfiltered:
+            widest = max(c["bbox"][2] - c["bbox"][0] for c in unfiltered)
+            suggest = max(50.0, round((widest * 0.6) / 10) * 10)
+            print(f"\n0 visual(s) detected at min-caption-width={min_caption_width}, but "
+                  f"{len(unfiltered)} caption block(s) match with no width floor.")
+            print(f"  Widest of those is {widest:.0f}pt -- the threshold is what "
+                  f"filtered them out, not the paper.")
+            print(f"  Re-run inspect_pdf.py and build_manifest.py with "
+                  f"--min-caption-width {suggest:.0f} (confirm with dump_blocks.py "
+                  f"that these really are captions and not noise).")
+            return
+        print("\n0 visual(s) detected, and none match even with no width floor.")
+        print("  Either this paper captions its visuals unusually (check for "
+              "'Fig.' abbreviations or non-English captions and extend the regex "
+              "in pdf_parser_lib.find_captions), or -- if the pages above showed "
+              "near-zero drawings and no text -- it's a scanned PDF needing OCR.")
+        return
+
     print(f"\n{len(captions)} visual(s) detected. Next: run build_manifest.py.")
     print("If a page's layout looks unusual (two-column, floating figures, "
           "captions above the visual instead of below), dump its text blocks "

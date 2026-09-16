@@ -8,14 +8,15 @@ repo talks to Hugo directly.
 
 | Step | Role | Runs in this repo? | Skill |
 |---|---|---|---|
-| 1 | Writer + Reviewer — turns discussion notes + an image manifest into `article.md` | Yes | `.claude/skills/blog-writer/` |
-| 2 | Parser — extracts figures/tables from the PDF into an image manifest | Yes | `.claude/skills/pdf-figure-table-parser/` |
+| 1 | Parser — extracts figures/tables from the PDF into an image manifest | Yes | `.claude/skills/pdf-figure-table-parser/` |
+| 2 | Writer + Reviewer — turns discussion notes + an image manifest into `article.md` | Yes | `.claude/skills/blog-writer/` |
 | 3 | Publisher — wires `article.md` + manifest + images into a Hugo post | No (separate repo) | n/a |
 
 If you're working in this repo, you are doing Step 1 and/or Step 2 work.
-Read this file fully before touching a topic directory — the two steps have
-a real ordering dependency (below), and both rely on conventions that aren't
-obvious from the files alone.
+**The step numbers are the running order: Step 1 (parse) always finishes
+before Step 2 (write) starts.** Read this file fully before touching a topic
+directory — both steps rely on conventions that aren't obvious from the
+files alone.
 
 ## Topic directories
 
@@ -23,7 +24,7 @@ Each source document gets its own directory at the repo root, nested under
 one of **three** buckets that together track how far the topic has got:
 
 ```
-in-progress/<TopicDir>/          Step 1 hasn't written article.md yet
+in-progress/<TopicDir>/          Step 2 hasn't written article.md yet
 done/unpublished/<TopicDir>/     article.md exists, no Hugo post yet
 done/published/<TopicDir>/       article.md exists AND Step 3 has shipped it
 ```
@@ -33,10 +34,10 @@ pipeline's usual layout, just with an `in-progress/` or `done/<state>/`
 prefix instead of `docs/`. Note that a topic under `done/` sits **two**
 levels down, not one — `done/published/SkillOpt/`, never `done/SkillOpt/`.
 
-- **`in-progress/<TopicDir>/`** — Step 1 hasn't produced `article.md` yet
-  (Step 2 may or may not have run). New topics start here.
+- **`in-progress/<TopicDir>/`** — Step 2 hasn't produced `article.md` yet
+  (Step 1 may or may not have run). New topics start here.
 - **`done/unpublished/<TopicDir>/`** — `article.md` exists but no post has
-  been published from it yet. This is where a topic lands the moment Step 1
+  been published from it yet. This is where a topic lands the moment Step 2
   finishes. **This bucket is the publishing queue**: when someone asks
   "what's ready to publish?", this is the answer, and it's the only place
   worth looking for the next Step 3 candidate.
@@ -50,7 +51,7 @@ levels down, not one — `done/published/SkillOpt/`, never `done/SkillOpt/`.
 Two moves happen in the normal life of a topic, and **both** need the same
 manifest fix-up:
 
-1. Step 1 finishes writing `article.md` →
+1. Step 2 finishes writing `article.md` →
    `git mv in-progress/<TopicDir> done/unpublished/<TopicDir>`. Do this as
    part of finishing that task, not later.
 2. Step 3 publishes the post in `HUGO_REPO` →
@@ -60,15 +61,26 @@ manifest fix-up:
    make it.
 
 `image-manifest.json`'s own `source_pdf` and every image's `file` field are
-repo-relative paths baked in verbatim when Step 2 ran — and per the ordering
-constraint below, Step 2 always ran while the topic was still under
-`in-progress/`. `git mv` doesn't rewrite file contents, so after a move
-those baked-in paths still point at the topic's old location and
-`verify_manifest.py` will report every image file missing. Fix this every
-time you move a directory: rewrite the bucket prefix in both `source_pdf`
+repo-relative paths baked in verbatim when Step 1 ran, against whichever
+bucket the topic sat in at the time. `git mv` doesn't rewrite file contents,
+so after a move those baked-in paths still point at the topic's old location
+and `verify_manifest.py` will report every image file missing. Fix this
+every time you move a directory: rewrite the bucket prefix in both `source_pdf`
 and every `images[].file` so each path reads
 `<new-bucket>/<TopicDir>/...`, then re-run `pdf-figure-table-parser`'s
-`verify_manifest.py` to confirm. `verify_manifest.py` depends on `pymupdf`,
+`verify_manifest.py` to confirm.
+
+**You can sidestep this entirely when re-parsing a topic that already has
+an `article.md`.** The paths only need rewriting because Step 1 ran in one
+bucket and the directory then moved to another. If a topic is already in
+`done/unpublished/` (or `done/published/`) and you're running Step 1 on it
+— a first parse for a topic that took the NO-MANIFEST route, or a re-parse
+— run the parser with `--out-dir`/`--source-pdf-repo-path` pointing at the
+bucket it's *already* in. The paths get baked in correct and there is
+nothing to fix up afterwards. Only the normal
+`in-progress/` → `done/unpublished/` move needs the rewrite.
+
+`verify_manifest.py` depends on `pymupdf`,
 which is not part of this environment's default toolchain — if it fails
 with `ModuleNotFoundError: No module named 'pymupdf'`, run
 `pip install pymupdf` first rather than treating it as a manifest problem.
@@ -83,14 +95,14 @@ Expected contents of a topic directory, once both steps have run:
                                # the paper -- filename and format vary, detect
                                # by what's actually there (.txt, .md, .json)
   assets/
-    image-manifest.json       # written by Step 2 (see schema below)
-    images/                   # written by Step 2
-  article.md                  # written by Step 1
+    image-manifest.json       # written by Step 1 (see schema below)
+    images/                   # written by Step 1
+  article.md                  # written by Step 2
 ```
 
-**Canonical path for new topics**: put Step 2's output directly at
+**Canonical path for new topics**: put Step 1's output directly at
 `<TopicDir>/assets/image-manifest.json` and `<TopicDir>/assets/images/`
-(under whichever bucket the topic currently lives in) — that's what Step 1
+(under whichever bucket the topic currently lives in) — that's what Step 2
 expects to find. (`done/published/SkillOpt/` itself is a first-cut
 exception: its manifest lives at
 `done/published/SkillOpt/parsed/assets/image-manifest.json` instead, from
@@ -108,23 +120,46 @@ manifest entry — that's deliberate, and Step 3 uses it as the post's
 
 ## The ordering constraint
 
-Step 2's parse (producing the image manifest) must finish before Step 1
+Step 1's parse (producing the image manifest) must finish before Step 2
 starts writing, because the Writer must only reference figures/tables that
-actually got extracted. If you're asked to do both for the same topic, run
-Step 2 first. If Step 2 hasn't run yet and you're asked to write the
-article anyway, the Writer skill's own fallback applies (write the article,
-but reference figures only descriptively in prose, and mark the file with
+actually got extracted. The step numbers say this on their own — 1 before
+2 — and that is the whole reason they're numbered this way.
+
+**If you're asked to write the article and the topic has a PDF but no
+manifest yet, run Step 1 first and then write. Don't ask, and don't
+degrade.** A request to "write the article" is a request for a finished
+article, and a finished article references real figures. Parsing first
+costs one extra skill invocation; skipping it costs a full rewrite of
+`article.md` once the manifest shows up, because every descriptive mention
+has to be converted into a real `![](img-00N)` reference and the whole
+Writer↔Reviewer loop has to run again. That rewrite is strictly more
+expensive than just parsing first — this has actually happened, which is
+why the rule now reads this way.
+
+### When the NO-MANIFEST fallback *is* correct
+
+The fallback (write the article, reference figures only descriptively in
+prose, and mark the file with
 `<!-- NO-MANIFEST: figures referenced descriptively; Step 3 must match
-manually -->` at the top) — don't block on this, just don't invent a
-manifest that doesn't exist.
+manually -->` at the top) is for topics where no manifest is *achievable*,
+not for topics where nobody has got round to Step 1 yet. Use it when:
+
+- the topic directory has **no source PDF** (the migrated hand-written
+  posts — see the `"source_pdf": null` note above), or
+- Step 1 ran and genuinely failed to extract anything usable (a scanned
+  PDF needing OCR, say — the parser skill covers how to tell).
+
+In both cases, say which one applies when you report the article as done.
+Never invent a manifest that doesn't exist, and never reference an id that
+has no manifest entry.
 
 ## What to do when the user says...
 
 | User says (roughly) | Do this |
 |---|---|
 | "針對 `<dir>` 開始 parse pdf" / "parse the PDF in `<dir>`" / "extract figures/tables from `<dir>`" | Use the **`pdf-figure-table-parser`** skill against the PDF in `<dir>/` (look under `in-progress/<dir>/`, or `done/unpublished/<dir>/` — or `done/published/<dir>/` — if re-parsing a finished topic). Output goes to `<dir>/assets/image-manifest.json` + `<dir>/assets/images/` (see canonical path above). |
-| "開始產生 blog" / "generate the blog (post) for `<dir>`" / "write the article for `<dir>`" | Use the **`blog-writer`** skill (`.claude/skills/blog-writer/`) against `in-progress/<dir>/`. Once `article.md` is written, `git mv` the directory into `done/unpublished/` — and fix the manifest's baked-in paths as part of that move (see "Moving a topic between buckets" above). |
-| Ambiguous ("do the pipeline for `<dir>`", no PDF/manifest yet) | Run Step 2 first, then Step 1, per the ordering constraint above. The topic stays under `in-progress/` until Step 1 finishes, then moves to `done/unpublished/`. |
+| "開始產生 blog" / "generate the blog (post) for `<dir>`" / "write the article for `<dir>`" | **Check for `<dir>/assets/image-manifest.json` first.** No manifest but a PDF is present → run Step 1 against it first (see the ordering constraint above), then write. Then use the **`blog-writer`** skill (`.claude/skills/blog-writer/`) against `in-progress/<dir>/`. Once `article.md` is written, `git mv` the directory into `done/unpublished/` — and fix the manifest's baked-in paths as part of that move (see "Moving a topic between buckets" above). |
+| Ambiguous ("do the pipeline for `<dir>`", no PDF/manifest yet) | Run Step 1 first, then Step 2, per the ordering constraint above. The topic stays under `in-progress/` until Step 2 finishes, then moves to `done/unpublished/`. |
 | "哪些文章可以發布了？" / "what's ready to publish?" / "which topics are done but not published?" | List `done/unpublished/`. That bucket *is* the answer — no cross-referencing against the Hugo repo needed. |
 | "`<dir>` 已經發布了" / "mark `<dir>` as published" (usually after Step 3 shipped it in `HUGO_REPO`) | `git mv done/unpublished/<dir> done/published/<dir>`, fix the manifest's baked-in paths, re-run `verify_manifest.py`. |
 
@@ -139,25 +174,25 @@ not something to reconstruct from memory or from an outside document.
 
 These matter regardless of which step you're doing:
 
-- **Never load image files into context.** Step 2 extracts visuals using
-  file/text-level tools only (see the parser skill for how). Step 1 reads
+- **Never load image files into context.** Step 1 extracts visuals using
+  file/text-level tools only (see the parser skill for how). Step 2 reads
   only the manifest's captions/pages/types/nearby_text — never the image
   files themselves. If you find yourself about to open a PNG or a PDF page
   render "just to check," stop — that defeats the reason this pipeline has
   a separate parsing step at all.
-- **Step 1 never reads the source PDF either — notes/chatlog only.** Treat
+- **Step 2 never reads the source PDF either — notes/chatlog only.** Treat
   the topic dir's notes/chatlog file as the sole source of facts for
   `article.md`, and the manifest's `caption`/`page`/`type`/`nearby_text`
   fields as the sole source of figure context. This is a deliberate,
   standing house rule for this repo, established through direct instruction
-  — it keeps Step 1 fast and keeps the PDF-reading work concentrated in Step
-  2, where it belongs. Step 2, by contrast, reads the PDF directly — that's
-  its entire job.
-- **The same boundary cuts the other way: Step 2 has no business opening
-  the notes/chatlog file either.** Step 2's job is to read the PDF's own
+  — it keeps Step 2 fast and keeps the PDF-reading work concentrated in
+  Step 1, where it belongs. Step 1, by contrast, reads the PDF directly —
+  that's its entire job.
+- **The same boundary cuts the other way: Step 1 has no business opening
+  the notes/chatlog file either.** Step 1's job is to read the PDF's own
   structure (captions, drawings, embedded images) and produce the manifest
   — the discussion notes describe *what a human wants written about the
-  paper later*, which is Step 1's concern, not Step 2's. Opening it "just to
+  paper later*, which is Step 2's concern, not Step 1's. Opening it "just to
   understand the paper better" doesn't change what gets extracted and only
   burns context reading a file (often hundreds of lines) that this step has
   no use for. If you need to sanity-check which figures/tables actually
@@ -165,14 +200,14 @@ These matter regardless of which step you're doing:
 - **Never invent a manifest id.** If an article references a figure/table id
   with no matching manifest entry, that's a bug to surface, not paper over.
 - **Fail loud, not silent.** A missing or low-confidence image is worse to
-  hide than to flag. Step 2 marks uncertain extractions
-  `parser_confidence: "low"`; Step 1 uses the `NO-MANIFEST` note when
+  hide than to flag. Step 1 marks uncertain extractions
+  `parser_confidence: "low"`; Step 2 uses the `NO-MANIFEST` note when
   there's nothing to work with. Downstream steps rely on these signals being
   honest.
 
 ## image-manifest.json, in brief
 
-Step 2 writes one entry per extracted visual:
+Step 1 writes one entry per extracted visual:
 
 ```json
 {
@@ -193,7 +228,7 @@ Step 2 writes one entry per extracted visual:
 }
 ```
 
-`id` is the join key Step 1 reuses directly as the image `src` in
+`id` is the join key Step 2 reuses directly as the image `src` in
 `article.md`, and again in the trailing `figure-map` block. Full field
 semantics are in
 `.claude/skills/pdf-figure-table-parser/references/image-manifest-schema.md`
@@ -201,7 +236,7 @@ semantics are in
 
 ## article.md, in brief
 
-Step 1's output is a platform-neutral Markdown article: plain prose body,
+Step 2's output is a platform-neutral Markdown article: plain prose body,
 figures referenced as `![alt](img-00N)` immediately followed by an italic
 human-readable caption, and a single fenced ```` ```figure-map ```` block at
 the very end (machine-readable, one entry per referenced id, giving Step 3
