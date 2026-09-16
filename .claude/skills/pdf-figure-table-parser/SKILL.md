@@ -182,6 +182,23 @@ cannot catch on its own.
    to the manifest (e.g. a downstream agent filling in a `table_markdown`
    by hand).
 
+## Symptom index
+
+Most of what follows is failure modes. Find your symptom here and jump
+straight to that section rather than reading the lot.
+
+| What you're seeing | Section |
+|---|---|
+| `0 visual(s) detected`, or fewer captions than the paper has | Workflow step 2 (read the printed hint first), then **Two-column papers** |
+| Crop is a few pixels tall (`SUSPECT CROPS`: degenerate) | **Multi-panel figures whose (a)/(b) sub-captions sit flush left** — the common case — or **When the automatic crop boundary gets a page wrong** for caption-above-content |
+| Crop swallowed the paragraph above the figure | **Figures that float mid-page** |
+| Crop is mostly blank margin, figure shrunk in the middle | **Clipped ink** |
+| Figure renders fine but is missing its lower half | **A caption sitting in the middle of a multi-panel figure** |
+| Table render is plausible but outer columns are cut off | **A single-column paper getting misclassified as two-column** and **Ruleless tables with no vector ink at all** — neither trips any automated check |
+| A crop landed on a *neighbouring* visual's content | **When the automatic crop boundary gets a page wrong** (`crop_warnings` cannot see this) |
+| `table_markdown` missing, table marked `parser_confidence: low` | **Why tables often end up low-confidence** — usually fine, no action needed |
+| Every page shows ~no text or drawings | Scanned PDF; this skill doesn't apply, see **Why this skill exists** |
+
 ## Clipped ink: why raw drawing bboxes can't be trusted
 
 `page.get_drawings()` reports each path's bbox *before* the clipping path is

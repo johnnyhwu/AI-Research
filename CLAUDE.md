@@ -20,31 +20,21 @@ files alone.
 
 ## Topic directories
 
-Each source document gets its own directory at the repo root, nested under
-one of **three** buckets that together track how far the topic has got:
+Each source document gets its own directory at the repo root, under one of
+**three** buckets tracking how far the topic has got. A topic under `done/`
+sits **two** levels down, not one — `done/published/SkillOpt/`, never
+`done/SkillOpt/`.
 
-```
-in-progress/<TopicDir>/          Step 2 hasn't written article.md yet
-done/unpublished/<TopicDir>/     article.md exists, no Hugo post yet
-done/published/<TopicDir>/       article.md exists AND Step 3 has shipped it
-```
-
-Think of a bucket as playing the role of `docs/<slug>/` from the broader
-pipeline's usual layout, just with an `in-progress/` or `done/<state>/`
-prefix instead of `docs/`. Note that a topic under `done/` sits **two**
-levels down, not one — `done/published/SkillOpt/`, never `done/SkillOpt/`.
-
-- **`in-progress/<TopicDir>/`** — Step 2 hasn't produced `article.md` yet
-  (Step 1 may or may not have run). New topics start here.
-- **`done/unpublished/<TopicDir>/`** — `article.md` exists but no post has
-  been published from it yet. This is where a topic lands the moment Step 2
-  finishes. **This bucket is the publishing queue**: when someone asks
-  "what's ready to publish?", this is the answer, and it's the only place
-  worth looking for the next Step 3 candidate.
-- **`done/published/<TopicDir>/`** — a Hugo post exists for this topic in
-  `HUGO_REPO` (`johnnyhwu/johnnyhwu.github.io`, under
-  `content/posts/<section>/<slug>/`). Topics here are finished; touch one
-  only when fixing an already-published post.
+- **`in-progress/<TopicDir>/`** — no `article.md` yet (Step 1 may or may not
+  have run). New topics start here.
+- **`done/unpublished/<TopicDir>/`** — `article.md` exists, no Hugo post
+  yet. A topic lands here the moment Step 2 finishes. **This bucket is the
+  publishing queue**: when someone asks "what's ready to publish?", this is
+  the answer, and the only place worth looking for the next Step 3
+  candidate.
+- **`done/published/<TopicDir>/`** — a Hugo post exists in `HUGO_REPO`
+  (`johnnyhwu/johnnyhwu.github.io`, under `content/posts/<section>/<slug>/`).
+  Finished; touch one only when fixing an already-published post.
 
 ### Moving a topic between buckets
 
@@ -127,14 +117,9 @@ actually got extracted. The step numbers say this on their own — 1 before
 
 **If you're asked to write the article and the topic has a PDF but no
 manifest yet, run Step 1 first and then write. Don't ask, and don't
-degrade.** A request to "write the article" is a request for a finished
-article, and a finished article references real figures. Parsing first
-costs one extra skill invocation; skipping it costs a full rewrite of
-`article.md` once the manifest shows up, because every descriptive mention
-has to be converted into a real `![](img-00N)` reference and the whole
-Writer↔Reviewer loop has to run again. That rewrite is strictly more
-expensive than just parsing first — this has actually happened, which is
-why the rule now reads this way.
+degrade.** Writing first means rewriting the whole article once the
+manifest exists, which costs far more than parsing up front. This has
+happened; `blog-writer`'s SKILL.md explains the cost in full.
 
 ### When the NO-MANIFEST fallback *is* correct
 
@@ -207,52 +192,32 @@ These matter regardless of which step you're doing:
 
 ## image-manifest.json, in brief
 
-Step 1 writes one entry per extracted visual:
+Step 1 writes one entry per extracted visual, keyed by `id` (`img-001`,
+`img-002`, ...). That `id` is the join key: Step 2 reuses it directly as the
+image `src` in `article.md` and again in the trailing `figure-map` block,
+and Step 3 resolves it to a real path. Entries also carry `file`, `type`,
+`page`, `caption`, `nearby_text`, `parser_confidence`, and optionally
+`table_markdown`.
 
-```json
-{
-  "source_pdf": "<TopicDir>/<paper>.pdf",
-  "generated_by": "...",
-  "images": [
-    {
-      "id": "img-001",
-      "file": "<TopicDir>/assets/images/picture-001.png",
-      "type": "figure",
-      "page": 5,
-      "caption": "Figure 3: ...",
-      "nearby_text": "As shown in Figure 3, ...",
-      "parser_confidence": "high",
-      "table_markdown": "..."
-    }
-  ]
-}
-```
-
-`id` is the join key Step 2 reuses directly as the image `src` in
-`article.md`, and again in the trailing `figure-map` block. Full field
-semantics are in
-`.claude/skills/pdf-figure-table-parser/references/image-manifest-schema.md`
-— read that, not just this summary, before writing code against the schema.
+Field-by-field semantics live in
+`.claude/skills/pdf-figure-table-parser/references/image-manifest-schema.md`.
+Read that before writing any code against the schema — don't work from the
+summary above.
 
 ## article.md, in brief
 
-Step 2's output is a platform-neutral Markdown article: plain prose body,
-figures referenced as `![alt](img-00N)` immediately followed by an italic
-human-readable caption, and a single fenced ```` ```figure-map ```` block at
-the very end (machine-readable, one entry per referenced id, giving Step 3
-enough to match ids to real images). No Hugo front matter or shortcodes
-belong in this file — that's Step 3's job in the Hugo repo, not this one.
+Step 2's output is a platform-neutral Markdown article: prose body, figures
+referenced as `![alt](img-00N)`, each followed by an italic caption, and a
+single fenced ```` ```figure-map ```` block at the very end. No Hugo front
+matter or shortcodes — that's Step 3's job, in the other repo.
 
-**Write the prose body in Traditional Chinese, Taiwan usage (台灣繁體中文)**
-— not English, not Simplified Chinese. This applies to headings, alt text,
-and visible captions too. It should also read like a Taiwanese AI/software
-engineer wrote it by hand for a technical audience, not like generic
-AI-generated writing — the `blog-writer` skill's `references/writing-style.md`
-has the concrete dos/don'ts. The one thing that stays in English verbatim is
-each `figure-map` entry's `references_manifest_caption` — it has to match
-the manifest's own (English, paper-native) caption text exactly, since
-that's what Step 3 uses to confirm the join.
+**The prose is Traditional Chinese, Taiwan usage (台灣繁體中文)**, headings,
+alt text and visible captions included, written for a reader who has never
+seen the source paper. The one field that stays verbatim in the manifest's
+own language is each `figure-map` entry's `references_manifest_caption`,
+which Step 3 uses to confirm the join.
 
-The target reader has never read the source paper. Readability and
-correctness for that reader matter more than brevity or cleverness — when
-in doubt, explain rather than assume.
+The `blog-writer` skill is the full spec for all of this — its
+`references/writing-style.md` covers the voice, `references/figure-map-schema.md`
+the figure conventions. Read them there rather than inferring from this
+summary.
