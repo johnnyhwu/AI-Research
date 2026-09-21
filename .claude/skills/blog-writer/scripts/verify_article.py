@@ -52,6 +52,9 @@ INLINE_CODE_RE = re.compile(r"`[^`\n]+`")
 MATH_SPAN_RE = re.compile(r"\$\$.*?\$\$|\$[^$\n]+?\$", re.DOTALL)
 # A URL path segment ("/i_benchmarked_o...") looks like a subscript.
 URL_RE = re.compile(r"<https?://[^>]+>|https?://\S+|\]\([^)]*\)")
+# Image alt text is read aloud by screen readers, where LaTeX would be
+# strictly worse -- notation stays plain prose there, so don't flag it.
+IMAGE_ALT_RE = re.compile(r"!\[[^\]]*\]")
 # Notation the Writer left as raw text instead of $...$. Step 3 can only
 # convert delimiters mechanically, so anything missed here becomes a manual
 # judgement call in the other repo -- and usually gets shipped raw.
@@ -69,7 +72,7 @@ RAW_NOTATION_RES = [
 def check_raw_notation(body, warnings):
     """Notation still sitting in the prose/tables as raw text."""
     prose = MATH_SPAN_RE.sub(" ", CODE_FENCE_RE.sub(" ", body))
-    prose = URL_RE.sub(" ", INLINE_CODE_RE.sub(" ", prose))
+    prose = URL_RE.sub(" ", IMAGE_ALT_RE.sub(" ", INLINE_CODE_RE.sub(" ", prose)))
     hits = []
     for pattern, kind in RAW_NOTATION_RES:
         for m in pattern.finditer(prose):

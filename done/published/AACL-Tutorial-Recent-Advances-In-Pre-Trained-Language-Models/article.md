@@ -238,7 +238,7 @@ PEFT 的作法是在 Pre-trained Model 中插入額外的小模組，Finetune �
 ![示意圖：原始 Representation h 經過 Finetune 後變成 h_prime，兩者之間差一個 delta_h 的概念圖。](img-028)
 *Finetune 是希望改變 Pre-trained Model 的 Representation，使其在下游任務有更好的表現*
 
-上圖把這件事講得很清楚：原本 Pre-trained Model 的 Representation 是 h，整個模型 Finetune 完之後 Representation 變成 h_prime。既然目的只是要從 h 走到 h_prime，那何必動整個模型？PEFT 的核心思想就是加一個小模組去產生額外的 delta_h，讓 h + delta_h = h_prime。
+上圖把這件事講得很清楚：原本 Pre-trained Model 的 Representation 是 $h$，整個模型 Finetune 完之後 Representation 變成 $h'$。既然目的只是要從 $h$ 走到 $h'$，那何必動整個模型？PEFT 的核心思想就是加一個小模組去產生額外的 $\Delta h$，讓 $h$ + $\Delta h$ = $h'$。
 
 PEFT 主要有 4 種實現方法，以下逐一介紹：
 
@@ -254,7 +254,7 @@ PEFT 主要有 4 種實現方法，以下逐一介紹：
 
 Adapter 的概念就是在一個 Transformer Layer 中的 Multi-Head Self-Attention 後方，以及 Feed-Forward Layer 的後方，各額外加上一個小模組，這個模組就叫 Adapter。它的架構如上圖右方所示：兩個 Feed-Forward Layer 中間夾一個 Non-Linear Layer，外加一個 Skip Connection。
 
-對照 #9 的 h 與 delta_h：兩個 Feed-Forward Layer 加上 Non-Linear Layer 負責把原來的 Representation h 轉換成 delta_h，Skip Connection 則負責把 h 與 delta_h 相加，得到 Finetune 後的 h_prime。
+對照 #9 的 $h$ 與 $\Delta h$：兩個 Feed-Forward Layer 加上 Non-Linear Layer 負責把原來的 Representation $h$ 轉換成 $\Delta h$，Skip Connection 則負責把 $h$ 與 $\Delta h$ 相加，得到 Finetune 後的 $h'$。
 
 ## #11: PEFT: LoRA (Low-Rank Adaptation of Large Language Models)
 
@@ -271,7 +271,7 @@ LoRA 的作法是在 Transformer Layer 中的 Feed-Forward Layer 旁邊，多掛
 ![示意圖：輸入向量先被降維到一個很小的維度，再被放大回原本維度，輸出與主幹相加。](img-032)
 *LoRA 模組會將原來的 Representation 投射到一個特別小的維度上後，再放大得到新的 Representation*
 
-比較特別的是，LoRA 模組會先把原來的 Input 投射到一個特別小的維度，再放大回去得到新的 Representation (delta_h)，最後與原來的 Representation (h) 相加得到 h_prime。這個「先壓扁再放大」正是 Low-Rank 的意思，也是它參數量能壓這麼低的原因。
+比較特別的是，LoRA 模組會先把原來的 Input 投射到一個特別小的維度，再放大回去得到新的 Representation ($\Delta h$)，最後與原來的 Representation ($h$) 相加得到 $h'$。這個「先壓扁再放大」正是 Low-Rank 的意思，也是它參數量能壓這麼低的原因。
 
 ## #12: PEFT: Prefix Tuning
 
@@ -289,7 +289,7 @@ LoRA 的作法是在 Transformer Layer 中的 Feed-Forward Layer 旁邊，多掛
 ![示意圖：Self-Attention 的輸入序列前方插入數個額外向量，這些向量同樣參與 Attention 運算。](img-034)
 *Prefix Tuning 就是在 Self-Attention Layer 的 Input Sequence 的前方再多加入一些 Vector*
 
-如上圖所示，多了 Prefix 之後，計算 x1 的輸出時就得把 Prefix 的 Query、Key 和 Value 一起算進去。原來那些 Vector 的 Value 做 Weighted Sum 得到原本的 Representation (h)，Prefix 的 Value 做 Weighted Sum 得到 delta_h，兩者加總後就是 Finetune 過後的 h_prime。同樣是 h + delta_h 的老套路，只是這次 delta_h 來自 Attention 本身。
+如上圖所示，多了 Prefix 之後，計算 x1 的輸出時就得把 Prefix 的 Query、Key 和 Value 一起算進去。原來那些 Vector 的 Value 做 Weighted Sum 得到原本的 Representation ($h$)，Prefix 的 Value 做 Weighted Sum 得到 $\Delta h$，兩者加總後就是 Finetune 過後的 $h'$。同樣是 $h + \Delta h$ 的老套路，只是這次 $\Delta h$ 來自 Attention 本身。
 
 ## #13: PEFT: Soft Prompting
 

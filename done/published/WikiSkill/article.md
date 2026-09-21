@@ -161,7 +161,7 @@ Wiki Layer 是這篇論文新加的中間層,裡面有三種檔案:`patterns/` �
 ![表格列出 WikiSkill、EvoSkill、SkillOpt、Trace2Skill 四種框架每輪迭代的 optimizer API 呼叫次數公式與複雜度等級對照。](img-010)
 *表 7 — 四種 self-improving agent 框架的 optimizer API 呼叫複雜度對照。（來源:原始論文 Table 7,符號定義見原文。）*
 
-四家方法每輪迭代的呼叫次數公式分別是:WikiSkill 是 `(1 + T_ReAct) × (N_train / B)`,EvoSkill 是 `2 × N_train / B`,SkillOpt 是 `K_opt × N_train / B`,Trace2Skill 大約是 `N_train + (1 + 1/(c-1)) × (N_train / B) + 1`。論文實驗裡 WikiSkill 全部資料集都把 batch size 設成等於訓練集大小,`N_train / B` 恆等於 1,公式因此化簡成 `1 + T_ReAct`——只跟 ReAct 輪數有關,跟訓練集大小完全無關,T_ReAct 在論文實驗裡大約落在 10 到 20 之間。
+四家方法每輪迭代的呼叫次數公式分別是:WikiSkill 是 $(1 + T_{\text{ReAct}}) \times (N_{\text{train}} / B)$,EvoSkill 是 $2 \times N_{\text{train}} / B$,SkillOpt 是 $K_{\text{opt}} \times N_{\text{train}} / B$,Trace2Skill 大約是 $N_{\text{train}} + (1 + 1/(c-1)) \times (N_{\text{train}} / B) + 1$。論文實驗裡 WikiSkill 全部資料集都把 batch size 設成等於訓練集大小,$N_{\text{train}} / B$ 恆等於 1,公式因此化簡成 $1 + T_{\text{ReAct}}$——只跟 ReAct 輪數有關,跟訓練集大小完全無關,$T_{\text{ReAct}}$ 在論文實驗裡大約落在 10 到 20 之間。
 
 這代表訓練集從 80 筆變成 800 筆,WikiSkill 每輪迭代的呼叫次數不會變,但 EvoSkill、SkillOpt 都是批次越小、資料越多,呼叫次數線性增加;Trace2Skill 更明確,因為它規定每一筆 trace 都要單獨分析一次,不管怎麼調 batch size,呼叫次數下界永遠跟訓練集大小成正比,是四者裡複雜度最差的。
 
