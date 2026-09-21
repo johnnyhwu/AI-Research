@@ -218,6 +218,7 @@ own language is each `figure-map` entry's `references_manifest_caption`,
 which Step 3 uses to confirm the join.
 
 The `blog-writer` skill is the full spec for all of this — its
-`references/writing-style.md` covers the voice, `references/figure-map-schema.md`
+`references/writing-style.md` covers the voice and structure (including
+heading-hierarchy and formula-notation rules), `references/figure-map-schema.md`
 the figure conventions. Read them there rather than inferring from this
 summary.
