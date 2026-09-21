@@ -1,0 +1,69 @@
+{
+  "source_pdf": "in-progress/Dream-RSI/2609.14858v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "in-progress/Dream-RSI/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1 | Overview of Dream-RSI. The system operates in a recursive self-improvement loop via three core stages: 1O Online Explore, where the current exploration policy guides a coding agent to expand a discovery tree and log historical traces; 2O Construct Replay Simulator, where the generated discovery tree is converted into a reusable simulator pool; and 3O Dreaming-based Policy Improvement, where the agent \"dreams\" up a massive pool of alternative policies in its mind. It then feeds these candidate policies into the replay simulator to simulate executions and derive rapid feedback, continuously refining its strategy (detailed in the Zoom-in box). The updated policy then redeploys for the next round of online exploration.",
+      "nearby_text": "establishes a closed-loop self-improvement mechanism across three core stages (Figure 1): (1) Online Exploration, where the current policy guides real-world discovery and",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "in-progress/Dream-RSI/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 2 | Discovery history as a replay simulator. A deployed policy first explores online to generate a structured discovery tree containing historical execution traces (each node denote an attempt with its full observation). Thousands of candidate policies can then be tested within this simulator—evaluating alternative choices of search branches, exploration orders, concurrency levels, and stopping rules. Since all node outcomes are pre-stored, a single costly online run enables thousands of rapid, zero-execution-cost off-policy evaluations. This enables policy improvement through historical replay: the agent can “dream” over many alternative exploration strategies before redeploying the improved policy online.",
+      "nearby_text": "scovery tree, this history can serve as a replay simulator 1. As illustrated in Figure 2, an alternative exploration strategy can navigate this pre-recorded tree to traverse different subsets of recorded branches, in different orders, with different parallel groupings and stopping decisions. Because",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "in-progress/Dream-RSI/assets/images/picture-003.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Figure 3 | Lasso regularization-path discovery results. (a) Final wall-clock runtime on six held-out downstream tasks; lower is better. Compute denotes the cumulative number of discovery-agent calls. (b) Recursive discovery dynamics. Average downstream runtime across six held-out tasks versus",
+      "nearby_text": "Main Results. Figure 3(a) summarizes the Lasso discovery results. Across both discovery-agent backbones, Dream-RSI achieves a better downstream quality–compute trade-off than Recursive Fixed Exploration. With Gemini-3.1 Pro, it reduce",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "in-progress/Dream-RSI/assets/images/picture-004.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 1 | Performance comparison on mathematical discovery tasks. Higher is better for Sum Diff and Circle Packing, while lower is better for Auto Correlation. Best results are shown in bold.",
+      "nearby_text": "Results. Table 1 summarizes the results across the three mathematical discovery tasks. Dream-RSI achieves a Sum–Difference score of 1.145427, outperforming SimpleTES and Recursive Fixed Explo- ration. On Circle Packing, it reache",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "in-progress/Dream-RSI/assets/images/picture-005.png",
+      "type": "figure",
+      "page": 10,
+      "caption": "Figure 4 | GPU kernel engineering results. Discovery performance of Dream-RSI and Recursive Fixed Exploration as a function of the number of generations. On VGG16 and LayerNorm, Dream-RSI reaches comparable performance with 2.43× and 1.79× fewer generations, respectively. On ConvDiv and ConvMax, it achieves 2.09× and 1.44× higher performance under comparable discovery budgets. Higher is better for all tasks.",
+      "nearby_text": "Results. Figure 4 shows the discovery trajectories as the number of generations increases. On VGG16 and LayerNorm, Dream-RSI reaches comparable final performance using 2.43× and 1.79× fewer generations, respectively. On ConvDiv a",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "in-progress/Dream-RSI/assets/images/picture-006.png",
+      "type": "figure",
+      "page": 11,
+      "caption": "Figure 5 | Discovery performance on ConvDiv. Us- ing history as an interactive replay simulator out- performs using it only as guidance.",
+      "nearby_text": "e apply it to both Recursive Fixed Exploration and Dream-RSI. As illustrated in Figure 5, explicit directional guidance consistently un- derperforms its unguided counterpart across both paradigms under equivalent discovery bud- gets. These results suggest that in long-horizon discovery—where multipl",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "in-progress/Dream-RSI/assets/images/picture-007.png",
+      "type": "figure",
+      "page": 11,
+      "caption": "Figure 6 | Evolution of exploration behavior on ConvDiv. (a) Round-best performance across re- cursive execution rounds. (b) The number of eval- uated attempts in each round.",
+      "nearby_text": "Figure 6 illustrates how the learned exploration policy evolves across recursive rounds on Con- vDiv. As shown, the exploration policy ex- hibits a clear adaptive pattern: as performance improves, it initially conserves",
+      "parser_confidence": "high"
+    }
+  ]
+}
