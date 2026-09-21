@@ -17,6 +17,9 @@ Checks:
   - a "## 前言" heading exists (should be the first ## section, right after
     the title) and a "## 結論" heading exists (should be the last ## section
     before the figure-map block)
+  - exactly one top-level "# " heading in the whole file (the title) -- a
+    second one usually means a tangential/independent theme got promoted to
+    H1 instead of nested as ## with its own sub-topics as ###
   - a rough CJK-density check on the prose, as a signal the file may have
     come out in English (or some other non-Chinese-majority language) by
     mistake
@@ -33,6 +36,7 @@ import re
 import sys
 
 IMG_REF_RE = re.compile(r"!\[[^\]]*\]\((img-[0-9]+)\)")
+H1_HEADING_RE = re.compile(r"^#\s+(.*)$", re.MULTILINE)
 H2_HEADING_RE = re.compile(r"^##\s+(.*)$", re.MULTILINE)
 HUGO_SHORTCODE_RE = re.compile(r"\{\{[%<].*?[%>]\}\}", re.DOTALL)
 FIGURE_MAP_RE = re.compile(r"```figure-map\s*\n(.*?)\n```", re.DOTALL)
@@ -134,6 +138,15 @@ def main():
 
     # Rough CJK-density check on the prose, excluding the figure-map block itself.
     prose = text[: fm_match.start()] if fm_match else text
+
+    h1_headings = H1_HEADING_RE.findall(prose)
+    if len(h1_headings) > 1:
+        errors.append(
+            f"Found {len(h1_headings)} top-level '# ' headings ({h1_headings[1:]}), "
+            "expected exactly 1 (the title). A tangential/independent theme belongs "
+            "at '##' with its own sub-topics nested as '###', not promoted to a "
+            "second '#'."
+        )
 
     headings = H2_HEADING_RE.findall(prose)
     if not any("前言" in h for h in headings):

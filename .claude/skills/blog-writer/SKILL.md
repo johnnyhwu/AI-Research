@@ -145,6 +145,14 @@ the repo's fail-loud-not-silent rule.
      restatement of the whole body. If either one runs as long as a full
      body section, cut it down.
    - Explain methods from first principles; plain language before symbols.
+     A genuine formal definition (named variables, `=`, operator/set
+     notation) is LaTeX (`$...$`/`$$...$$`), not a plain-text code fence —
+     see `references/writing-style.md`'s "Formal definitions" section.
+   - Headings form one hierarchy: exactly one `#` (the title, first line).
+     Every top-level section, including any independent/tangential theme
+     hard rule #5 asks you to keep, is `##`; if that theme has its own
+     sub-topics, nest them as `###` under one `##`, never as sibling `##`s
+     or a second `#`. See `references/writing-style.md` for why.
    - Be honest about limitations/caveats the notes surfaced — no uncritical
      praise.
    - Paraphrase in your own words; don't reproduce the source verbatim.
@@ -200,9 +208,16 @@ the repo's fail-loud-not-silent rule.
    > it. Since this article should be written
    > in Traditional Chinese (Taiwan usage), also flag anything that reads as
    > English, Simplified Chinese, or awkward/AI-sounding translationese —
-   > that's a readability/authenticity problem, squarely in scope. Do not
-   > comment on the trailing `figure-map` fenced block (metadata for a later
-   > step, not something a reader sees).
+   > that's a readability/authenticity problem, squarely in scope. Also flag:
+   > (a) more than one top-level `#` heading, or a tangential theme whose
+   > sub-topics sit at `##` instead of nested `###` under one `##` parent;
+   > (b) the same blockquote opener/closer, section wrap-up line, or heading
+   > sentence-shape repeated 3+ times across the whole article unvaried —
+   > read end to end for this, it's a whole-article pattern, not a
+   > per-paragraph one; (c) a formal definition (named variables, `=`,
+   > operator/set notation) sitting in a plain-text code fence instead of
+   > LaTeX. Do not comment on the trailing `figure-map` fenced block
+   > (metadata for a later step, not something a reader sees).
    >
    > If there's nothing worth fixing, your entire output must be exactly
    > one line: `REVIEW_APPROVED_NO_CHANGES` — emit this only when you have
