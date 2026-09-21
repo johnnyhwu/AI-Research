@@ -78,7 +78,7 @@ GPU kernel 工程場域則是效率提升最直接可讀的一個:
 ![GPU kernel 四個任務(VGG16、LayerNorm、ConvDiv、ConvMax)上,效能隨 generation 數增加而演化的曲線。](img-005)
 *圖 4 — GPU kernel 工程結果。在 VGG16 和 LayerNorm 上,Dream-RSI 用少 2.43 倍和 1.79 倍的 generation 數就達到相近效能;在 ConvDiv 和 ConvMax 上,同樣預算下效能高出 2.09 倍和 1.44 倍。(來源:原始論文。)*
 
-這裡藏著一個論文自己沒有處理的問題:附錄的探索 prompt 明文要求 coding agent 每次提案前,必須讀完每一個 sibling attempt 的內容、以及完整歷史裡的每一筆紀錄,不是抽樣、不是只看最近幾輪。以論文自己報的規模抓一個數字:Gemini-3.7-Flash 在 Lasso 任務上,每輪線上探索是 32 個平行 workspace、每個最多跑 20 步 refinement,五輪下來累積用了 1,879 次 discovery-agent calls——而第五輪開始時,前四輪已經留下數千份紀錄要讀。輪數一拉長,理論上每次 API call 要讀的 context 只會越來越長、越來越貴,但論文全程用來衡量效率的指標只算「discovery-agent calls 的次數」,沒有算進這件事,全文也沒有看到任何摘要、檢索式讀取、或設定讀取上限的機制。可能的原因是論文用的 Gemini 系列模型 context window 本來就很大,加上實驗規模還沒真的把這個問題逼出來,但這不代表機制本身沒有這個上限——輪數拉更長,或換一個 context window 較小的模型,這個「讀全部歷史」的策略遲早會撞到牆。
+把三個場域放在一起看,論文自己的效率指標藏著一個共通的盲點:附錄的探索 prompt 明文要求 coding agent 每次提案前,必須讀完每一個 sibling attempt 的內容、以及完整歷史裡的每一筆紀錄,不是抽樣、不是只看最近幾輪。這個盲點三個場域都適用,只是剛好 Lasso 任務是論文唯一報了具體 call 數的地方,可以抓來算一下規模:Gemini-3.7-Flash 在 Lasso 任務上,每輪線上探索是 32 個平行 workspace、每個最多跑 20 步 refinement,五輪下來累積用了 1,879 次 discovery-agent calls——而第五輪開始時,前四輪已經留下數千份紀錄要讀。輪數一拉長,理論上每次 API call 要讀的 context 只會越來越長、越來越貴,但論文全程用來衡量效率的指標只算「discovery-agent calls 的次數」,沒有算進這件事,全文也沒有看到任何摘要、檢索式讀取、或設定讀取上限的機制。可能的原因是論文用的 Gemini 系列模型 context window 本來就很大,加上實驗規模還沒真的把這個問題逼出來,但這不代表機制本身沒有這個上限——輪數拉更長,或換一個 context window 較小的模型,這個「讀全部歷史」的策略遲早會撞到牆。
 
 ## 消融實驗才是全篇最有方法論價值的部分
 
