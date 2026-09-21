@@ -78,6 +78,25 @@ tics. Avoid these specifically:
   addressing the reader as if hosting a webinar. A technical blog post
   states things; it doesn't announce that it's about to state things.
 
+## Formal definitions: LaTeX, not a code fence
+
+When the notes contain a genuine formal definition — named variables, an
+`=`, set/operator notation (`A(T) = {r} ∪ {...}`, `s_v`, `π^m`) — write it as
+LaTeX math (`$...$` inline, `$$...$$` block), not as a fenced code block of
+plain text. `article.md` is platform-neutral Markdown, and `$...$`/`$$...$$`
+is standard LaTeX notation, not Hugo-specific syntax, so this doesn't
+conflict with the "no platform-specific syntax" rule — Step 3 already knows
+how to convert the delimiters for this site's math renderer.
+
+Reserve a code fence for what's actually procedural: a concrete round-by-
+round trace with real numbers (`Round 1: select C={r} -> ...`), or literal
+code. A block of `r = 根節點, ...` sitting in a fence is a formula wearing a
+code block as a costume — a reader's eye parses it as "skippable technical
+detail" instead of "the actual definition," which undermines exactly the
+"explain from first principles" bar this skill holds. When a walkthrough
+mixes both (a formal definition followed by a worked trace), split them:
+LaTeX for the definition, a fence (or a numbered list) for the trace.
+
 ## Structural readability (beyond voice)
 
 Correct, well-voiced prose can still be hard to follow if it's structured
@@ -119,6 +138,41 @@ right but I had trouble reading it":
   re-argued restatement of the whole body. If either section runs as long
   as a full body section, that's a sign it's doing too much — trim it, it
   isn't "thoroughness."
+- **Headings form one hierarchy — exactly one `#` in the whole file.** The
+  first line's `# <title>` is the only H1. Every top-level content section
+  — 前言, 結論, the paper's own sections, and any independent/tangential
+  theme hard rule #5 asks you to preserve (e.g. "獨立於論文本身的心法") — is
+  `##`, never a second `#`. If that tangential theme itself has multiple
+  sub-topics, give the theme one `##` and nest each sub-topic under it as
+  `###` — don't promote the sub-topics to `##` themselves, which flattens
+  them into a wall of unrelated-looking siblings and erases the "these
+  belong together, separate from the paper" grouping the reader needs. This
+  shipped wrong once (a second `# 延伸:...` H1 with `##` children instead of
+  one `## 延伸:...` with `###` children) and produced exactly that flat wall
+  in the published post.
+
+## Cross-document structural repetition (not word choice — pattern)
+
+The tics earlier in this file are lexical (a phrase, an em-dash habit) and
+checkable within one paragraph. A separate failure mode only shows up
+zoomed out across the *whole* article: the same structural move repeated so
+many times it reads as a template, even with every individual sentence
+well-written. Skim the finished draft specifically for these before calling
+it done:
+
+- **Every blockquote/aside opens or closes the same way** ("這是一個值得注意的
+  限制"...) three or more times.
+- **Every section's last sentence is the same move** — e.g. always "...即使
+  脫離這篇論文本身也成立" as the closing line. Once is a nice callback; four
+  times is a template.
+- **Every H2/H3 opens with the same sentence shape** (a rhetorical question,
+  or always "先講結論：...").
+- **A list of "lessons/心法" at the end restates points already made in
+  identical wording** instead of compressing them.
+
+One or two repeats of a pattern is a legitimate stylistic choice; three or
+more across a long article is the pattern doing the writing instead of you.
+Vary the move, don't just vary the vocabulary around it.
 
 ## Keeping a long, complete article readable
 

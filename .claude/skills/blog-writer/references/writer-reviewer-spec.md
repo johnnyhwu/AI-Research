@@ -112,6 +112,22 @@ point, or loses the thread. Assess:
   anything read as English, Simplified Chinese phrasing, or stiff
   AI-translated Chinese? That's in scope — it's a readability/authenticity
   defect, not a factual one.
+- **Heading hierarchy**: exactly one `#` in the whole file (the title).
+  Flag a second `#` anywhere in the body, and flag a tangential/independent
+  theme (see hard rule #5) whose sub-topics sit at `##` instead of nested as
+  `###` under one `##` parent — see `writing-style.md`'s heading-hierarchy
+  bullet for why this matters (it shipped wrong once).
+- **Cross-document structural repetition** (see `writing-style.md`'s
+  "Cross-document structural repetition" section): the same blockquote
+  opener/closer, section wrap-up line, or heading sentence-shape repeated
+  3+ times across the article, unvaried. This is a whole-article pattern,
+  not a single-paragraph one — read the draft end to end with this
+  specifically in mind, not just section by section.
+- **Formal definitions dumped as plain-text code fences** instead of LaTeX
+  (see `writing-style.md`'s "Formal definitions" section) — a fence full of
+  `x = ...`-style assignments with no math rendering. Flag it as a
+  readability defect: a reader's eye treats a code fence as skippable, which
+  is the opposite of what a load-bearing definition needs.
 
 Do **not** comment on factual accuracy vs. the source (the Reviewer can't
 see it, so it shouldn't pretend to) and do **not** comment on the trailing
