@@ -120,6 +120,45 @@ right but I had trouble reading it":
   as a full body section, that's a sign it's doing too much — trim it, it
   isn't "thoroughness."
 
+## Keeping a long, complete article readable
+
+Per `SKILL.md` hard rule #5, the article should preserve nearly everything
+substantive in the notes — so length is expected and fine. The job of style
+and layout here is to make a *long, complete* piece feel navigable, not to
+make it short. Techniques that earn their keep:
+
+- **Give tangential-but-valuable material its own clearly-headed section**,
+  instead of squeezing it into a footnote-length aside inside a section
+  about something else. If the notes have a whole independent lesson (a
+  general design pattern, a piece of background theory, an application to a
+  different domain), it deserves its own `##`/`###` heading — a reader who
+  wants only the paper can skip past it by its title; a reader who wants the
+  full depth gets it in full.
+- **Use a short lead-in ("30秒版本"-style) at the top of a long section** to
+  tell the reader what they're about to get and why it's worth their time,
+  the same way the notes' own "30秒版本" orients a reader before the detail.
+  This is a pacing tool, not a substitute for the detail that follows.
+- **Use blockquotes for asides, caveats, and "the notes flagged this as
+  uncertain" callouts** rather than either weaving them awkwardly into a
+  body paragraph or cutting them. A visually distinct callout lets a reader
+  register "this is a side note" without losing it entirely.
+- **Keep worked examples intact.** A step-by-step walkthrough with concrete
+  numbers (a worked calculation, a round-by-round trace) teaches better than
+  a compressed summary sentence, and is one of the first things that's
+  tempting to cut when trying to shorten a piece — resist that. Compress the
+  prose *around* an example before cutting the example itself.
+- **Use tables for anything the notes already structured as a table or
+  comparison**, and consider promoting a dense paragraph of contrasts into
+  one — this is a way to fit more content in less reading effort, not a way
+  to say less.
+- **Section breaks (`---`) and sub-headings are cheap ways to let a reader
+  self-pace** through a long piece — use them liberally between major
+  movements of the argument, not just at top-level section boundaries.
+- **A long article still needs a real narrative spine.** Completeness does
+  not mean "append everything in note order" — it means finding the arc
+  (see `writer-reviewer-spec.md`) and hanging *all* the notes' substance on
+  it, including the parts that need their own branch off the main line.
+
 ## What natural Taiwanese engineer voice sounds like instead
 
 - Direct, slightly conversational, but still precise — closer to a senior

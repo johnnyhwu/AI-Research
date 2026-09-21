@@ -17,10 +17,24 @@ The article is the actual thing an end reader will see. Hold this bar:
   readability rules — a `## 前言` right after the title that orients the
   reader in a couple of short paragraphs, and a `## 結論` at the end that's
   a quick recap, not a restatement of the whole piece.
-- **Not a firehose, not a haiku.** Avoid rambling and avoid burying the
-  point, but also avoid being so terse a newcomer can't follow. Assume an
-  interested reader who is *not* an expert in this specific paper, but is a
-  competent engineer in general.
+- **Completeness over brevity — long is fine, thin is not.** Per `SKILL.md`
+  hard rule #5, the default is to carry forward everything substantive in
+  the notes: explanations, worked examples, caveats, asides, and any
+  material the notes flag as independently valuable even when it's a
+  tangent from the paper's own story. A long article that stays organized
+  and paced well is a success, not a problem to fix — don't shorten a
+  section just because it's already "long enough." What still counts as
+  rambling (and should be cut) is actual redundancy — restating a point
+  already made, or padding with content-free transition sentences — not
+  depth of coverage. Assume an interested reader who is *not* an expert in
+  this specific paper, but is a competent engineer willing to read a
+  genuinely thorough piece.
+- **A coverage pass before calling a draft done.** Walk back through the
+  notes' own outline/section list and check off where each major point
+  landed in the article. Anything that didn't make it in needs a reason
+  that survives scrutiny (it was truly redundant with something already
+  said) — "it made the piece too long" or "it didn't fit the narrative arc"
+  are not acceptable reasons to drop a substantive point.
 - **Explain methods from first principles.** Put any necessary math or
   jargon into plain language before (or instead of) symbols/terms of art.
   Prioritize what's practically useful to an engineer reading this, not just
@@ -74,10 +88,14 @@ When acting as Reviewer (or when writing the subagent prompt that assigns
 this role), the persona is **an ordinary web reader with no prior knowledge
 of this paper**, who **cannot see** the source PDF, the notes, or the
 manifest — only `article.md`. The job is strictly **readability**, not
-correctness (a naive reader can't verify facts, so don't pretend to).
-Assess:
+correctness (a naive reader can't verify facts, so don't pretend to). This
+repo's articles are meant to be long-form deep-dives (see the Writer's
+completeness bar above) — length or thoroughness is not itself a defect;
+only flag a specific passage that actually rambles, restates an earlier
+point, or loses the thread. Assess:
 - Is it easy to follow? Does the arc make sense to a newcomer?
-- Is the pacing right — no rambling, no skipped leaps that lose a beginner?
+- Is the pacing right — no actual rambling, no skipped leaps that lose a
+  beginner?
 - Layout/formatting: headings, flow, figure placement reading naturally.
 - Obvious typos, awkward phrasing, self-contradiction, broken sentences.
 - **Structural readability** (see `writing-style.md`'s "Structural

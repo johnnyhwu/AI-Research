@@ -52,6 +52,25 @@ directory itself.
    correctness for that reader outrank brevity or cleverness. When genuinely
    in doubt about whether something needs more explanation, explain it.
 
+5. **Preserve the notes' depth — solve readability with structure and
+   storytelling, not with deletion.** This repo's articles are long-form
+   technical deep-dives, not blog-post-length highlight reels. Default to
+   carrying forward *everything substantive* in the notes — explanations,
+   worked examples, caveats, asides, and especially anything the notes
+   themselves flag as independently valuable (phrases like "獨立於論文本身",
+   "建議優先閱讀", "真正的重點") — into the article, at comparable depth. A
+   generalizable lesson the notes call out as their main point does not
+   become a one-sentence gloss in the 結論 just because it's a tangent from
+   the paper's own narrative arc. If the notes read like two parts (e.g. "the
+   paper itself" and "standalone lessons worth keeping regardless of the
+   paper"), the article should visibly carry both parts, not fold the second
+   into an afterthought. When length grows, manage it with headings,
+   sub-sections, tables, callouts, and pacing (see `references/writing-style.md`)
+   — never by quietly dropping content. The only things that should actually
+   be cut are true redundancy (the same point stated twice) and the notes'
+   own meta-commentary about the note-taking process itself — never a
+   substantive analytical point, worked example, or transferable lesson.
+
 ## Inputs
 
 For the target topic directory `<dir>/` (see repo `CLAUDE.md` for the
@@ -109,7 +128,15 @@ the repo's fail-loud-not-silent rule.
 3. **Write the first draft as Writer.** Hold this quality bar (full detail
    in `references/writer-reviewer-spec.md`):
    - Structure around a narrative arc, not a replay of the chat log turn by
-     turn.
+     turn — but the arc organizes *all* of the notes' substance, it doesn't
+     select a subset of it. If the notes have material that doesn't fit the
+     paper's own narrative (independent lessons, tangential deep-dives),
+     give it its own clearly-headed section rather than cutting it — see
+     hard rule #5.
+   - Before sending a draft to the Reviewer, do a coverage pass: walk the
+     notes' own section list and confirm every major point has a home
+     somewhere in the article. Anything missing needs a deliberate reason
+     (true redundancy) — "it didn't fit the narrative" is not one.
    - Give the piece an explicit, concise `## 前言` (intro) right after the
      title and a `## 結論` (conclusion) as the last section before the
      `figure-map` block. 前言 should let a reader grasp the article's point
@@ -152,7 +179,11 @@ the repo's fail-loud-not-silent rule.
    > file). Adopt the persona of an ordinary web reader with no prior
    > knowledge of the paper, who cannot see the source PDF or any notes —
    > only this file. Your job is strictly READABILITY, not factual
-   > correctness (you have no way to verify facts, so don't try). Assess:
+   > correctness (you have no way to verify facts, so don't try). This
+   > article is meant to be a long-form deep-dive, not a short blog post —
+   > do not flag length or thoroughness by itself as a problem; only flag
+   > it where a specific passage actually rambles, restates a point already
+   > made, or loses the thread. Assess:
    > is it easy to follow for a newcomer, is the pacing right, does
    > layout/figure placement read naturally, and are there typos, awkward
    > phrasing, or self-contradictions? Also flag structural readability
@@ -205,6 +236,11 @@ the repo's fail-loud-not-silent rule.
 
 - `article.md` exists, reads well to a naive reader, and honestly reflects
   the notes/chatlog (including any limitations/caveats it raised).
+- It preserves the notes' substantive content at comparable depth (hard
+  rule #5) — a coverage pass against the notes' own section list turns up
+  nothing dropped except true redundancy. Readability comes from structure
+  (headings, sections, tables, callouts, pacing), not from trimming
+  substance.
 - It opens with a concise `## 前言` and closes with a concise `## 結論`,
   neither one padded into a full body section.
 - Every body image `src` is a manifest `id` (or the file carries the
