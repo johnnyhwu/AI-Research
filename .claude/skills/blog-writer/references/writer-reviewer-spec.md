@@ -128,6 +128,12 @@ point, or loses the thread. Assess:
   `x = ...`-style assignments with no math rendering. Flag it as a
   readability defect: a reader's eye treats a code fence as skippable, which
   is the opposite of what a load-bearing definition needs.
+- **Notation left as raw text outside a definition block** — an inline
+  `π_{t+1}`, `V^0`, `β1` in prose, or an `s_v` / `k*=3` / `分數 V` in a
+  table cell or header. Scan the prose *and every table* for this, not just
+  the fenced blocks: it's the most-missed case, and partial conversion (one
+  symbol converted, its neighbour in the same sentence not) reads worse
+  than none at all. Same `writing-style.md` section.
 
 Do **not** comment on factual accuracy vs. the source (the Reviewer can't
 see it, so it shouldn't pretend to) and do **not** comment on the trailing

@@ -45,6 +45,43 @@ REQUIRED_KEYS = {"id", "references_manifest_caption", "why_used", "agent_match_h
 CJK_RE = re.compile(r"[一-鿿]")
 VISIBLE_CHAR_RE = re.compile(r"\S")
 
+CODE_FENCE_RE = re.compile(r"^(`{3,}).*?\n.*?^\1\s*$", re.MULTILINE | re.DOTALL)
+INLINE_CODE_RE = re.compile(r"`[^`\n]+`")
+# Already-correct math. Stripped before scanning, or every correct $s_v$
+# reports itself.
+MATH_SPAN_RE = re.compile(r"\$\$.*?\$\$|\$[^$\n]+?\$", re.DOTALL)
+# A URL path segment ("/i_benchmarked_o...") looks like a subscript.
+URL_RE = re.compile(r"<https?://[^>]+>|https?://\S+|\]\([^)]*\)")
+# Notation the Writer left as raw text instead of $...$. Step 3 can only
+# convert delimiters mechanically, so anything missed here becomes a manual
+# judgement call in the other repo -- and usually gets shipped raw.
+# Deliberately narrow: "Figure 2", "B.2", "5xx" and snake_case identifiers
+# must NOT match.
+RAW_NOTATION_RES = [
+    (re.compile(r"[α-ωΑ-Ω][\^_]"), "Greek letter with a sub/superscript"),
+    (re.compile(r"[α-ωΑ-Ω]\d"), "Greek letter with an index digit"),
+    (re.compile(r"\b[A-Za-z][\^_][A-Za-z0-9{]"), "single letter with a sub/superscript"),
+    (re.compile(r"\b\d+\^\d"), "numeric power"),
+    (re.compile(r"\b[A-Za-z]\*\s*="), "starred symbol in an assignment"),
+]
+
+
+def check_raw_notation(body, warnings):
+    """Notation still sitting in the prose/tables as raw text."""
+    prose = MATH_SPAN_RE.sub(" ", CODE_FENCE_RE.sub(" ", body))
+    prose = URL_RE.sub(" ", INLINE_CODE_RE.sub(" ", prose))
+    hits = []
+    for pattern, kind in RAW_NOTATION_RES:
+        for m in pattern.finditer(prose):
+            snippet = prose[max(0, m.start() - 12):m.end() + 12].replace("\n", " ")
+            hits.append(f"{kind}: ...{snippet.strip()}...")
+    if hits:
+        warnings.append(
+            f"{len(hits)} raw math notation span(s) outside code/$...$ -- write "
+            "notation as $...$ so Step 3 only has to swap delimiters. Prose AND "
+            "table cells count. " + " | ".join(hits[:3])
+        )
+
 
 def load_manifest_ids_and_captions(path):
     with open(path, encoding="utf-8") as f:
@@ -157,6 +194,8 @@ def main():
         errors.append("No \"## 結論\" heading found -- the article needs an explicit, concise conclusion section.")
     elif "結論" not in headings[-1]:
         warnings.append("\"## 結論\" exists but isn't the last ## section -- it should be the final section before figure-map.")
+
+    check_raw_notation(text, warnings)
 
     visible = VISIBLE_CHAR_RE.findall(prose)
     cjk = CJK_RE.findall(prose)

@@ -88,6 +88,21 @@ is standard LaTeX notation, not Hugo-specific syntax, so this doesn't
 conflict with the "no platform-specific syntax" rule — Step 3 already knows
 how to convert the delimiters for this site's math renderer.
 
+**This is not only about definition blocks.** The rule covers *every*
+symbol, wherever it appears — and the usual miss is the scattered inline
+reference, not the formal block. A sentence ending "變成下一輪真的要部署的策略
+π_{t+1}。" ships raw LaTeX source into the prose; `V^0`, `π^m`, `β1`/`β2`,
+`M-1` and `10^15` read the same way. Table cells and headers count too:
+`分數 s_v`, `V_i^m`, `k*=3` and a `分數 V` column header are all notation
+and all belong in `$...$`.
+
+The failure mode to avoid is *partial* conversion. A symbol left raw next
+to one that got converted is what actually looks broken — worse than
+leaving the whole sentence alone — so when a sentence gets any math, sweep
+the whole sentence, single capitals (`W`, `M`, `C`, `N`) included. Getting
+this right here is what keeps Step 3 a mechanical delimiter swap instead
+of a judgement call it has to re-derive per article.
+
 Reserve a code fence for what's actually procedural: a concrete round-by-
 round trace with real numbers (`Round 1: select C={r} -> ...`), or literal
 code. A block of `r = 根節點, ...` sitting in a fence is a formula wearing a
