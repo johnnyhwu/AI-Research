@@ -1,10 +1,10 @@
 {
-  "source_pdf": "done/unpublished/Dream-RSI/2609.14858v1.pdf",
+  "source_pdf": "done/published/Dream-RSI/2609.14858v1.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Dream-RSI/assets/images/picture-001.png",
+      "file": "done/published/Dream-RSI/assets/images/picture-001.png",
       "type": "figure",
       "page": 2,
       "caption": "Figure 1 | Overview of Dream-RSI. The system operates in a recursive self-improvement loop via three core stages: 1O Online Explore, where the current exploration policy guides a coding agent to expand a discovery tree and log historical traces; 2O Construct Replay Simulator, where the generated discovery tree is converted into a reusable simulator pool; and 3O Dreaming-based Policy Improvement, where the agent \"dreams\" up a massive pool of alternative policies in its mind. It then feeds these candidate policies into the replay simulator to simulate executions and derive rapid feedback, continuously refining its strategy (detailed in the Zoom-in box). The updated policy then redeploys for the next round of online exploration.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Dream-RSI/assets/images/picture-002.png",
+      "file": "done/published/Dream-RSI/assets/images/picture-002.png",
       "type": "figure",
       "page": 4,
       "caption": "Figure 2 | Discovery history as a replay simulator. A deployed policy first explores online to generate a structured discovery tree containing historical execution traces (each node denote an attempt with its full observation). Thousands of candidate policies can then be tested within this simulator—evaluating alternative choices of search branches, exploration orders, concurrency levels, and stopping rules. Since all node outcomes are pre-stored, a single costly online run enables thousands of rapid, zero-execution-cost off-policy evaluations. This enables policy improvement through historical replay: the agent can “dream” over many alternative exploration strategies before redeploying the improved policy online.",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Dream-RSI/assets/images/picture-003.png",
+      "file": "done/published/Dream-RSI/assets/images/picture-003.png",
       "type": "figure",
       "page": 8,
       "caption": "Figure 3 | Lasso regularization-path discovery results. (a) Final wall-clock runtime on six held-out downstream tasks; lower is better. Compute denotes the cumulative number of discovery-agent calls. (b) Recursive discovery dynamics. Average downstream runtime across six held-out tasks versus",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/Dream-RSI/assets/images/picture-004.png",
+      "file": "done/published/Dream-RSI/assets/images/picture-004.png",
       "type": "table",
       "page": 9,
       "caption": "Table 1 | Performance comparison on mathematical discovery tasks. Higher is better for Sum Diff and Circle Packing, while lower is better for Auto Correlation. Best results are shown in bold.",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/Dream-RSI/assets/images/picture-005.png",
+      "file": "done/published/Dream-RSI/assets/images/picture-005.png",
       "type": "figure",
       "page": 10,
       "caption": "Figure 4 | GPU kernel engineering results. Discovery performance of Dream-RSI and Recursive Fixed Exploration as a function of the number of generations. On VGG16 and LayerNorm, Dream-RSI reaches comparable performance with 2.43× and 1.79× fewer generations, respectively. On ConvDiv and ConvMax, it achieves 2.09× and 1.44× higher performance under comparable discovery budgets. Higher is better for all tasks.",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "done/unpublished/Dream-RSI/assets/images/picture-006.png",
+      "file": "done/published/Dream-RSI/assets/images/picture-006.png",
       "type": "figure",
       "page": 11,
       "caption": "Figure 5 | Discovery performance on ConvDiv. Us- ing history as an interactive replay simulator out- performs using it only as guidance.",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "done/unpublished/Dream-RSI/assets/images/picture-007.png",
+      "file": "done/published/Dream-RSI/assets/images/picture-007.png",
       "type": "figure",
       "page": 11,
       "caption": "Figure 6 | Evolution of exploration behavior on ConvDiv. (a) Round-best performance across re- cursive execution rounds. (b) The number of eval- uated attempts in each round.",
