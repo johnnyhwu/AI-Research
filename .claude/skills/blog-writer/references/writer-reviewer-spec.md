@@ -112,6 +112,13 @@ point, or loses the thread. Assess:
   anything read as English, Simplified Chinese phrasing, or stiff
   AI-translated Chinese? That's in scope — it's a readability/authenticity
   defect, not a factual one.
+- **Half-width punctuation in Chinese prose** (see `writing-style.md`'s
+  full-width-punctuation rule): a `,` `;` `:` `?` `!` doing the job of a
+  Chinese comma/semicolon/colon/question mark/exclamation mark instead of
+  its full-width form (，；：？！). Scan headings and table cells too, not
+  just body paragraphs — this has shipped wrong before. A digit-to-digit
+  thousands separator (`4,000`) or punctuation inside an English quote/code
+  span/URL is correctly left half-width; don't flag those.
 - **Heading hierarchy**: exactly one `#` in the whole file (the title).
   Flag a second `#` anywhere in the body, and flag a tangential/independent
   theme (see hard rule #5) whose sub-topics sit at `##` instead of nested as
