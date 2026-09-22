@@ -23,6 +23,9 @@ Checks:
   - a rough CJK-density check on the prose, as a signal the file may have
     come out in English (or some other non-Chinese-majority language) by
     mistake
+  - half-width , ; : ? ! sitting between CJK characters instead of full-width
+    ，；：？！ (outside code/math/URLs, and not a digit-to-digit thousands
+    separator)
 
 Usage:
     python verify_article.py path/to/article.md [--manifest path/to/image-manifest.json]
@@ -83,6 +86,33 @@ def check_raw_notation(body, warnings):
             f"{len(hits)} raw math notation span(s) outside code/$...$ -- write "
             "notation as $...$ so Step 3 only has to swap delimiters. Prose AND "
             "table cells count. " + " | ".join(hits[:3])
+        )
+
+
+# Half-width , ; : ? ! doing a Chinese comma/semicolon/colon/question-mark/
+# exclamation-mark's job. Only flags one sitting directly between two CJK
+# characters (or CJK-then-space-then-CJK for the trailing ones), so an
+# English clause, a "vs." abbreviation, a thousands separator (4,000), or
+# punctuation inside code/math/a URL never matches.
+HALF_WIDTH_PUNCT_RE = re.compile(
+    r"[一-鿿][,;:]|[,;:][一-鿿]"
+    r"|[一-鿿][?!](?!\S)|(?<!\S)[?!][一-鿿]"
+)
+
+
+def check_half_width_punctuation(body, warnings):
+    """Half-width ASCII punctuation used as Chinese sentence punctuation."""
+    prose = MATH_SPAN_RE.sub(" ", CODE_FENCE_RE.sub(" ", body))
+    prose = URL_RE.sub(" ", IMAGE_ALT_RE.sub(" ", INLINE_CODE_RE.sub(" ", prose)))
+    hits = []
+    for m in HALF_WIDTH_PUNCT_RE.finditer(prose):
+        snippet = prose[max(0, m.start() - 10):m.end() + 10].replace("\n", " ")
+        hits.append(snippet.strip())
+    if hits:
+        warnings.append(
+            f"{len(hits)} half-width , ; : ? ! spot(s) sitting in Chinese prose -- "
+            "use full-width ，；：？！ instead (writing-style.md's full-width-"
+            "punctuation rule). " + " | ".join(hits[:5])
         )
 
 
@@ -199,6 +229,7 @@ def main():
         warnings.append("\"## 結論\" exists but isn't the last ## section -- it should be the final section before figure-map.")
 
     check_raw_notation(text, warnings)
+    check_half_width_punctuation(text, warnings)
 
     visible = VISIBLE_CHAR_RE.findall(prose)
     cjk = CJK_RE.findall(prose)

@@ -283,5 +283,5 @@ blog-writer/
 │   ├── figure-map-schema.md              image reference convention + figure-map schema
 │   └── writing-style.md                  Traditional Chinese (Taiwan) voice guide
 └── scripts/
-    └── verify_article.py                 figure-map / manifest / Hugo-syntax / CJK-density checks
+    └── verify_article.py                 figure-map / manifest / Hugo-syntax / CJK-density / full-width-punctuation checks
 ```

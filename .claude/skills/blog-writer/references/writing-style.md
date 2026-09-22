@@ -44,8 +44,12 @@ equivalent instead (iThome, Medium 上的中文技術文章、Taiwan engineering
 are the right register to imitate).
 
 Also use full-width Chinese punctuation throughout Chinese prose
-(，。「」『』？！), not half-width English punctuation dropped into Chinese
-sentences.
+(，。；：？！「」『』), not half-width English punctuation (`,` `;` `:` `?`
+`!`) dropped into Chinese sentences — semicolons and colons are the ones
+most likely to slip through half-width, since they're easy to type without
+noticing. The exceptions: a digit-to-digit thousands separator (`4,000`)
+stays half-width, as does punctuation that's genuinely part of an English
+quote, an inline code span, or a URL.
 
 ## Sentence and paragraph rhythm
 
