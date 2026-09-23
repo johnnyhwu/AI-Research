@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Basic-Probability-Joint-Marginal-Conditional/assets/images/probabilty-multiplication-rule.jpg",
+      "file": "done/published/Basic-Probability-Joint-Marginal-Conditional/assets/images/probabilty-multiplication-rule.jpg",
       "type": "figure",
       "page": null,
       "caption": "機率中的乘法法則",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Basic-Probability-Joint-Marginal-Conditional/assets/images/---.jpg",
+      "file": "done/published/Basic-Probability-Joint-Marginal-Conditional/assets/images/---.jpg",
       "type": "figure",
       "page": null,
       "caption": "透過文氏圖了解乘法法則",
