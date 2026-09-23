@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Parallel-Programming-Example/assets/images/cpu-performance.jpg",
+      "file": "done/published/Parallel-Programming-Example/assets/images/cpu-performance.jpg",
       "type": "figure",
       "page": null,
       "caption": "Intel CPU 各項指標的趨勢變化 [source: Computer Science Stack Exchange]",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Parallel-Programming-Example/assets/images/simple-program.jpg",
+      "file": "done/published/Parallel-Programming-Example/assets/images/simple-program.jpg",
       "type": "figure",
       "page": null,
       "caption": "一段簡單的範例程式碼 [source: Parallel Programming Course from NYCU]",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Parallel-Programming-Example/assets/images/simple-parallel-program.jpg",
+      "file": "done/published/Parallel-Programming-Example/assets/images/simple-parallel-program.jpg",
       "type": "figure",
       "page": null,
       "caption": "每個 core 計算自己負責哪些元素，並將結果存在 my_sum 中 [source: Parallel Programming Course from NYCU]",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/Parallel-Programming-Example/assets/images/distribute-task-in-parallel-programming.jpg",
+      "file": "done/published/Parallel-Programming-Example/assets/images/distribute-task-in-parallel-programming.jpg",
       "type": "figure",
       "page": null,
       "caption": "將所有數字平均分配給多個 core 執行 [source: Parallel Programming Course from NYCU]",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/Parallel-Programming-Example/assets/images/parallel-programming-1.jpg",
+      "file": "done/published/Parallel-Programming-Example/assets/images/parallel-programming-1.jpg",
       "type": "figure",
       "page": null,
       "caption": "每個 core 將自己計算的結果存起來 [source: Parallel Programming Course from NYCU]",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "done/unpublished/Parallel-Programming-Example/assets/images/reduction.jpg",
+      "file": "done/published/Parallel-Programming-Example/assets/images/reduction.jpg",
       "type": "figure",
       "page": null,
       "caption": "reduction 的過程：原本有 8 個數字最後減少為 1 個數字 [source: Parallel Programming Course from NYCU]",

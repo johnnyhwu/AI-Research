@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Parallel-Programming-Shared-Memory-Model/assets/images/feature-image-14.jpg",
+      "file": "done/published/Parallel-Programming-Shared-Memory-Model/assets/images/feature-image-14.jpg",
       "type": "figure",
       "page": null,
       "caption": "在 Shared Memory Model 之下，每一個 Processor 除了有自己的 Memory 外，也會有一塊共用的 Memory",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Parallel-Programming-Shared-Memory-Model/assets/images/shared-memory-model-example.jpg",
+      "file": "done/published/Parallel-Programming-Shared-Memory-Model/assets/images/shared-memory-model-example.jpg",
       "type": "figure",
       "page": null,
       "caption": "假設有一個 Array，Array 中有 8 個元素",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Parallel-Programming-Shared-Memory-Model/assets/images/shared-memory-model-example-1.jpg",
+      "file": "done/published/Parallel-Programming-Shared-Memory-Model/assets/images/shared-memory-model-example-1.jpg",
       "type": "figure",
       "page": null,
       "caption": "將前面 4 個元素分給 Thread 1；將後面 4 個元素分給 Thread 2",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/Parallel-Programming-Shared-Memory-Model/assets/images/shared-memory-model-example-2.jpg",
+      "file": "done/published/Parallel-Programming-Shared-Memory-Model/assets/images/shared-memory-model-example-2.jpg",
       "type": "figure",
       "page": null,
       "caption": "程式碼範例 [source: Parallel Programming Course from NYCU]",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/Parallel-Programming-Shared-Memory-Model/assets/images/critical-section.jpg",
+      "file": "done/published/Parallel-Programming-Shared-Memory-Model/assets/images/critical-section.jpg",
       "type": "figure",
       "page": null,
       "caption": "建立 Critical Section 避免 Race Condition [source: Parallel Programming Course from NYCU]",
