@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Book-Clustering/assets/images/define-problem-1.jpg",
+      "file": "done/published/Book-Clustering/assets/images/define-problem-1.jpg",
       "type": "figure",
       "page": null,
       "caption": "定義「探索書籍風格」屬於什麼問題",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Book-Clustering/assets/images/text-preprocessing.jpg",
+      "file": "done/published/Book-Clustering/assets/images/text-preprocessing.jpg",
       "type": "figure",
       "page": null,
       "caption": "將文字進行預處理",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Book-Clustering/assets/images/k-means.jpg",
+      "file": "done/published/Book-Clustering/assets/images/k-means.jpg",
       "type": "figure",
       "page": null,
       "caption": "K-Means 演算法示意圖",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/Book-Clustering/assets/images/find-k-in-k-means-algorithm.jpg",
+      "file": "done/published/Book-Clustering/assets/images/find-k-in-k-means-algorithm.jpg",
       "type": "figure",
       "page": null,
       "caption": "以 silhouette coefficient 找出 K-Means 中最適合的 k 值",
