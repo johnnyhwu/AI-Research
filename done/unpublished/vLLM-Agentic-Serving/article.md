@@ -98,18 +98,18 @@ flowchart LR
         該區塊.引用計數 = 1
 
 寫入區塊(對話, 頁索引, 新內容):
-    區塊 = 對話.block_table[頁索引]
+    區塊 = 對話.區塊表[頁索引]
     if 區塊.引用計數 > 1:          # 還有別的對話在用同一塊,不能直接改
         新區塊 = 複製(區塊)         # 這就是 copy-on-write
         新區塊.引用計數 = 1
         區塊.引用計數 -= 1
-        對話.block_table[頁索引] = 新區塊
+        對話.區塊表[頁索引] = 新區塊
         寫入(新區塊, 新內容)
     else:                          # 只有自己在用,直接改沒問題
         寫入(區塊, 新內容)
 ```
 
-這正是 subagent 從主 agent 分岔時的實際行為：分岔當下，兩邊的 block table 指向同一批實體區塊、引用計數同步增加，完全不用複製；只有當某一邊真的動到內容，才會觸發 copy-on-write，把那一頁單獨複製出來。
+Subagent 從主 agent 分岔，走的正是上面「借用區塊」那條路徑。
 
 原文有一個具體案例：DeepSeek V4 原本的 KV cache 做法，把不同種類的快取拆成 3 種尺寸桶，配置 92 個獨立儲存區塊，碎片化嚴重，在 P/D 傳輸跟 offloading 時效率很差(原文 Figure 5 是一張 DeepSeek V4 KV cache 碎片化前後對照圖)。新做法把這 92 個分散區塊合併成同一塊連續儲存空間，減少描述符跟 P/D 傳輸開銷，搭配 FP4 indexer 開啟時能進一步縮小最小分配單位，約省下 10% 的 KV cache 記憶體用量。
 
@@ -182,7 +182,7 @@ flowchart LR
   g1 -->|combine| out3["token C 結果送回原位"]
 ```
 
-如果路由器剛好把 token A、C 都導去 GPU1（如圖中所示），GPU1 這一輪要算兩份、GPU2 只算一份，GPU2 就得空等 GPU1 算完才能一起進入下一步——這正是前面提到的「路由不均會拖慢整體」的具體樣子。
+如果路由器剛好把 token A、C 都導去 GPU1(如圖中所示)，GPU1 這一輪要算兩份、GPU2 只算一份，GPU2 就得空等 GPU1 算完才能一起進入下一步——這正是前面提到的「路由不均會拖慢整體」的具體樣子。
 
 #### MLA(Multi-head Latent Attention)是什麼、為什麼讓 TP 沒效率
 
@@ -206,8 +206,6 @@ flowchart TB
     c -->|"...W_up,8"| r3["...頭8 結果"]
   end
 ```
-
-TP 切「頭」這個維度時，標準做法每個頭本來就是獨立的，天生就能一人一份；MLA 只有中間那一份 `$c$`，沒有「8 份」可以分，TP 只好讓每張 GPU 各自留一份完整的 `$c$`，結果就是複製而非分攤。
 
 > 🔍 **追問：MLA 怎麼把多頭壓縮成一份、又怎麼還原？**
 >
@@ -443,14 +441,14 @@ Decode 每一步只處理 1 個新 token，相對快；但 prefill 就算已被�
 
 ```mermaid
 flowchart LR
-  req["新請求"] --> P["Prefill 機群（P 組）"]
-  P -->|傳輸 KV cache| D["Decode 機群（D 組）"]
+  req["新請求"] --> P["Prefill 機群(P 組)"]
+  P -->|傳輸 KV cache| D["Decode 機群(D 組)"]
   D --> resp["逐字回應"]
 ```
 
 ### 兩階段方法論
 
-**Phase 1：Saturation profiling(飽和度測試)。** 把 prefill、decode 完全拆開，各自獨立測試：試不同平行化策略(如 TP vs. wide EP)、不同機器規模(8、16、32 張 GPU)，在每種組合下持續增加併發量，直到吞吐量摸到飽和點。輸出一張飽和度對照表：每種「平行化策略 + 規模」組合，各自最多能撐住每秒幾個請求。分開測，才能拿到每一邊純粹、獨立的產能數字，不會混淆「整體吞吐量不夠」到底是 prefill 端撐不住還是 decode 端撐不住。
+**Phase 1：Saturation profiling(飽和度測試)。** 把 prefill、decode 完全拆開，各自獨立測試不同平行化策略(如 TP vs. wide EP)、不同機器規模(8、16、32 張 GPU)下的飽和點。分開測，才能拿到每一邊純粹、獨立的產能數字，不會混淆「整體吞吐量不夠」到底是 prefill 端撐不住還是 decode 端撐不住。
 
 **Phase 2：P/D sweep(配比掃描)。** 從 Phase 1 的飽和點反推配比，再組成真實系統實測驗證。
 
@@ -538,7 +536,7 @@ DCP 對 Kimi K3(以及 DeepSeek R1、Kimi K2.5/K2.7 這些「純 MLA」模型)�
 
 | 優化手段 | 效果 |
 | --- | --- |
-| Packed KV cache layout | 省約 10% 記憶體 |
+| KV cache 區塊合併(packed layout) | 省約 10% 記憶體 |
 | DCP 搭配 symmetric memory | 每層延遲降低約 13% |
 | Head-of-line blocking 修正(chunk 上限) | TPGS 提升最多 93% |
 | PCP(32K prompt) | Prefill 加速 2.65 倍 |
