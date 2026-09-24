@@ -1,4 +1,4 @@
-<！-- NO-MANIFEST： figures referenced descriptively； Step 3 must match manually -->
+<!-- NO-MANIFEST: figures referenced descriptively; Step 3 must match manually -->
 
 # vLLM 的 Agentic Serving 全端優化：從 KV Cache 到 P/D 配比
 
@@ -33,8 +33,6 @@ Decode(假設答案是 5 個字):
 ```
 
 Decode 每一步都要重新看一遍前面所有內容，而這個「看」的動作背後，靠的是把算過的中間結果(稱為 K 跟 V，即 Key 和 Value)存起來，避免重算，這份存起來的東西就是 **KV cache**。Context 越長，decode 每一步要回頭看的東西越多，速度就越慢。這篇文章幾乎所有優化手段，都是圍繞「怎麼有效管理 KV cache」跟「怎麼加速 decode」展開的。
-
-還有一個縮寫會反覆出現：`$d_{model}$`，代表模型內部隱藏層的大小，也就是模型用多少個數字表示一個 token 的意思。
 
 ## Agentic Workload 為什麼難伺服：四個特徵與三個挑戰
 
@@ -123,13 +121,17 @@ CPU 記憶體(較慢,容量大很多)
 
 兩者合起來，兼顧高命中率又不會每個位置都存、浪費空間。原文提到這套組合策略的技術細節，在 vLLM 的 Kimi K3 部落格文章裡有更深入說明。
 
-## Execution Plane 上：為何需要平行化、五種基礎策略、MLA 機制
+## Execution Plane：平行化策略怎麼選
 
-### 為什麼一個模型需要多張 GPU
+這一節分三段講，先講平行化的基礎知識，再看 Kimi K3、DeepSeek V4 兩個模型分別怎麼選。
+
+### 上：為何需要平行化、五種基礎策略、MLA 機制
+
+#### 為什麼一個模型需要多張 GPU
 
 原因有兩個，對應不同的解法。第一，模型太大，一張 GPU 裝不下——參數量超過一張 GPU 的記憶體容量，不拆不行。第二，就算裝得下，想要更快的處理速度或更高的並發量——把計算工作分散到多張 GPU 同時做。
 
-### 五種基礎平行化策略
+#### 五種基礎平行化策略
 
 | 策略 | 切的是什麼 | 解決哪個理由 | 通訊敏感度 | 典型範圍 |
 | --- | --- | --- | --- | --- |
@@ -145,13 +147,13 @@ CPU 記憶體(較慢,容量大很多)
 
 **EP 的核心邏輯**：MoE(混合專家)模型不是每次都動用全部參數，而是用一個路由器幫每個 token 挑選一小部分「專家」(通常是總數裡的一小部分，如 8 選 2)。EP 把不同的專家分散存放到不同 GPU 上。因為路由是逐 token 動態決定的，需要靠 **all-to-all(全對全)通訊**：先 dispatch(把 token 送到目標專家所在的 GPU)，各自算完後再 combine(結果送回原本負責這個 token 的地方)。這帶來一個副作用：如果路由器剛好把很多 token 導向同一個專家，那張 GPU 的工作量會暴增，其他 GPU 卻在等它。
 
-### MLA(Multi-head Latent Attention)是什麼、為什麼讓 TP 沒效率
+#### MLA(Multi-head Latent Attention)是什麼、為什麼讓 TP 沒效率
 
 標準 attention 做法裡，模型內部有好幾個獨立的「頭」，各自存一份完整的 K、V。**MLA 不讓每個頭各自存一份，而是把所有頭需要的資訊先壓縮成一份小很多的「潛在表示」`$c$`，只存這一份**，需要用時再從這份壓縮版還原出各頭要的東西。好處是 KV cache 佔用空間大幅縮小。
 
 但這正是它跟 TP「八字不合」的原因。TP 的邏輯是把矩陣切成好幾直條，分給不同 GPU 各自處理一部分，但 MLA 只有一份潛在表示，沒有好幾個頭可以分。TP 遇到 MLA，實際上會把這份唯一的潛在快取**複製**給每一張 GPU 各留一份完整副本，而不是切開分著存——這代表用了好幾張 GPU 做 TP，但沒有省到任何 KV cache 記憶體空間。
 
-> 🔍 **深入問答：MLA 怎麼把多頭壓縮成一份、又怎麼還原？**
+> 🔍 **追問：MLA 怎麼把多頭壓縮成一份、又怎麼還原？**
 >
 > **壓縮：** 用一個降維矩陣 `$W_{down}$`，直接從原始輸入 `$h$` 投影到一個小很多的空間，得到壓縮向量
 >
@@ -169,7 +171,7 @@ CPU 記憶體(較慢,容量大很多)
 >
 > 那如果每張 GPU 都存一份完整的 `$c$`，是不是要在自己的 GPU 上先還原回多份再挑自己要的那份？不是。每張 GPU 直接用矩陣吸收技巧，只對自己被分配到的那幾個頭的還原矩陣做運算，一步到位算出自己要的結果，從來沒有把其他頭的版本攤開過。
 
-> 🔍 **深入問答：MLA 真的有省算力嗎？省在哪裡？**
+> 🔍 **這裡還有一個常被問到的問題：MLA 真的有省算力嗎？省在哪裡？**
 >
 > 乍看之下，MLA 的「`$h \to c \to$` 跟 query 的內積」流程，運算步驟數量似乎跟標準做法差不多。但真正的節省藏在一個容易被忽略的地方：decode 每一步，新 token 的 query 不是只跟「自己」的 K 做一次內積，而是要跟前面所有歷史位置逐一做內積。
 >
@@ -184,11 +186,11 @@ CPU 記憶體(較慢,容量大很多)
 >
 > 差距約 4 倍(DeepSeek 實際論文的壓縮比更大)。這也呼應原文明講的一句話：「MLA attention is memory-bound」，decode 階段的瓶頸不是 GPU 計算能力不夠，而是「把資料從記憶體搬到計算單元」的速度跟不上。Context 越長，attention 佔每一步 decode 的比例越重，正是因為要跟越來越多歷史位置比對，要搬的資料量跟著線性增加。
 
-## Execution Plane 中：Kimi K3 的 DCP 選擇與 DEP 轉折
+### 中：Kimi K3 的 DCP 選擇與 DEP 轉折
 
 Kimi K3 用 MLA 加上 Kimi Delta Attention(KDA)。前面講過 TP 用在 MLA 上等於複製而非分攤，vLLM 找到的替代方案是 **DCP(Decode Context Parallelism)**。
 
-### DCP 的切法：照「序列位置」切，不照「頭」切
+#### DCP 的切法：照「序列位置」切，不照「頭」切
 
 標準 TP 想切「頭」這個維度，但 MLA 下這個維度沒東西可切，只有一份共用的 `$c$`。DCP 換一個維度：把累積的 KV cache，依照 token 的序列位置切開，每張 GPU 只存整體的 1/N。例如 context 累積 1000 個位置，DCP 切成 4 份，GPU1 存 token 1~250、GPU2 存 251~500，依此類推，每張 GPU 真正只存 1/4，不像 TP 那樣 4 張都存一模一樣的完整版。
 
@@ -204,7 +206,7 @@ DCP 帶來兩個好處(原文 Figure 6 顯示 DCP8 相較 TP8，decode 延遲更
 >
 > 這正是原文提到的 **online softmax** 在解決的問題。
 
-> 🔍 **深入問答：Online softmax 到底在幹嘛？**
+> 🔍 **順著這個問題往下追：Online softmax 到底在幹嘛？**
 >
 > 最直覺的理解方式：把它想成「分散式加權平均」。假設有 4 筆資料，每筆有權重跟內容值，分散在兩台機器上：
 >
@@ -229,19 +231,19 @@ DCP 帶來兩個好處(原文 Figure 6 顯示 DCP8 相較 TP8，decode 延遲更
 >
 > 工程上還有一個數值安全性的細節：因為指數運算算大數字容易溢位，每個 GPU 會先減掉自己看過的局部最大值再取指數，合併時再用局部最大值跟全域最大值的差，算出一個校正係數把各自的結果調整到同一個尺度再加總。這是獨立於核心邏輯之外的工程技巧，不影響上面「分散算加權平均」的本質。
 
-### vLLM 對 DCP 通訊路徑的優化
+#### vLLM 對 DCP 通訊路徑的優化
 
 每個 decode 步驟、每一層都要做一次合併，通訊成本會被反覆放大。vLLM 用 **symmetric memory(對稱記憶體)** 取代標準的 NCCL 通訊：讓多張 GPU 事先約定好彼此要用的記憶體位置，任何一張 GPU 可以直接讀寫另一張的特定位置，不用每次都走「請求、確認、傳輸」的完整協定流程。Query 直接 multicast 寫進約定好的緩衝區，每張 GPU 算完後也直接把局部結果寫進對方接收位置，並把「廣播、計算、寫入、合併」整串動作融合進同一個 kernel 執行。效果是相較預設 DCP8 實作，每層延遲降低約 13%(原文 Figure 7 對照 MLA decode path 在 DCP4 使用 symmetric memory 前後，把 NCCL all-gather、staging copy、all-to-all、unpack 幾個步驟融合進單一 kernel)。
 
-> 🔍 **深入問答：Symmetric memory 跟 NVLink 差在哪？能不能廣泛應用？**
+> 🔍 **Symmetric memory 跟 NVLink 差在哪？能不能廣泛應用？這個問題常被搞混，值得花一段釐清。**
 >
 > 兩者不是同一層次，不能二選一比較。**NVLink 是硬體**，GPU 之間實體的高速連線。**Symmetric memory 是軟體、程式設計模型**，一種讓你可以直接讀寫另一張 GPU 記憶體的寫法，不用透過 NCCL 那套標準協定。它需要靠 NVLink(或其他實體連接)才能真正傳輸資料，是「怎麼有效利用」那條線的聰明方式，不是取代它。
 >
 > 這是業界相對成熟、通用的技術方向，不是 vLLM 專屬發明——例如 Nvidia 官方的 **NVSHMEM** 函式庫、PyTorch 的 **SymmetricMemory API**，都是同類技術，常見於 MoE 的 all-to-all 通訊等場景。適合套用的判斷原則：通訊模式固定、可預期，且發生頻率高，值得花力氣優化掉固定啟動成本時適用；通訊模式不固定、發生頻率低，或團隊想要簡單好維護時，標準 NCCL 仍是更好的選擇。
 
-### 規模變大後：DEP 反而勝過 DCP
+#### 規模變大後：DEP 反而勝過 DCP
 
-在 NVL72-class 這種大規模、跨多節點的系統上，wide EP 搭配 data parallelism(**DEP**)反而能比 DCP 撐到更高吞吐量、同樣的延遲 SLO 下表現更好(原文 Figure 8 顯示，對 Kimi K3 而言，wide EP 的 DEP16 在每個 rank 的批次量超過 3 之後，擴展性優於 DCP8)。原因是更大規模、跨節點的 DCP，「切分 attention 帶來的通訊成本」會超過「省下來的計算量」。DCP 切得越細，online softmax 合併時要打交道的 GPU 數量越多，通訊複雜度跟著上升，規模一旦跨出同機箱，合併動作還要透過更慢的 InfiniBand 完成，代價更高。
+在 NVL72-class 這種大規模、跨多節點的系統上，wide EP 搭配 data parallelism(**DEP**)反而能比 DCP 撐到更高吞吐量、同樣的延遲 SLO(Service Level Objective，服務等級目標，系統承諾要達到的延遲上限)下表現更好(原文 Figure 8 顯示，對 Kimi K3 而言，wide EP 的 DEP16 在每個 rank 的批次量超過 3 之後，擴展性優於 DCP8)。原因是更大規模、跨節點的 DCP，「切分 attention 帶來的通訊成本」會超過「省下來的計算量」。DCP 切得越細，online softmax 合併時要打交道的 GPU 數量越多，通訊複雜度跟著上升，規模一旦跨出同機箱，合併動作還要透過更慢的 InfiniBand 完成，代價更高。
 
 > 🔍 **深入問答：DEP = DP + EP，具體怎麼運作？**
 >
@@ -261,21 +263,21 @@ DCP 帶來兩個好處(原文 Figure 6 顯示 DCP8 相較 TP8，decode 延遲更
 >
 > 有一點值得澄清：DCP 不是「CP + 某個東西」的組合技，它本質上就是 CP 本身，只是套用在 decode 階段、切的對象是 KV cache(D 代表 Decode)。相對地，下一節會提到的 PCP 是 CP 套用在 prefill 階段、切的對象是新進的 prompt。DEP 的命名邏輯才是真正的「兩種平行化疊加」(DP + EP)，跟 DCP、PCP 不一樣。
 
-## Execution Plane 下：DeepSeek V4 的挑戰與 PCP/DEP 方案
+### 下：DeepSeek V4 的挑戰與 PCP/DEP 方案
 
 DeepSeek V4 同樣是 MLA-style KV cache，TP 一樣會複製而不分攤。更麻煩的是，它的**壓縮稀疏注意力(compressed sparse attention)**讓 TP 照頭切這件事更不划算，原文列出三個原因。
 
-### 背景：什麼是稀疏注意力
+#### 背景：什麼是稀疏注意力
 
 標準 attention 要跟全部歷史位置比對；稀疏注意力的想法是大部分歷史位置其實跟目前 token 關係不大，只挑最相關的一小部分(top-k)來看就好，省下大量原本花在不相關位置上的計算跟資料搬運。要做到這個篩選，需要額外的 compressor(壓縮器)跟 indexer(索引器)兩個元件。
 
-### 三個讓 TP 更不划算的原因
+#### 三個讓 TP 更不划算的原因
 
 1. **Compressor 只吐一份共用結果**：對每一個被壓縮的位置，只產生「一份共用」的 KV 表示，不是每個頭各自獨立的版本，跟 MLA 讓 TP 變成複製的病灶完全相同，每張 GPU 被迫重複做一次一模一樣的 compressor 計算。
 2. **Indexer 雖有 64 個頭，但只吐一份全域 top-k 選擇**：Indexer 內部有 64 個頭各自評分，但合併後只產生一份全域的 top-k 名單。TP 沒有「64 份各自獨立」的東西可分，每張 GPU 還是得把整個 64 頭的計算重跑一遍。
 3. **真正貴的部分，是掃描、抓取被選中的 KV 項目，跟「頭」無關**：稀疏 MLA 的計算量主要被「掃描、抓取 top-k 選中的 KV cache 項目」這個 memory-bound 動作主宰，不是被 attention 本身的數學運算主宰。TP 只能切到「頭部運算」這個相對次要的部分，切不到真正貴的地方。
 
-### 解法：PCP 給長 prefill，DEP 當預設
+#### 解法：PCP 給長 prefill，DEP 當預設
 
 **PCP(Prefill Context Parallelism)** 切的是新進的 prompt 序列位置(query 這個維度)，用在 prefill 階段。因為每張 GPU 分到的是完整的一小段 token，compressor、indexer、稀疏 MLA 的所有頭運算都能在自己這張 GPU 內部一次做完，不需要跨 GPU 湊齊——這巧妙避開了前面三個原因的病灶，它們的根源是「照頭切」，PCP 根本不照頭切，而是照序列位置切。
 
@@ -283,13 +285,13 @@ DeepSeek V4 同樣是 MLA-style KV cache，TP 一樣會複製而不分攤。更�
 
 DCP 在 DeepSeek V4 上，效果不如它在 Kimi K3 上好，具體原因留到後面「Bitter Lessons」一節細講。最終，**DEP 是 DeepSeek V4 大部分配置下的預設**，跟 Kimi K3 的 DEP 是完全相同的機制，不用重新學一次。
 
-> 🔍 **深入問答：DeepSeek V4 是不是全部用 DEP，不用考慮其他方法？**
+> 🔍 **一個常見的誤解：DeepSeek V4 是不是全部用 DEP，不用考慮其他方法？**
 >
 > 不是。原文原句是「DEP 是大部分配置的預設」，不是「唯一」。長 prefill 場景、專門的 prefill 機器，PCP 仍然是更好的選擇。這正好對應下一節要講的 P/D disaggregation(把 prefill、decode 拆給不同機器群)：如果把兩者拆成不同機器群，專門處理長 prefill 的那群機器可以選用 PCP，處理 decode 的那群機器用 DEP，兩者不衝突。
 >
 > 附帶一提，原文對 Kimi K3 的 prefill 階段該用什麼策略，其實完全沒有明確討論——原文對 Kimi K3 的討論全部聚焦在 decode 延遲上，這是一個真實的資訊空缺，不是這份筆記省略。
 
-> 🔍 **深入問答：DCP 跟 PCP 到底差在哪？**
+> 🔍 **對照一下：DCP 跟 PCP 到底差在哪？**
 >
 > |  | DCP | PCP |
 > | --- | --- | --- |
@@ -301,7 +303,7 @@ DCP 在 DeepSeek V4 上，效果不如它在 Kimi K3 上好，具體原因留到
 >
 > DCP 因為每一步都要付通訊成本，值得花大力氣優化(前面提到的 symmetric memory 那套)；PCP 的額外通訊成本相對容易被龐大的 prefill 計算量攤平，原文沒有像講 DCP 那樣深入展開合併細節。
 
-### 三層總結：從基礎積木到完整決策地圖
+#### 三層總結：從基礎積木到完整決策地圖
 
 把整個平行化決策過程分三層看，能更清楚看出脈絡。第一層是基礎積木，就是前面提到的五種策略；第二層是這篇文章實際用到的應用場景版本：
 
@@ -356,7 +358,7 @@ Decode 每一步只處理 1 個新 token，相對快；但 prefill 就算已被�
 
 解法是用 `--prefill-schedule-interval` 設定，只允許每隔 N 個步驟才排入一次 prefill 工作，而且這個計數器在整組所有 DP ranks 之間對齊同步。這樣把所有 GPU 的 prefill 工作集中排在同一批步驟裡，其他步驟則全部留給 decode，讓純 decode 步驟真正發揮應有速度(原文 Figure 10 示意 DEP8 群組的 prefill 排程節奏對齊：左側 prefill 零散出現在不同步驟、反覆拖慢群組，右側 interval=4 讓 prefill 集中到同一批 cadence 步驟，其餘步驟純 decode)。
 
-> 🔍 **深入問答：如果讓某些 GPU 專門做 prefill、某些專門做 decode，是不是能徹底避開 lockstep？**
+> 🔍 **這裡可以再追問一步：如果讓某些 GPU 專門做 prefill、某些專門做 decode，是不是能徹底避開 lockstep？**
 >
 > 是的，這正是 P/D disaggregation(下一節主題)背後的核心動機之一。排程節奏對齊是在「同一組 GPU 既做 prefill 又做 decode」的前提下，把拖累降到最低；而讓 prefill、decode 由不同機器群各自負責，同一組 GPU 內部就再也不會出現「有些做 prefill、有些做 decode」的混雜狀況，拖累問題直接從根源消失。
 
@@ -396,7 +398,7 @@ Decode 每一步只處理 1 個新 token，相對快；但 prefill 就算已被�
 
 PP(含 chunked pipeline parallelism，CPP)在「長、全新的 prompt」上表現很好：大量全新運算足以餵飽每個 pipeline stage，吞吐量幾乎線性成長，通訊成本低。但大部分 agentic 輪次是「熱」的：系統提示詞、之前對話都已在 cache 裡，每個新請求只新增幾百到幾千 token，新增運算量太少，不足以填滿管線，bubble 吃掉了大部分潛在效益。這個教訓不是「PP 沒用」，而是 PP 適合冷、運算量大的 prefill，不該是熱、以 prefix 為主的 agentic 輪次的預設選項。
 
-> 🔍 **深入問答：即使是短請求，湊很多個一起排不就能塞滿管線嗎？**
+> 🔍 **容易被問到的反例：即使是短請求，湊很多個一起排不就能塞滿管線嗎？**
 >
 > 關鍵不在「管線每個 stage 有沒有事做」，而在**每一份微批次的實際運算量，相對「stage 間交接的固定通訊成本」，比例夠不夠大**。PP 每次把資料從一個 GPU 傳到下一個 GPU，這個交接動作本身有一份相對固定的成本，不會因為資料量變小就等比例縮小。
 >
