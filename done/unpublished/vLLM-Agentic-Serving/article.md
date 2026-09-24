@@ -86,7 +86,30 @@ flowchart LR
 
 不管是哪一種 attention，都用同一種「頁」大小存資料，而且共用同一個區塊池。誰需要，就從共用池裡動態借用，不需要事先切好「這一區永遠留給 full attention」。這代表 sliding-window 提早回收的區塊，可以立刻被 full attention 或別的使用者拿去重新利用，不會被鎖死。
 
-更關鍵的是 **引用計數(reference counting)+ 寫入時複製(copy-on-write)**：如果兩個對話的前面一段內容完全相同，例如 subagent 繼承主 agent 已完成輪次的 context，它們的 block table 可以指向同一批實體區塊，不用複製——這正是 prefix cache 重用的底層機制。系統在每個實體區塊上記一個「目前有幾個對話在用」的計數，只有真的需要修改共用內容時，才臨時複製一份出來單獨改。這套引用計數加 COW 是作業系統管理記憶體的經典手法，不是這篇文章或 vLLM 發明的，但套用在 agentic workload 上特別划算，因為前面提到的 subagent 分岔，本質上就是大量「前段完全相同」的對話。
+更關鍵的是 **引用計數(reference counting)+ 寫入時複製(copy-on-write)**：如果兩個對話的前面一段內容完全相同，例如 subagent 繼承主 agent 已完成輪次的 context，它們的 block table 可以指向同一批實體區塊，不用複製——這正是 prefix cache 重用的底層機制。系統在每個實體區塊上記一個「目前有幾個對話在用」的計數，只有真的需要修改共用內容時，才臨時複製一份出來單獨改。這套引用計數加 COW 是作業系統管理記憶體的經典手法，不是這篇文章或 vLLM 發明的，但套用在 agentic workload 上特別划算，因為前面提到的 subagent 分岔，本質上就是大量「前段完全相同」的對話。用虛擬碼表達這個借用、共用、複製的判斷邏輯：
+
+```
+借用區塊(對話, 頁索引):
+    if 頁索引 已存在於共用池(例如跟另一個對話的 prefix 完全相同):
+        指向同一個實體區塊
+        該區塊.引用計數 += 1
+    else:
+        從共用池配置一個新的實體區塊
+        該區塊.引用計數 = 1
+
+寫入區塊(對話, 頁索引, 新內容):
+    區塊 = 對話.block_table[頁索引]
+    if 區塊.引用計數 > 1:          # 還有別的對話在用同一塊,不能直接改
+        新區塊 = 複製(區塊)         # 這就是 copy-on-write
+        新區塊.引用計數 = 1
+        區塊.引用計數 -= 1
+        對話.block_table[頁索引] = 新區塊
+        寫入(新區塊, 新內容)
+    else:                          # 只有自己在用,直接改沒問題
+        寫入(區塊, 新內容)
+```
+
+這正是 subagent 從主 agent 分岔時的實際行為：分岔當下，兩邊的 block table 指向同一批實體區塊、引用計數同步增加，完全不用複製；只有當某一邊真的動到內容，才會觸發 copy-on-write，把那一頁單獨複製出來。
 
 原文有一個具體案例：DeepSeek V4 原本的 KV cache 做法，把不同種類的快取拆成 3 種尺寸桶，配置 92 個獨立儲存區塊，碎片化嚴重，在 P/D 傳輸跟 offloading 時效率很差(原文 Figure 5 是一張 DeepSeek V4 KV cache 碎片化前後對照圖)。新做法把這 92 個分散區塊合併成同一塊連續儲存空間，減少描述符跟 P/D 傳輸開銷，搭配 FP4 indexer 開啟時能進一步縮小最小分配單位，約省下 10% 的 KV cache 記憶體用量。
 
@@ -147,11 +170,44 @@ CPU 記憶體(較慢,容量大很多)
 
 **EP 的核心邏輯**：MoE(混合專家)模型不是每次都動用全部參數，而是用一個路由器幫每個 token 挑選一小部分「專家」(通常是總數裡的一小部分，如 8 選 2)。EP 把不同的專家分散存放到不同 GPU 上。因為路由是逐 token 動態決定的，需要靠 **all-to-all(全對全)通訊**：先 dispatch(把 token 送到目標專家所在的 GPU)，各自算完後再 combine(結果送回原本負責這個 token 的地方)。這帶來一個副作用：如果路由器剛好把很多 token 導向同一個專家，那張 GPU 的工作量會暴增，其他 GPU 卻在等它。
 
+下圖示意 EP 的 dispatch、combine 兩階段：
+
+```mermaid
+flowchart LR
+  t1["token A"] -->|dispatch| g1["GPU1：專家1、2"]
+  t2["token B"] -->|dispatch| g2["GPU2：專家3、4"]
+  t3["token C"] -->|dispatch| g1
+  g1 -->|combine| out1["token A 結果送回原位"]
+  g2 -->|combine| out2["token B 結果送回原位"]
+  g1 -->|combine| out3["token C 結果送回原位"]
+```
+
+如果路由器剛好把 token A、C 都導去 GPU1（如圖中所示），GPU1 這一輪要算兩份、GPU2 只算一份，GPU2 就得空等 GPU1 算完才能一起進入下一步——這正是前面提到的「路由不均會拖慢整體」的具體樣子。
+
 #### MLA(Multi-head Latent Attention)是什麼、為什麼讓 TP 沒效率
 
 標準 attention 做法裡，模型內部有好幾個獨立的「頭」，各自存一份完整的 K、V。**MLA 不讓每個頭各自存一份，而是把所有頭需要的資訊先壓縮成一份小很多的「潛在表示」`$c$`，只存這一份**，需要用時再從這份壓縮版還原出各頭要的東西。好處是 KV cache 佔用空間大幅縮小。
 
 但這正是它跟 TP「八字不合」的原因。TP 的邏輯是把矩陣切成好幾直條，分給不同 GPU 各自處理一部分，但 MLA 只有一份潛在表示，沒有好幾個頭可以分。TP 遇到 MLA，實際上會把這份唯一的潛在快取**複製**給每一張 GPU 各留一份完整副本，而不是切開分著存——這代表用了好幾張 GPU 做 TP，但沒有省到任何 KV cache 記憶體空間。
+
+下圖對照標準做法跟 MLA 的差異：標準做法每個頭各自存一份 K、V，MLA 把所有頭壓縮進同一份 `$c$`，TP 想切「頭」這個維度時，自然找不到東西可切，只能整份複製。
+
+```mermaid
+flowchart TB
+  subgraph 標準做法["標準 attention:8 個頭各自獨立"]
+    h1["輸入 h"] --> k1["頭1 K,V"]
+    h1 --> k2["頭2 K,V"]
+    h1 --> k3["...頭8 K,V"]
+  end
+  subgraph MLA做法["MLA:壓縮成一份共用表示"]
+    h2["輸入 h"] -->|"W_down"| c["壓縮向量 c(只存這一份)"]
+    c -->|"W_up,1(矩陣吸收)"| r1["頭1 結果"]
+    c -->|"W_up,2(矩陣吸收)"| r2["頭2 結果"]
+    c -->|"...W_up,8"| r3["...頭8 結果"]
+  end
+```
+
+TP 切「頭」這個維度時，標準做法每個頭本來就是獨立的，天生就能一人一份；MLA 只有中間那一份 `$c$`，沒有「8 份」可以分，TP 只好讓每張 GPU 各自留一份完整的 `$c$`，結果就是複製而非分攤。
 
 > 🔍 **追問：MLA 怎麼把多頭壓縮成一份、又怎麼還原？**
 >
@@ -195,6 +251,21 @@ Kimi K3 用 MLA 加上 Kimi Delta Attention(KDA)。前面講過 TP 用在 MLA �
 標準 TP 想切「頭」這個維度，但 MLA 下這個維度沒東西可切，只有一份共用的 `$c$`。DCP 換一個維度：把累積的 KV cache，依照 token 的序列位置切開，每張 GPU 只存整體的 1/N。例如 context 累積 1000 個位置，DCP 切成 4 份，GPU1 存 token 1~250、GPU2 存 251~500，依此類推，每張 GPU 真正只存 1/4，不像 TP 那樣 4 張都存一模一樣的完整版。
 
 DCP 帶來兩個好處(原文 Figure 6 顯示 DCP8 相較 TP8，decode 延遲更低、能撐到更高並發量)：更低的 decode 延遲，因為切分後每張 GPU 要處理的量變少；更高的吞吐量跟 KV 容量，因為不用複製整份 KV cache，GPU 能同時容納更多在跑的序列。
+
+下圖是 DCP 切成 4 份時，一次 decode 的完整流程：query 廣播給所有 GPU，各自對自己那一段 KV cache 算出部分結果，再合併成最終輸出。
+
+```mermaid
+flowchart TB
+  q["新 token 的 query"] -->|broadcast| g1["GPU1：token 1~250"]
+  q -->|broadcast| g2["GPU2：token 251~500"]
+  q -->|broadcast| g3["GPU3：token 501~750"]
+  q -->|broadcast| g4["GPU4：token 751~1000"]
+  g1 -->|局部結果| merge["online softmax 合併"]
+  g2 -->|局部結果| merge
+  g3 -->|局部結果| merge
+  g4 -->|局部結果| merge
+  merge --> out["最終輸出"]
+```
 
 > 🔍 **深入問答：DCP 底下，每張 GPU 是不是要看過所有其他 GPU 的資料？**
 >
@@ -368,11 +439,34 @@ Decode 每一步只處理 1 個新 token，相對快；但 prefill 就算已被�
 
 拆開 prefill、decode 機器群之後，不代表隨便加更多 GPU，整體效能就會自動變好。Prefill 那邊「產出新請求進入 decode 階段」的速度，跟 decode 那邊「能夠消化多少同時在跑的請求」的速度，要互相匹配——任何一邊配置不對，加再多 GPU 到已經足夠的那一邊，都是浪費。
 
+下圖是 P/D disaggregation 的基本架構：prefill 機群跟 decode 機群各自獨立擴張，中間靠 KV cache 傳輸銜接。
+
+```mermaid
+flowchart LR
+  req["新請求"] --> P["Prefill 機群（P 組）"]
+  P -->|傳輸 KV cache| D["Decode 機群（D 組）"]
+  D --> resp["逐字回應"]
+```
+
 ### 兩階段方法論
 
 **Phase 1：Saturation profiling(飽和度測試)。** 把 prefill、decode 完全拆開，各自獨立測試：試不同平行化策略(如 TP vs. wide EP)、不同機器規模(8、16、32 張 GPU)，在每種組合下持續增加併發量，直到吞吐量摸到飽和點。輸出一張飽和度對照表：每種「平行化策略 + 規模」組合，各自最多能撐住每秒幾個請求。分開測，才能拿到每一邊純粹、獨立的產能數字，不會混淆「整體吞吐量不夠」到底是 prefill 端撐不住還是 decode 端撐不住。
 
 **Phase 2：P/D sweep(配比掃描)。** 從 Phase 1 的飽和點反推配比，再組成真實系統實測驗證。
+
+下圖把兩階段串起來看：
+
+```mermaid
+flowchart TB
+  subgraph Phase1["Phase 1：Saturation profiling"]
+    p1["Prefill 單組：試不同平行化策略 × 規模"] --> sp["找出各組合的飽和點"]
+    p2["Decode 單組：試不同平行化策略 × 規模"] --> sp
+  end
+  sp --> ratio["反推 P/D 配比：P × prefill_rate = D × decode_rate"]
+  subgraph Phase2["Phase 2：P/D sweep"]
+    ratio --> combine["組成真實系統"] --> sweep["掃過不同併發量，量測 TTFT / 互動性 / 吞吐量"]
+  end
+```
 
 > 🔍 **深入問答：P/D 配比怎麼算？哪邊產能高，該配置更多還是更少機器？**
 >
@@ -392,7 +486,13 @@ Decode 每一步只處理 1 個新 token，相對快；但 prefill 就算已被�
 
 ## Bitter Lessons：三個失敗案例
 
-這一節是原文最誠實、也最有遷移價值的部分。大部分技術文章只講有效的方法，這篇罕見地花一整節講「試過但沒有達到預期」的案例，揭露的往往是比成功案例更難得的判斷力。
+這一節是原文最誠實、也最有遷移價值的部分。大部分技術文章只講有效的方法，這篇罕見地花一整節講「試過但沒有達到預期」的案例，揭露的往往是比成功案例更難得的判斷力。三個案例的重點先列表對照，細節見各小節：
+
+| 案例 | 嘗試的做法 | 直覺預期 | 實際結果 | 根本原因 |
+| --- | --- | --- | --- | --- |
+| 1. PP 遇上熱輪次 | 用 PP 加速 agentic 輪次 | 跟長 prefill 一樣能線性提速 | Bubble 吃掉大部分效益 | 每份微批次運算量太小，交接固定成本佔比被放大 |
+| 2. DCP 遷移到 DeepSeek V4 | 把 Kimi K3 上有效的 DCP 直接套用 | 應該一樣有效，畢竟都用 MLA | 大量優化後也只打平 DEP，沒有超越 | 壓縮稀疏 attention 多了 indexer、compressor 要切，複雜度遠高於純 MLA |
+| 3. 動態負載平衡 | 依隊列深度/KV 使用率動態導流 | 隊列更平均 = 效能更好 | 輸給簡單的 session-aware sticky routing | 導流破壞快取局部性，重新抓取 KV cache 反而讓可容納並發數下降 |
 
 ### 案例 1：PP 不適合「熱」的 agentic 輪次
 
@@ -434,7 +534,17 @@ DCP 對 Kimi K3(以及 DeepSeek R1、Kimi K2.5/K2.7 這些「純 MLA」模型)�
 
 ### 有時效性的貢獻
 
-這是一篇系統工程整合文章，不是研究突破。原創性主要在組合、調校已知的分散式系統技巧，套用到 agentic workload 這個新興流量型態，並用第三方 benchmark 驗證。以下這些具體數字，會隨硬體、模型版本更新過期，值得留意但不用死記：packed KV cache layout 省約 10% 記憶體、DCP 搭配 symmetric memory 優化每層延遲降低約 13%、head-of-line blocking 修正讓 TPGS 提升最多 93%、PCP 讓 32K prompt 的 prefill 加速 2.65 倍、相對 Opus 5 API 的成本優勢號稱 14.6～106 倍(前言已說明這個數字的方法論保留之處)。
+這是一篇系統工程整合文章，不是研究突破。原創性主要在組合、調校已知的分散式系統技巧，套用到 agentic workload 這個新興流量型態，並用第三方 benchmark 驗證。以下這些具體數字會隨硬體、模型版本更新過期，值得留意但不用死記：
+
+| 優化手段 | 效果 |
+| --- | --- |
+| Packed KV cache layout | 省約 10% 記憶體 |
+| DCP 搭配 symmetric memory | 每層延遲降低約 13% |
+| Head-of-line blocking 修正(chunk 上限) | TPGS 提升最多 93% |
+| PCP(32K prompt) | Prefill 加速 2.65 倍 |
+| 相對 Opus 5 API 的成本優勢 | 號稱 14.6～106 倍(方法論有所保留，見前言) |
+
+這張表本身就是全文最容易過期的部分——硬體世代、模型版本一換，數字就得重新量測，真正耐久的是下一節的通用心法。
 
 ### 脫離這篇文章、脫離 LLM serving 也成立的東西
 
