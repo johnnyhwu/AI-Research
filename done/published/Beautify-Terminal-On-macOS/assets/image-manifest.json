@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Beautify-Terminal-On-macOS/assets/images/oh-my-zsh.jpg",
+      "file": "done/published/Beautify-Terminal-On-macOS/assets/images/oh-my-zsh.jpg",
       "type": "figure",
       "page": null,
       "caption": "下載 Oh My Zsh",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Beautify-Terminal-On-macOS/assets/images/font-book.jpg",
+      "file": "done/published/Beautify-Terminal-On-macOS/assets/images/font-book.jpg",
       "type": "figure",
       "page": null,
       "caption": "透過 Font Book 將字型載入到 macOS 系統中",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Beautify-Terminal-On-macOS/assets/images/change-font-in-terminal.jpg",
+      "file": "done/published/Beautify-Terminal-On-macOS/assets/images/change-font-in-terminal.jpg",
       "type": "figure",
       "page": null,
       "caption": "在 Terminal 中更換字型",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/Beautify-Terminal-On-macOS/assets/images/Powerlevel10k-setting.jpg",
+      "file": "done/published/Beautify-Terminal-On-macOS/assets/images/Powerlevel10k-setting.jpg",
       "type": "figure",
       "page": null,
       "caption": "Powerlevel10k 設定",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/Beautify-Terminal-On-macOS/assets/images/VS-Code-Font-Setting.jpg",
+      "file": "done/published/Beautify-Terminal-On-macOS/assets/images/VS-Code-Font-Setting.jpg",
       "type": "figure",
       "page": null,
       "caption": "VS Code 字型設定",
