@@ -1,0 +1,123 @@
+{
+  "source_pdf": "in-progress/Naive-Prompt-Optimization/2608.27266v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1: Overview of the Naive Prompt Optimization (NPO) workflow.",
+      "nearby_text": "lineage and iteratively updates it using execution feedback. As illustrated in Figure 1, at iteration i, we execute the student model with the current version of the prompt P(i), repeating N times for a minibatch of rewards and rollout traces Ri. We then feed the teacher model a sliding window of t",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 3,
+      "caption": "Figure 2: GEPA evolves candidate prompts in a pool, while NPO follows a simple lineage.",
+      "nearby_text": "-level validation performance informs subsequent Pareto-based parent selection. Figure 2 illustrates GEPA’s prompt heritage tree, compared to NPO’s linear evolution.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-003.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 3: We use shared pseudo-randomness to reduce environment-induced noise when comparing.",
+      "nearby_text": "and reuse the same seed sequence across optimization methods, as illustrated in Figure 3. Corresponding rollouts therefore begin from the same randomly generated configuration, even though their actions and subsequent trajectories may differ. This paired evaluation design reduces noise arising from",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-004.png",
+      "type": "figure",
+      "page": 6,
+      "caption": "Figure 4: Performance of NPO and GEPA on IFBench and HotpotQA under different teacher models, showing NPO’s advantage with stronger teachers.",
+      "nearby_text": "Figure 4 compares NPO and GEPA on IFBench and HotpotQA using Qwen3-8B as the fixed student and Qwen3-8B, DeepSeek-V4-Flash-preview-0424, and GPT-5.5 as teachers, with lines color-coded to refer to different teacher model",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-005.png",
+      "type": "figure",
+      "page": 7,
+      "caption": "Figure 5: Performance improvements when prompts learned by NPO are transferred verbatim to different student models, within and across model families.",
+      "nearby_text": "Figure 5 is organized by tasks and optimization methods across columns and by teachers across rows. Each plot compares the performance improvement of the original student model with the performance improvements obtained",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-006.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Figure 6: Performance improvement under different optimization methods for 22 TextArena games.",
+      "nearby_text": "Figure 6 compares compares the performance gains of NPO, GEPA, and GRPO, across 22 different game environments from TextArena, controlled for the same rollout budget. The student model is Qwen3-8B, while GPT-5.5 is used",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-007",
+      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-007.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Figure 7: Measuring gold-answer leakage into optimized prompts (HotpotQA).",
+      "nearby_text": "overlap accumulates over successive revisions. As shown in Figure 7, both NPO and GEPA yield prompts whose overlap with training set answers grows naturally, whereas overlap with validation answers remains negligible. Manual inspection further shows that the small amount of nonz",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-008",
+      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-008.png",
+      "type": "figure",
+      "page": 13,
+      "caption": "Figure 8: Optimization trajectories for the cross-student transfer experiments. Columns correspond to dataset–optimization-method combinations; rows correspond to teacher models.",
+      "nearby_text": "Figure 8 presents the detailed optimization trajectories for the cross-student transfer experiments in IFBench and HotpotQA. Columns correspond to different dataset–optimization-method combinations, while rows correspond",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-009",
+      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-009.png",
+      "type": "figure",
+      "page": 14,
+      "caption": "Fig. 9. Performance heatmap across 22 TextArena games for prompt optimization, weight-based RL fine-tuning,",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-010",
+      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-010.png",
+      "type": "figure",
+      "page": 14,
+      "caption": "Fig. 10. GRPO training performance under different rollout group sizes.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-011",
+      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-011.png",
+      "type": "figure",
+      "page": 15,
+      "caption": "Figure 11: Token-prefix trie used for constrained decoding over the set of legitimate action strings. At each node, next-token probabilities are renormalized over the valid outgoing edges that lead to legitimate actions.",
+      "nearby_text": "and each leaf represents a complete legitimate action string, as illustrated in Figure 11.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-012",
+      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-012.png",
+      "type": "figure",
+      "page": 17,
+      "caption": "Figure 12: Performance trajectories of NPO, GEPA, and GRPO across different games (continued).",
+      "nearby_text": "Figure 12: Performance trajectories of NPO, GEPA, and GRPO across different games.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-013",
+      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-013.png",
+      "type": "table",
+      "page": 20,
+      "caption": "Table 1: Optimized prompts for each task produced by NPO and GEPA (continued).",
+      "nearby_text": "In Table 1 we report the optimized prompts for each task produced using GPT-5.5 as the teacher and Qwen3-8B as the student, under GEPA and NPO, respectively. Note that HotpotQA and IFBench are multi-hop tasks and the prompt",
+      "parser_confidence": "low"
+    }
+  ]
+}
