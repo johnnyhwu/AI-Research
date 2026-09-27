@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/CIFAR-10-Object-Recognition-In-Images/assets/images/vallinaCNN.png",
+      "file": "done/published/CIFAR-10-Object-Recognition-In-Images/assets/images/vallinaCNN.png",
       "type": "figure",
       "page": null,
       "caption": "VallinaCNN 的訓練結果",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/CIFAR-10-Object-Recognition-In-Images/assets/images/CNNDropout.png",
+      "file": "done/published/CIFAR-10-Object-Recognition-In-Images/assets/images/CNNDropout.png",
       "type": "figure",
       "page": null,
       "caption": "在 Convolution Neural Network 中加入 Dropout",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/CIFAR-10-Object-Recognition-In-Images/assets/images/CNNBN.png",
+      "file": "done/published/CIFAR-10-Object-Recognition-In-Images/assets/images/CNNBN.png",
       "type": "figure",
       "page": null,
       "caption": "在 Convolution Neural Network 中加入 BatchNorm",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/CIFAR-10-Object-Recognition-In-Images/assets/images/DenseNet.png",
+      "file": "done/published/CIFAR-10-Object-Recognition-In-Images/assets/images/DenseNet.png",
       "type": "figure",
       "page": null,
       "caption": "使用 Transfer Learning 訓練 DenseNet",
