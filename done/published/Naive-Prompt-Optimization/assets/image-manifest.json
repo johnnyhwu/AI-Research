@@ -1,10 +1,10 @@
 {
-  "source_pdf": "in-progress/Naive-Prompt-Optimization/2608.27266v1.pdf",
+  "source_pdf": "done/published/Naive-Prompt-Optimization/2608.27266v1.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-001.png",
+      "file": "done/published/Naive-Prompt-Optimization/assets/images/picture-001.png",
       "type": "figure",
       "page": 2,
       "caption": "Figure 1: Overview of the Naive Prompt Optimization (NPO) workflow.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-002.png",
+      "file": "done/published/Naive-Prompt-Optimization/assets/images/picture-002.png",
       "type": "figure",
       "page": 3,
       "caption": "Figure 2: GEPA evolves candidate prompts in a pool, while NPO follows a simple lineage.",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-003.png",
+      "file": "done/published/Naive-Prompt-Optimization/assets/images/picture-003.png",
       "type": "figure",
       "page": 4,
       "caption": "Figure 3: We use shared pseudo-randomness to reduce environment-induced noise when comparing.",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-004.png",
+      "file": "done/published/Naive-Prompt-Optimization/assets/images/picture-004.png",
       "type": "figure",
       "page": 6,
       "caption": "Figure 4: Performance of NPO and GEPA on IFBench and HotpotQA under different teacher models, showing NPO’s advantage with stronger teachers.",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-005.png",
+      "file": "done/published/Naive-Prompt-Optimization/assets/images/picture-005.png",
       "type": "figure",
       "page": 7,
       "caption": "Figure 5: Performance improvements when prompts learned by NPO are transferred verbatim to different student models, within and across model families.",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-006.png",
+      "file": "done/published/Naive-Prompt-Optimization/assets/images/picture-006.png",
       "type": "figure",
       "page": 8,
       "caption": "Figure 6: Performance improvement under different optimization methods for 22 TextArena games.",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-007.png",
+      "file": "done/published/Naive-Prompt-Optimization/assets/images/picture-007.png",
       "type": "figure",
       "page": 8,
       "caption": "Figure 7: Measuring gold-answer leakage into optimized prompts (HotpotQA).",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-008.png",
+      "file": "done/published/Naive-Prompt-Optimization/assets/images/picture-008.png",
       "type": "figure",
       "page": 13,
       "caption": "Figure 8: Optimization trajectories for the cross-student transfer experiments. Columns correspond to dataset–optimization-method combinations; rows correspond to teacher models.",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-009.png",
+      "file": "done/published/Naive-Prompt-Optimization/assets/images/picture-009.png",
       "type": "figure",
       "page": 14,
       "caption": "Fig. 9. Performance heatmap across 22 TextArena games for prompt optimization, weight-based RL fine-tuning,",
@@ -85,7 +85,7 @@
     },
     {
       "id": "img-010",
-      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-010.png",
+      "file": "done/published/Naive-Prompt-Optimization/assets/images/picture-010.png",
       "type": "figure",
       "page": 14,
       "caption": "Fig. 10. GRPO training performance under different rollout group sizes.",
@@ -94,7 +94,7 @@
     },
     {
       "id": "img-011",
-      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-011.png",
+      "file": "done/published/Naive-Prompt-Optimization/assets/images/picture-011.png",
       "type": "figure",
       "page": 15,
       "caption": "Figure 11: Token-prefix trie used for constrained decoding over the set of legitimate action strings. At each node, next-token probabilities are renormalized over the valid outgoing edges that lead to legitimate actions.",
@@ -103,7 +103,7 @@
     },
     {
       "id": "img-012",
-      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-012.png",
+      "file": "done/published/Naive-Prompt-Optimization/assets/images/picture-012.png",
       "type": "figure",
       "page": 17,
       "caption": "Figure 12: Performance trajectories of NPO, GEPA, and GRPO across different games (continued).",
@@ -112,7 +112,7 @@
     },
     {
       "id": "img-013",
-      "file": "in-progress/Naive-Prompt-Optimization/assets/images/picture-013.png",
+      "file": "done/published/Naive-Prompt-Optimization/assets/images/picture-013.png",
       "type": "table",
       "page": 20,
       "caption": "Table 1: Optimized prompts for each task produced by NPO and GEPA (continued).",
