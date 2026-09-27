@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Estimation-Error-Vs-Approximation-Error-In-Machine-Learning/assets/images/best-function.jpg",
+      "file": "done/published/Estimation-Error-Vs-Approximation-Error-In-Machine-Learning/assets/images/best-function.jpg",
       "type": "figure",
       "page": null,
       "caption": "Function Class、Best Function 與 Learned Function 的關係",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Estimation-Error-Vs-Approximation-Error-In-Machine-Learning/assets/images/function-class.jpg",
+      "file": "done/published/Estimation-Error-Vs-Approximation-Error-In-Machine-Learning/assets/images/function-class.jpg",
       "type": "figure",
       "page": null,
       "caption": "Function Class、Learned Function 與 Best Function 的關係",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Estimation-Error-Vs-Approximation-Error-In-Machine-Learning/assets/images/approximation-error-and-estimation-error.jpg",
+      "file": "done/published/Estimation-Error-Vs-Approximation-Error-In-Machine-Learning/assets/images/approximation-error-and-estimation-error.jpg",
       "type": "figure",
       "page": null,
       "caption": "Approximation Error 與 Estimation Error",

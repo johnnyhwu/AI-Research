@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Model-Training-Inference/assets/images/machine-learning-process.jpg",
+      "file": "done/published/Model-Training-Inference/assets/images/machine-learning-process.jpg",
       "type": "figure",
       "page": null,
       "caption": "Machine Learning 中主要分為這三個步驟 [source: Udacity]",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Model-Training-Inference/assets/images/machine-learning-function.jpg",
+      "file": "done/published/Model-Training-Inference/assets/images/machine-learning-function.jpg",
       "type": "figure",
       "page": null,
       "caption": "機器學習中的模型就是一個函式：輸入一張圖片，輸出這張圖片的類別",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Model-Training-Inference/assets/images/machine-learning-function-1.jpg",
+      "file": "done/published/Model-Training-Inference/assets/images/machine-learning-function-1.jpg",
       "type": "figure",
       "page": null,
       "caption": "機器學習中的模型就像是一個函式：輸入房子的坪數，輸出這間房子的價格",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/Model-Training-Inference/assets/images/machine-learning-function-2.jpg",
+      "file": "done/published/Model-Training-Inference/assets/images/machine-learning-function-2.jpg",
       "type": "figure",
       "page": null,
       "caption": "機器學習中的模型就像是一個複雜的函式，函式內包含 w1、w2 與 w3 三個參數",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/Model-Training-Inference/assets/images/linear-regression-model.jpg",
+      "file": "done/published/Model-Training-Inference/assets/images/linear-regression-model.jpg",
       "type": "figure",
       "page": null,
       "caption": "紅色的線就是我們希望學到的模型",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "done/unpublished/Model-Training-Inference/assets/images/linear-regression-model-1.jpg",
+      "file": "done/published/Model-Training-Inference/assets/images/linear-regression-model-1.jpg",
       "type": "figure",
       "page": null,
       "caption": "模型從 (1) 慢慢變成 (3)",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "done/unpublished/Model-Training-Inference/assets/images/model-inference.jpg",
+      "file": "done/published/Model-Training-Inference/assets/images/model-inference.jpg",
       "type": "figure",
       "page": null,
       "caption": "輸入房子的坪數，模型輸出預測的價格",
