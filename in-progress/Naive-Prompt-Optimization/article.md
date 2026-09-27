@@ -252,7 +252,7 @@ $$P(\text{某合法動作} \mid \text{該動作合法}) = \frac{P(\text{該動�
 
 ### 執行效率：teacher 夠強，NPO 才有優勢
 
-論文 Figure 4 比較 NPO 與 GEPA 在 IFBench、HotpotQA（多跳問答任務，需要串連多份文件才能找到答案）兩個任務上、換用不同 teacher（Qwen3-8B、DeepSeek-V4-Flash、GPT-5.5）時的表現：
+論文 Figure 4 比較 NPO 與 GEPA 在 IFBench、HotpotQA（多跳問答，需要串連多份文件才能找到答案）這兩個任務上、換用不同 teacher（Qwen3-8B、DeepSeek-V4-Flash、GPT-5.5）時的表現：
 
 ![折線圖比較 NPO 與 GEPA 在 IFBench、HotpotQA 上，搭配三種不同強度的 teacher model 時，分數隨執行次數增加的收斂曲線。](img-004)
 *圖 5 — 換用不同 teacher 時，NPO 與 GEPA 在兩個任務上的表現。（來源：原始論文 Figure 4。）*
@@ -274,7 +274,7 @@ NPO 換成更強的 teacher 時表現明顯提升：teacher 換成 GPT-5.5 時�
 
 ### 與 GRPO 的比較：沒有全面贏家
 
-論文 Figure 6 在 22 個 TextArena（一套提供給 LLM agent 測試的文字型遊戲環境）遊戲環境中，控制相同的 rollout 預算，比較 NPO、GEPA、GRPO：
+論文 Figure 6 在 22 個 TextArena（一套提供給 LLM agent 測試的文字型遊戲平台）遊戲環境中，控制相同的 rollout 預算，比較 NPO、GEPA、GRPO：
 
 ![長條圖比較 NPO、GEPA、GRPO 三種方法在 22 個 TextArena 遊戲環境中的效能提升幅度，不同遊戲下三種方法的相對排名並不一致。](img-006)
 *圖 7 — 三種優化方法在 22 個遊戲環境中的效能提升比較。（來源：原始論文 Figure 6。）*
