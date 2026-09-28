@@ -1,10 +1,10 @@
 {
-  "source_pdf": "in-progress/SkillZip/2608.11079v2.pdf",
+  "source_pdf": "done/unpublished/SkillZip/2608.11079v2.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "in-progress/SkillZip/assets/images/picture-001.png",
+      "file": "done/unpublished/SkillZip/assets/images/picture-001.png",
       "type": "figure",
       "page": 1,
       "caption": "Fig. 1. The skill growth tendency with respect to self-evolving progress on diverse benchmarks for a CodeX Agent. Self-evolution can keep increasing skill length after genuinely new procedural content has largely stabilized.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "in-progress/SkillZip/assets/images/picture-002.png",
+      "file": "done/unpublished/SkillZip/assets/images/picture-002.png",
       "type": "figure",
       "page": 3,
       "caption": "Fig. 2. A skill is a typed contract. Different text spans constrain different parts of execution. An example is removable only when every requirement it uniquely expresses is represented elsewhere.",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "in-progress/SkillZip/assets/images/picture-003.png",
+      "file": "done/unpublished/SkillZip/assets/images/picture-003.png",
       "type": "figure",
       "page": 6,
       "caption": "Fig. 3. Overview of SkillZip. One-shot compression first recovers the skill contract, then applies the “explain once, reference many” principle to repeated rules and workflows, while unique and uncertain content remains explicit. Zip-on-Write compares each patch with the affected contract neighborhood and performs occasional repacking when reuse accumulates across patches.",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "in-progress/SkillZip/assets/images/picture-004.png",
+      "file": "done/unpublished/SkillZip/assets/images/picture-004.png",
       "type": "figure",
       "page": 7,
       "caption": "Fig. 4. The skill growth tendency with respect to agent self-evolving progress for SkillOpt [2] and Memento-Skills [34].",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "in-progress/SkillZip/assets/images/picture-005.png",
+      "file": "done/unpublished/SkillZip/assets/images/picture-005.png",
       "type": "figure",
       "page": 8,
       "caption": "Fig. 5. Cross-model generalization of compressed skills on LiveMath and BFCL-V4. Rows denote the source model whose evolved skill is compressed, and columns denote the target model executing the compressed skill. Diagonal cells represent same-model deployment, while off-diagonal cells measure cross- model transfer.",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "in-progress/SkillZip/assets/images/picture-006.png",
+      "file": "done/unpublished/SkillZip/assets/images/picture-006.png",
       "type": "figure",
       "page": 9,
       "caption": "Fig. 6. Skill length (by 𝑁×) during self-evolution on LiveMath for three agent backbones. Each panel compares no compression against Zip-on-Write continual compression activated at round 8 and at round 1; legends report the final test accuracy.",
