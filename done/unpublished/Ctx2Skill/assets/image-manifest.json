@@ -1,10 +1,10 @@
 {
-  "source_pdf": "in-progress/Ctx2Skill/2604.27660v3.pdf",
+  "source_pdf": "done/unpublished/Ctx2Skill/2604.27660v3.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-001.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-001.png",
       "type": "figure",
       "page": 2,
       "caption": "Figure 1: The illustration of Ctx2Skill. It’s designed to extract rules and procedures from context into natural-language skills without human annotation and external feedback.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-002.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-002.png",
       "type": "figure",
       "page": 4,
       "caption": "Figure 2: The overview of Ctx2Skill. (a) In the self-play loop, the Challenger generates tasks and rubrics, the Reasoner tries to solve them, and the Judge routes outcomes to update Challenger and Reasoner skills. (b) Cross-Time Replay Mechanism re-evaluates historical Reasoner skill candidates on representative tasks, selecting the most balanced skill set for unseen downstream tasks.",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-003.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-003.png",
       "type": "table",
       "page": 7,
       "caption": "Table 1: The main results of Ctx2Skill. We report the task-solving rate on the CL-bench across four task categories. The best results within the same backbone are marked in bold. v represents methods using inference time augmentation, and u shows inference results without skills. Red and Green show the performance gains and declines, respectively, relative to the models without skills.",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-004.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-004.png",
       "type": "table",
       "page": 7,
       "caption": "Table 2: The quality evaluation of gen- erated skills. We use GPT-4.1 as a judge to assess skills across five dimensions: conciseness, faithfulness, clarity, effec- tiveness, and reusability. The best result in each dimension is marked in bold.",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-005.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-005.png",
       "type": "table",
       "page": 8,
       "caption": "Table 3: The analysis results of Ctx2Skill. We report the task-solving rate on the CL-bench across four task categories under different ablations, variant designs, etc. The best results within each analysis block are marked in bold. v represents using inference-time skill augmentation, and u indicates inference results without skills.",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-006.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-006.png",
       "type": "figure",
       "page": 9,
       "caption": "Figure 3: Per sub-category solving rate on CL-bench. Ctx2Skill improves solving rates on the vast majority of sub-categories compared with the base model without skills.",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-007.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-007.png",
       "type": "figure",
       "page": 9,
       "caption": "Figure 4: Distribution of selected iterations by the Cross-Time Replay. We report the num- ber of contexts whose final skill set is selected from each iteration across all contexts.",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-008.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-008.png",
       "type": "table",
       "page": 16,
       "caption": "Table 4: Statistics of CL-bench. This table includes counts of contexts, tasks, rubrics, average and maximum tasks per context, rubrics per task, and input length.",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-009.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-009.png",
       "type": "table",
       "page": 16,
       "caption": "Table 5: Task-level Self-play dynamics across iterations. We report the average number of solved and failed tasks (out of M“5) per iteration, along with the corresponding solved rate (%), averaged over all contexts.",
@@ -85,7 +85,7 @@
     },
     {
       "id": "img-010",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-010.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-010.png",
       "type": "table",
       "page": 17,
       "caption": "Table 6: Rubric-level self-play dynamics across iterations. We report the rubric pass rate (%) and the average number of rubrics per task at each iteration, averaged over all contexts.",
@@ -94,7 +94,7 @@
     },
     {
       "id": "img-011",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-011.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-011.png",
       "type": "table",
       "page": 17,
       "caption": "Table 7: Distribution of rubric counts per task. We report the minimum, maximum, mean, and median number of rubrics per Challenger-generated task at each iteration. Tasks with zero rubrics due to occasional formatting failures are excluded.",
@@ -103,7 +103,7 @@
     },
     {
       "id": "img-012",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-012.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-012.png",
       "type": "table",
       "page": 18,
       "caption": "Table 8: Challenger task length across iterations. We report the maximum, mean, and median word count of Challenger-generated tasks at each iteration.",
@@ -112,7 +112,7 @@
     },
     {
       "id": "img-013",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-013.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-013.png",
       "type": "table",
       "page": 18,
       "caption": "Table 9: Reasoner output length across iterations. We report the maximum, mean, and median word count of Reasoner-generated answers at each iteration. A small number of null or empty outputs (ă 0.3%) are excluded.",
@@ -121,7 +121,7 @@
     },
     {
       "id": "img-014",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-014.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-014.png",
       "type": "table",
       "page": 19,
       "caption": "Table 10: Skill set word count across iterations. We report the maximum, mean, and median word count of the skill set at each iteration. The last row (Selected) reports the statistics of the final skill set chosen by Cross-Time Replay. Contexts with empty skill files are excluded.",
@@ -130,7 +130,7 @@
     },
     {
       "id": "img-015",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-015.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-015.png",
       "type": "figure",
       "page": 26,
       "caption": "Figure 5: Case study for Domain Knowledge Reasoning.",
@@ -139,7 +139,7 @@
     },
     {
       "id": "img-016",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-016.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-016.png",
       "type": "figure",
       "page": 31,
       "caption": "Figure 6: Case study for Rule Sytem Application.",
@@ -148,7 +148,7 @@
     },
     {
       "id": "img-017",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-017.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-017.png",
       "type": "figure",
       "page": 38,
       "caption": "Figure 7: Case study for Procedural Task Execution.",
@@ -157,7 +157,7 @@
     },
     {
       "id": "img-018",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-018.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-018.png",
       "type": "figure",
       "page": 44,
       "caption": "Figure 8: Case Study for Empirical Discovery & Simulation.",
@@ -166,7 +166,7 @@
     },
     {
       "id": "img-019",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-019.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-019.png",
       "type": "figure",
       "page": 45,
       "caption": "Figure 9: Prompt used for the Challenger. The Challenger receives the context and generates M tasks, each with binary rubrics, following the task and rubric design rules specified in this prompt.",
@@ -175,7 +175,7 @@
     },
     {
       "id": "img-020",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-020.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-020.png",
       "type": "figure",
       "page": 46,
       "caption": "Figure 10: Prompt used for the Challenger Proposer. The Challenger Proposer analyzes tasks that the Reasoner passed (i.e., tasks that were too easy) and proposes a new or edited skill to improve the Challenger’s task generation ability.",
@@ -184,7 +184,7 @@
     },
     {
       "id": "img-021",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-021.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-021.png",
       "type": "figure",
       "page": 47,
       "caption": "Figure 11: Prompt used for the Challenger Generator. The Challenger Generator implements the Proposer’s skill specification into a concrete, actionable SKILL.md that will be injected into the Challenger’s system prompt.",
@@ -193,7 +193,7 @@
     },
     {
       "id": "img-022",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-022.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-022.png",
       "type": "figure",
       "page": 48,
       "caption": "Figure 12: Prompt used for the Reasoner Proposer. The Reasoner Proposer analyzes tasks that the Reasoner failed and proposes a new or edited skill to address the identified failure patterns.",
@@ -202,7 +202,7 @@
     },
     {
       "id": "img-023",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-023.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-023.png",
       "type": "figure",
       "page": 49,
       "caption": "Figure 13: Prompt used for the Reasoner Generator. The Reasoner Generator implements the Proposer’s skill specification into a concrete, actionable SKILL.md that will be injected into the Reasoner’s system prompt.",
@@ -211,7 +211,7 @@
     },
     {
       "id": "img-024",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-024.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-024.png",
       "type": "figure",
       "page": 50,
       "caption": "Figure 14: Prompt used for the Judge. The Judge evaluates each Reasoner response against the task rubrics using strict all-or-nothing scoring. Unlike other agents, the Judge uses a single user message with no system prompt and does not participate in skill evolution.",
@@ -220,7 +220,7 @@
     },
     {
       "id": "img-025",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-025.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-025.png",
       "type": "figure",
       "page": 51,
       "caption": "Figure 15: Prompt used for the Skill Quality Evaluator. The evaluator assesses the quality of generated SKILL.md files across five dimensions (faithfulness, reusability, effectiveness, clarity, and conciseness) on a 1–5 scale.",
@@ -229,7 +229,7 @@
     },
     {
       "id": "img-026",
-      "file": "in-progress/Ctx2Skill/assets/images/picture-026.png",
+      "file": "done/unpublished/Ctx2Skill/assets/images/picture-026.png",
       "type": "figure",
       "page": 52,
       "caption": "Figure 16: Prompt used for the Prompting baseline. This baseline directly prompts the LM to generate a SKILL.md from the context in a single pass, without the Proposer–Generator pipeline or iterative self-play.",
