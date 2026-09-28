@@ -36,6 +36,26 @@ Optional:
         caption) and --crop-bottom-override (set to just below the table's
         last row) are needed together. Use dump_blocks.py to find the y
         value just below the table's last row.
+    --crop-left-override page:kind:num=x[,page:kind:num=x...]
+    --crop-right-override page:kind:num=x[,page:kind:num=x...]
+        Manually override the auto-detected horizontal bound(s) for
+        specific visuals, same "page:kind:num=value" format as the top/
+        bottom overrides. Needed when auto_crop_hbounds' ink-derived width
+        is wrong for one entry specifically -- e.g. a caption sitting near
+        the page's horizontal midpoint gets its column misclassified
+        ("left"/"right" instead of "full"), silently clipping one side of
+        a wide table, or a neighbouring visual's ink bleeds into this
+        one's vertical band and widens its crop. Unlike --margin-x (which
+        replaces every visual's horizontal bounds with one fixed page
+        margin), these apply only to the listed (page, kind, num) entries
+        and leave every other visual's auto-derived bounds untouched. Use
+        dump_blocks.py or a quick pymupdf snippet on visual_ink_rects to
+        find the right x value -- see SKILL.md's "A single-column paper
+        getting misclassified as two-column" and "Ruleless tables with no
+        vector ink at all" sections for the two documented failure modes
+        this fixes; a manual crop-and-check with these flags replaces the
+        one-off render-to-a-temp-script workaround those sections used to
+        require.
     --zoom FLOAT           Render zoom factor (default 3.0, ~216 DPI at
                             standard letter/A4 page size).
     --margin-x FLOAT       Force a fixed horizontal crop margin in points
@@ -113,6 +133,8 @@ def main():
     ap.add_argument("--source-pdf-repo-path", required=True, help="Value for the manifest's source_pdf field")
     ap.add_argument("--crop-top-override", default="")
     ap.add_argument("--crop-bottom-override", default="")
+    ap.add_argument("--crop-left-override", default="")
+    ap.add_argument("--crop-right-override", default="")
     ap.add_argument("--zoom", type=float, default=3.0)
     ap.add_argument("--margin-x", type=float, default=None)
     ap.add_argument("--min-caption-width", type=float, default=400.0)
@@ -159,6 +181,8 @@ def main():
 
     overrides = parse_overrides(args.crop_top_override)
     bottom_overrides = parse_overrides(args.crop_bottom_override)
+    left_overrides = parse_overrides(args.crop_left_override)
+    right_overrides = parse_overrides(args.crop_right_override)
 
     images_dir = os.path.join(args.out_dir, "images")
     os.makedirs(images_dir, exist_ok=True)
@@ -201,6 +225,12 @@ def main():
                                                 ink_rects=ink, text_rects=text_rects,
                                                 two_column=two_column)
             hsource = "clipped ink/caption"
+        if key in left_overrides:
+            left = left_overrides[key]
+            hsource += "+manual left override"
+        if key in right_overrides:
+            right = right_overrides[key]
+            hsource += "+manual right override"
         rect = pymupdf.Rect(left, top, right, bottom)
         if rect.height < 1 or rect.width < 1:
             # An empty region can't be rendered at all (pymupdf raises), and a

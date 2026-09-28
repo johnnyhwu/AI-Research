@@ -226,12 +226,37 @@ the repo's fail-loud-not-silent rule.
    > not emit that token. Don't manufacture nitpicks that wouldn't actually
    > bother a real reader just to have something to say — approve instead.
 
+   **If no subagent-spawning tool is reachable, fall back to a
+   self-administered review — don't skip the step.** Some execution
+   contexts (notably when this skill is itself being run inside an
+   already-spawned subagent, which has happened on every single run of
+   this skill so far in that setup) have no `Task`/`Agent`-equivalent tool
+   available to spawn a further, nested Reviewer. Check for one first
+   (don't assume it's missing without checking) — but if none is reachable,
+   and a cross-session tool that provisions a fresh container is the only
+   alternative (it won't see this uncommitted `article.md`, so it can't
+   substitute), do the review yourself instead of presenting a single
+   Writer pass as if the loop ran: re-read `article.md` fresh from disk —
+   not from memory of writing it, a genuine re-read is what makes you
+   notice what's actually on the page rather than what you intended to
+   write — and apply the exact Reviewer checklist above, verdict included
+   (`REVIEW_APPROVED_NO_CHANGES` or concrete fixes). This is a known,
+   accepted degradation of the loop's independence, not a failure to flag
+   as blocking — self-review under this fallback has reliably caught real
+   issues across many runs (over-long paragraphs, repeated sentence
+   shapes/openers, em-dash overuse, missed LaTeX conversions, stray
+   half-width punctuation). State the deviation explicitly in your final
+   report rather than silently presenting it as an independent Reviewer
+   pass.
+
 5. **Loop.** Apply the Reviewer's feedback as Writer, then send the *same
    file path* back to the *same subagent* (resume it — it already has the
    context of what it flagged; don't spin up a new one each cycle) for
-   another pass. Repeat for at most **3** full Writer→Reviewer cycles total.
-   Stop early the moment a cycle returns `REVIEW_APPROVED_NO_CHANGES`. After
-   3 cycles, keep the latest version regardless.
+   another pass — or, under the self-review fallback above, do another
+   fresh re-read-and-critique pass yourself. Repeat for at most **3** full
+   Writer→Reviewer cycles total. Stop early the moment a cycle returns
+   `REVIEW_APPROVED_NO_CHANGES`. After 3 cycles, keep the latest version
+   regardless.
 
 6. **Verify before calling it done.**
    ```bash

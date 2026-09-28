@@ -46,7 +46,9 @@ or the PNGs you produce, at any point in this workflow, even to "double
 check" a low-confidence extraction.** Every verification in this skill is
 done with text: bounding boxes, caption strings, file sizes, pixel
 dimensions, JSON schema checks. If something looks wrong, the fix is better
-heuristics or a manual crop-boundary override (see below) -- not a peek.
+heuristics or a manual crop-boundary override -- `--crop-top-override` /
+`--crop-bottom-override` for the vertical bounds, `--crop-left-override` /
+`--crop-right-override` for the horizontal ones (see below) -- not a peek.
 
 If the user hasn't stated this rule explicitly, apply it anyway by default;
 it's the reason a separate parsing step is worth having at all.
@@ -60,7 +62,12 @@ vector ink at all" below for two real instances). If a paper has any table
 with a short, centered, single-line caption, that specific risk is worth one
 direct look at the rendered PNG before calling the manifest done -- not a
 blanket exception to the rule, just the one failure class it structurally
-cannot catch on its own.
+cannot catch on its own. Once a bad horizontal crop is caught this way (or
+via a downstream image-verification step some pipelines run on the crops
+after the fact), fix it with `--crop-left-override`/`--crop-right-override`
+rather than a hand-rolled script -- see "A single-column paper getting
+misclassified as two-column" and "Ruleless tables with no vector ink at
+all" below.
 
 ## Workflow
 
@@ -277,7 +284,16 @@ specifically that it's worth checking every table entry's rendered
 dimensions against `dump_blocks.py` output up front on any paper with
 ruleless/dense tables, rather than waiting for a visibly-wrong pixel size to
 notice it -- a crop that grabs the page's running header text instead of the
-table can still produce a plausible-looking, non-degenerate pixel size.
+table can still produce a plausible-looking, non-degenerate pixel size. In
+practice this convention tends to be a whole-paper style choice, not a
+per-table coin flip: across several papers run through this skill, once the
+*first* table on a page turned out to caption-above-content, *every* other
+table in that same paper did too (18 of 18 tables in one paper, 11 of 11 in
+another). So treat one caption-above hit as a strong signal to expect
+`--crop-top-override`/`--crop-bottom-override` on every remaining table in
+the document, not just a one-off fix for that single entry -- check the
+rest before considering the manifest done rather than waiting for each one
+to individually look wrong.
 
 **A crop that lands on an *adjacent visual's* content is the sharpest version
 of this and `crop_warnings` cannot see it at all.** The "mostly prose" check
@@ -474,6 +490,27 @@ is invisible to every text-only signal this skill has and was only found by
 directly viewing the rendered PNGs. If a paper has any short, centered table
 captions, that alone is reason enough to view those specific renders once
 before calling the manifest done, hard rule or not.
+
+The mirror-image failure -- a crop coming out *too wide* rather than too
+narrow -- shows up when a neighbouring visual's ink sits inside this one's
+finalized `[top, bottom]` band and gets unioned in by mistake (e.g. a
+multi-panel figure whose sub-caption line is body-text-width, so a wide
+paragraph next to the figure reads as part of it). This produces a crop
+that's a plausible size but includes a slice of the wrong content on one
+side -- again nothing `SUSPECT CROPS` or `verify_manifest.py` can see,
+since neither checks *what* the ink is, only whether ink exists.
+
+Either direction -- too narrow or too wide -- is now a one-line fix once
+you've spotted it: `--crop-left-override "<page>:<kind>:<num>=<x>"` and/or
+`--crop-right-override "<page>:<kind>:<num>=<x>"`, same `page:kind:num=value`
+format as the vertical overrides, applied per-entry so every other visual's
+auto-derived bounds are left alone. Find the right x value the same
+text-only way as a vertical override -- `dump_blocks.py`'s per-block bboxes
+on the page, or a one-off call to `visual_ink_rects(page)` in a Python
+shell -- rather than rendering candidate crops and eyeballing them. This
+replaces hand-rolling a `visible_drawing_rects`/`render_crop` script to
+patch a single bad entry, which was the only option before these two flags
+existed.
 
 ## Why tables often end up low-confidence, and why that's fine
 
