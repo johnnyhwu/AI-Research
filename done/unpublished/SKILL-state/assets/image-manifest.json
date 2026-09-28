@@ -1,10 +1,10 @@
 {
-  "source_pdf": "in-progress/SKILL-state/2608.26263v3.pdf",
+  "source_pdf": "done/unpublished/SKILL-state/2608.26263v3.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "in-progress/SKILL-state/assets/images/picture-001.png",
+      "file": "done/unpublished/SKILL-state/assets/images/picture-001.png",
       "type": "figure",
       "page": 4,
       "caption": "Figure 1: Overview of the SKILL.state architecture.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "in-progress/SKILL-state/assets/images/picture-002.png",
+      "file": "done/unpublished/SKILL-state/assets/images/picture-002.png",
       "type": "table",
       "page": 6,
       "caption": "Table 1: Warehouse Management Long-Horizon Scaling using Gemini-3-Flash. Baseline runtimes suffer O(T 2) context accumulation, whereas SKILL.state maintains a bounded O(1) prompt footprint (Mean ± SD across 5 seeds).",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "in-progress/SKILL-state/assets/images/picture-003.png",
+      "file": "done/unpublished/SKILL-state/assets/images/picture-003.png",
       "type": "table",
       "page": 6,
       "caption": "Table 2: Warehouse Noise Robustness (T = 50, Gemini-3-Flash).",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "in-progress/SKILL-state/assets/images/picture-004.png",
+      "file": "done/unpublished/SKILL-state/assets/images/picture-004.png",
       "type": "table",
       "page": 6,
       "caption": "Table 3: Warehouse State Recovery (Gemini-3-Flash).",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "in-progress/SKILL-state/assets/images/picture-005.png",
+      "file": "done/unpublished/SKILL-state/assets/images/picture-005.png",
       "type": "table",
       "page": 7,
       "caption": "Table 4: Evaluation on Public Interactive Benchmarks using Gemini-3-Flash. SKILL.state achieves the highest task success rates while significantly reducing prompt sizes and cumulative token consumption.",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "in-progress/SKILL-state/assets/images/picture-006.png",
+      "file": "done/unpublished/SKILL-state/assets/images/picture-006.png",
       "type": "table",
       "page": 7,
       "caption": "Table 5: Budget-Matched Controls on Warehouse (T = 100, Gemini-3-Flash, Budget ∼1,800 tokens).",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "in-progress/SKILL-state/assets/images/picture-007.png",
+      "file": "done/unpublished/SKILL-state/assets/images/picture-007.png",
       "type": "table",
       "page": 14,
       "caption": "Table 6: Software Repository Long-Horizon Execution Scaling using using Gemini-3-Flash. Baseline runtimes suffer catastrophic O(N 2) context collapse, whereas SKILL.state maintains an O(1) prompt footprint.",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "in-progress/SKILL-state/assets/images/picture-008.png",
+      "file": "done/unpublished/SKILL-state/assets/images/picture-008.png",
       "type": "table",
       "page": 15,
       "caption": "Table 7: Gemma-4-31b-it Warehouse Scaling.",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "in-progress/SKILL-state/assets/images/picture-009.png",
+      "file": "done/unpublished/SKILL-state/assets/images/picture-009.png",
       "type": "table",
       "page": 15,
       "caption": "Table 8: Qwen 3-8b-it Warehouse Scaling.",
@@ -85,7 +85,7 @@
     },
     {
       "id": "img-010",
-      "file": "in-progress/SKILL-state/assets/images/picture-010.png",
+      "file": "done/unpublished/SKILL-state/assets/images/picture-010.png",
       "type": "table",
       "page": 16,
       "caption": "Table 9: Software Repository Experiment 2 i.e. Noise Robustness. Evaluation of runtime resilience to irrelevant syslog telemetry (Condition 1) during a 50-step horizon using Gemini-3-Flash.",
@@ -94,7 +94,7 @@
     },
     {
       "id": "img-011",
-      "file": "in-progress/SKILL-state/assets/images/picture-011.png",
+      "file": "done/unpublished/SKILL-state/assets/images/picture-011.png",
       "type": "table",
       "page": 16,
       "caption": "Table 10: Software Repository State Recovery (Env 2, Exp 3). Comparison of hallucination lag (recovery steps) when the repository state is altered via unstructured alerts.",
@@ -103,7 +103,7 @@
     },
     {
       "id": "img-012",
-      "file": "in-progress/SKILL-state/assets/images/picture-012.png",
+      "file": "done/unpublished/SKILL-state/assets/images/picture-012.png",
       "type": "table",
       "page": 16,
       "caption": "Table 11: Extended Budget-Matched Scaling on Warehouse across Horizons (Gemini-3-Flash, Target Budget ∼1,800 tokens, Score ± SD across 5 seeds).",

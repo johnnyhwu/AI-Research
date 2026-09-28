@@ -1,10 +1,10 @@
 {
-  "source_pdf": "in-progress/SkillCoach/2607.01874v1.pdf",
+  "source_pdf": "done/unpublished/SkillCoach/2607.01874v1.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "in-progress/SkillCoach/assets/images/picture-001.png",
+      "file": "done/unpublished/SkillCoach/assets/images/picture-001.png",
       "type": "figure",
       "page": 2,
       "caption": "Figure 1 Motivating example of agentic skill-use diagnosis.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "in-progress/SkillCoach/assets/images/picture-002.png",
+      "file": "done/unpublished/SkillCoach/assets/images/picture-002.png",
       "type": "figure",
       "page": 4,
       "caption": "Figure 2 Overall framework of SkillCoach.",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "in-progress/SkillCoach/assets/images/picture-003.png",
+      "file": "done/unpublished/SkillCoach/assets/images/picture-003.png",
       "type": "table",
       "page": 5,
       "caption": "Table 1 Skill-dependency statistics. Selected tasks show lower no-skill success and substantially larger gains from gold skills.",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "in-progress/SkillCoach/assets/images/picture-004.png",
+      "file": "done/unpublished/SkillCoach/assets/images/picture-004.png",
       "type": "figure",
       "page": 6,
       "caption": "Figure 3 The Self-Evolving Rubric Framework.",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "in-progress/SkillCoach/assets/images/picture-005.png",
+      "file": "done/unpublished/SkillCoach/assets/images/picture-005.png",
       "type": "table",
       "page": 7,
       "caption": "Table 2 Human-gold validation of rubrics before and after self-evolution.",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "in-progress/SkillCoach/assets/images/picture-006.png",
+      "file": "done/unpublished/SkillCoach/assets/images/picture-006.png",
       "type": "table",
       "page": 9,
       "caption": "Table 3 Overall performance under three skill-library settings. All values are percentages.",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "in-progress/SkillCoach/assets/images/picture-007.png",
+      "file": "done/unpublished/SkillCoach/assets/images/picture-007.png",
       "type": "table",
       "page": 9,
       "caption": "Table 4 SFT ablation under the Gold + Distractors setting. Results are final accuracy (%).",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "in-progress/SkillCoach/assets/images/picture-008.png",
+      "file": "done/unpublished/SkillCoach/assets/images/picture-008.png",
       "type": "figure",
       "page": 11,
       "caption": "Figure 4 Distractor-boundary analysis under growing and semantically overlapping skill libraries.",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "in-progress/SkillCoach/assets/images/picture-009.png",
+      "file": "done/unpublished/SkillCoach/assets/images/picture-009.png",
       "type": "table",
       "page": 15,
       "caption": "Table 5 SkillCoach task inventory. Gold denotes task-required skills, Distr. denotes distractor skills, and Inst. denotes task instances. Distractors include cross-task skills and semantically near but functionally inapplicable skills, simulating realistic industrial skill libraries.",
