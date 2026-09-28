@@ -1,0 +1,87 @@
+{
+  "source_pdf": "in-progress/SkillCoach/2607.01874v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "in-progress/SkillCoach/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1 Motivating example of agentic skill-use diagnosis.",
+      "nearby_text": "Final task success is an incomplete sig- nal for skill-using agents. Figure 1 illus- trates why outcome-only evaluation is insufficient: two trajectories can pass the verifier, while only one exhibits reusable skill-use behavior. The same issue also limits training. If all verifier- passi",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-002",
+      "file": "in-progress/SkillCoach/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 2 Overall framework of SkillCoach.",
+      "nearby_text": "Figure 2 shows SkillCoach addresses a deployment problem in enterprise skill repositories: given a skill- dependent task, an executable environment and a library with gold and distractor skills, it evaluates ob- servable",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "in-progress/SkillCoach/assets/images/picture-003.png",
+      "type": "table",
+      "page": 5,
+      "caption": "Table 1 Skill-dependency statistics. Selected tasks show lower no-skill success and substantially larger gains from gold skills.",
+      "nearby_text": "where we set α = 0.30, β = 0.40, and γ = 0.70. As shown in Table 1, the selected tasks exhibit much larger gold-skill gains than the original SkillsBench pool [1], indicating that these tasks more directly test whether agents can use skills effectively.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "in-progress/SkillCoach/assets/images/picture-004.png",
+      "type": "figure",
+      "page": 6,
+      "caption": "Figure 3 The Self-Evolving Rubric Framework.",
+      "nearby_text": "brics become expensive to maintain and fragile when skills overlap. As shown in Figure 3, SkillCoach treats each rubric as a versioned external evaluator and evolves it through three stages. First, the rollout stage collects real agent trajectories in the distractor-augmented library Lt = Gt∪Dt. Sec",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "in-progress/SkillCoach/assets/images/picture-005.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 2 Human-gold validation of rubrics before and after self-evolution.",
+      "nearby_text": "to ignore verifier pass/fail signals when judging rubric quality. All values in Table 2 are task-level macro-averages over the 50 paired instances.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "in-progress/SkillCoach/assets/images/picture-006.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 3 Overall performance under three skill-library settings. All values are percentages.",
+      "nearby_text": "o unrelated skills and three semantically similar but inapplicable distractors. Table 3 shows that skills improve task success, but do not guarantee reliable skill use.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "in-progress/SkillCoach/assets/images/picture-007.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 4 SFT ablation under the Gold + Distractors setting. Results are final accuracy (%).",
+      "nearby_text": "trajectories. Table 4 reports final accuracy under the Gold + Distractors setting. The DeepSeek V4 Flash row is included as a large reference agent, not as a trained variant. The baseline Qwen3.5 agents perform poorly under this setti",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-008",
+      "file": "in-progress/SkillCoach/assets/images/picture-008.png",
+      "type": "figure",
+      "page": 11,
+      "caption": "Figure 4 Distractor-boundary analysis under growing and semantically overlapping skill libraries.",
+      "nearby_text": "le plausible candidates, only some of which are applicable to the current task. Figure 4 reports a distractor-boundary analysis that deliberately isolates the skill-selection dimension rather than running the full task-container execution. Models inspect candidate skill documents through a constrain",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-009",
+      "file": "in-progress/SkillCoach/assets/images/picture-009.png",
+      "type": "table",
+      "page": 15,
+      "caption": "Table 5 SkillCoach task inventory. Gold denotes task-required skills, Distr. denotes distractor skills, and Inst. denotes task instances. Distractors include cross-task skills and semantically near but functionally inapplicable skills, simulating realistic industrial skill libraries.",
+      "nearby_text": "Table 5 summarizes the training and test task inventory used in SkillCoach. We select all tasks from SkillsBench [1] and SkillLearnBench [2] using the skill-dependency protocol described in Section 3.2. The resulting inv",
+      "parser_confidence": "low"
+    }
+  ]
+}

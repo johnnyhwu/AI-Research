@@ -1,0 +1,114 @@
+{
+  "source_pdf": "in-progress/SKILL-state/2608.26263v3.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "in-progress/SKILL-state/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 1: Overview of the SKILL.state architecture.",
+      "nearby_text": "as explicit state transitions rather than conversational history accumulation. Figure 1 pro- vides an overview of the proposed runtime. At execution step t, the language model receives only three inputs:",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "in-progress/SKILL-state/assets/images/picture-002.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 1: Warehouse Management Long-Horizon Scaling using Gemini-3-Flash. Baseline runtimes suffer O(T 2) context accumulation, whereas SKILL.state maintains a bounded O(1) prompt footprint (Mean ± SD across 5 seeds).",
+      "nearby_text": "s execution horizons scaling from T = 10 to T = 200 steps. Results: As shown in Table 1, SKILL.state matches or exceeds baseline accuracy across all horizons while maintaining a flat prompt size. In contrast, history-appending baselines suffer quadratic token accumulation O(T 2). At T = 100, the Sta",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-003",
+      "file": "in-progress/SKILL-state/assets/images/picture-003.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 2: Warehouse Noise Robustness (T = 50, Gemini-3-Flash).",
+      "nearby_text": "vents per turn (see Ap- pendix 7 for calibration details). Results: As shown in Table 2, the standard Prompt runtime degrades sharply from 0.68 at low noise down to 0.53 at high noise. In contrast, SKILL.state maintains robust task completion (≥0.97) across all noise levels because distractors are f",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "in-progress/SKILL-state/assets/images/picture-004.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 3: Warehouse State Recovery (Gemini-3-Flash).",
+      "nearby_text": "on loop (e.g., an external actor moves an inventory item). Results: As shown in Table 3, history-based base- lines hallucinate for 5 to 8 consecutive turns be- cause obsolete facts in their prompt history over-",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "in-progress/SKILL-state/assets/images/picture-005.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 4: Evaluation on Public Interactive Benchmarks using Gemini-3-Flash. SKILL.state achieves the highest task success rates while significantly reducing prompt sizes and cumulative token consumption.",
+      "nearby_text": "al- uate SKILL.state on InterCode CTF and Sierra τ- Bench. Results: As shown in Table 4, SKILL.state achieves the highest task completion rates across all",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "in-progress/SKILL-state/assets/images/picture-006.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 5: Budget-Matched Controls on Warehouse (T = 100, Gemini-3-Flash, Budget ∼1,800 tokens).",
+      "nearby_text": "ng across T ∈{10, 25, 50, 100} is detailed in Appendix .2. Results: As shown in Table 5, all budget-matched compression baselines suffer catastrophic failure. Sliding-window truncation drops to 0.18 because critical early inventory allocations are evicted. LLMLingua drops to 0.22 because statistical",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "in-progress/SKILL-state/assets/images/picture-007.png",
+      "type": "table",
+      "page": 14,
+      "caption": "Table 6: Software Repository Long-Horizon Execution Scaling using using Gemini-3-Flash. Baseline runtimes suffer catastrophic O(N 2) context collapse, whereas SKILL.state maintains an O(1) prompt footprint.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-008",
+      "file": "in-progress/SKILL-state/assets/images/picture-008.png",
+      "type": "table",
+      "page": 15,
+      "caption": "Table 7: Gemma-4-31b-it Warehouse Scaling.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "in-progress/SKILL-state/assets/images/picture-009.png",
+      "type": "table",
+      "page": 15,
+      "caption": "Table 8: Qwen 3-8b-it Warehouse Scaling.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "in-progress/SKILL-state/assets/images/picture-010.png",
+      "type": "table",
+      "page": 16,
+      "caption": "Table 9: Software Repository Experiment 2 i.e. Noise Robustness. Evaluation of runtime resilience to irrelevant syslog telemetry (Condition 1) during a 50-step horizon using Gemini-3-Flash.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-011",
+      "file": "in-progress/SKILL-state/assets/images/picture-011.png",
+      "type": "table",
+      "page": 16,
+      "caption": "Table 10: Software Repository State Recovery (Env 2, Exp 3). Comparison of hallucination lag (recovery steps) when the repository state is altered via unstructured alerts.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "in-progress/SKILL-state/assets/images/picture-012.png",
+      "type": "table",
+      "page": 16,
+      "caption": "Table 11: Extended Budget-Matched Scaling on Warehouse across Horizons (Gemini-3-Flash, Target Budget ∼1,800 tokens, Score ± SD across 5 seeds).",
+      "nearby_text": "Table 11 presents the full multi-horizon scaling results for the budget-matched control configurations on the Warehouse environment (T ∈{10, 25, 50, 100}, Gemini-3-Flash), evaluated across 5 environmental seeds. While al",
+      "parser_confidence": "low"
+    }
+  ]
+}

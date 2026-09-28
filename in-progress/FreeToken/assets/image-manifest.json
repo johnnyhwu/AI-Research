@@ -1,0 +1,60 @@
+{
+  "source_pdf": "in-progress/FreeToken/2608.16157v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "in-progress/FreeToken/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1 FreeToken serves the models on the cost–capability Pareto frontier, at interactive speed on consumer hardware. (a) Blended API list price (9:1 input:output mix, following the token economics measured on real coding-agent traces (Zhu et al., 2026)) versus Code Arena Elo (LMArena, 2026) for representative hosted models. Blue squares mark models FreeToken serves, tagged with the consumer GPU class that serves them; the frontier segment from DeepSeek-V4-Flash to GLM-5.2 is exactly this set. Kimi-K3 releases open weights but exceeds consumer memory (594 GB); Qwen3.5-35B stands in for its successor Qwen3.6-35B, which has no arena rating yet. (b) Mean decode",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "in-progress/FreeToken/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 6,
+      "caption": "Figure 2 FreeToken overview. (1) Prefill: expert loading is double-buffered at full-layer granularity, streaming layer l+1 over PCIe while the GPU computes layer l; recurrent-state checkpoints are anchored at special-token boundaries, so a context edit resumes from the nearest surviving anchor and re-prefills only the new suffix. (2) Decode: most routed experts hit the shared LRU expert cache (here 8 of 12, following temporal locality). The m=4 misses are divided by q⋆= m BP/BH between cache fills over PCIe (one expert) and in-place CPU execution (three), using bandwidths profiled on the deployed machine; the GPU and CPU partial outputs merge exactly. The host-resident expert pool remains the source of truth throughout.",
+      "nearby_text": "reeToken organizes edge MoE serving around a two-level expert-memory hierarchy (Figure 2). The CPU- resident expert pool holds the complete routed-expert weights and remains the source of truth, while non-expert weights stay resident on the GPU. FreeToken turns the remaining GPU memory into a single",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "in-progress/FreeToken/assets/images/picture-003.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 1 Test systems. BP is the measured host-to-device expert-transfer bandwidth over PCIe; BH is the measured effective bandwidth of the CPU-side MoE expert kernel. On the three rented servers the CPU-thread and DRAM columns give container quotas.",
+      "nearby_text": "Hardware. Six discrete-GPU systems (Table 1): five consumer machines spanning the effective host and PCIe bandwidth range of current edge hardware, and one workstation-class box (a single RTX PRO 6000 Blackwell, 96 GB) hosting the frontier-scale demonstrat",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "in-progress/FreeToken/assets/images/picture-004.png",
+      "type": "figure",
+      "page": 11,
+      "caption": "Figure 3 End-to-end serving on the RTX 5090 across four workloads (1. AIME, 2. OpenCode+SWE, 3. Claude Code+SWE, 4.OpenClaw+Email/Cal) and two models (Qwen3.6-35B-A3B BF16 and DeepSeek-V4-Flash MXFP4). Top: decode TPS; bottom: mean TTFT (log scale). × marks configurations an engine cannot serve (Ollama and MoE-Infinity lack DSV4 support; MoE-Infinity provides no usable server for multi-turn agents).",
+      "nearby_text": "Figure 3 reports decode throughput and mean TTFT for every engine on both models across the four workloads (RTX 5090; Qwen3.6 at 6 CPU threads, DSV4-Flash at 8).",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "in-progress/FreeToken/assets/images/picture-005.png",
+      "type": "figure",
+      "page": 12,
+      "caption": "Figure 4 (a) Prefill TPS versus prompt length (RTX 5090, Qwen3.6-35B BF16), with and without FreeToken’s pipelined full-layer loading. (b) Decode-time expert miss rate versus cache size (as a percentage of the expert pool) under the three engines’ placement policies, replayed on identical routing traces; lines are means over W1–W4, bands the min–max range.",
+      "nearby_text": "d gains to FreeToken’s mechanisms and test their generality: pipelined prefill (Figure 4a), expert-cache locality (Figure 4b), and serving across the full hardware range (Figure 5).",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "in-progress/FreeToken/assets/images/picture-006.png",
+      "type": "figure",
+      "page": 13,
+      "caption": "Figure 5 Coding-agent decode TPS across consumer GPUs (SWE issues via the OpenCode harness), Qwen3.6-35B-A3B. 4060 laptop using NVFP4, the other Qwen3.6 columns BF16. The RTX PRO 6000 column is a separate demonstration: GLM-5.2 (753B-A40B, NVFP4) on the math workload; Ollama is not run there. × marks configurations an engine cannot serve.",
+      "nearby_text": "expert-cache locality (Figure 4b), and serving across the full hardware range (Figure 5).",
+      "parser_confidence": "high"
+    }
+  ]
+}
