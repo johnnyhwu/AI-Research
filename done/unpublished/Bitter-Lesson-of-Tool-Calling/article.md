@@ -132,7 +132,7 @@ Subprocess 印出 `{"calculate_triangle_area": {"base": 10, "height": 5}}`，評
 ![高扇出消融實驗（$n=32$，扇出數 7 到 48）的準確率對照表，多數模型兩邊都接近滿分。](img-004)
 *表 4 — 高扇出消融：JSON tool calling vs. PTC 準確率（%）。（來源：原始論文。）*
 
-這個消融實驗的樣本數 $n=32$，扇出數（一次要並行處理的呼叫數量）從 7 到 48。多數模型兩邊都是 100%，這張表本身看不太出差異。
+扇出數（一次要並行處理的呼叫數量）從 7 到 48，樣本數 $n=32$。多數模型兩邊都是 100%，這張表本身看不太出差異。
 
 | 模型 | JSON | PTC |
 |---|---|---|
@@ -158,7 +158,7 @@ Subprocess 印出 `{"calculate_triangle_area": {"base": 10, "height": 5}}`，評
 ![上下文汙染消融實驗（$n=31$，Filtered 與 Flood 兩種情境）的準確率對照表，涵蓋 JSON、PTC、Arg 三種範式。](img-006)
 *表 5 — 上下文汙染消融：Filtered 到 Flood 情境下的準確率變化（%）。（來源：原始論文。）*
 
-這個消融實驗的樣本數 $n=31$，設計了兩種情境：**Filtered**（system prompt 裡只放任務相關的工具 schema）跟 **Flood**（塞進 128 個 schema，多數是跟任務無關的誘餌）。
+這裡設計了兩種情境，樣本數同樣不大（$n=31$）：**Filtered**（system prompt 裡只放任務相關的工具 schema）跟 **Flood**（塞進 128 個 schema，多數是跟任務無關的誘餌）。
 
 | 模型 | JSON（F→Fl） | PTC（F→Fl） | Arg（F→Fl） |
 |---|---|---|---|

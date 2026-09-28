@@ -1,10 +1,10 @@
 {
-  "source_pdf": "in-progress/Bitter-Lesson-of-Tool-Calling/2608.06370v1.pdf",
+  "source_pdf": "done/unpublished/Bitter-Lesson-of-Tool-Calling/2608.06370v1.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "in-progress/Bitter-Lesson-of-Tool-Calling/assets/images/picture-001.png",
+      "file": "done/unpublished/Bitter-Lesson-of-Tool-Calling/assets/images/picture-001.png",
       "type": "figure",
       "page": 3,
       "caption": "Figure 1: Overview of the two primary paradigms evaluated. In JSON tool calling, the model emits JSON tool-call objects via the API. In programmatic tool calling, it writes a Python script using typed stubs; the agent loop executes it in a subprocess. A filesystem-discovery condition is included as a secondary reference point.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "in-progress/Bitter-Lesson-of-Tool-Calling/assets/images/picture-002.png",
+      "file": "done/unpublished/Bitter-Lesson-of-Tool-Calling/assets/images/picture-002.png",
       "type": "table",
       "page": 5,
       "caption": "Table 1: Models evaluated, covering releases from November 2024 to July 2026.",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "in-progress/Bitter-Lesson-of-Tool-Calling/assets/images/picture-003.png",
+      "file": "done/unpublished/Bitter-Lesson-of-Tool-Calling/assets/images/picture-003.png",
       "type": "table",
       "page": 5,
       "caption": "Table 2: Accuracy (%) on our 309-entry BFCL v4 sub- set. JSON = JSON tool calling; PTC = programmatic tool calling. ± columns show 95% Wilson CI half- widths. Bold indicates the higher value per row (ties bolded on both).",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "in-progress/Bitter-Lesson-of-Tool-Calling/assets/images/picture-004.png",
+      "file": "done/unpublished/Bitter-Lesson-of-Tool-Calling/assets/images/picture-004.png",
       "type": "table",
       "page": 6,
       "caption": "Table 4: Parallelism ablation accuracy (%, n = 32). JSON = JSON tool calling; PTC = programmatic tool calling. Enumeration and overall accuracy are identical for all models here; aggregation accuracy is discussed separately in the text. ± columns show 95% Wilson CI half-widths. Bold indicates the higher value per row (ties bolded on both).",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "in-progress/Bitter-Lesson-of-Tool-Calling/assets/images/picture-005.png",
+      "file": "done/unpublished/Bitter-Lesson-of-Tool-Calling/assets/images/picture-005.png",
       "type": "table",
       "page": 6,
       "caption": "Table 3: Chaining ablation accuracy (%, n = 52, chain lengths 2–20). JSON = JSON tool calling; PTC = pro- grammatic tool calling. ± columns show 95% Wilson CI half-widths. Bold indicates the higher value per row (ties bolded on both). †GPT-4.1 PTC collapse caused by \\n encoding failure; see text.",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "in-progress/Bitter-Lesson-of-Tool-Calling/assets/images/picture-006.png",
+      "file": "done/unpublished/Bitter-Lesson-of-Tool-Calling/assets/images/picture-006.png",
       "type": "table",
       "page": 7,
       "caption": "Table 5: Context rot ablation accuracy (%, n = 31 per condition). Filtered = entry-relevant schemas only; Flood = 128 total schemas (relevant + corpus decoys). JSON = JSON tool calling; PTC = programmatic tool calling; Arg = filesystem-discovery. Bold indicates the highest value among the three paradigms within each condition. Anthropic model names omit “Claude” for space. Mean ∆= average change from filtered to flood across all 14 models. 95% Wilson confidence intervals range from ±7.8% to ±16.6% (n = 31; widest near 50% accuracy).",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "in-progress/Bitter-Lesson-of-Tool-Calling/assets/images/picture-007.png",
+      "file": "done/unpublished/Bitter-Lesson-of-Tool-Calling/assets/images/picture-007.png",
       "type": "figure",
       "page": 8,
       "caption": "Figure 2: Accuracy (%) on the BFCL v4 subset for JSON tool calling and programmatic tool calling (PTC) by model generation. The two families exhibit opposite patterns: OpenAI models required several generations to close the gap, while Anthropic models show consistent PTC parity from the outset.",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "in-progress/Bitter-Lesson-of-Tool-Calling/assets/images/picture-008.png",
+      "file": "done/unpublished/Bitter-Lesson-of-Tool-Calling/assets/images/picture-008.png",
       "type": "table",
       "page": 10,
       "caption": "Table 6: Mean accuracy (%) per BFCL v4 category, averaged across all 14 models. JSON = JSON tool calling; PTC = programmatic tool calling. Means are macro-averaged over models. ± columns show 95% Wilson CI half-widths. Bold indicates the higher value per row. The parallel and par. multiple gaps are largely driven by the three OpenAI models with \\n encoding failures.",
