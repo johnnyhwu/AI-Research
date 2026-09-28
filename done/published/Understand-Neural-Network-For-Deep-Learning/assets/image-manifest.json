@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Understand-Neural-Network-For-Deep-Learning/assets/images/neural-network.jpg",
+      "file": "done/published/Understand-Neural-Network-For-Deep-Learning/assets/images/neural-network.jpg",
       "type": "figure",
       "page": null,
       "caption": "3 個 Layer 的 Neural Network [source: Neural Networks and Deep Learning]",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Understand-Neural-Network-For-Deep-Learning/assets/images/neural-network-1.jpg",
+      "file": "done/published/Understand-Neural-Network-For-Deep-Learning/assets/images/neural-network-1.jpg",
       "type": "figure",
       "page": null,
       "caption": "Neural Network 的基本組成：Input Layer、Output Layer 與 Hidden Layer [source: Neural Networks and Deep Learning]",

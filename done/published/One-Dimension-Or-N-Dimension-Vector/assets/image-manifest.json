@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/One-Dimension-Or-N-Dimension-Vector/assets/images/scalar-vector-matrix.jpg",
+      "file": "done/published/One-Dimension-Or-N-Dimension-Vector/assets/images/scalar-vector-matrix.jpg",
       "type": "figure",
       "page": null,
       "caption": "Scalar、Vector 與 Matrix 的對照 [source: TensorFlow]",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/One-Dimension-Or-N-Dimension-Vector/assets/images/tensor.png",
+      "file": "done/published/One-Dimension-Or-N-Dimension-Vector/assets/images/tensor.png",
       "type": "figure",
       "page": null,
       "caption": "三個軸以上的 Tensor [source: TensorFlow]",

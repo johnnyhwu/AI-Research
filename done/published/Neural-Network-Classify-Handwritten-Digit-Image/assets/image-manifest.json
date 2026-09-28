@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Neural-Network-Classify-Handwritten-Digit-Image/assets/images/hanwritten-digit.jpg",
+      "file": "done/published/Neural-Network-Classify-Handwritten-Digit-Image/assets/images/hanwritten-digit.jpg",
       "type": "figure",
       "page": null,
       "caption": "手寫數字圖像示意圖 [source: Neural Networks and Deep Learning]",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Neural-Network-Classify-Handwritten-Digit-Image/assets/images/neural-network-2.jpg",
+      "file": "done/published/Neural-Network-Classify-Handwritten-Digit-Image/assets/images/neural-network-2.jpg",
       "type": "figure",
       "page": null,
       "caption": "Neural Network 的設計 [source: Neural Networks and Deep Learning]",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Neural-Network-Classify-Handwritten-Digit-Image/assets/images/mnist-top-left-feature.jpg",
+      "file": "done/published/Neural-Network-Classify-Handwritten-Digit-Image/assets/images/mnist-top-left-feature.jpg",
       "type": "figure",
       "page": null,
       "caption": "數字 0 的左上部分 [source: Neural Networks and Deep Learning]",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/Neural-Network-Classify-Handwritten-Digit-Image/assets/images/mnist-feature.jpg",
+      "file": "done/published/Neural-Network-Classify-Handwritten-Digit-Image/assets/images/mnist-feature.jpg",
       "type": "figure",
       "page": null,
       "caption": "由左而右分別是數字 0 的右上、左下與右下部分 [source: Neural Networks and Deep Learning]",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/Neural-Network-Classify-Handwritten-Digit-Image/assets/images/mnist-zero.jpg",
+      "file": "done/published/Neural-Network-Classify-Handwritten-Digit-Image/assets/images/mnist-zero.jpg",
       "type": "figure",
       "page": null,
       "caption": "數字 0 的手寫圖像",
