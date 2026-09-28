@@ -159,7 +159,13 @@ Patch 本身也有硬性限制：不能動 `key_steps` 的定義本身、不能�
 
 相對地，用未演化的初版 rubric $R^0$ 篩選，效果已經比 outcome-only 好上不少；用演化完成的 $R^{best}$ 篩選，又比 $R^0$ 更進一步。這說明 rubric 演化本身有實際的增量價值，不是白費工夫。
 
-論文還做了拿掉某個維度篩選的 ablation，結果指向一件很具體的事：拿掉 key-step following（也就是 skill_following 這個維度）傷害最大，4B 模型從 24 掉到 10、9B 從 32 掉到 16；拿掉 composition order 也有明顯傷害；拿掉 reflection 傷害比較小但仍然看得出來。換句話說，四個維度裡，「有沒有照步驟做」是篩選訓練資料時信號量最強的一項。
+論文還做了拿掉某個維度篩選的 ablation，結果指向一件很具體的事：
+
+- 拿掉 skill_following（key-step following）：傷害最大，4B 從 24 掉到 10、9B 從 32 掉到 16
+- 拿掉 composition order：傷害也明顯
+- 拿掉 reflection：傷害較小，但仍看得出來
+
+換句話說，四個維度裡，「有沒有照步驟做」是篩選訓練資料時信號量最強的一項。
 
 > 測試集只有十個任務家族、五十個 instance，論文沒有報告這些百分點差異的信賴區間，引用這組數字時最好保留一點保守態度。
 
