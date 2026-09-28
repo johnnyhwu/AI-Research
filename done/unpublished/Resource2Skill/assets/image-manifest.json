@@ -1,0 +1,186 @@
+{
+  "source_pdf": "done/unpublished/Resource2Skill/2606.29538v4.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1 Resource2Skill distills multimodal resources into a hierarchical Skill Wiki across seven creative software domains.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 2 Resource2Skill pipeline. A construction operator (fθ, AD) distills resources into the hierarchical Skill Wiki; MetaBrowse retrieves candidates and the language model selects from text/visual/code views, applied through MCP to a domain backend. The same operator is reused online when the offline pool is insufficient.",
+      "nearby_text": "We instantiate Resource2Skill as four stages (Figure 2): construction, wiki organization,",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-003.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 1 Main comparison, overall score (%). Avg. is the unweighted mean over all seven domain columns. Bold marks the best system per column within each backend group. Per-cell paired outcome counts and Wilcoxon p-values are tabulated in Appendix G.",
+      "nearby_text": "ore differences isolate the effect of the execution interface and skill access. Table 1 reports the overall score as a percentage.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-004.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 2 Offline and online skill acquisition, overall score (%). Tstandard is the regular benchmark; Tnovel targets capabilities missing from the offline pool. Bold marks the better configuration within each task set.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-005.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 3 Ablation: resource-source mix, overall score (%). A checkmark indicates the source family is included. The top row holds Video out; the bottom row is the full Resource2Skill source pool. Each cell averages N=40 matched briefs. Bold marks the best configuration per domain.",
+      "nearby_text": "Source ablation. The top row of Table 3 holds Video out (Code+Article+Artifact only) to test whether the other source families can recover video’s contribution; the next four rows seed with video and add zero or one supplemental source family; the bott",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-006.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 4 Matched-budget representation ablation, overall score (%). All rows use the same resource pool, the same accepted skill IDs, the same wiki frontmatter and metadata, the same BM25-then-LM retrieval budget, and the same agent. A checkmark indicates the modality exposed to the agent post-retrieval; Full is the full wiki entry. Each cell averages N=40 matched briefs.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-007.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 5 Ablation: selection strategy, overall score (%). Each cell averages N=40 matched briefs under the same agent, judge, library, and candidate budget. Bold marks the best strategy per domain.",
+      "nearby_text": "trieval quality. The matched-budget design of the selection- strategy ablation (Table 5) holds the library, agent, judge, decoding seed, and candidate budget fixed across selection strategies; the only varying factor is how candidate skills are ranked and presented. Under that design, a strategy tha",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-008.png",
+      "type": "table",
+      "page": 20,
+      "caption": "Table 6 Per-cell paired outcome counts and paired Wilcoxon p-values for the w Skills vs. w/o Skills delta on matched N=80 briefs per cell.",
+      "nearby_text": "Table 6 reports paired outcome counts for the matched N=80 briefs, the matched delta, and the paired Wilcoxon signed-rank p-value. The outcome counts partition each cell into strict w Skills wins, ties, and strict w/o Sk",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-009.png",
+      "type": "table",
+      "page": 21,
+      "caption": "Table 7 Per-axis details for the GPT-5.4 main comparison (%). ∆is the matched difference of w Skills over w/o Skills.",
+      "nearby_text": "-tied individual ratings against w/o Skills. Per-axis traces of the lift are in Table 7 (Appendix H).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-010.png",
+      "type": "figure",
+      "page": 24,
+      "caption": "Figure 3 Web success. w Skills (left) vs. w/o Skills (right).",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-011.png",
+      "type": "figure",
+      "page": 25,
+      "caption": "Figure 4 Web failure. w Skills (left) vs. w/o Skills (right).",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-012.png",
+      "type": "figure",
+      "page": 25,
+      "caption": "Figure 5 PPT success. w Skills (left) vs. w/o Skills (right).",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-013.png",
+      "type": "figure",
+      "page": 26,
+      "caption": "Figure 6 PPT failure. w Skills (left) vs. w/o Skills (right).",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-014.png",
+      "type": "figure",
+      "page": 26,
+      "caption": "Figure 7 Excel success. w Skills (left) vs. w/o Skills (right).",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-015",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-015.png",
+      "type": "figure",
+      "page": 27,
+      "caption": "Figure 8 Excel failure. w Skills (left) vs. w/o Skills (right).",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-016",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-016.png",
+      "type": "figure",
+      "page": 27,
+      "caption": "Figure 9 Blender success. w Skills (left) vs. w/o Skills (right).",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-017",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-017.png",
+      "type": "figure",
+      "page": 28,
+      "caption": "Figure 10 Blender failure. w Skills (left) vs. w/o Skills (right).",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-018",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-018.png",
+      "type": "figure",
+      "page": 28,
+      "caption": "Figure 11 Reaper success. Spectrogram and waveform of w Skills (top) vs. w/o Skills (bottom).",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-019",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-019.png",
+      "type": "figure",
+      "page": 29,
+      "caption": "Figure 12 Reaper failure. Spectrogram and waveform of w Skills (top) vs. w/o Skills (bottom).",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-020",
+      "file": "done/unpublished/Resource2Skill/assets/images/picture-020.png",
+      "type": "table",
+      "page": 30,
+      "caption": "Table 8 Per-domain human A/B study against w/o Skills. Five raters per pair on anonymized side-by-side renderings. Aggregation is a micro-average over 200 individual votes. Win rate excl. ties excludes ties from the denominator.",
+      "nearby_text": "Inter-rater agreement is Krippendorff’s α = 0.58. Table 8 reports the per-domain breakdown as a micro-average over all 200 individual ratings. w Skills wins 136 of 200 individual ratings (68.0%), with 41 ties (20.5%) and 23 w/o Skills wins (11.5%); excluding ties, w Ski",
+      "parser_confidence": "low"
+    }
+  ]
+}

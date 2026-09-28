@@ -1,0 +1,123 @@
+{
+  "source_pdf": "done/unpublished/SkillComposer/2606.32025v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/SkillComposer/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1: Structured skill composition with SkillComposer. (A) Large skill libraries create a composition bottleneck. To solve complex tasks, an agent must decide not only which skills to use, but also their exact count and execution order. (B) Existing paradigms: directly exposing the agent to all skill options leaves composition implicit within an unstructured execution trace, while retrieval methods only return an unordered subset of candidates. We propose SkillComposer, which explicitly predicts an ordered, executable skill sequence. (C) By structuring the composition process, SkillComposer improves both plan exact match and downstream task success rates on SkillsBench.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/SkillComposer/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 2: Example of selecting an ordered skill sequence from a large skill library given a task and environment.",
+      "nearby_text": "in the predicted order, providing procedural guidance for downstream execution. Figure 2 illustrates a concrete instance: the model receives a task with the skill library (each entry as a compact name + description), and outputs a short index sequence ending in STOP, which is resolved to full skill",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/SkillComposer/assets/images/picture-003.png",
+      "type": "figure",
+      "page": 5,
+      "caption": "Figure 3: SkillComposer method overview. (A) Given a task, environment context, and compact metadata from a fixed skill library, SkillComposer encodes the task–library context and predicts a variable-length ordered sequence of skill indexes. (B) The autoregressive decoder produces contextual skill logits, while auxiliary cardinality and set heads estimate how many",
+      "nearby_text": "SkillComposer has three components, illustrated in Figure 3: (i) a frozen text encoder that maps the serialized prompt P(x, c, S) into a dense task representation; (ii) a constrained autoregressive decoder with auxiliary cardinality and set-membership heads; and (iii) a",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/SkillComposer/assets/images/picture-004.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Figure 4: Cardinality robustness on the in-distribution test split. Set F1 stratified by gold cardinality k, with the macro- averaged mean on the right.",
+      "nearby_text": "vering selection and ordering, and report cardinality calibration separately in Figure 4. Set F1 is the order-agnostic F1 between predicted and gold skill sets, capturing selection quality and cardinality calibration in a single number. Recall@5 measures gold-skill coverage in the top-5 predictions,",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/SkillComposer/assets/images/picture-005.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 1: Skill prediction quality (%). Left: in-distribution synthetic test (n=494). Right: real-task holdout (n=65); trained models are retrained on the real-task-removed partition. Best non-oracle result in bold; second best underlined; oracle- cardinality retrievers (in italics) are reported as ceilings and excluded from the ranking.",
+      "nearby_text": "s in distribution at a fraction of the parameter cost. On the syn- thetic test (Table 1, left), SkillComposer leads SFT by +2.8 pp Set F1 and the LLM-judge by +12.9 pp while training ∼154× fewer parame-",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/SkillComposer/assets/images/picture-006.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 2: Downstream task performance on SkillsBench. Pass rate follows the paper-binary protocol, Tok. is the average input prompt tokens per non-errored trial. Best non-oracle result in bold; second best underlined.",
+      "nearby_text": "To understand where the headline pass-rate gap in Table 2 comes from, we inspect three SkillsBench tasks (GPT-5.2-Codex, three trials each, identical agent and task definition) where SkillComposer, Retrieval (top-3), and Gold Skills disagree on the supplied skill set. T",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/SkillComposer/assets/images/picture-007.png",
+      "type": "figure",
+      "page": 10,
+      "caption": "Figure 5: (a) Test Set F1 across the (α, β) decoding-weight grid; the surface is smooth and bowl-shaped around the val- selected operating point. (b) Compute–accuracy frontier on the synthetic test split: SkillComposer w/ Qwen3-Embedding is Pareto-optimal among predicted-k methods, sitting above SFT at ∼154× fewer trainable parameters and ∼25× less training compute. (c) Latency–accuracy frontier (1×A6000, fp16, batch 1): SkillComposer sits in the same latency class as SFT but with higher accuracy.",
+      "nearby_text": "Hyperparameter sensitivity and compute–accuracy frontier. Figure 5(a) sweeps decoding weights (α, β) on a 6×6 grid; the surface is smooth and bowl-shaped, with the val-selected operating point within 2 pp of every neighbour, indicating no fragile hand-tuning. The compute–accura",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/SkillComposer/assets/images/picture-008.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 3: Model component ablation.",
+      "nearby_text": "Each component is load-bearing. Table 3 ablates components in SkillComposer. Starting from the AR head alone, adding the set-membership head during training lifts Set F1 by +2.5 pp, order-agnostic gradients on every gold skill complement the AR objecti",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/SkillComposer/assets/images/picture-009.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 4: Decode-time retrieval prior ablation.",
+      "nearby_text": "Sparse beats dense as the decode-time prior. Table 4 sweeps the retrieval prior fed into the per-step decoder logits. TF–IDF wins on Set F1 by +2.5 pp over dense Qwen3-Embedding cosine and +3.8 pp over no prior. The closed library exposes 196 short, syntactically s",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/SkillComposer/assets/images/picture-010.png",
+      "type": "table",
+      "page": 15,
+      "caption": "Table 5: Skill dependency graph used for grounding multi-skill synthesis.",
+      "nearby_text": "r library skill) and two structural edge types used for sampling, summarised in Table 5. Dependency edges connect skill pairs whose input/output schemas overlap: the upstream skill’s output type matches an input type of the downstream skill, so the ordering is determined by data flow. Workflow edges",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/SkillComposer/assets/images/picture-011.png",
+      "type": "figure",
+      "page": 16,
+      "caption": "Figure 6: Single-skill synthesis prompt (Gemini 2.5 Flash). Five tasks per call ensure scenario diversity at fixed cost; difficulty is balanced 2/2/1 across easy/medium/hard.",
+      "nearby_text": "We synthesise single-skill records (Figure 6) and multi-skill records (Figure 7) with two Gemini prompts. The single-skill prompt asks Gemini 2.5 Flash to produce five tasks per call across distinct domains and difficulty levels, never naming the target sk",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/SkillComposer/assets/images/picture-012.png",
+      "type": "figure",
+      "page": 17,
+      "caption": "Figure 7: Multi-skill synthesis prompt (Gemini 2.5 Pro). Ordering constraints from dependency edges are injected verbatim when present; otherwise, Gemini proposes an execution order with rationale.",
+      "nearby_text": "We synthesise single-skill records (Figure 6) and multi-skill records (Figure 7) with two Gemini prompts. The single-skill prompt asks Gemini 2.5 Flash to produce five tasks per call across distinct domains and difficulty levels, never naming the target skill in the task description, so the",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/SkillComposer/assets/images/picture-013.png",
+      "type": "table",
+      "page": 19,
+      "caption": "Table 6: Per-layer Set F1 on the synthetic test split (%, deterministic baselines only). Trained-model rows are omitted because the per-layer canonical predictions were not saved with matching record IDs; rerunning inference on the canonical checkpoints is left to a future revision.",
+      "nearby_text": "Table 6 reports Set F1 per data layer on the synthetic test split for the deterministic (retrieval and LLM-judge) baselines. The synthetic test contains only n=4 real-anchor records; with such a small sample, any per-lay",
+      "parser_confidence": "low"
+    }
+  ]
+}

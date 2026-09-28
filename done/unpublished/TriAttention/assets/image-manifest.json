@@ -1,0 +1,159 @@
+{
+  "source_pdf": "done/unpublished/TriAttention/2604.04921v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/TriAttention/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 1,
+      "caption": "Figure 1. Performance trade-offs on AIME25 (Qwen3-8B). (A) At",
+      "nearby_text": "ion, TriAttention achieves 2.5× higher throughput or 10.7× KV memory reduction (Figure 1), while R-KV achieves",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/TriAttention/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 2. Q/K concentration and its implications for attention. (A) Pre-RoPE Q/K vectors at the dominant frequency band are highly",
+      "nearby_text": "They operate on post-RoPE queries, which rotate with position as illustrated in Figure 2(B); consequently, only the most recent queries retain up-to-date orientations, forming a tiny observation window. With so few representative queries, im- portant keys go undetected—a token receiving low attentio",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/TriAttention/assets/images/picture-003.png",
+      "type": "figure",
+      "page": 3,
+      "caption": "Figure 3. Attention reconstruction correlation across three DeepSeek-R1 distilled LLMs, including Qwen3 (Qwen Team, 2025),",
+      "nearby_text": "), ¯r peaks around 0.6–0.9 in the distribution, with mean values above 0.5; see Figure 3 for the full distributions. The high correlation across many heads and architectures confirms that the trigonometric series computed from Q/K centers accurately predicts attention patterns. We further find that",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/TriAttention/assets/images/picture-004.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 4. Method overview. From left to right: offline calibration computes Q distribution centers; then during inference, original attention",
+      "nearby_text": "ession method that scores key importance and retains only the top-scoring keys (Figure 4). The scoring function com- bines two signals (§4.1): the trigonometric series, which captures distance preferences, and norm information as a complement; the weight between them is adjusted based on Q/K concent",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/TriAttention/assets/images/picture-005.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 1. Reasoning performance on AIME24 and AIME25. Best results are in bold, second best are underlined. All methods are compared",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/TriAttention/assets/images/picture-006.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 2. Reasoning performance on MATH 500 with KV budget",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/TriAttention/assets/images/picture-007.png",
+      "type": "figure",
+      "page": 7,
+      "caption": "Figure 5. Performance comparison on Qwen3-8B. (A–C) Accuracy vs. KV cache budget on three mathematical reasoning benchmarks. TriAttention consistently outperforms R-KV across all budget levels. (D) Memory retention on Recursive State Query benchmark. Depth refers to DFS recursion depth; deeper recursion requires retaining more intermediate states, increasing memory pressure.",
+      "nearby_text": "a range of KV budgets from 512 to 4096 tokens on three benchmarks, as shown in Figure 5. TriAttention consistently outperforms R-KV across all budget levels, with the advantage being most pronounced at low-to-mid budgets. On MATH 500, TriAttention matches Full Atten- tion at a budget of 1024 and sl",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/TriAttention/assets/images/picture-008.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 3. Ablation studies on Qwen3-8B with KV budget of 2048. (A) Effect of removing trigonometric series score Strig. (B) Effect of",
+      "nearby_text": "Removing Strig and relying solely on Snorm substantially degrades performance (Table 3A), confirming that distance preferences from the trigonomet- ric series are essential. Conversely, removing Snorm and relying solely on Strig drops AIME24 accuracy from 45.8% to 40.4% (−5.4%), confirming that the",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/TriAttention/assets/images/picture-009.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 4. Throughput comparison on Qwen3-8B. At KV budgets achieving comparable accuracy to Full Attention, TriAttention shows",
+      "nearby_text": "parable accuracy, TriAttention achieves substantial efficiency gains (Figure 1, Table 4). On AIME25, at identical accuracy to Full Atten- tion (40.8%), TriAttention achieves 2.5× higher through- put or 10.7× KV memory reduction. On MATH 500, the throughput gain reaches 6.3× (1,405 vs. 223 tokens/s)",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/TriAttention/assets/images/picture-010.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 5. Comparison between R-KV and TriAttention at compara-",
+      "nearby_text": "Comparison with R-KV. Table 5 compares TriAttention with R-KV under two settings. At comparable accuracy, Tri- Attention requires only half the KV budget (1,024 vs. 2,048 tokens) while achieving 85% higher throughput (1,405 vs. 760 tokens/s).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/TriAttention/assets/images/picture-011.png",
+      "type": "figure",
+      "page": 14,
+      "caption": "Figure A. Evaluating memory via recursive simulation. Left: With complete memory, all intermediate states are retained and correct values propagate upward. Right: When an intermediate state is lost (State2), the error propagates through all subsequent return values, corrupting the final result.",
+      "nearby_text": "Figure A illustrates why recursive simulation effectively tests memory retention. Recursive algorithms require the model to first descend through nested calls, then backtrack to produce results. During backtracking, the",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/TriAttention/assets/images/picture-012.png",
+      "type": "figure",
+      "page": 15,
+      "caption": "Figure B. Method visualization with real attention maps, corresponding to the schematic in Figure 4. Top row: The four stages of TriAttention. (1) We compute the Q/K centers E[q], E[k] from pre-RoPE distributions. (2) Using the trigonometric series, we compute Strig which scores keys based on distance preference. (3) We add the norm-based score Snorm, weighted by concentration, to obtain the final score ¯S(k). (4) We retain top-scoring keys and evict the rest. Bottom row: Real attention maps illustrating the scenario described in Figure 4. From left to right: original attention pattern showing distance preference; Strig visualization capturing the diagonal structure; combined score ¯S incorporating norm information; attention after KV cache pruning, preserving the essential pattern.",
+      "nearby_text": "Figure B provides a detailed visualization of the TriAttention pipeline with real attention maps, complementing the schematic overview in Figure 4.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/TriAttention/assets/images/picture-013.png",
+      "type": "table",
+      "page": 17,
+      "caption": "Table B. LongBench results (Qwen3-8B, 50% KV budget). 16 subtasks spanning QA, summarization, few-shot classification, retrieval,",
+      "nearby_text": "Table B presents the full LongBench results. TriAttention achieves the highest average (48.1) across 16 subtasks, winning 11 out of 16, and surpasses Ada-KV+SnapKV by +2.5 (48.1 vs. 45.6). On RULER (Table C), TriAttentio",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/TriAttention/assets/images/picture-014.png",
+      "type": "table",
+      "page": 17,
+      "caption": "Table C. RULER retrieval results (Qwen3-8B, 50% KV, 4K context). Bold = best among compression methods.",
+      "nearby_text": "ng 11 out of 16, and surpasses Ada-KV+SnapKV by +2.5 (48.1 vs. 45.6). On RULER (Table C), TriAttention outperforms all baselines with 66.1, a +10.5 gap over SnapKV. We also compare with H2O, which requires O(n2) memory and cannot use FlashAttention; on the 12 LongBench subtasks where H2O fits in 48G",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-015",
+      "file": "done/unpublished/TriAttention/assets/images/picture-015.png",
+      "type": "table",
+      "page": 18,
+      "caption": "Table D. Comparison with H2O on LongBench subtasks where H2O fits in 48GB GPU memory (Qwen3-8B, 50% KV). H2O requires",
+      "nearby_text": "FlashAttention; on the 12 LongBench subtasks where H2O fits in 48GB GPU memory (Table D), TriAttention wins 10 out of 12.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-016",
+      "file": "done/unpublished/TriAttention/assets/images/picture-016.png",
+      "type": "table",
+      "page": 18,
+      "caption": "Table E. Future offset ablation on Qwen3-8B (AIME24). Top: effect of offset range. Bottom: spacing strategy comparison (17 offsets,",
+      "nearby_text": "We ablate two aspects: the range/number of offsets, and the spacing strat- egy (Table E). Increasing the maximum distance from 128 to 4096 improves accuracy from 41.7% to 48.8% (+7.1%), confirming that future offsets are beneficial. Geometric spac- ing ({1, 2, 4, . . .}) dramatically outperforms lin",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-017",
+      "file": "done/unpublished/TriAttention/assets/images/picture-017.png",
+      "type": "table",
+      "page": 18,
+      "caption": "Table F. Calibration data sensitivity on Qwen3-8B (AIME24). Top: effect of calibration data size. Bottom: effect of calibration data",
+      "nearby_text": "ation Sensitivity. We test robustness to calibration data quantity and quality (Table F). Performance is sta- ble across calibration sizes from 50k to 960k tokens (45.4– 45.8%). Similarly, calibration data quality shows no clear correlation with accuracy: using Google homepage HTML (low quality) ach",
+      "parser_confidence": "low"
+    }
+  ]
+}
