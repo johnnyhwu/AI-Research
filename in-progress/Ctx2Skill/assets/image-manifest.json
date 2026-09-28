@@ -63,7 +63,7 @@
       "page": 9,
       "caption": "Figure 4: Distribution of selected iterations by the Cross-Time Replay. We report the num- ber of contexts whose final skill set is selected from each iteration across all contexts.",
       "nearby_text": "t per context rather than committing to a single iteration across all contexts. Figure 4 corroborates this pattern: early iterations are selected most frequently across all three backbones, while a non-trivial proportion of later iterations indicates that certain contexts with more complex knowledge",
-      "parser_confidence": "low"
+      "parser_confidence": "high"
     },
     {
       "id": "img-008",
@@ -234,7 +234,7 @@
       "page": 52,
       "caption": "Figure 16: Prompt used for the Prompting baseline. This baseline directly prompts the LM to generate a SKILL.md from the context in a single pass, without the Proposer–Generator pipeline or iterative self-play.",
       "nearby_text": "Skill Quality Evaluator (Figure 15) used in Table 2 and the Prompting baseline (Figure 16). Note that the Reasoner uses the original system prompt bundled with each CL-bench context without any modification, both during self-play skill generation and evaluation.",
-      "parser_confidence": "low"
+      "parser_confidence": "high"
     }
   ]
 }

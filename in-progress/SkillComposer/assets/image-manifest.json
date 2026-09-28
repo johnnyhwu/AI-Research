@@ -36,7 +36,7 @@
       "page": 8,
       "caption": "Figure 4: Cardinality robustness on the in-distribution test split. Set F1 stratified by gold cardinality k, with the macro- averaged mean on the right.",
       "nearby_text": "vering selection and ordering, and report cardinality calibration separately in Figure 4. Set F1 is the order-agnostic F1 between predicted and gold skill sets, capturing selection quality and cardinality calibration in a single number. Recall@5 measures gold-skill coverage in the top-5 predictions,",
-      "parser_confidence": "low"
+      "parser_confidence": "high"
     },
     {
       "id": "img-005",
@@ -99,7 +99,7 @@
       "page": 16,
       "caption": "Figure 6: Single-skill synthesis prompt (Gemini 2.5 Flash). Five tasks per call ensure scenario diversity at fixed cost; difficulty is balanced 2/2/1 across easy/medium/hard.",
       "nearby_text": "We synthesise single-skill records (Figure 6) and multi-skill records (Figure 7) with two Gemini prompts. The single-skill prompt asks Gemini 2.5 Flash to produce five tasks per call across distinct domains and difficulty levels, never naming the target sk",
-      "parser_confidence": "high"
+      "parser_confidence": "low"
     },
     {
       "id": "img-012",
@@ -108,7 +108,7 @@
       "page": 17,
       "caption": "Figure 7: Multi-skill synthesis prompt (Gemini 2.5 Pro). Ordering constraints from dependency edges are injected verbatim when present; otherwise, Gemini proposes an execution order with rationale.",
       "nearby_text": "We synthesise single-skill records (Figure 6) and multi-skill records (Figure 7) with two Gemini prompts. The single-skill prompt asks Gemini 2.5 Flash to produce five tasks per call across distinct domains and difficulty levels, never naming the target skill in the task description, so the",
-      "parser_confidence": "high"
+      "parser_confidence": "low"
     },
     {
       "id": "img-013",

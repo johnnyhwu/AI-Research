@@ -9,7 +9,7 @@
       "page": 2,
       "caption": "Figure 1 Motivating example of agentic skill-use diagnosis.",
       "nearby_text": "Final task success is an incomplete sig- nal for skill-using agents. Figure 1 illus- trates why outcome-only evaluation is insufficient: two trajectories can pass the verifier, while only one exhibits reusable skill-use behavior. The same issue also limits training. If all verifier- passi",
-      "parser_confidence": "low"
+      "parser_confidence": "high"
     },
     {
       "id": "img-002",
