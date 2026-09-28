@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Face-Recognition/assets/images/classify-image.jpg",
+      "file": "done/published/Face-Recognition/assets/images/classify-image.jpg",
       "type": "figure",
       "page": null,
       "caption": "將圖片輸入到模型中，模型輸出兩個類別的機率",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Face-Recognition/assets/images/define-problem-2.jpg",
+      "file": "done/published/Face-Recognition/assets/images/define-problem-2.jpg",
       "type": "figure",
       "page": null,
       "caption": "定義「人臉辨識」屬於什麼問題",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Face-Recognition/assets/images/data-vectorization.jpg",
+      "file": "done/published/Face-Recognition/assets/images/data-vectorization.jpg",
       "type": "figure",
       "page": null,
       "caption": "將圖片以矩陣來表示",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/Face-Recognition/assets/images/face-recognition-system.jpg",
+      "file": "done/published/Face-Recognition/assets/images/face-recognition-system.jpg",
       "type": "figure",
       "page": null,
       "caption": "輸入圖片至模型中，如果該圖片屬於類別 A 的機率較高，則「解鎖房門」",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/Face-Recognition/assets/images/face-recognition-system-1.jpg",
+      "file": "done/published/Face-Recognition/assets/images/face-recognition-system-1.jpg",
       "type": "figure",
       "page": null,
       "caption": "輸入圖片至模型中，如果該圖片屬於類別 B 的機率較高，則「發出警報」",

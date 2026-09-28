@@ -4,7 +4,7 @@
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/House-Price-Prediction/assets/images/define-problem.jpg",
+      "file": "done/published/House-Price-Prediction/assets/images/define-problem.jpg",
       "type": "figure",
       "page": null,
       "caption": "定義問題",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/House-Price-Prediction/assets/images/example-dataset.jpg",
+      "file": "done/published/House-Price-Prediction/assets/images/example-dataset.jpg",
       "type": "figure",
       "page": null,
       "caption": "範例房價資料集",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/House-Price-Prediction/assets/images/common-loss-function-for-regression.jpg",
+      "file": "done/published/House-Price-Prediction/assets/images/common-loss-function-for-regression.jpg",
       "type": "figure",
       "page": null,
       "caption": "Regression 問題中常見的 Loss Function",
