@@ -73,7 +73,9 @@ nothing to fix up afterwards. Only the normal
 `verify_manifest.py` depends on `pymupdf`,
 which is not part of this environment's default toolchain — if it fails
 with `ModuleNotFoundError: No module named 'pymupdf'`, run
-`pip install pymupdf` first rather than treating it as a manifest problem.
+`uv sync` from the repo root first (dependencies and the pinned Python live in
+`pyproject.toml`; run scripts with `uv run python ...`) rather than treating it
+as a manifest problem. Don't create virtual environments outside the repo.
 
 Expected contents of a topic directory, once both steps have run:
 

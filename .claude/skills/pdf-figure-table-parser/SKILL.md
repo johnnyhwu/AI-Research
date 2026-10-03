@@ -73,10 +73,13 @@ all" below.
 
 1. **Set up dependencies once per environment.**
    ```bash
-   bash scripts/setup_env.sh
-   source .venv-pdf-parser/bin/activate
+   uv sync        # from the repo root; reads pyproject.toml + .python-version
    ```
-   This installs `pymupdf`, `pdfplumber`, and `pillow` from PyPI -- no
+   Run every script below with `uv run python scripts/<name>.py ...` (from
+   the repo root, so use the full `.claude/skills/pdf-figure-table-parser/`
+   path). The environment lives in the repo's own `.venv/` and the Python
+   version is pinned in `pyproject.toml` -- don't create a venv anywhere
+   else. This installs `pymupdf`, `pdfplumber`, and `pillow` from PyPI -- no
    `huggingface.co` traffic, so it works under the same network policy that
    blocks docling.
 
@@ -540,8 +543,6 @@ pdf-figure-table-parser/
 ├── references/
 │   └── image-manifest-schema.md          field-by-field schema docs
 └── scripts/
-    ├── requirements.txt                  pymupdf, pdfplumber, pillow
-    ├── setup_env.sh                      one-shot venv bootstrap
     ├── pdf_parser_lib.py                 shared logic, imported by the rest
     ├── inspect_pdf.py                    dry-run: captions + image/drawing counts
     ├── dump_blocks.py                    manual debugging: per-page text block dump
