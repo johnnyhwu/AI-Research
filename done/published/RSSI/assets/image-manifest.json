@@ -1,10 +1,10 @@
 {
-  "source_pdf": "done/unpublished/RSSI/2609.24972v2.pdf",
+  "source_pdf": "done/published/RSSI/2609.24972v2.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/RSSI/assets/images/picture-001.png",
+      "file": "done/published/RSSI/assets/images/picture-001.png",
       "type": "figure",
       "page": 2,
       "caption": "Figure 1 | Evolution overfits on the split it is scored on whereas RRSI generalizes the improvements. (a) Gains on the evolve split against gains out of distribution for the agentic workspace benchmark.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/RSSI/assets/images/picture-002.png",
+      "file": "done/published/RSSI/assets/images/picture-002.png",
       "type": "figure",
       "page": 4,
       "caption": "Figure 2 | Overview of RRSI. RRSI regularizes the search trajectory, not restricting the potential harness edit space: proposal-side constraints control how search capacity is used, while selection-side constraints control which measured improvements are allowed to become a permanent state.",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/RSSI/assets/images/picture-003.png",
+      "file": "done/published/RSSI/assets/images/picture-003.png",
       "type": "figure",
       "page": 8,
       "caption": "Figure 3 | Main results in all three domains.",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/RSSI/assets/images/picture-004.png",
+      "file": "done/published/RSSI/assets/images/picture-004.png",
       "type": "table",
       "page": 8,
       "caption": "Table 1 | Comparison with prior harness evolution methods on agentic workspace tasks.",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/RSSI/assets/images/picture-005.png",
+      "file": "done/published/RSSI/assets/images/picture-005.png",
       "type": "table",
       "page": 9,
       "caption": "Table 2 | Ablation study of the regularizers on agentic workspace tasks. OOD Avg. is the mean over JobBench, GDPval and APEX-Agents.",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "done/unpublished/RSSI/assets/images/picture-006.png",
+      "file": "done/published/RSSI/assets/images/picture-006.png",
       "type": "table",
       "page": 9,
       "caption": "Table 3 | Policy robustness in the coding domain. Harness evolution is run independently with each frozen policy on Terminal-Bench, and the harness is evaluated unchanged on SWE-bench Verified.",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "done/unpublished/RSSI/assets/images/picture-007.png",
+      "file": "done/published/RSSI/assets/images/picture-007.png",
       "type": "table",
       "page": 10,
       "caption": "Table 4 | Cross-model transfer on Terminal-Bench 2.1. The harness evolved with Gemini 3.5 Flash as the frozen policy is run unchanged with a weaker backbone that never took part in the search.",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "done/unpublished/RSSI/assets/images/picture-008.png",
+      "file": "done/published/RSSI/assets/images/picture-008.png",
       "type": "figure",
       "page": 10,
       "caption": "Figure 4 | Cost of the final harness of each arm, measured on the evolve split of the agentic workspace instance. OOD Avg. is the mean over JobBench, GDPval and APEX-Agents. The shaded region in (a) is everything RRSI dominates: more policy tokens per trial for a lower out-of-distribution average.",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "done/unpublished/RSSI/assets/images/picture-009.png",
+      "file": "done/published/RSSI/assets/images/picture-009.png",
       "type": "table",
       "page": 23,
       "caption": "Table 5 | Hyperparameters used by RRSI in each evolution setting. All choices are fixed without consulting held-out or OOD benchmarks.",
@@ -85,7 +85,7 @@
     },
     {
       "id": "img-010",
-      "file": "done/unpublished/RSSI/assets/images/picture-010.png",
+      "file": "done/published/RSSI/assets/images/picture-010.png",
       "type": "table",
       "page": 24,
       "caption": "Table 6 | Representative harness-evolution decisions from RRSI. The examples show that evolution is not driven by score alone: candidate specificity, evaluation stability, and inference cost jointly determine whether a change is retained.",
