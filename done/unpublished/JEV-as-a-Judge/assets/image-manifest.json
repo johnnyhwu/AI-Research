@@ -1,0 +1,528 @@
+{
+  "source_pdf": "done/unpublished/JEV-as-a-Judge/2609.26550v3.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 1,
+      "caption": "Figure 1: From human assessment to decision-only judging. Human evaluation relies on manual exper- tise, and generative LLM judges can produce a rationale alongside a decision; JEV exposes a typed decision and label probabilities, whose largest value we use as its confidence. The diagram contrasts interfaces only: in our experiments, generative judges also answer under JEV’s decision-and-probability contract, without a ra- tionale.",
+      "nearby_text": "ts to a new task when the rubric changes (Zheng et al., 2023; Li et al., 2025). Figure 1 traces this progression from human assessment through generative LLM judges to the decision-only judg- ing we study. Reasoning models make these judges stronger on hard cases by spending more computa- tion on ea",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 2: Accept when confident, escalate when un- sure. JEV returns a decision and label probabilities; we take the largest probability as its confidence q. Con- fident decisions are accepted, and uncertain ones are escalated to a stronger LLM judge, whose decision be- comes the final verdict. The threshold is set on labeled items from the target workload (Section 8).",
+      "nearby_text": "nfi- dence q, is the signal for accepting it or escalating to a stronger judge (Figure 2); Section 7 checks whether this signal tracks correctness and holds steady when the same request is presented in a dif- ferent order. Such serial escalation is the simplest way to combine two judges; Section 8 d",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-003.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 1: Base accuracy (%) of all seventeen configurations, with fees and median latency on the timing panel (120 judgments per hosted judge; fee ranges extend reported usage by conservative reservations for missing usage). Invalid outcomes count as errors; the Valid column counts valid responses over all applicable base judgments, and PairRM and Skywork judge only preference pairs. Bold marks the best value in each accuracy, fee, and latency column. †: initial-round judge; ‡: follow-up addition. Local models have no API price, and the local Qwen models run without thinking; hosted reasoning models use low effort except Qwen3.6 (default). Skywork’s exact score ties receive half credit. Figure 3 adds p95 latency.",
+      "nearby_text": "Comparators and the output contract. Table 1 compares seventeen configurations: thirteen hosted judges (JEV; GPT-4.1 mini, 4.1, 5.2, 5.4, 5.6 Sol, and 6 Astra; GPT-OSS 120B and Qwen3.6/3.8 27B on Groq; Claude Sonnet 5; Gemini 3 Flash and 3.1 Pro) and four l",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-004.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Figure 3: Fees and latency on the matched timing panel: 120 judgments per hosted configuration, 40 per public task, one model group at a time. (a) Median (filled circle) and p95 (open diamond) outcome latency; the connecting line is not a confidence interval. (b) Reported-usage fee per 1,000 judgments, extended by conservative reservations where usage is missing (light bars). Row labels give valid judgments / attempted items. Local models have no API price and are excluded.",
+      "nearby_text": "e four base workloads, with its fee and median latency on the timing panel, and Figure 3 shows fees and latency in full. Our reference compara- tor is GPT-6 Astra: the most expensive judge we tested, the most stable under candidate reversal, the most accurate on final answers, tied for best on Judge",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-005.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Figure 4: Where JEV is strong and where it is weak, on base-order single calls. (a) JEV minus GPT-6 accuracy by skill, pooled over every benchmark that tests it, with 95% source-cluster intervals; the shaded band marks ±3 points, and the right column gives JEV’s and GPT-6’s accuracy. Item counts in parentheses. (b) Accuracy by difficulty, measured as the number of the other 13 LLM judges (JEV and GPT-6 excluded) that get the item wrong, on RewardBench, JudgeBench, and HaluEval; item counts under the bins. (c) RM-Bench, JEV minus GPT-6 by domain (chat, safety: should refuse, safety: should comply, math, code) and style condition. Supplied benchmark labels throughout.",
+      "nearby_text": "ty, how its answers are presented, which way the judgment goes, and its length (Figure 4; every slice with its interval is in Appendix Table 11). The section closes with answer format, natural prose, and output validity, and with an operating map of all these comparisons.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-006.png",
+      "type": "table",
+      "page": 11,
+      "caption": "Table 2: Operating envelope for JEV, grouped by guidance. Accuracy (%) and paired JEV-minus-comparator differences with 95% source-cluster intervals. The comparator is GPT-6 wherever it was run and GPT-5.4 on the natural-prose samples; Skywork scores 79.0 on RewardBench 2, and every base-task judge appears in Table 1. Summaries and general responses are the natural-prose samples of §6; RM-Bench counts are judgments that pool both presentation orders (500 prompts); the other rows are single base-order calls. Style-adversarial pairs pit a less elaborate preferred answer against a more elaborate rejected one. “Not supported” means that all tested judges are near chance. Guidance describes these samples, not a deployment guarantee; human-adjudicated differences are given in §6.",
+      "nearby_text": "The operating envelope. Table 2 collects these comparisons into an operating map. JEV is within three points of the comparator on ordinary prefer- ence, evidence-grounded QA, final answers, four- way selection, and grounded summaries; it trails",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-007.png",
+      "type": "figure",
+      "page": 11,
+      "caption": "Figure 5: Confidence locates JEV’s errors. JEV judges every preference pair in both orders, and q is its two-order confidence; HaluEval answers have no candidate order and use JEV’s single judgment. Bars give the accuracy of JEV’s decision and of GPT-6’s base-order decision on the same items, binned by q (item counts under the bins; AUROC of q against JEV’s correctness in each panel).",
+      "nearby_text": "Figure 5 bins the 4,850 base public items (the 1,850 preference pairs judged in both orders and the 3,000 HaluEval answers) by JEV’s confidence q. Accu-",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-008.png",
+      "type": "figure",
+      "page": 12,
+      "caption": "Figure 6: Top: JEV’s maximum-probability distributions for correct and incorrect base judgments, using supplied benchmark labels. Bottom: reliability curves using the same statistic for selected main-round judges (bins with at least five valid examples; full counts retained). Sparse bins, differing coverage, and label errors limit visual ranking; Table 10 gives the HaluEval label sensitivity.",
+      "nearby_text": "rrectness is 0.88 on RewardBench, 0.73 on JudgeBench, and 0.83 on HaluEval, and Figure 6 shows the same concentration of errors at low confidence in single judgments.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-009.png",
+      "type": "figure",
+      "page": 13,
+      "caption": "Figure 7: Confidence under presentation order. (a) Share of preference pairs whose JEV verdict changes when the candidates are reversed, by JEV’s base-order confidence q (pairs per bin below the axis); the dashed line marks τ = 0.9. (b) For each judge, its reversal flips made at q ≥0.9, among flips on pairs with two valid outputs. (c) RewardBench 2, four candidates in four rotations: for each of the 100 prompts, the range of JEV’s confidence across rotations against its mean; crosses mark prompts whose chosen candidate changes between rotations.",
+      "nearby_text": "next three bins, and only 3 of the 1,293 pairs at q ≥0.9 flip, all below 0.99 (Figure 7a): 92 of its 95 flips are pairs that a single-call gate at τ = 0.9 would escalate. GPT-6 behaves the same way (23 of 23 flips below 0.9), but not every judge does: 70% of Qwen3.5’s flips, 64% of Gemini 3 Flash’s",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-010.png",
+      "type": "figure",
+      "page": 15,
+      "caption": "Figure 8: Post hoc confidence cascades JEV→GPT-6 on the base public items. Each curve accepts JEV’s decision when its two-order confidence q ≥τ and otherwise takes GPT-6’s base-order decision, for τ ∈ {0.5, 0.6, 0.7, 0.8, 0.85, 0.9, 0.95, 0.99, 1} plus the all-fallback endpoint, against fee relative to GPT-6 alone (re- ported usage, both JEV orders included); HaluEval answers use JEV’s single judgment. The grey line escalates uniformly at random for the same expected fee, and rings mark τ = 0.9. These thresholds are post hoc; Table 3 gives the frozen policies and Appendix Table 28 the numbers.",
+      "nearby_text": "Threshold sweep. Figure 8 evaluates the cascade post hoc at every threshold, without choosing one, taking GPT-6’s base-order decision on escalated items (Appendix Table 28). At τ = 0.9 the pooled cascade escalates 23% of items and scores",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-011.png",
+      "type": "table",
+      "page": 16,
+      "caption": "Table 3: Frozen two-order routing policies on the 1,610 held-out preference pairs, split by benchmark. Each threshold was chosen on the 96 pilot selection pairs to maximize coverage within two points of the fallback’s selection-set accuracy, and none was refitted. ∆: cascade minus fallback accuracy, with 95% source-cluster intervals. Fee ratios count both first-stage orders plus escalations, relative to the fallback alone: reported usage / conservative upper bound (GPT-5.4’s upper ratio exceeds one because missing usage is charged as a reservation). The lower panel applies the same rule to other first stages after the held-out results were known (retrospective). Table 4 splits the JEV→GPT-6 policy by benchmark. Appendix Table 29 lists all twelve JEV policies. All results are offline simulations.",
+      "nearby_text": "its errors than GPT-6’s, although on JudgeBench their rate is higher (Appendix Table 30). Judged one call at a time, which lets every judge be com- pared on equal terms, JEV’s error rate at q ≥0.9 is 2.1% on RewardBench (24 of 1,155 judgments) and 6.5% on JudgeBench (9 of 138), against 3.5% and 2.0",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-012.png",
+      "type": "table",
+      "page": 16,
+      "caption": "Table 4: The frozen JEV→GPT-6 policy (τ = 0.9) on the held-out preference pairs, split by benchmark. JEV alone uses order-averaged probabilities. ∆: cascade minus GPT-6 accuracy with 95% source-cluster intervals. JEV errors caught: share of JEV’s errors that fall among escalated pairs. Fee ratios are relative to GPT-6 alone on the same pairs (reported usage / conservative upper bound). The held-out pool is 83% RewardBench, so its pooled row mostly reflects RewardBench.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-013.png",
+      "type": "table",
+      "page": 17,
+      "caption": "Table 5: Prospective live cascade JEV→GPT-6 on 570 held-out pairs from two new workloads. Each workload’s threshold was chosen on its own 100 selection pairs by the pre-specified lower-bound rule; the counterfactual applies the frozen general τ = 0.9 of Section 8 to the same outputs. JEV alone: two-order accuracy. ∆: cascade minus GPT-6 accuracy with 95% bootstrap intervals clustered by question. JEV errors caught: share of JEV’s errors that were escalated. Fee ratio: both JEV calls plus GPT-6 on escalated pairs, relative to GPT-6 on all pairs (reported usage). Latency per pair: the slower JEV order plus, if escalated, the GPT-6 call; the deployed rows are the live sequence, and the counterfactual and GPT-6 alone use each pair’s single GPT-6 call. Appendix Tables 34 and 35 give every threshold and every source.",
+      "nearby_text": "T-6’s accuracy exactly on both workloads (88.2% on PPE and 94.7% on JudgeBench; Table 5). It escalated 68% and 89% of pairs, caught 93% of JEV’s errors, and cost 75.5% of GPT-6’s fee ($12.5 versus $16.6 per 1,000 pairs). A pair returned in 0.16 seconds at the median when JEV’s verdict stood and in 2",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-014.png",
+      "type": "figure",
+      "page": 17,
+      "caption": "Figure 9: The prospective test across confidence gates. For each workload’s held-out pairs, cascade accuracy against fee relative to GPT-6 alone (a, c) and mean latency per pair (b, d), at every threshold on the grid (labels) for the deployed two-order gate and for a gate that reads JEV’s base order alone. The ring marks the threshold frozen on the selection pairs; the star and the dashed line mark GPT-6 alone. All points come from the same held-out outputs; only the ringed ones ran live.",
+      "nearby_text": "Figure 9 traces the whole trade-off (Appendix Table 34). Each step down the grid trades accuracy for lower fee and latency. At τ = 0.9, the frozen general threshold of Section 8, the cascade esca- lates 60% of pairs, cos",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-015",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-015.png",
+      "type": "table",
+      "page": 23,
+      "caption": "Table 6: Data phases, counted as judgments. Public pilot tasks use a source-cluster 40/60 selection/test partition (Select/Test), so repeated answers to one question stay together. The 96 preference selection pairs are 64 Reward- Bench and 32 JudgeBench pairs. The held-out set shares no source question with the pilot and never enters a fit; JudgeBench is used in full.",
+      "nearby_text": "rder of its two responses) form a 642-item pilot and a 4,530-item held-out set (Table 6). The pilot was frozen before any inference; its public tasks were split 40/60 by source question into a selection set, used only to fit temperatures and routing thresh- olds, and a pilot test set. The held-out s",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-016",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-016.png",
+      "type": "table",
+      "page": 23,
+      "caption": "Table 7: Collection rounds in order. The routing rule and threshold grid were fixed before the main round and before any held-out outcome was inspected; the main round and all follow-ups were run after the initial results were known. The replication’s protocol was written before its calls, but its items had already been analyzed. Base items and the RM-Bench and prose samples were judged in two batches with identical prompts, settings, and rules; the second was sampled after the routing thresholds were frozen (see the paragraph on sample expansion below). The prospective round’s protocol, split, and threshold rule were frozen before any of its model calls.",
+      "nearby_text": "Collection rounds. Judges were collected in rounds (Table 7): an initial round (JEV, three GPT baselines, PairRM); a main round that reran JEV and added nine hosted and two local configurations after the initial results were known; follow-ups that added Skywork, the Laya",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-017",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-017.png",
+      "type": "figure",
+      "page": 25,
+      "caption": "Figure 10: An exact JEV request/response from the synthetic support condition, excluding transport headers. Instructions and label criteria are explicit; the hidden correctness label is absent from the request. The response’s confidence field is JEV’s native confidence; our analyses use the largest label probability q instead (Section 4), and the two coincide here only because one label has probability 1.",
+      "nearby_text": ". EVIDENCE: a passage and a claim, labeled supported, contradicted, or unknown. Figure 10 reproduces a retained EVIDENCE request and its response; the output-token count in it is API metadata, since JEV charges nothing for output.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-018",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-018.png",
+      "type": "table",
+      "page": 26,
+      "caption": "Table 8: Exact requested identifiers and settings. Prices are USD per million input/output tokens before cache adjustments. JEV charges for input tokens and has zero output-token fees. Local models have no assigned API- equivalent dollar price.",
+      "nearby_text": "Table 8 records the exact requested identifiers. The official model and pricing pages are archived with retrieval hashes (TypeSafe AI, 2026d; OpenAI, 2026a,b,c,d,e,f; Groq, 2026a,b,c; Anthropic, 2026; Google, 2026).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-019",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-019.png",
+      "type": "table",
+      "page": 27,
+      "caption": "Table 9: Human adjudication of the items on which JEV or GPT-6 disagrees with the benchmark label. κ: Cohen’s κ between the human annotator and the LLM rater on the collapsed decision, before adjudication. S3: control items whose final human label equals the benchmark label. S2: both-wrong items whose human label confirms the benchmark label, confirms the judges’ shared decision, or is indecisive. S1: disagreement items on which the human sides with JEV, with GPT-6, or is indecisive. ∆: JEV-minus-GPT-6 accuracy difference in points over all adjudication-subset items of the task (RewardBench 400, JudgeBench 350, HaluEval 240), on benchmark labels and under human labels, with a 95% source-cluster bootstrap interval. Corrected: accuracy (%) with benchmark labels replaced by decisive human labels on adjudicated items only.",
+      "nearby_text": "Pre-specified outcomes. Table 9 reports the metrics fixed in the protocol. The primary outcome is the human-adjudicated JEV-minus-GPT-6 difference on JudgeBench: over all adjudication-subset items of a task, an S1 item contributes +1 when the h",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-020",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-020.png",
+      "type": "table",
+      "page": 28,
+      "caption": "Table 10: HaluEval probability-score sensitivity on the same 240 valid judgments per model. Human-corrected labels replace only decisive adjudicated labels; predictions and probabilities are fixed. Brier is the multiclass sum, NLL uses a 10−6 floor, and ECE uses ten maximum-probability bins; lower is better. Human substitutions reverse the probability-score ordering but do not remove the audit’s selection and annotator limitations.",
+      "nearby_text": "HaluEval Brier becomes 0.062 for JEV and 0.032 for GPT-6 (NLL 0.108 and 0.070; Table 10). Error ranking, which is what a routing gate needs, is a separate property: JEV’s single-call error-detection AUROC is 0.875, 0.745, and 0.827 on the three tasks, GPT-6’s 0.894, 0.907, and 0.831. On the sup- pl",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-021",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-021.png",
+      "type": "figure",
+      "page": 29,
+      "caption": "Figure 11: Per-domain base accuracy for every configuration except Skywork. RewardBench broad categories have 292 (chat), 381 (difficult chat), 446 (reasoning), and 381 (safety) pairs; JudgeBench uses its complete GPT-4o split and natural category mixture; HaluEval is evidence-grounded QA (3,000 answers). †: initial-round judge.",
+      "nearby_text": "Figure 11 gives domain-level accuracy for every configuration except Skywork, which was added in a follow-up and appears in Table 1; rankings change within and across benchmarks. Figure 12 plots main-round hosted accurac",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-022",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-022.png",
+      "type": "figure",
+      "page": 30,
+      "caption": "Figure 12: Quality versus estimated full-workload fee (conservative upper estimate) and timing-panel median latency for the main-round hosted configurations. Vertical bars are source-cluster accuracy intervals. Fee workloads have 1,500/350/3,000 judgments; timing uses 40 per task.",
+      "nearby_text": "e the timing panel; full-workload fees over the 4,850 public judgments underlie Figure 12 and the cascade fee ratios. No provider invoices were available.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-023",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-023.png",
+      "type": "table",
+      "page": 31,
+      "caption": "Table 11: JEV and GPT-6 by slice, base-order single calls, supplied labels. ∆: JEV minus GPT-6 accuracy with 95% source-cluster bootstrap intervals. Difficulty counts how many of the other 13 LLM judges (JEV and GPT-6 excluded) get the item wrong. Length terciles split each benchmark by the words of its state (question plus candidate answers or evidence). Exploratory; intervals are not adjusted for multiple comparisons.",
+      "nearby_text": "nt goes, and its length (Figure 4; every slice with its interval is in Appendix Table 11). The section closes with answer format, natural prose, and output validity, and with an operating map of all these comparisons.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-024",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-024.png",
+      "type": "table",
+      "page": 32,
+      "caption": "Table 12: Base-order accuracy (%) of JEV and GPT-6 on the 1,500 RewardBench and 350 JudgeBench preference pairs, binned by the rejected answer’s length relative to the preferred answer’s, in whitespace-separated words: much shorter, under half; shorter, 0.5–0.87 times; similar, 0.87–1.15 times; longer, 1.15–2 times; much longer, at least twice. Italic rows count the length-mismatched pairs (all but the similar bin) and give the percentage in which each judge picks the longer answer; the parenthesis gives the percentage in which the preferred answer is the longer one. Exploratory, without intervals.",
+      "nearby_text": "46% of the time, when the preferred answer is the longer one in 50% (Ap- pendix Table 12). Reward models find the same items hard: Skywork, near the top on Reward- Bench (94.0%), reaches 71.1% on JudgeBench, and PairRM reaches 65.5% and 54.3%.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-025",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-025.png",
+      "type": "table",
+      "page": 32,
+      "caption": "Table 13: Frozen follow-up samples: accuracy and 95% source-cluster bootstrap intervals. Each judge evaluates every listed judgment; invalid outcomes count as errors. RM-Bench resampling retains all styles and both orders of a source question. Exact scalar-score ties receive expected random-selection credit.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-026",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-026.png",
+      "type": "figure",
+      "page": 33,
+      "caption": "Figure 13: JEV, GPT-6, and a modern reward model on the same selection and style checks. Bars and intervals use Table 13, which adds the two Laya checkpoints. Four-way selection and pairwise style conditions are reported separately.",
+      "nearby_text": "the advantage, following the benchmark (Malik et al., 2026; Liu et al., 2025). Figure 13 shows the different operating profiles. JEV’s",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-027",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-027.png",
+      "type": "table",
+      "page": 34,
+      "caption": "Table 14: Paired accuracy differences in percentage points, first named judge minus second. Brackets give 95% source-cluster bootstrap intervals. Each row uses identical inputs across judges; RM-Bench includes all correlated style and order variants. Intervals are exploratory and unadjusted for multiple comparisons.",
+      "nearby_text": "a paired comparison on the same prompts with every style variant retained. Table 14 gives all pairwise accuracy differences, Table 15 separates probability reliability from accuracy, and Figure 14 resolves the nine style combinations. Everything here rests on the supplied preference labels; rew",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-028",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-028.png",
+      "type": "table",
+      "page": 34,
+      "caption": "Table 15: Probability diagnostics on valid follow-up outcomes, with q the maximum label probability and both presentation orders pooled. Brier is the multiclass sum; NLL clips probabilities at 10−6. Compare judges within each row condition: four-way and binary tasks have different baselines. Scalar Skywork rewards have no probability interpretation. High-confidence error counts depend on coverage.",
+      "nearby_text": "ap slightly: judged one order at a time, the hard-pair AUROC is 0.750 (Appendix Table 15). On hard pairs JEV is wrong on 26 of the 151 pairs it scores in [0.9, 0.95) and 26 of the 215 in [0.95, 0.99), against 7 of 136 and 13 of 249 on style-matched pairs. A τ = 0.9 cascade to GPT-6 (Section 8) would",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-029",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-029.png",
+      "type": "figure",
+      "page": 34,
+      "caption": "Figure 14: All RM-Bench style combinations. Each cell averages 500 source prompts in both orders (1,000 judgments); axes follow the benchmark’s concise, detailed plain-text, and detailed Markdown ordering. Above- diagonal cells contribute to hard accuracy, diagonal cells to normal accuracy, and below-diagonal cells to easy accuracy. The common color scale is 50–100%.",
+      "nearby_text": "racy differences, Table 15 separates probability reliability from accuracy, and Figure 14 resolves the nine style combinations. Everything here rests on the supplied preference labels; rewrites can change semantic details, and training overlap is unknown. Domain results, between-judge differences in",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-030",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-030.png",
+      "type": "table",
+      "page": 35,
+      "caption": "Table 16: Answer-format follow-up: downstream label agreement (%) and 95% source-cluster intervals. Constructed controls inherit benchmark content labels and explicit commitment templates. The extractor sees no gold. Free- response controls assess reference-relative semantics; Table 17 uses natural answers and supplied evidence.",
+      "nearby_text": "Table 16 and Figure 15 distinguish extraction from grading. GPT-4.1 mini’s control errors mostly sit at the ambiguous/no-answer boundary; JEV’s free-response disagreements concentrate on the supplied wrong-answer conditi",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-031",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-031.png",
+      "type": "figure",
+      "page": 35,
+      "caption": "Figure 15: Label agreement by final-commitment condition on the same forty source questions. These are transparent constructed controls; high scores do not establish performance on unrestricted natural responses.",
+      "nearby_text": "Table 16 and Figure 15 distinguish extraction from grading. GPT-4.1 mini’s control errors mostly sit at the ambiguous/no-answer boundary; JEV’s free-response disagreements concentrate on the supplied wrong-answer conditions, which in",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-032",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-032.png",
+      "type": "table",
+      "page": 36,
+      "caption": "Table 17: Natural HaluEval single-answer grading, split descriptively by whitespace word count. Scores are accuracy (%) with source-cluster intervals; the twenty-word cutoff was fixed before this slice analysis. Short answers and prose differ in content as well as length, so the split is descriptive. Failures count as errors.",
+      "nearby_text": "val answers of the adjudication subset, from 120 source questions (Appendix A). Table 17 splits them into short answers and prose; both are assessed against supplied evidence. Pairwise preference over free text is evaluated separately by RewardBench and JudgeBench. Neither task reduces general free-",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-033",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-033.png",
+      "type": "table",
+      "page": 37,
+      "caption": "Table 18: Natural prose follow-up: 400 summary and 200 general-response judgments per judge. Accuracy includes invalid outputs; probability metrics condition on valid outputs. Intervals are source-cluster bootstraps (200 summary documents; 200 general queries). General-response accuracy is agreement with existing human labels under balanced sampling.",
+      "nearby_text": "Table 18 and Figure 16 show a broader boundary than the format controls. Free prose requires assessing several claims at once, and every judge agrees poorly with the human labels on the balanced reference-free sample; th",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-034",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-034.png",
+      "type": "figure",
+      "page": 38,
+      "caption": "Figure 16: Natural free-response label agreement (top bars; 95% source-cluster intervals), mean maximum label probability (black diamonds), and JEV confidence distributions (bottom); the dotted line marks chance on these balanced samples. High mean confidence accompanies low agreement for all three reference-free judges. The two workloads differ in content and label provenance; their difference does not isolate the effect of supplied evidence.",
+      "nearby_text": "Table 18 and Figure 16 show a broader boundary than the format controls. Free prose requires assessing several claims at once, and every judge agrees poorly with the human labels on the balanced reference-free sample; the Laya checkp",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-035",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-035.png",
+      "type": "table",
+      "page": 38,
+      "caption": "Table 19: Main-round hosted base outcomes and diagnostic valid-only accuracy. Primary accuracy counts failures as wrong. All attempts and exact error types remain recorded.",
+      "nearby_text": "Table 19 separates three ways a call can fail: provider-side generation failures, HTTP-200 responses that violate the contract, and transport or other HTTP failures. Keeping them apart stops service availability from bei",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-036",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-036.png",
+      "type": "table",
+      "page": 39,
+      "caption": "Table 20: Additional metrics for the fifteen LLM judges and the two Laya checkpoints. AUROC treats an incorrect judgment as positive and uses 1−maxk pk as its score. Control counts include invalid outcomes; macro-F1 averages the three final-answer classes.",
+      "nearby_text": "r should be read alongside its valid-only accuracy and its rate-limit failures. Table 20 adds macro-F1 on the final-answer set, the control scores, and error-detection AUROC. Probability scores and AUROC condition on valid responses; primary accuracy keeps every attempted item. Payload tests perturb",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-037",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-037.png",
+      "type": "table",
+      "page": 39,
+      "caption": "Table 21: Handling of edge cases. Every attempt, failure, and original label is retained.",
+      "nearby_text": "Edge cases. Table 21 collects how the study treats every case that falls outside a clean, valid verdict.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-038",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-038.png",
+      "type": "table",
+      "page": 40,
+      "caption": "Table 22: Order sensitivity and repeated or paraphrased-rubric decisions. Disagreement conditions on valid pairs (counts in parentheses); both-correct accuracy includes failures. Repetitions reuse 48 examples. PairRM lacks repeated and paraphrased diagnostics.",
+      "nearby_text": "Table 22 distinguishes repeated-request changes, rubric paraphrases, and response reversal. Table 23 adds direction: the first-position rate averaged over both presentations of each pair, with intervals clustered by",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-039",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-039.png",
+      "type": "table",
+      "page": 40,
+      "caption": "Table 23: Directional position preference. First-position rates average both candidate orders; brackets give 95% source-cluster intervals. Always-first/second counts use valid paired presentations. A rate of 50% can coexist with many inconsistent decisions.",
+      "nearby_text": "tinguishes repeated-request changes, rubric paraphrases, and response reversal. Table 23 adds direction: the first-position rate averaged over both presentations of each pair, with intervals clustered by",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-040",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-040.png",
+      "type": "figure",
+      "page": 41,
+      "caption": "Figure 17: JEV probability variation on the same sixteen examples per task for repetitions, paraphrase, and reversal where applicable. Distributions align semantic response identity. The horizontal scale is linear near zero and logarithmic above 0.02. Full reversal statistics separately use all 1,850 pairs.",
+      "nearby_text": "effect; this separates an aggregate position preference from plain instability. Figure 17 shows probability variation on matched diagnostic samples.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-041",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-041.png",
+      "type": "figure",
+      "page": 41,
+      "caption": "Figure 18: Initial-round primitive audit on 48 examples, with probabilities aligned to the same semantic label; color and marker show which label is gold. Co-question context and stochastic effects accompany differences among primitives.",
+      "nearby_text": "reaches 0.19, and joint versus standalone Choice differs by 0.011 on average. Figure 18 aligns the output meanings, and Figure 19 shows the saturated nine-round trajectories of Section 6.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-042",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-042.png",
+      "type": "figure",
+      "page": 42,
+      "caption": "Figure 19: Initial-round probabilities on twelve nine-round GSM8K conversations; the vertical axes are zoomed to 0.90–1.00. All selected answers are reference-correct. The saturated trajectory is a positive-control result.",
+      "nearby_text": "e Choice differs by 0.011 on average. Figure 18 aligns the output meanings, and Figure 19 shows the saturated nine-round trajectories of Section 6.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-043",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-043.png",
+      "type": "table",
+      "page": 42,
+      "caption": "Table 24: Presentation order on the 1,850 base preference pairs. Flip rate: pairs whose verdict changes under reversal, invalid pairs included. Flips at q ≥0.9: flips made at base-order confidence of at least 0.9, over all flips on pairs with two valid outputs. Accuracy, Brier (multiclass sum), and error-detection AUROC with one order (the base order) and with both orders averaged; accuracy counts invalid outputs as errors, and the probability metrics use pairs with two valid outputs. †: initial-round outputs. PairRM’s sigmoid score is uncalibrated.",
+      "nearby_text": "he sixth-lowest (GPT-6: 1.5% and 0.9%; invalid pairs count as flips, Ap- pendix Table 24). JEV’s confidence moves by 0.045 on average (median 0.01), and JEV is cor- rect in both orders on 90.8% and 74.0% of the",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-044",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-044.png",
+      "type": "table",
+      "page": 43,
+      "caption": "Table 25: Order averaging for every judge on the base preference pairs. One order: base-order accuracy; both orders: accuracy of the averaged aligned probabilities, with an invalid output in either order counted as an error and exact ties given half credit. Gain: paired difference in points, both orders minus one order. ± values are standard deviations over 2,000 source-cluster bootstrap resamples. ∗: the 95% interval excludes zero; ∗∗: also significant after Holm correction across the 18 judges in that column. Held-out JB: the 270 JudgeBench pairs of the held-out set. †: initial-round outputs. Qwen3.6’s loss reflects invalid outputs (see text).",
+      "nearby_text": "+2.0, SD 1.6, [−1.1, 5.2]); neither gain is statistically significant (Appendix Table 25 gives every judge). For each fallback, τ was chosen by the point rule on the 96 pilot selec- tion pairs (64 RewardBench, 32 JudgeBench); the rule and grid were fixed before the main round and before any held-out",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-045",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-045.png",
+      "type": "table",
+      "page": 44,
+      "caption": "Table 26: JEV on RewardBench 2 with four candidates, one rotation (400 judgments) against the average of the four rotations (100 prompts). Brier is the multiclass sum, NLL uses a 10−6 floor, ECE uses ten maximum-probability bins, and AUROC treats an error as positive with 1 −q as the score.",
+      "nearby_text": "does, and the protocol’s amendment log records this before any result was read. Table 26 compares one rotation with the four-rotation average. Per rotation, accuracy is 74%, 72%, 69%, and 73%. Gated on its own confidence with GPT-6’s retained verdicts as the fallback, the averaged distribution reach",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-046",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-046.png",
+      "type": "table",
+      "page": 44,
+      "caption": "Table 27: JEV temperature scaling fitted on pilot selection groups and tested on the disjoint held-out set. Fit/test counts are judgments. NLL conditions on valid outcomes. Raw and calibrated metrics are reported whether calibration helps or hurts.",
+      "nearby_text": "rpens RewardBench, while 2.15 and 4.45 soften JudgeBench and HaluEval (Appendix Table 27). Small selection sets give workload-dependent fits rather than a universal temperature, so every fit needs held-out validation.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-047",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-047.png",
+      "type": "figure",
+      "page": 44,
+      "caption": "Figure 20: Probability metrics conditional on valid outputs and using supplied benchmark labels. Brier is the multiclass sum, NLL clips at 10−6, and ECE uses ten maximum-probability bins. Read these alongside accuracy, failures, and the HaluEval label sensitivity in Table 10. PairRM’s sigmoid score is uncalibrated; Skywork’s raw scalar scores are excluded.",
+      "nearby_text": "This appendix complements Section 7. Figure 20 compares Brier, NLL, and ECE across judges, and Figure 21 compares selective error at matched coverage.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-048",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-048.png",
+      "type": "figure",
+      "page": 45,
+      "caption": "Figure 21: Selective error versus accepted coverage using maximum label probability. Ties use expected within-tie error. These descriptive curves complement the separately evaluated frozen policies.",
+      "nearby_text": "on those answers (at any confidence) and 4 of GPT-6’s 32 (Appendix C; Appendix Figure 21 compares full risk–coverage curves). Most of JEV’s prefer- ence mistakes are therefore ones a confidence gate escalates. The exception is misleading style: on RM-Bench, JEV’s two-order error rate at q ≥0.9 rise",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-049",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-049.png",
+      "type": "table",
+      "page": 45,
+      "caption": "Table 28: Post hoc confidence cascades JEV→GPT-6 on the base public items (Figure 8). JEV judges each preference pair in both orders and is gated on the averaged probability; HaluEval answers have no order and use JEV’s single judgment. JEV’s decision is accepted when its confidence is at least τ; escalated items take GPT-6’s base-order decision. Retained: cascade accuracy as a percentage of GPT-6 alone. Fee ratio: both JEV orders on every pair plus GPT-6 on escalated items, relative to GPT-6 alone, from reported usage; the parenthesized conservative ratio divides the cascade’s upper-reservation fee by GPT-6’s reported fee. A few GPT-6 calls that needed retries carry reservations that raise GPT-6’s upper fee well above its reported fee (RewardBench $16.21 versus $12.79 over 1,500 pairs; HaluEval $17.08 versus $15.70 over 3,000 answers), which inflates the conservative ratios whenever those items are escalated. Random: expected accuracy of uniform independent escalation at the same expected reported-usage fee as the confidence policy (not the same fraction of calls); its call probability is the reported fallback fee on confidence-routed items divided by the fee of calling the fallback on all items, and both policies pay for JEV on every item. ∆: paired cascade-minus-GPT-6 difference with a 95% source-cluster bootstrap interval. Thresholds are not frozen; see Table 29 for the pre-specified policies.",
+      "nearby_text": "t choosing one, taking GPT-6’s base-order decision on escalated items (Appendix Table 28). At τ = 0.9 the pooled cascade escalates 23% of items and scores 90.2% against GPT-6’s 90.0% (100.2% retained; paired difference +0.21 points, [−0.10, 0.49]) at 33% of",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-050",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-050.png",
+      "type": "figure",
+      "page": 46,
+      "caption": "Figure 22: Fraction of JEV errors corrected by each comparator. Oracle complementarity motivates deferral; implementing it requires identifying errors from available signals.",
+      "nearby_text": "24, so an oracle that always picked the right judge would reach 95.7% (Appendix Figure 22). A deployable gate must find JEV’s errors from a signal available at decision time. Section 7 shows that JEV’s con- fidence is such a signal on most workloads, so we now test the cascade defined there.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-051",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-051.png",
+      "type": "table",
+      "page": 46,
+      "caption": "Table 29: Frozen two-order JEV policies on the 1,610 held-out preference pairs. ∆is cascade-minus-fallback accuracy, with a 95% paired cluster interval. Fee ratios include both JEV orders: reported usage / conservative upper ratio. τ = 0.5 accepts every pair and makes no fallback call. Results are offline simulations.",
+      "nearby_text": "-OSS, Qwen3.6, Qwen3.8), the rule selects τ = 0.5 and never escalates (Appendix Table 29).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-052",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-052.png",
+      "type": "table",
+      "page": 47,
+      "caption": "Table 30: Confident errors on the base public judgments (RewardBench 1,500, JudgeBench 350, HaluEval 3,000), under supplied labels. Errors / q ≥0.9: errors among the valid base-order judgments whose maximum label probability is at least 0.9, over their number, with the error rate in parentheses. Share of errors: these confident errors as a percentage of all the judge’s errors, invalid outcomes included. The scalar reward models have no probabilities and are omitted.",
+      "nearby_text": "its errors than GPT-6’s, although on JudgeBench their rate is higher (Appendix Table 30). Judged one call at a time, which lets every judge be com- pared on equal terms, JEV’s error rate at q ≥0.9 is 2.1% on RewardBench (24 of 1,155 judgments) and 6.5% on JudgeBench (9 of 138), against 3.5% and 2.0",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-053",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-053.png",
+      "type": "table",
+      "page": 48,
+      "caption": "Table 31: Label budget for threshold selection, JEV→GPT-6 two-order policies, 2,000 random draws per row. k: labeled selection pairs drawn from the 1,850 preference pairs; each policy is scored on the other 1,850 −k. P(loss > 2 pp): share of draws in which the policy’s accuracy is more than two points below GPT-6’s on those pairs. ∆: policy minus GPT-6 accuracy. Fee ratio: reported usage relative to GPT-6 alone. Exploratory simulation over",
+      "nearby_text": "the GPT-6 fallback, and scored the policy on the rest (2,000 draws; Ap- pendix Table 31). The point rule spends its toler- ance: whatever k is, the chosen policy loses more than two points in 40–50% of draws. RewardBench pairs, where a permissive threshold is safe, dom- inate the draws, and the res",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-054",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-054.png",
+      "type": "table",
+      "page": 49,
+      "caption": "Table 32: Laya checkpoints on the paper’s tasks: accuracy (%) with invalid outputs counted as errors (there are none). Context-complete: pairs whose instructions, options, and state fit the checkpoint’s native context without truncation (count in parentheses); JEV’s accuracy on the same pairs is given for each checkpoint. Four-way chance is 25%. Local and hosted latencies differ in hardware and network and are not an architectural comparison.",
+      "nearby_text": "orkloads, the four-way rotations, the live replication, or the rubric ablation. Table 32 gives the results. All 18,006 requests per checkpoint returned a valid, normalized verdict, and repeated requests return identical probabilities, yet accuracy on preference pairs is at chance: 47–50% on RewardBe",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-055",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-055.png",
+      "type": "table",
+      "page": 50,
+      "caption": "Table 33: Selection-set trials behind the frozen thresholds: 100 pairs per workload, JEV two-order cascade to GPT-6. Accepted: pairs with q ≥τ. Mean ∆: cascade minus GPT-6 accuracy; lower bound: mean −1.645 SD/",
+      "nearby_text": "3 points, so the lower-bound rule moves to τ = 0.95, which loses none (Appendix Table 33). The rule does not weigh quality against cost: it minimizes cost subject to an accuracy constraint, so it fixes a tolerance rather than a price for each error. If error costs were known, the threshold would ins",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-056",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-056.png",
+      "type": "table",
+      "page": 50,
+      "caption": "Table 34: The prospective test at every threshold, on the held-out pairs of each workload, for the deployed two-order gate and for a one-order gate that reads JEV’s base order alone (one JEV call per pair). Esc.: escalated pairs. ∆: cascade minus GPT-6 accuracy with 95% bootstrap intervals clustered by question. Fee: cascade reported usage relative to GPT-6 alone. Mean lat.: mean latency per pair, JEV (the slower order for the two-order gate) plus GPT-6 if escalated. Only the deployed thresholds ran live; the others are scored on the same outputs.",
+      "nearby_text": "Figure 9 traces the whole trade-off (Appendix Table 34). Each step down the grid trades accuracy for lower fee and latency. At τ = 0.9, the frozen general threshold of Section 8, the cascade esca- lates 60% of pairs, costs 62% of GPT-6’s fee, and loses 0.5 points ov",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-057",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-057.png",
+      "type": "table",
+      "page": 51,
+      "caption": "Table 35: Prospective results by source on the held-out pairs. JEV: two-order accuracy alone. AUROC: JEV’s two-order confidence against its correctness. Deployed: the live cascade at each workload’s frozen threshold. τ = 0.9: the counterfactual cascade at the frozen general threshold of Section 8. Subsets are small (19–113 pairs) and secondary.",
+      "nearby_text": "EV’s confidence is 0.57, against 0.69–0.81 on the other PPE sources (Ap- pendix Table 35). The run produced no invalid out- put and cost $12.77. On new workloads where JEV is weak, the lower-bound rule escalated enough to achieve GPT-6’s accuracy, and the saving shrank",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-058",
+      "file": "done/unpublished/JEV-as-a-Judge/assets/images/picture-058.png",
+      "type": "table",
+      "page": 51,
+      "caption": "Table 36: Live replication of the frozen JEV→GPT-6 policy (τ = 0.9) on 510 held-out preference pairs. Esc.: escalated pairs. Same gate as offline: pairs whose accept-or-escalate decision matches the one computed from main-round outputs. Cascade and GPT-6: accuracy (%) of the live cascade and of the live GPT-6 call on every pair. ∆: cascade minus GPT-6, with 95% source-cluster bootstrap intervals. Fee ratio: both JEV calls plus GPT-6 on escalated pairs, relative to GPT-6 on all pairs (reported usage). Latency per pair: the slower JEV order plus, if escalated, the GPT-6 call.",
+      "nearby_text": "Results. Table 36 gives the outcomes. Against the offline simulation (escalation 46.3%, cascade 92.5%, GPT-6 93.1%, fee ratio 0.568), the live run differs by at most 0.4 points in any outcome. Its JEV two-order verdicts match the",
+      "parser_confidence": "low"
+    }
+  ]
+}
