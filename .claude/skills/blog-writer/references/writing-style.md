@@ -107,6 +107,14 @@ the whole sentence, single capitals (`W`, `M`, `C`, `N`) included. Getting
 this right here is what keeps Step 3 a mechanical delimiter swap instead
 of a judgement call it has to re-derive per article.
 
+**Keep `$$...$$` display blocks out of list items.** A formula tucked
+under a bullet (indented two spaces so it "belongs" to the item) is the one
+shape Step 3 cannot convert mechanically: it has to be pulled out of the
+list and the item re-split around it. Finish the list, then put each display
+formula on its own line, blank lines around it, at the top level, with a
+lead-in sentence saying what it defines. Inline `$...$` inside a bullet is
+fine.
+
 Reserve a code fence for what's actually procedural: a concrete round-by-
 round trace with real numbers (`Round 1: select C={r} -> ...`), or literal
 code. A block of `r = 根節點, ...` sitting in a fence is a formula wearing a
