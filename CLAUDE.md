@@ -46,9 +46,10 @@ manifest fix-up:
    part of finishing that task, not later.
 2. Step 3 publishes the post in `HUGO_REPO` →
    `git mv done/unpublished/<TopicDir> done/published/<TopicDir>`. Step 3
-   runs in the *other* repo, so this move is a companion commit here; the
-   `hugo-paper-post` skill over there tells its operator to come back and
-   make it.
+   runs in the *other* repo, so this move is a companion PR here; the
+   `hugo-paper-post` skill over there opens it itself as its last step
+   (branch `claude/mark-<topic>-published`), so expect to find it already
+   waiting after a publish.
 
 `image-manifest.json`'s own `source_pdf` and every image's `file` field are
 repo-relative paths baked in verbatim when Step 1 ran, against whichever

@@ -9,12 +9,12 @@ can adapt.
 
 ```json
 {
-  "source_pdf": "docs/<slug>/source.pdf",
+  "source_pdf": "in-progress/<Topic>/<paper>.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "docs/<slug>/assets/images/picture-001.png",
+      "file": "in-progress/<Topic>/assets/images/picture-001.png",
       "type": "figure",
       "page": 5,
       "caption": "Figure 3: End-to-end latency vs. batch size across the three schedulers.",
@@ -29,7 +29,12 @@ Field notes:
 
 - **`id`**: stable, sequential in reading order (`img-001`, `img-002`, ...).
   This is the join key downstream consumers use. Never reuse or renumber.
-- **`file`**: repo-relative path to the rendered PNG. The filename is
+- **`file`** (and `source_pdf`): repo-relative paths, written against the
+  bucket the topic sat in when the parser ran (`in-progress/`,
+  `done/unpublished/` or `done/published/`). They go stale when the topic
+  directory moves buckets, so the move must rewrite them -- see the repo
+  `CLAUDE.md`, "Moving a topic between buckets". `file` points at the
+  rendered PNG. The filename is
   neutral (`picture-NNN.png`) and carries no semantic meaning by design --
   never infer "this is Figure 3" from a filename; use `caption` instead.
 - **`type`**: `"figure"` | `"table"` | `"diagram"` | `"other"`.

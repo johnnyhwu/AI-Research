@@ -75,9 +75,9 @@ all" below.
    ```bash
    uv sync        # from the repo root; reads pyproject.toml + .python-version
    ```
-   Run every script below with `uv run python scripts/<name>.py ...` (from
-   the repo root, so use the full `.claude/skills/pdf-figure-table-parser/`
-   path). The environment lives in the repo's own `.venv/` and the Python
+   Run every script below with `uv run python
+   .claude/skills/pdf-figure-table-parser/scripts/<name>.py ...`, from the
+   repo root. The environment lives in the repo's own `.venv/` and the Python
    version is pinned in `pyproject.toml` -- don't create a venv anywhere
    else. This installs `pymupdf`, `pdfplumber`, and `pillow` from PyPI -- no
    `huggingface.co` traffic, so it works under the same network policy that
@@ -85,7 +85,7 @@ all" below.
 
 2. **Dry-run the PDF first.**
    ```bash
-   python scripts/inspect_pdf.py path/to/paper.pdf
+   uv run python .claude/skills/pdf-figure-table-parser/scripts/inspect_pdf.py in-progress/<Topic>/<paper>.pdf
    ```
    Read the printed page count, embedded-image counts, vector-drawing
    counts, and the list of detected captions with their page + bounding box.
@@ -97,14 +97,18 @@ all" below.
 
 3. **Build the manifest.**
    ```bash
-   python scripts/build_manifest.py \
-     --pdf path/to/paper.pdf \
-     --out-dir docs/<slug>/assets \
-     --source-pdf-repo-path docs/<slug>/source.pdf
+   uv run python .claude/skills/pdf-figure-table-parser/scripts/build_manifest.py \
+     --pdf in-progress/<Topic>/<paper>.pdf \
+     --out-dir in-progress/<Topic>/assets \
+     --source-pdf-repo-path in-progress/<Topic>/<paper>.pdf
    ```
    Run this **from the repo root** -- `--out-dir` and
    `--source-pdf-repo-path` are repo-relative paths that get written
    verbatim into the manifest and checked against the current directory.
+   Use the bucket the topic *currently* sits in (`in-progress/` for a new
+   topic; `done/unpublished/` or `done/published/` when re-parsing a
+   finished one), so the baked-in paths never need rewriting later -- see
+   the repo `CLAUDE.md`, "Moving a topic between buckets".
 
    This does all of the following automatically:
    - Finds every caption (`find_captions` in `pdf_parser_lib.py`). A caption
@@ -184,8 +188,12 @@ all" below.
 
 4. **Quality-check independently, any time.**
    ```bash
-   python scripts/verify_manifest.py docs/<slug>/assets/image-manifest.json
+   uv run python .claude/skills/pdf-figure-table-parser/scripts/verify_manifest.py \
+     in-progress/<Topic>/assets/image-manifest.json .
    ```
+   (The trailing `.` is the repo root the manifest's repo-relative paths
+   resolve against; it defaults to the current directory, so run this from
+   the repo root.)
    Confirms every `file` path exists and is non-zero size, no duplicate
    `id`s or file paths (including duplicate *content*, via checksum), and
    every entry has the required keys. Run this again after any manual edit
@@ -249,7 +257,7 @@ regions must have overlapped because their combined heights exceed the page),
 don't open the PNG to check -- instead:
 
 ```bash
-python scripts/dump_blocks.py path/to/paper.pdf <page_num>
+uv run python .claude/skills/pdf-figure-table-parser/scripts/dump_blocks.py path/to/paper.pdf <page_num>
 ```
 
 This prints every text block's bounding box and text on that page, sorted
