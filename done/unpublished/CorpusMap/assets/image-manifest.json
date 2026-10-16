@@ -1,0 +1,213 @@
+{
+  "source_pdf": "done/unpublished/CorpusMap/2609.37226v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 1,
+      "caption": "Figure 1: Overall Quality (Table 1) versus estimated answer-generation cost for CORPUSMAP and the three strongest baselines, averaged equally over all benchmarks.",
+      "nearby_text": "7 points while using 34% to 57% fewer input tokens on average, as summarized in Figure 1. Moreover, we show that CORPUSMAP can be constructed even without the use of LLMs and updated incrementally as the corpus grows and evolves, making it practical and efficient for real deployment environments. To",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 2: Overview of CORPUSMAP. (a) Offline, recurring mentions of the same subject across documents in different folders are resolved into shared entities, which connect the documents into a reusable entity–document map. (b) For each query, the agent follows entity–document links in the same map from the entities relevant to the query to gather evidence for the answer. Green marks the walk; each entity card lists its source documents, highlighting the one opened next.",
+      "nearby_text": "so that the original documents remain available to the model. As illustrated in Figure 2, from any document it reads, the agent can follow the mentioned entities to complementary evidence instead of searching for it again, which can surface otherwise overlooked evidence while reducing the documents",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-003.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 1: Main results across EnterpriseRAG-Bench, WixQA, and HERB with GPT-5.5 and GPT-5.6 models, as means ± standard deviations over three runs. Overall reports dataset-balanced qual- ity and geometric-mean input-token ratios to Raw Corpus within each LLM. Best and second-best effectiveness scores per LLM among retrieval methods are bolded and underlined.",
+      "nearby_text": "Main Results Table 1 presents the main results, showing that CORPUSMAP consistently achieves the best answer and retrieval quality across all benchmarks and LLMs, with significant overall gains over every baseline (Table 6), at a low",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-004.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 2: Overall Quality with LLMs from other model families on EnterpriseRAG-Bench.",
+      "nearby_text": "evaluate it with DeepSeek-V4-Pro and MAI- Thinking-1, and report the results in Table 2. We find that CORPUSMAP again achieves the best Overall Quality with both LLMs, whereas the baselines that organize the corpus in other ways do not consistently improve over RAW CORPUS, as observed with the GPT m",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-005.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 3: Retrieval-based approaches on EnterpriseRAG-Bench.",
+      "nearby_text": "ieved for the question, without accessing the full cor- pus itself. As shown in Table 3, CORPUSMAP outperforms all of them with both LLMs, including the graph-based HippoRAG and GraphRAG. This suggests that answering from a retrieved context",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-006.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 4: Overall Quality of map reuse across LLMs on EnterpriseRAG-Bench. Rows denote the map builder, columns the answering LLM, and Cost the one-time construction cost.",
+      "nearby_text": "e LLM can be reused by another LLM at inference time, and report the results in Table 4. We find that even the map constructed by the least expensive LLM, at a small fraction of the cost of the most expensive one, improves the overall quality over RAW CORPUS for every answering LLM. This suggests th",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-007.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Figure 3: Incremental map updates on EnterpriseRAG-Bench with GPT-5.5: (a) tokens saved over a full rebuild, (b) quality across map states, and (c) correctness on newly covered questions.",
+      "nearby_text": "tch, while the agent can search the full raw corpus at every state. As shown in Figure 3(a), each incremental update saves a substantial fraction of the construction tokens of a full rebuild, and Figure 3(b) shows that quality improves overall with each update, with the final map performing comparab",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-008.png",
+      "type": "figure",
+      "page": 9,
+      "caption": "Figure 4: Corpus scaling on EnterpriseRAG-Bench with GPT-5.6 Luna and Qwen3.8-27B.",
+      "nearby_text": "ges are rendered from the extracted evidence without any LLM calls. As shown in Figure 4, the resulting map is comparably effective to the LLM-constructed map, and outperforms RAW CORPUS on every metric at a lower cost, indicating that CORPUSMAP can be instantiated with off-the-shelf tools as well a",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-009.png",
+      "type": "table",
+      "page": 16,
+      "caption": "Table 5: Results on the remaining questions of EnterpriseRAG-Bench with GPT-5.5. Doc. Rec. is computed over the questions with gold documents.",
+      "nearby_text": "stions of EnterpriseRAG-Bench, most of which are grounded in a single document (Table 5), indicating that the map remains beneficial even when cross-document evidence is not required.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-010.png",
+      "type": "figure",
+      "page": 17,
+      "caption": "Figure 5: Cost per query of CORPUSMAP with amortized construction cost, versus RAW CORPUS.",
+      "nearby_text": "mber of queries the map serves, to the cost per query of CORPUSMAP. As shown in Figure 5, although the amortized cost of CORPUSMAP is initially higher than that of RAW CORPUS, it decreases as more queries are served and becomes lower beyond a certain number of queries for every LLM. This suggests th",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-011.png",
+      "type": "table",
+      "page": 17,
+      "caption": "Table 6: Gains in Overall Quality of CORPUSMAP over each baseline in Table 1, with 95% confi- dence intervals from a paired bootstrap over questions. All gains are significant with Holm-corrected p < 10−4.",
+      "nearby_text": "ss all benchmarks and LLMs, with significant overall gains over every baseline (Table 6), at a lower average cost per query than raw-corpus agentic search (Fig- ure 1). Notably, the four baselines that organize the corpus in other ways do not consistently improve over RAW CORPUS, indicating that sim",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-012.png",
+      "type": "table",
+      "page": 17,
+      "caption": "Table 7: LLM-judged metrics of the GPT-5.5 answers in Table 1, judged by DeepSeek-V4-Pro instead of GPT-5.6 Sol. The last row reports Kendall’s τ between the rankings of the retrieval methods under the two judges.",
+      "nearby_text": "m- ily than GPT-5.6 Sol, with the same judge prompts, and report the results in Table 7. We find",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-013.png",
+      "type": "table",
+      "page": 18,
+      "caption": "Table 8: Overall Quality with candidate file paths on EnterpriseRAG-Bench with GPT-5.5.",
+      "nearby_text": "cted by their relevance to the question, and report the results with GPT-5.5 in Table 8. We find that, without candidates, the agent achieves higher overall quality than on RAW CORPUS but spends far more tokens exploring the map. In contrast, each type of candidate substantially improves overall qua",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-014.png",
+      "type": "figure",
+      "page": 18,
+      "caption": "Figure 6: Results with varying the number of candidate Entity Pages (left) and of candidate linked documents (middle and right) while fixing the other, on EnterpriseRAG-Bench with GPT-5.5.",
+      "nearby_text": "ate linked documents given to the agent, and report the results with GPT-5.5 in Figure 6. We observe that quality improves substantially once",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-015",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-015.png",
+      "type": "table",
+      "page": 19,
+      "caption": "Table 9: Case study of entity–entity edges on EnterpriseRAG-Bench. Blue and orange boxes denote documents and Entity Pages, as in Figure 2.",
+      "nearby_text": "Case Study We present a case study in Table 9. Given the question asking for every in- ternal thread about the rollback loop bug RRB-17, the Entity Page of RRB-17 links four of the five gold documents, and the remaining one, a meeting transcript, is linked f",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-016",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-016.png",
+      "type": "table",
+      "page": 20,
+      "caption": "Table 10: Case study comparing CORPUSMAP with CORPUS2SKILL on EnterpriseRAG-Bench. Blue and orange boxes denote documents and Entity Pages, as in Figure 2.",
+      "nearby_text": "Case Study We present a case study example in Table 10. Given the question of how signing is represented in the v1 specification of a manifest, the answer lies in two documents stored in different sources: an earlier draft and the v1 specification that revised it. C",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-017",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-017.png",
+      "type": "figure",
+      "page": 21,
+      "caption": "Figure 7: Prompt for proposing a candidate entity type catalog in the Cataloging stage. {} indicates a placeholder, filled with the documents of one sampled set grouped by their source.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-018",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-018.png",
+      "type": "figure",
+      "page": 23,
+      "caption": "Figure 8: Prompt for synthesizing the candidate catalogs in the Cataloging stage. {} indicates a placeholder, filled with the candidate catalogs proposed from all sampled sets.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-019",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-019.png",
+      "type": "figure",
+      "page": 25,
+      "caption": "Figure 9: Prompt for verifying the synthesized catalog in the Cataloging stage. {} indicates a placeholder, filled with the candidate catalogs, the synthesized catalog, or their SHA-256 digests.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-020",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-020.png",
+      "type": "figure",
+      "page": 26,
+      "caption": "Figure 10: Prompt for revising the synthesized catalog in the Cataloging stage. {} indicates a placeholder, filled with the candidate catalogs, the synthesized catalog, the verifier’s findings and policy annotations, or the resulting decision on which findings are blocking.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-021",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-021.png",
+      "type": "figure",
+      "page": 27,
+      "caption": "Figure 11: Prompt for extracting document-local entities in the Extraction stage. {} indicates a placeholder, filled with the catalog or a document.",
+      "nearby_text": ", and verify and revise the result, respectively. For Extraction, the prompt in Figure 11 identifies and types the document-local entities of each document. For Resolution, the prompt in Figure 12 decides whether each document-local entity is linked to an existing registry entry, added as a new enti",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-022",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-022.png",
+      "type": "figure",
+      "page": 28,
+      "caption": "Figure 12: Prompt for resolving document-local entities against the registry in the Resolution stage. {} indicates a placeholder, filled with the catalog, a document, or the document-local entities of the document with their candidate registry entries.",
+      "nearby_text": "pes the document-local entities of each document. For Resolution, the prompt in Figure 12 decides whether each document-local entity is linked to an existing registry entry, added as a new entity, or left unresolved. For Rendering, the prompt in Figure 13 writes the Entity Page of each retained enti",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-023",
+      "file": "done/unpublished/CorpusMap/assets/images/picture-023.png",
+      "type": "figure",
+      "page": 29,
+      "caption": "Figure 13: Prompt for writing an Entity Page in the Rendering stage. {} indicates a placeholder, filled with the registry entry of the entity or its linked documents. The links to these documents are then appended to the generated page.",
+      "nearby_text": "entry, added as a new entity, or left unresolved. For Rendering, the prompt in Figure 13 writes the Entity Page of each retained entity from its linked documents.",
+      "parser_confidence": "low"
+    }
+  ]
+}
