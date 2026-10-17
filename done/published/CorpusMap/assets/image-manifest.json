@@ -1,10 +1,10 @@
 {
-  "source_pdf": "done/unpublished/CorpusMap/2609.37226v1.pdf",
+  "source_pdf": "done/published/CorpusMap/2609.37226v1.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-001.png",
+      "file": "done/published/CorpusMap/assets/images/picture-001.png",
       "type": "figure",
       "page": 1,
       "caption": "Figure 1: Overall Quality (Table 1) versus estimated answer-generation cost for CORPUSMAP and the three strongest baselines, averaged equally over all benchmarks.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-002.png",
+      "file": "done/published/CorpusMap/assets/images/picture-002.png",
       "type": "figure",
       "page": 2,
       "caption": "Figure 2: Overview of CORPUSMAP. (a) Offline, recurring mentions of the same subject across documents in different folders are resolved into shared entities, which connect the documents into a reusable entity–document map. (b) For each query, the agent follows entity–document links in the same map from the entities relevant to the query to gather evidence for the answer. Green marks the walk; each entity card lists its source documents, highlighting the one opened next.",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-003.png",
+      "file": "done/published/CorpusMap/assets/images/picture-003.png",
       "type": "table",
       "page": 7,
       "caption": "Table 1: Main results across EnterpriseRAG-Bench, WixQA, and HERB with GPT-5.5 and GPT-5.6 models, as means ± standard deviations over three runs. Overall reports dataset-balanced qual- ity and geometric-mean input-token ratios to Raw Corpus within each LLM. Best and second-best effectiveness scores per LLM among retrieval methods are bolded and underlined.",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-004.png",
+      "file": "done/published/CorpusMap/assets/images/picture-004.png",
       "type": "table",
       "page": 7,
       "caption": "Table 2: Overall Quality with LLMs from other model families on EnterpriseRAG-Bench.",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-005.png",
+      "file": "done/published/CorpusMap/assets/images/picture-005.png",
       "type": "table",
       "page": 7,
       "caption": "Table 3: Retrieval-based approaches on EnterpriseRAG-Bench.",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-006.png",
+      "file": "done/published/CorpusMap/assets/images/picture-006.png",
       "type": "table",
       "page": 8,
       "caption": "Table 4: Overall Quality of map reuse across LLMs on EnterpriseRAG-Bench. Rows denote the map builder, columns the answering LLM, and Cost the one-time construction cost.",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-007.png",
+      "file": "done/published/CorpusMap/assets/images/picture-007.png",
       "type": "figure",
       "page": 8,
       "caption": "Figure 3: Incremental map updates on EnterpriseRAG-Bench with GPT-5.5: (a) tokens saved over a full rebuild, (b) quality across map states, and (c) correctness on newly covered questions.",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-008.png",
+      "file": "done/published/CorpusMap/assets/images/picture-008.png",
       "type": "figure",
       "page": 9,
       "caption": "Figure 4: Corpus scaling on EnterpriseRAG-Bench with GPT-5.6 Luna and Qwen3.8-27B.",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-009.png",
+      "file": "done/published/CorpusMap/assets/images/picture-009.png",
       "type": "table",
       "page": 16,
       "caption": "Table 5: Results on the remaining questions of EnterpriseRAG-Bench with GPT-5.5. Doc. Rec. is computed over the questions with gold documents.",
@@ -85,7 +85,7 @@
     },
     {
       "id": "img-010",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-010.png",
+      "file": "done/published/CorpusMap/assets/images/picture-010.png",
       "type": "figure",
       "page": 17,
       "caption": "Figure 5: Cost per query of CORPUSMAP with amortized construction cost, versus RAW CORPUS.",
@@ -94,7 +94,7 @@
     },
     {
       "id": "img-011",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-011.png",
+      "file": "done/published/CorpusMap/assets/images/picture-011.png",
       "type": "table",
       "page": 17,
       "caption": "Table 6: Gains in Overall Quality of CORPUSMAP over each baseline in Table 1, with 95% confi- dence intervals from a paired bootstrap over questions. All gains are significant with Holm-corrected p < 10−4.",
@@ -103,7 +103,7 @@
     },
     {
       "id": "img-012",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-012.png",
+      "file": "done/published/CorpusMap/assets/images/picture-012.png",
       "type": "table",
       "page": 17,
       "caption": "Table 7: LLM-judged metrics of the GPT-5.5 answers in Table 1, judged by DeepSeek-V4-Pro instead of GPT-5.6 Sol. The last row reports Kendall’s τ between the rankings of the retrieval methods under the two judges.",
@@ -112,7 +112,7 @@
     },
     {
       "id": "img-013",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-013.png",
+      "file": "done/published/CorpusMap/assets/images/picture-013.png",
       "type": "table",
       "page": 18,
       "caption": "Table 8: Overall Quality with candidate file paths on EnterpriseRAG-Bench with GPT-5.5.",
@@ -121,7 +121,7 @@
     },
     {
       "id": "img-014",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-014.png",
+      "file": "done/published/CorpusMap/assets/images/picture-014.png",
       "type": "figure",
       "page": 18,
       "caption": "Figure 6: Results with varying the number of candidate Entity Pages (left) and of candidate linked documents (middle and right) while fixing the other, on EnterpriseRAG-Bench with GPT-5.5.",
@@ -130,7 +130,7 @@
     },
     {
       "id": "img-015",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-015.png",
+      "file": "done/published/CorpusMap/assets/images/picture-015.png",
       "type": "table",
       "page": 19,
       "caption": "Table 9: Case study of entity–entity edges on EnterpriseRAG-Bench. Blue and orange boxes denote documents and Entity Pages, as in Figure 2.",
@@ -139,7 +139,7 @@
     },
     {
       "id": "img-016",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-016.png",
+      "file": "done/published/CorpusMap/assets/images/picture-016.png",
       "type": "table",
       "page": 20,
       "caption": "Table 10: Case study comparing CORPUSMAP with CORPUS2SKILL on EnterpriseRAG-Bench. Blue and orange boxes denote documents and Entity Pages, as in Figure 2.",
@@ -148,7 +148,7 @@
     },
     {
       "id": "img-017",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-017.png",
+      "file": "done/published/CorpusMap/assets/images/picture-017.png",
       "type": "figure",
       "page": 21,
       "caption": "Figure 7: Prompt for proposing a candidate entity type catalog in the Cataloging stage. {} indicates a placeholder, filled with the documents of one sampled set grouped by their source.",
@@ -157,7 +157,7 @@
     },
     {
       "id": "img-018",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-018.png",
+      "file": "done/published/CorpusMap/assets/images/picture-018.png",
       "type": "figure",
       "page": 23,
       "caption": "Figure 8: Prompt for synthesizing the candidate catalogs in the Cataloging stage. {} indicates a placeholder, filled with the candidate catalogs proposed from all sampled sets.",
@@ -166,7 +166,7 @@
     },
     {
       "id": "img-019",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-019.png",
+      "file": "done/published/CorpusMap/assets/images/picture-019.png",
       "type": "figure",
       "page": 25,
       "caption": "Figure 9: Prompt for verifying the synthesized catalog in the Cataloging stage. {} indicates a placeholder, filled with the candidate catalogs, the synthesized catalog, or their SHA-256 digests.",
@@ -175,7 +175,7 @@
     },
     {
       "id": "img-020",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-020.png",
+      "file": "done/published/CorpusMap/assets/images/picture-020.png",
       "type": "figure",
       "page": 26,
       "caption": "Figure 10: Prompt for revising the synthesized catalog in the Cataloging stage. {} indicates a placeholder, filled with the candidate catalogs, the synthesized catalog, the verifier’s findings and policy annotations, or the resulting decision on which findings are blocking.",
@@ -184,7 +184,7 @@
     },
     {
       "id": "img-021",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-021.png",
+      "file": "done/published/CorpusMap/assets/images/picture-021.png",
       "type": "figure",
       "page": 27,
       "caption": "Figure 11: Prompt for extracting document-local entities in the Extraction stage. {} indicates a placeholder, filled with the catalog or a document.",
@@ -193,7 +193,7 @@
     },
     {
       "id": "img-022",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-022.png",
+      "file": "done/published/CorpusMap/assets/images/picture-022.png",
       "type": "figure",
       "page": 28,
       "caption": "Figure 12: Prompt for resolving document-local entities against the registry in the Resolution stage. {} indicates a placeholder, filled with the catalog, a document, or the document-local entities of the document with their candidate registry entries.",
@@ -202,7 +202,7 @@
     },
     {
       "id": "img-023",
-      "file": "done/unpublished/CorpusMap/assets/images/picture-023.png",
+      "file": "done/published/CorpusMap/assets/images/picture-023.png",
       "type": "figure",
       "page": 29,
       "caption": "Figure 13: Prompt for writing an Entity Page in the Rendering stage. {} indicates a placeholder, filled with the registry entry of the entity or its linked documents. The links to these documents are then appended to the generated page.",
