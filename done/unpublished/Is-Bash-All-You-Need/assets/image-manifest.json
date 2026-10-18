@@ -1,0 +1,177 @@
+{
+  "source_pdf": "done/unpublished/Is-Bash-All-You-Need/2609.11999v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1: Five interfaces formed from shell execution, typed tools, persistent synthesized tools, and restricted programs over typed tools.",
+      "nearby_text": "We compare five tool interfaces (Figure 1) with the same model, task text, base prompt, and stopping criteria, adding interface-specific prompts for synthesis and PTC. Bash ex- poses only the shell, Tool-only exposes only the typed cat- alog, and Bash+T",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 2: Benchmark environments and task types.",
+      "nearby_text": "d collaborate with simulated coworkers to complete coding and office workflows (Figure 2a).",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-003.png",
+      "type": "table",
+      "page": 3,
+      "caption": "Table 1: Score: effort-weighted checkpoint rate (TheAgentCompany) or mean rubric score (APEX-Agents); pass rate: fully solved fraction; both with 95% bootstrap CIs. Token columns: means/task in thousands; input includes cache-read; total = input + output. $/task: mean estimated inference cost at GitHub Copilot list rates; time/task: mean wall-clock minutes.",
+      "nearby_text": "We compare task quality, token use, and inference cost across interfaces (Table 1; Figure 3). Bash outscores both shell-free interfaces in every benchmark-model arm while remaining among the cheapest options. Compared with Tool-only, it uses fewer tokens and lowers estimated inference cost thr",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-004.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 3: Score (%) versus total tokens/task (log scale). Logos: models; fills: interfaces; vertical bars: 95% bootstrap CIs. Higher-left is better.",
+      "nearby_text": "compare task quality, token use, and inference cost across interfaces (Table 1; Figure 3). Bash outscores both shell-free interfaces in every benchmark-model arm while remaining among the cheapest options. Compared with Tool-only, it uses fewer tokens and lowers estimated inference cost throughout.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-005.png",
+      "type": "table",
+      "page": 4,
+      "caption": "Table 2: Tool use statistics. # Tool calls/task: median tool calls/task. Tool tokens/task: median tool-name, argument, and result tokens/task; excludes context/cache effects and is not billed usage. Internal Bash/PTC operations excluded; only returned results count. Success: calls reporting success; repeated: exact tool-and-argument repeats within a task.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-006.png",
+      "type": "figure",
+      "page": 5,
+      "caption": "Figure 4: Mean paired score differences (pp) from Tool-only: Bash (blue), PTC (orange). Bins: mean Tool-only calls across models; bands: 95% bootstrap CIs; N: task-model pairs/bin. Budget-clipped counts are lower bounds.",
+      "nearby_text": "examine how Bash and PTC score gains over Tool-only vary with task complexity (Figure 4). We use task-model paired score differences, binning tasks by their two-model average Tool-only call count as a complexity proxy.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-007.png",
+      "type": "figure",
+      "page": 5,
+      "caption": "Figure 5: Static shell-command shares by executable family, pooled across models (Table 11). Bars: 12 families plus other, summing to 100% per benchmark/interface.",
+      "nearby_text": "mmands into short calls, with text utilities and HTTP clients more promi- nent (Figure 5). APEX-Agents uses longer embedded pro- grams; most control-flow flags disappear when embedded and quoted bodies are stripped. Shell access can therefore support both utility-based workflows and file analysis.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-008.png",
+      "type": "table",
+      "page": 5,
+      "caption": "Table 3: Shell statistics. Cmds/call: median commands. LOC: lines of code. Composed: calls with pipe, logical-operator, substitution, control-flow, heredoc, multiline, or nontrivial- redirect markers; loop: control-flow markers. Failed: failures. Repair: failures whose next call shares the first command.",
+      "nearby_text": "ncy via composition, code length, failures, and immediate same-command retries (Table 3). Composition remains the norm across all three shell inter- faces, even when typed or synthesized tools are available.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-009.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 6: Programmatic tool calling composition and token efficiency. Comp. ratio: per-task typed calls per PTC exe- cution. Deltas: PTC minus Tool-only, paired by task and model; tool calls count; uncached input tokens; cache-read tokens; output tokens.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-010.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 4: Tool synthesis reuse statistics and success rates. Created: distinct agent-authored root Python paths, exclud- ing seeds, initializers, and dependencies. Invoked: tools used from creation onward; cross-task reuse: used in later tasks. Percentages divide by created tools. Reuse success: success- ful calls of synthesized tools; fresh success: successful calls of fresh shell commands.",
+      "nearby_text": "fewer reach later tasks (Table 4). On APEX-Agents, GPT-5.5 creates fewer tools than Opus-4.8 yet uses all in later tasks. Appendix C.4 details the tools and measurements.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-011.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 5: Paired differences of Bash+Synthesis minus Bash, pooled across models. Subset: whether synthesized tools are invoked; N: number of tasks in the corresponding subset. ∆ score: task-score difference; ∆tokens: total-token difference.",
+      "nearby_text": "hesized tools show no detectable mean score gain over Bash on either benchmark (Table 5). On APEX-Agents, token differences relative to Bash are larger in the invoked subset than in the non-invoked subset.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-012.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 7: TheAgentCompany’s 60 typed tools by service: callable functions for PTC; JSON tools for Tool-only and Bash+Tool.",
+      "nearby_text": "ant service APIs and workspace operations, not every shell-accessible endpoint (Table 7). With no canonical benchmark system prompt, we author a shared identity and vary only tools and interface- specific guidance (Appendix A).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-013.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 8: APEX-Agents’ 20 typed tools across 8 non-shell servers. Except filesystem, each pairs an action-dispatched tool with a schema tool.",
+      "nearby_text": "The APEX-Agents snapshot combines the application servers in Table 8 with a Unix sh -c server. Shell exe- cution enforces filesystem restrictions, environment-variable scrubbing, and execution limits rather than a Python-only restriction. Interface exposure follows §3.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-014.png",
+      "type": "figure",
+      "page": 10,
+      "caption": "Figure 6: Mean score (%) across models by domain. Dots: interface/domain arms; colors: interfaces; N: tasks/domain. TheAgent- Company’s other pools bm, ml, qa, and research.",
+      "nearby_text": "n separates TheAgentCompany job families and APEX- Agents professional domains (Figure 6). TheAgentCom- pany’s smallest families are pooled using effort weighting in the other domain.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-015",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-015.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 9: Mean score difference: mean paired A minus B in percentage points (positive favors A); brackets: 95% bootstrap CIs. Paired N: task-model pairs; wins / ties / losses: pair counts summing to N.",
+      "nearby_text": "over matched task- model pairs from both models, giving each pair equal weight (Table 9).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-016",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-016.png",
+      "type": "table",
+      "page": 11,
+      "caption": "Table 10: Bash metrics for recoverable-command calls by model/interface. Calls/task: median per shell-using task; Cmds/call: median heuristic static commands (minimum one), excluding embedded code and loop iterations. Brackets: 25th/75th percentiles. Other columns: nonexclusive call percentages per benchmark/model/interface, using source-text markers including embedded code. Composed: any listed style, substitution, or redirection with multiple commands. Pipe: |, not ||; and/or: && or ||; loop: for, while, until, if, case, or select; heredoc: «; multi-line: multiple submitted lines. Markers do not establish execution.",
+      "nearby_text": "ain mark- ers (&&, ||) than Opus-4.8 under Bash, Bash+Tool, and Bash+Synthesis (Table 10).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-017",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-017.png",
+      "type": "table",
+      "page": 11,
+      "caption": "Table 11: Static command families for Figure 5: heuristic classification by executable; unmatched commands form other.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-018",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-018.png",
+      "type": "table",
+      "page": 12,
+      "caption": "Table 12: Top Bash+Synthesis tools ranked by usage. Uses: distinct invoking task-model pairs, pooled across models, not raw calls. Substitute: closest typed-tool surface (heuristic); dash: no direct counterpart.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-019",
+      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-019.png",
+      "type": "figure",
+      "page": 13,
+      "caption": "Figure 7: Failure shares among trajectories with score < 1, pooled across models. Rows: 14 root-cause categories ordered by cross-benchmark frequency; columns: benchmark/interface percentages summing to 100%; N: failed trajectories/arm.",
+      "nearby_text": "nterfaces. An LLM judge assigns each failed trajectory to one failure category (Figure 7).",
+      "parser_confidence": "high"
+    }
+  ]
+}
