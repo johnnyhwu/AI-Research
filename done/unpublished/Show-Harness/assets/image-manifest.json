@@ -1,0 +1,141 @@
+{
+  "source_pdf": "done/unpublished/Show-Harness/2609.10522v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Show-Harness/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 1,
+      "caption": "Figure 1. Show-Harness unlocks generalizable embodied manipulation with foundation VLMs across diverse tasks, scenes, and robot embodiments, enabling direct zero-shot deployment with frontier models and capable, efficient control via lightweight adaptation of compact open-source models.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Show-Harness/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 2. Show-Harness connects foundation VLMs to diverse robot embodiments through one semantic action interface, enabling zero-shot control with frontier models and lightweight adaptation of small open models.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/Show-Harness/assets/images/picture-003.png",
+      "type": "figure",
+      "page": 5,
+      "caption": "Figure 3. The Show-Harness architecture. A modular perceive–reason–act loop connects foundation VLMs to robot control through a shared semantic action interface.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/Show-Harness/assets/images/picture-004.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 1. Harness plugins organized along the perceive–reason–act loop.",
+      "nearby_text": "raction loop into three configurable stages: Perception, Reasoning, and Action. Table 1 summarizes the plugins instantiated at each stage.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/Show-Harness/assets/images/picture-005.png",
+      "type": "figure",
+      "page": 9,
+      "caption": "Figure 4. The GUMI interface. GUMI is a GUI-based manipulation interface that enables humans and frontier agents to autonomously collect demonstrations through the same semantic controls.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/Show-Harness/assets/images/picture-006.png",
+      "type": "figure",
+      "page": 9,
+      "caption": "Figure 5. Real-robot rigs.",
+      "nearby_text": "experiments use two robot platforms, each equipped with parallel-jaw grippers (Figure 5). The first is a 7-DoF Franka Research 3 arm, observed by an exocentric Intel RealSense D435 facing the workspace and a wrist-mounted In- tel RealSense D405, providing two views. The second is a bimanual AgileX",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/Show-Harness/assets/images/picture-007.png",
+      "type": "table",
+      "page": 11,
+      "caption": "Table 2. Performance across three levels of generalization on real robots. ZS and FT denote Show-Harness in zero-shot mode (Gemini-3.1 Pro with medium thinking effort) and fine-tuned mode (Qwen3.5-2B).",
+      "nearby_text": "Table 2 shows that both ZS (zero-shot frontier models) and FT (fine-tuned small open-source models) consistently outperform representative baselines across task, environment, and embodiment shifts.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/Show-Harness/assets/images/picture-008.png",
+      "type": "figure",
+      "page": 12,
+      "caption": "Figure 6. Capability analysis of Show-Harness across physical (§) and semantic ( ) adaptability.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/Show-Harness/assets/images/picture-009.png",
+      "type": "figure",
+      "page": 13,
+      "caption": "Figure 7. Effect of frontier VLM choice and thinking effort.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/Show-Harness/assets/images/picture-010.png",
+      "type": "figure",
+      "page": 14,
+      "caption": "Figure 8. (a) Effect of fine-tuned backbone scaling over the five Plate tasks; bubble area is proportional to parameter count. (b) Three Qwen3.5 capacities across fine-grained tasks.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/Show-Harness/assets/images/picture-011.png",
+      "type": "figure",
+      "page": 15,
+      "caption": "Figure 9. Plugin ablations on the real Franka arm using Gemini-3.1 Pro as a zero-shot agent.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/Show-Harness/assets/images/picture-012.png",
+      "type": "figure",
+      "page": 16,
+      "caption": "Figure 10. (a) Ablation on action-space representation. (b) Action mappings inferred under setting (D) over 20 episodes, where the model probes unknown symbols and infers their effects from observation changes.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/Show-Harness/assets/images/picture-013.png",
+      "type": "figure",
+      "page": 17,
+      "caption": "Figure 11. Qualitative real-world demonstrations of Show-Harness across diverse tasks and conditions.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/Show-Harness/assets/images/picture-014.png",
+      "type": "table",
+      "page": 25,
+      "caption": "Table 3. Demonstration corpus collected through GUMI.",
+      "nearby_text": "Table 3 breaks the training corpus down per platform. The corpus is released at https://huggingface.co/ showlab/Show-Harness-Data.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-015",
+      "file": "done/unpublished/Show-Harness/assets/images/picture-015.png",
+      "type": "figure",
+      "page": 26,
+      "caption": "Figure 12. Qualitative comparison with 𝜋0.5. Show-Harness completes all three examples, while 𝜋0.5 exhibits manipulation failures (e.g., gripper–object collisions and unstable grasps) highlighted by the red boxes.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    }
+  ]
+}
