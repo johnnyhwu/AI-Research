@@ -146,6 +146,12 @@ def main():
         print("No Figure/Table captions detected. Nothing to extract.", file=sys.stderr)
         sys.exit(1)
 
+    gaps = lib.numbering_gaps(captions)
+    if gaps:
+        print(f"WARNING: caption numbering has gaps -- missing {', '.join(gaps)}. "
+              f"Likely filtered by --min-caption-width={args.min_caption_width:g}; "
+              "re-run with a lower value if the paper does have them.", file=sys.stderr)
+
     all_blocks = lib.page_blocks(doc)
     caption_bboxes = {(c["page"], c["bbox"]) for c in captions}
     captions_by_page = {}

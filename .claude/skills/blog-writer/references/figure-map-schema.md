@@ -1,56 +1,44 @@
 # Image reference convention + figure-map schema
 
-This is the full version of the convention summarized in `SKILL.md`. There
-is no more complete version elsewhere — treat this as the authoritative
-spec, not a summary of some other document.
+The authoritative spec for how `article.md` refers to visuals.
 
-## Why the split exists
-
-The Writer doesn't know final image paths — those are decided later by Step
-3 in the separate Hugo repo — and must never embed a parser-native filename
-(`picture-003.png` carries no meaning). Instead, the article references
-visuals by the manifest's own `id`, and a machine-readable block at the end
-gives Step 3 everything it needs to do the real match. This split is
-deliberate: the Reviewer subagent reads the body as a naive reader and must
-not be distracted by metadata, but Step 3 still gets a precise contract to
-work from.
+The Writer doesn't know final image paths (Step 3 decides them in the Hugo
+repo) and must never embed a parser filename like `picture-003.png`. The body
+references the manifest `id`; a machine-readable block at the end gives Step 3
+everything it needs to do the real match. The Reviewer reads only the body.
 
 ## In the article body
 
 ```markdown
 ![延遲會隨批次大小次線性成長，這是這個排程器的關鍵優勢。](img-001)
-*圖 3 — 延遲與批次大小的關係。（來源：原始論文。）*
+*圖 3 — 延遲與批次大小的關係。（來源：原始論文 Figure 3。）*
 ```
 
-- The `alt` text (inside `![]`) is Writer-authored, in Traditional Chinese
-  per this skill's hard rule, describing the visual's actual content — not
-  "圖 3 的圖片" or similarly content-free.
-- The `src` is the manifest `id` (`img-001`), **not** a file path. Step 3
-  rewrites these to real Hugo paths later.
-- The italic line under it is the visible, human-facing caption — also
-  Writer-authored, in Traditional Chinese, not a copy-paste of the
-  manifest's (usually English) caption field.
+- **alt** (inside `![]`): Writer-authored Traditional Chinese describing what
+  the visual shows, not "圖 3 的圖片".
+- **src**: the manifest `id`, not a path. Step 3 rewrites it.
+- **Italic caption line**: Writer-authored Traditional Chinese, not a copy of
+  the manifest's English caption.
 
-### Numbering the visible captions
+### Numbering
 
-The visible caption normally opens with a label (`圖 3 —`, `表 1 —`). **Number
-these sequentially in the article's own order, starting from 1, counting
-figures and tables separately.** Do *not* carry over the source paper's
-numbering.
+Number the visible captions (`圖 3 —`, `表 1 —`) **sequentially in the
+article's own order, from 1, counting figures and tables separately.** Don't
+carry the paper's numbers over: only visuals that earn a place are included, so
+the paper's numbers have gaps, and a reader who can't see the paper concludes
+a figure is missing. Step 3 joins on the manifest `id`, never on the label.
 
-The reason is that the Writer references only the visuals that earn a place
-(see `writer-reviewer-spec.md`), so the paper's numbers will have gaps.
-Reusing them produces a visible jump — an article that goes 圖 11 → 圖 13
-because the paper's Figure 12 wasn't worth including — and a reader, who
-cannot see the paper, just concludes a figure is missing. This is a real
-review finding, not a hypothetical.
-
-Sequential renumbering has no downside downstream: Step 3 joins on the
-manifest `id` in the `figure-map` block, never on the visible label.
+The paper's own number appears in exactly two places: the caption's source note
+(`（來源：原始論文 Table 9。）`) and, where the prose must name the original, as
+`論文 Table 9`. Everywhere else, prose points at embedded visuals by the
+article's label (`表 4`). Mixing the two schemes in prose is a real review
+finding: a reader sees "Table 9" and "表 9" and can't tell which is meant.
+`verify_article.py` warns on both a non-sequential caption number and a bare
+`Table N`/`Figure N` in prose.
 
 ## At the end of article.md
 
-A single fenced ```` ```figure-map ```` block, valid JSON, one entry per
+A single ```` ```figure-map ```` fenced block, valid JSON, one entry per
 referenced id and no others:
 
 ````markdown
@@ -66,27 +54,18 @@ referenced id and no others:
 ```
 ````
 
-Field notes:
-- **`id`**: matches the `src` used in the body, and should be the manifest's
-  own id directly (the Writer can see the manifest, so there's no reason to
-  ever invent a new id or renumber).
-- **`references_manifest_caption`**: a verbatim copy of the manifest's own
-  `caption` field for that id — lets Step 3 confirm the join even if ids
-  ever drift. **Keep this in whatever language the manifest caption is
-  actually in** (normally English, since manifest captions are extracted
-  straight from the source paper by Step 1) — do not translate this field,
-  even though the rest of the article is in Traditional Chinese. Translating
-  it would break the verbatim-match guarantee Step 3 relies on.
-- **`why_used`**: Writer-authored explanation of why this visual was
-  referenced here. Write this in Traditional Chinese, matching the rest of
-  the article — it's your own commentary, not a copy of source text.
-- **`agent_match_hint`**: a short visual description, used only as a
-  fallback if Step 3 has to disambiguate or spot-check visually. Also
-  Writer-authored — Traditional Chinese, same as `why_used`.
+- **`id`**: the manifest's own id, matching the body `src`. Never invent or
+  renumber.
+- **`references_manifest_caption`**: a verbatim copy of the manifest `caption`
+  for that id, **untranslated** (normally English), so Step 3 can confirm the
+  join even if ids drift.
+- **`why_used`**: your commentary on why this visual is here, in Traditional
+  Chinese.
+- **`agent_match_hint`**: a short visual description for Step 3's fallback
+  disambiguation, in Traditional Chinese.
 
 ## Validation
 
-Every id in `figure-map` must also appear as an `![...](img-NNN)` reference
-somewhere in the body, and vice versa — no orphans in either direction. Every
-id must exist in the manifest. `scripts/verify_article.py` checks all of
-this automatically; run it before considering the article done.
+Every `figure-map` id must also appear as `![...](img-NNN)` in the body and
+vice versa, and must exist in the manifest. `scripts/verify_article.py`
+checks all of this.

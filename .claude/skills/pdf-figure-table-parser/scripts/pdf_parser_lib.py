@@ -107,6 +107,30 @@ def find_captions(doc, min_caption_width=400):
     return captions
 
 
+def numbering_gaps(captions):
+    """
+    Missing caption numbers per kind, e.g. ["figure 2", "table 2-6"]. A paper
+    numbers its visuals 1..N, so a gap almost always means a caption was
+    filtered out (usually by --min-caption-width), not that the paper skips a
+    number. Text-only signal; no image needed.
+    """
+    gaps = []
+    for kind in ("figure", "table"):
+        nums = sorted({c["num"] for c in captions if c["kind"] == kind})
+        if not nums:
+            continue
+        missing = [n for n in range(1, nums[-1] + 1) if n not in nums]
+        start = 0
+        while start < len(missing):
+            end = start
+            while end + 1 < len(missing) and missing[end + 1] == missing[end] + 1:
+                end += 1
+            a, b = missing[start], missing[end]
+            gaps.append(f"{kind} {a}" if a == b else f"{kind} {a}-{b}")
+            start = end + 1
+    return gaps
+
+
 def estimate_column_width(blocks):
     """
     Median width of blocks that look like body prose (long text), used to

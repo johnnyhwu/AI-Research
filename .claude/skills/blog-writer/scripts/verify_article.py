@@ -26,6 +26,9 @@ Checks:
   - half-width , ; : ? ! sitting between CJK characters instead of full-width
     ，；：？！ (outside code/math/URLs, and not a digit-to-digit thousands
     separator)
+  - visible captions (*圖 N — / *表 N —) numbered 1, 2, 3... in article order,
+    and the paper's own "Table N" / "Figure N" labels kept out of the prose
+    (only the caption's source note, or a "論文 Table N" pointer, may use them)
 
 Usage:
     python verify_article.py path/to/article.md [--manifest path/to/image-manifest.json]
@@ -113,6 +116,34 @@ def check_half_width_punctuation(body, warnings):
             f"{len(hits)} half-width , ; : ? ! spot(s) sitting in Chinese prose -- "
             "use full-width ，；：？！ instead (writing-style.md's full-width-"
             "punctuation rule). " + " | ".join(hits[:5])
+        )
+
+
+CAPTION_LINE_RE = re.compile(r"^\*(圖|表) (\d+) —", re.MULTILINE)
+# "Table 9" / "Figure 4" in prose, unless it's introduced as the paper's own
+# label ("論文 Table 9", "原始論文 Figure 4").
+PAPER_LABEL_RE = re.compile(r"(?<!論文 )\b(?:Table|Figure) \d+\b")
+
+
+def check_figure_labels(body, warnings):
+    """Sequential visible captions; no stray paper-numbered labels in prose."""
+    for label in ("圖", "表"):
+        nums = [int(n) for k, n in CAPTION_LINE_RE.findall(body) if k == label]
+        if nums != list(range(1, len(nums) + 1)):
+            warnings.append(
+                f"{label} captions are numbered {nums}, expected 1..{len(nums)} in article "
+                "order (figure-map-schema.md, \"Numbering the visible captions\")."
+            )
+    prose = CODE_FENCE_RE.sub(" ", body)
+    prose = INLINE_CODE_RE.sub(" ", prose)
+    prose = "\n".join(l for l in prose.split("\n") if not CAPTION_LINE_RE.match(l))
+    hits = [prose[max(0, m.start() - 10):m.end() + 10].replace("\n", " ").strip()
+            for m in PAPER_LABEL_RE.finditer(prose)]
+    if hits:
+        warnings.append(
+            f"{len(hits)} paper-numbered label(s) in prose -- refer to embedded visuals by the "
+            "article's own 表 N / 圖 N, and write the paper's number only as \"論文 Table N\". "
+            + " | ".join(hits[:5])
         )
 
 
@@ -208,8 +239,10 @@ def main():
 
     # Rough CJK-density check on the prose, excluding the figure-map block itself.
     prose = text[: fm_match.start()] if fm_match else text
+    # Headings inside code fences ("# comment" lines) aren't headings.
+    heading_text = CODE_FENCE_RE.sub("", prose)
 
-    h1_headings = H1_HEADING_RE.findall(prose)
+    h1_headings = H1_HEADING_RE.findall(heading_text)
     if len(h1_headings) > 1:
         errors.append(
             f"Found {len(h1_headings)} top-level '# ' headings ({h1_headings[1:]}), "
@@ -218,7 +251,7 @@ def main():
             "second '#'."
         )
 
-    headings = H2_HEADING_RE.findall(prose)
+    headings = H2_HEADING_RE.findall(heading_text)
     if not any("前言" in h for h in headings):
         errors.append("No \"## 前言\" heading found -- the article needs an explicit, concise intro section.")
     elif "前言" not in headings[0]:
@@ -230,6 +263,7 @@ def main():
 
     check_raw_notation(text, warnings)
     check_half_width_punctuation(text, warnings)
+    check_figure_labels(prose, warnings)
 
     visible = VISIBLE_CHAR_RE.findall(prose)
     cjk = CJK_RE.findall(prose)

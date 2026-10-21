@@ -1,199 +1,56 @@
-# Writer ⇄ Reviewer spec (full detail)
+# Writer ⇄ Reviewer spec
 
-This is the full version of the quality bar and loop mechanics summarized in
-`SKILL.md`. There is no more complete version elsewhere — treat this as the
-authoritative spec, not a summary of some other document.
+The full writing-quality bar. The review loop itself (Reviewer prompt, cycle
+limit, resume, fallback) is in `SKILL.md`; the figure conventions are in
+`figure-map-schema.md`.
 
 ## Writing quality bar
 
-The article is the actual thing an end reader will see. Hold this bar:
+- **A narrative, not a transcript.** Read the whole notes file first, decide
+  the actual story (what problem, what key idea, why a reader should care),
+  and write toward it instead of replaying the chat turn by turn or
+  section-header by section-header.
+- **Concise 前言 and 結論.** A `## 前言` right after the title that orients the
+  reader in a couple of short paragraphs, and a `## 結論` last that quickly
+  recaps the takeaways. Neither should run as long as a body section.
+- **Completeness over brevity: long is fine, thin is not.** Carry forward
+  everything substantive in the notes (explanations, worked examples, caveats,
+  asides, anything flagged as independently valuable even when tangential).
+  Don't shorten a section just because it is "long enough". What counts as
+  rambling, and gets cut, is restating a point or content-free transitions,
+  not depth. Assume a competent engineer willing to read a genuinely thorough
+  piece who is not an expert in this paper.
+- **A coverage pass before review.** Walk the notes' outline and check where
+  each major point landed. Anything missing needs a reason that survives
+  scrutiny (true redundancy); "too long" and "didn't fit the arc" don't.
+- **Explain from first principles.** Plain language before symbols and terms of
+  art. Prioritize what is practically useful to an engineer, not just what is
+  novel.
+- **Honest, not promotional.** Include the limitations, caveats and open
+  questions the notes surfaced, usually near the end as a distinct "where this
+  could bite you" section.
+- **Paraphrase and attribute.** Don't reproduce the source verbatim.
+- **Every claim traces to the notes.** If the notes don't cover something,
+  say it another way the notes do support, or leave it out. Don't fill gaps
+  from general knowledge of the topic, and don't guess.
 
-- **Structure around a narrative, not a transcript.** Do not replay the
-  notes/chat log turn by turn or section-header by section-header. Read the
-  whole thing first, decide what the actual story is (what problem does this
-  solve, what's the key idea, why should a reader care), and write toward
-  that arc.
-- **Explicit, concise 前言/結論.** See `writing-style.md`'s structural
-  readability rules — a `## 前言` right after the title that orients the
-  reader in a couple of short paragraphs, and a `## 結論` at the end that's
-  a quick recap, not a restatement of the whole piece.
-- **Completeness over brevity — long is fine, thin is not.** Per `SKILL.md`
-  hard rule #5, the default is to carry forward everything substantive in
-  the notes: explanations, worked examples, caveats, asides, and any
-  material the notes flag as independently valuable even when it's a
-  tangent from the paper's own story. A long article that stays organized
-  and paced well is a success, not a problem to fix — don't shorten a
-  section just because it's already "long enough." What still counts as
-  rambling (and should be cut) is actual redundancy — restating a point
-  already made, or padding with content-free transition sentences — not
-  depth of coverage. Assume an interested reader who is *not* an expert in
-  this specific paper, but is a competent engineer willing to read a
-  genuinely thorough piece.
-- **A coverage pass before calling a draft done.** Walk back through the
-  notes' own outline/section list and check off where each major point
-  landed in the article. Anything that didn't make it in needs a reason
-  that survives scrutiny (it was truly redundant with something already
-  said) — "it made the piece too long" or "it didn't fit the narrative arc"
-  are not acceptable reasons to drop a substantive point.
-- **Explain methods from first principles.** Put any necessary math or
-  jargon into plain language before (or instead of) symbols/terms of art.
-  Prioritize what's practically useful to an engineer reading this, not just
-  what's novel about the paper.
-- **Be honest, not promotional.** If the notes surfaced real limitations,
-  caveats, or open questions about the paper/method, include them — usually
-  near the end, as a distinct "here's where this could bite you in practice"
-  section. Don't default to uncritical praise just because the notes are
-  enthusiastic.
-- **Don't reproduce the source verbatim.** Paraphrase in your own words and
-  attribute it to the paper where relevant; lean on the (later-embedded)
-  figures rather than quoting large blocks of text.
-- **Every claim of fact traces back to the notes/chatlog**, per this skill's
-  hard rule against reading the PDF. If the notes don't cover something you
-  want to say, either find another way to say something the notes *do*
-  support, or leave it out — don't fill the gap from general knowledge of
-  the paper's topic area, and don't guess.
+## Figures and tables
 
-## Figure/table references
+- Reference a visual only where it supports the surrounding text, at the point
+  it's relevant, not batched at the end and not just because it is in the
+  manifest. Explicit callouts in the notes ("建議在此處貼上 Figure 1") are the
+  intended shortlist; match them to the manifest by caption content, not by
+  assuming the numbers line up 1:1.
+- Each referenced id gets an alt, a visible caption line, and a `figure-map`
+  entry. Never reference an id without a manifest entry. Details and
+  numbering: `figure-map-schema.md`.
+- No Hugo front matter, shortcodes or other platform syntax. The only
+  non-prose element is the single trailing `figure-map` block.
 
-Follow this convention exactly (full schema in `figure-map-schema.md`):
-- In the body: `![<alt>](<manifest-id>)` followed immediately by an italic
-  human-readable caption line.
-- For each referenced id, write a concise **alt** (describes the visual's
-  content, not "image of figure 3"), a visible **caption** line, and a
-  corresponding entry in the end-of-file `figure-map` block.
-- Reference a visual only where it genuinely supports the surrounding text,
-  at the point it's relevant — not batched at the end, and not just because
-  it exists in the manifest. If the notes explicitly flag certain
-  figures/tables as ones to include (this repo's source notes often do,
-  e.g. "建議在此處貼上 Figure 1"), that's a strong signal of the intended
-  shortlist — cross-check those callouts against the manifest by caption
-  content, not by assuming the numbering lines up 1:1.
-- Never reference an id that has no manifest entry.
+## Reviewer role
 
-Keep the body free of Hugo front matter, shortcodes, or any
-platform-specific syntax. That is Step 3's job, in the separate Hugo repo.
-The only non-prose element allowed is the single `figure-map` fenced block
-at the very end.
-
-## The Writer ⇄ Reviewer loop
-
-You play **both** roles, but the Reviewer role runs as an independent
-subagent (see `SKILL.md`'s workflow step 4) rather than you switching hats
-in the same context — this keeps the Reviewer honestly blind to everything
-except the file on disk, the same way a real naive reader would be.
-
-### Reviewer role — definition
-
-When acting as Reviewer (or when writing the subagent prompt that assigns
-this role), the persona is **an ordinary web reader with no prior knowledge
-of this paper**, who **cannot see** the source PDF, the notes, or the
-manifest — only `article.md`. The job is strictly **readability**, not
-correctness (a naive reader can't verify facts, so don't pretend to). This
-repo's articles are meant to be long-form deep-dives (see the Writer's
-completeness bar above) — length or thoroughness is not itself a defect;
-only flag a specific passage that actually rambles, restates an earlier
-point, or loses the thread. Assess:
-- Is it easy to follow? Does the arc make sense to a newcomer?
-- Is the pacing right — no actual rambling, no skipped leaps that lose a
-  beginner?
-- Layout/formatting: headings, flow, figure placement reading naturally.
-- Obvious typos, awkward phrasing, self-contradiction, broken sentences.
-- **Structural readability** (see `writing-style.md`'s "Structural
-  readability" section for the full rules): any paragraph that buries its
-  point after a long wind-up instead of leading with it; any paragraph
-  trying to cover more than one idea; a jargon term or acronym that
-  resurfaces many paragraphs after its introduction with no re-anchoring;
-  an abstract claim about what a method "does" with no concrete example or
-  number attached; an A/B-style comparison left as prose instead of a table
-  or parallel bullets; a missing or unheaded 前言/結論, an intro that stalls
-  before making its point, or a conclusion that re-argues the whole piece
-  instead of quickly recapping it.
-- Since this repo requires Traditional Chinese (Taiwan usage): does
-  anything read as English, Simplified Chinese phrasing, or stiff
-  AI-translated Chinese? That's in scope — it's a readability/authenticity
-  defect, not a factual one.
-- **Half-width punctuation in Chinese prose** (see `writing-style.md`'s
-  full-width-punctuation rule): a `,` `;` `:` `?` `!` doing the job of a
-  Chinese comma/semicolon/colon/question mark/exclamation mark instead of
-  its full-width form (，；：？！). Scan headings and table cells too, not
-  just body paragraphs — this has shipped wrong before. A digit-to-digit
-  thousands separator (`4,000`) or punctuation inside an English quote/code
-  span/URL is correctly left half-width; don't flag those.
-- **Heading hierarchy**: exactly one `#` in the whole file (the title).
-  Flag a second `#` anywhere in the body, and flag a tangential/independent
-  theme (see hard rule #5) whose sub-topics sit at `##` instead of nested as
-  `###` under one `##` parent — see `writing-style.md`'s heading-hierarchy
-  bullet for why this matters (it shipped wrong once).
-- **Cross-document structural repetition** (see `writing-style.md`'s
-  "Cross-document structural repetition" section): the same blockquote
-  opener/closer, section wrap-up line, or heading sentence-shape repeated
-  3+ times across the article, unvaried. This is a whole-article pattern,
-  not a single-paragraph one — read the draft end to end with this
-  specifically in mind, not just section by section.
-- **Formal definitions dumped as plain-text code fences** instead of LaTeX
-  (see `writing-style.md`'s "Formal definitions" section) — a fence full of
-  `x = ...`-style assignments with no math rendering. Flag it as a
-  readability defect: a reader's eye treats a code fence as skippable, which
-  is the opposite of what a load-bearing definition needs.
-- **Notation left as raw text outside a definition block** — an inline
-  `π_{t+1}`, `V^0`, `β1` in prose, or an `s_v` / `k*=3` / `分數 V` in a
-  table cell or header. Scan the prose *and every table* for this, not just
-  the fenced blocks: it's the most-missed case, and partial conversion (one
-  symbol converted, its neighbour in the same sentence not) reads worse
-  than none at all. Same `writing-style.md` section.
-
-Do **not** comment on factual accuracy vs. the source (the Reviewer can't
-see it, so it shouldn't pretend to) and do **not** comment on the trailing
-`figure-map` block (it's metadata for Step 3, not something a reader sees).
-
-### Loop mechanics
-
-1. Writer produces `article.md`.
-2. Reviewer (subagent) reads **only** `article.md` from disk and returns
-   concrete, actionable feedback — or approves.
-3. **Early exit:** if the article has no issues worth fixing, the Reviewer's
-   entire output must be the single line `REVIEW_APPROVED_NO_CHANGES` and
-   nothing else. Emit this token only when there are zero change requests.
-   If there's any real suggestion, give it and do not emit the token.
-4. **Don't manufacture work.** If the only findings are nitpicks that
-   wouldn't bother a real reader, approve instead. Padding feedback to look
-   thorough just wastes a review cycle.
-5. Writer revises `article.md` based on the feedback, in place, at the same
-   path.
-6. Repeat at most **3** full Writer→Reviewer cycles. Stop early on
-   `REVIEW_APPROVED_NO_CHANGES`. After 3 cycles, keep the latest version
-   regardless of remaining feedback.
-
-### Applying revisions without burning context
-
-When acting on Reviewer feedback, match the edit tool to the shape of the
-fix — don't default to rewriting the whole file:
-
-- **Localized fixes** (a term, a sentence, a wrong stat, one paragraph):
-  use targeted `Edit` calls against the exact text. Don't re-derive or
-  re-quote surrounding paragraphs you aren't changing.
-- **Systematic/mechanical fixes that touch most of the document** (e.g.
-  normalizing half-width punctuation to full-width throughout, a
-  find-and-replace of one term everywhere) — do **not** re-plan it by
-  writing out "original → fixed" for every paragraph and then re-emit the
-  entire file via `Write`. That reproduces the article's full text two or
-  three times over (once in your own reasoning, once or twice more in tool
-  calls) for a change that's fundamentally mechanical. Prefer a short
-  script (`sed`/Python via Bash) that applies the substitution across the
-  file in place, then spot-check the diff. Reserve `Write`-the-whole-file
-  for cases where the structure or narrative itself is being reworked, not
-  for style/punctuation sweeps.
-
-This matters because the Writer's own reasoning tokens and each tool call's
-content both count against context — a punctuation sweep should cost
-roughly what the fix itself costs, not multiples of the article's length.
-
-## Output
-
-- `<dir>/article.md`, containing the article body + the trailing
-  `figure-map` block. Do not modify anything under `<dir>/assets/` — that's
-  Step 1's territory.
-
-The full "Definition of done" checklist lives in `SKILL.md`, not repeated
-here — this file is scope-limited to the quality bar and the review loop
-mechanics above.
+The Reviewer is an ordinary web reader with no prior knowledge of the paper
+who sees only `article.md` (no PDF, notes or manifest). Its job is strictly
+**readability**, not factual accuracy, and it ignores the `figure-map` block.
+The checklist it runs is the prompt in `SKILL.md`, step 4; the voice rules it
+enforces are in `writing-style.md`.
