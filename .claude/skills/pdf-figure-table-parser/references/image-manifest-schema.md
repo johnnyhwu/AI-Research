@@ -1,11 +1,7 @@
 # image-manifest.json schema
 
-This is the schema `build_manifest.py` writes. It matches what this repo's
-blog-writing pipeline expects (see the repo's `CLAUDE.md` for the pipeline
-overview) — Step 2 (`blog-writer`) reads a manifest built with this skill
-directly, and Step 3 (in the separate Hugo repo) consumes it too. If you're
-using this skill outside that pipeline, treat this as a sensible default you
-can adapt.
+What `build_manifest.py` writes. Step 2 (`blog-writer`) and Step 3 (the Hugo
+repo) both consume it; see the repo `CLAUDE.md` for the pipeline.
 
 ```json
 {
@@ -25,45 +21,27 @@ can adapt.
 }
 ```
 
-Field notes:
-
-- **`id`**: stable, sequential in reading order (`img-001`, `img-002`, ...).
-  This is the join key downstream consumers use. Never reuse or renumber.
-- **`file`** (and `source_pdf`): repo-relative paths, written against the
-  bucket the topic sat in when the parser ran (`in-progress/`,
-  `done/unpublished/` or `done/published/`). They go stale when the topic
-  directory moves buckets, so the move must rewrite them -- see the repo
-  `CLAUDE.md`, "Moving a topic between buckets". `file` points at the
-  rendered PNG. The filename is
-  neutral (`picture-NNN.png`) and carries no semantic meaning by design --
-  never infer "this is Figure 3" from a filename; use `caption` instead.
-- **`type`**: `"figure"` | `"table"` | `"diagram"` | `"other"`.
-  `build_manifest.py` derives this directly from whether the caption said
-  "Figure" or "Table" — good enough in practice, since diagrams are
-  virtually always captioned as figures in academic papers.
-- **`page`**: 1-indexed source page. `build_manifest.py` always fills this in
-  (pymupdf reports it directly), so `null` should not occur in practice.
-- **`caption`**: the caption text verbatim, exactly as extracted. Never
-  synthesized -- a fabricated caption would corrupt any downstream matching
-  against this manifest. If no caption block was found for a visual, it
-  won't appear in the manifest at all (this pipeline only extracts visuals
-  it can positively identify via a caption; see SKILL.md's limitations).
-- **`nearby_text`**: a snippet of body text elsewhere in the document that
-  references the same "Figure N" / "Table N" label, for downstream
-  disambiguation. `null` if no such reference exists outside the caption
-  itself (this does happen -- some figures are only ever referenced by
-  their caption).
-- **`parser_confidence`**: `"high"` | `"low"`. `build_manifest.py` marks
-  figures `high` (region-render crops anchored precisely on caption/paragraph
-  boundaries are reliable for born-digital PDFs) and tables `low` unless
-  `table_markdown` was successfully populated. It additionally forces `low`
-  on any entry whose crop rectangle failed the geometry sanity checks
-  (`crop_warnings` in `pdf_parser_lib.py`: a near-empty region, or a figure
-  crop that is mostly body prose), printing a `SUSPECT CROPS` block naming
-  each one. When in doubt, `low` is the safe choice -- a downstream step's
-  job is to spot-check `low` entries, not to blindly trust the manifest.
+- **`id`**: sequential in reading order (`img-001`, ...); the join key
+  downstream. Never reuse or renumber.
+- **`file`**, **`source_pdf`**: repo-relative paths against the bucket the
+  topic sat in when the parser ran. They go stale when the directory moves
+  buckets, so every move rewrites them (repo `CLAUDE.md`, "Moving a topic
+  between buckets"). The `picture-NNN.png` filename carries no meaning; use
+  `caption`, never the filename, to tell which figure it is.
+- **`type`**: `"figure"` | `"table"` | `"diagram"` | `"other"`. The builder
+  derives it from whether the caption said "Figure" or "Table".
+- **`page`**: 1-indexed source page, always filled in.
+- **`caption`**: the caption text verbatim, never synthesized. A visual with
+  no detected caption is not in the manifest at all.
+- **`nearby_text`**: a body-text snippet elsewhere in the document that
+  mentions the same "Figure N"/"Table N", for disambiguation. `null` if only
+  the caption itself mentions it.
+- **`parser_confidence`**: `"high"` | `"low"`. Figures are `high`; tables are
+  `low` unless `table_markdown` was populated. Any entry that failed the crop
+  geometry checks (`crop_warnings`: a near-empty region, or a figure crop that
+  is mostly body prose) is forced to `low`, with a `SUSPECT CROPS` block naming
+  it. When in doubt, `low`: downstream spot-checks `low` entries rather than
+  trusting the manifest blindly.
 - **`table_markdown`** (optional, tables only): present only when
-  `pdfplumber`'s structured extraction produced a clean, consistent-column
-  table. Many academic tables have no ruling lines at all, in which case
-  this key is simply absent and the table's image is the source of truth --
-  that is expected, not a bug.
+  `pdfplumber` produced a clean, consistent-column table. Absent is normal (many
+  tables have no ruling lines); the image is then the source of truth.

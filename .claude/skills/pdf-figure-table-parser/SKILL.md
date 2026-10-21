@@ -5,555 +5,268 @@ description: Use this skill whenever you need to extract figures, tables, or dia
 
 # PDF Figure/Table Parser (Step 1 in this repo's pipeline)
 
-In this repo this skill is **Step 1**: it runs *before* `blog-writer`
-(Step 2), because the Writer may only reference figures that actually got
-extracted. See the repo's `CLAUDE.md` for the pipeline overview. The skill
-itself is general-purpose and has no dependency on that pipeline.
+Step 1 runs *before* `blog-writer` (Step 2), because the Writer may only
+reference figures that were extracted. See the repo `CLAUDE.md` for the
+pipeline. The skill itself has no dependency on that pipeline.
 
-## Why this skill exists
+## Why PyMuPDF and no ML parser
 
-The obvious way to parse a PDF's figures and tables is a tool like
-`docling`, `marker`, or `nougat`. All three are good tools, but they lean on
-downloaded deep-learning models (layout detection, table-structure
-recognition, OCR) hosted on `huggingface.co`. In a sandboxed agent
-environment with an egress allowlist, that host is very often blocked
-(policy denial, not a bug) -- and there is no way around a network policy
-denial, so don't spend time retrying it or hunting for a mirror.
+`docling`/`marker`/`nougat` download models from `huggingface.co`, which is
+usually blocked by an egress allowlist in sandboxed environments (a policy
+denial; don't retry or hunt for a mirror). For a **born-digital PDF** (LaTeX,
+Word, etc.; essentially every arXiv paper) none of that is needed: **PyMuPDF**
+gives exact text positions, embedded rasters and page rendering from the PDF's
+own structure. These scripts find every "Figure N"/"Table N" caption and render
+just that visual's region to PNG. No model weights, no network, no OCR.
 
-For a **born-digital PDF** (the PDF was produced by LaTeX/Word/etc., not a
-scan -- true for essentially every arXiv paper), you don't need any ML model
-at all. **PyMuPDF** (`import pymupdf`, formerly `fitz`) gives you exact text
-positions, embedded raster images, and high-fidelity page rendering, purely
-from the PDF's own internal structure. This skill's scripts use that to
-locate every "Figure N" / "Table N" caption in the document, and render just
-that visual's region to a PNG, anchored precisely between the surrounding
-text and the caption. No model weights, no network dependency, no OCR.
+A scanned PDF (empty or garbled `page.get_text()`, near-zero drawings in
+`inspect_pdf.py`) does need OCR; this skill doesn't apply.
 
-This only works for born-digital PDFs. If `page.get_text()` on a sample page
-comes back empty or garbled, the PDF is a scan and you actually do need OCR
-(the `pdf` skill's OCR section, or a docling/nougat setup where network
-access to model hosts is actually available) -- check for that early with
-`inspect_pdf.py` (a healthy page will show non-trivial vector drawing counts
-and/or text captions; a scanned page will show essentially nothing).
+## Images stay out of the main context
 
-## The hard rule: never load the images yourself
+The point of Step 1 is that later agents never have to load image bytes. So:
+judge crops with **text signals** (bounding boxes, caption strings, pixel
+sizes, `SUSPECT CROPS`, `verify_manifest.py`), and fix problems with better
+heuristics or the override flags, not by looking.
 
-The entire point of doing this extraction step is so that a *later* agent
-(a writer, a summarizer, a reviewer) never has to burn tokens or risk
-misreading a cropped chart by loading image bytes into its context. That
-discipline starts here: **never use an image-viewing tool on the PDF pages
-or the PNGs you produce, at any point in this workflow, even to "double
-check" a low-confidence extraction.** Every verification in this skill is
-done with text: bounding boxes, caption strings, file sizes, pixel
-dimensions, JSON schema checks. If something looks wrong, the fix is better
-heuristics or a manual crop-boundary override -- `--crop-top-override` /
-`--crop-bottom-override` for the vertical bounds, `--crop-left-override` /
-`--crop-right-override` for the horizontal ones (see below) -- not a peek.
+Text can't catch everything. When a crop looks wrong, or the situation is one
+of the known blind spots, do a **visual check, never in the main session**:
+write downscaled copies and let a subagent look at them (see "Visual check").
+Never open a full-size PNG or a rendered PDF page yourself.
 
-If the user hasn't stated this rule explicitly, apply it anyway by default;
-it's the reason a separate parsing step is worth having at all.
-
-One narrow, evidence-based caveat: a crop that's horizontally too narrow --
-outer table columns silently clipped while the image still comes out a
-plausible, non-degenerate size -- has no text-only signal in this skill at
-all (not `SUSPECT CROPS`, not `verify_manifest.py`; see "A single-column
-paper getting misclassified as two-column" and "Ruleless tables with no
-vector ink at all" below for two real instances). If a paper has any table
-with a short, centered, single-line caption, that specific risk is worth one
-direct look at the rendered PNG before calling the manifest done -- not a
-blanket exception to the rule, just the one failure class it structurally
-cannot catch on its own. Once a bad horizontal crop is caught this way (or
-via a downstream image-verification step some pipelines run on the crops
-after the fact), fix it with `--crop-left-override`/`--crop-right-override`
-rather than a hand-rolled script -- see "A single-column paper getting
-misclassified as two-column" and "Ruleless tables with no vector ink at
-all" below.
+Blind spots, none of which trip any automated check:
+- a crop that is horizontally too narrow or too wide (outer table columns
+  clipped, a neighbour's ink bled in), especially for **short, centered,
+  single-line table captions** and for any crop you gave a manual
+  left/right override;
+- a crop that landed on a neighbouring visual's content;
+- a multi-panel figure missing its second half.
 
 ## Workflow
 
-1. **Set up dependencies once per environment.**
-   ```bash
-   uv sync        # from the repo root; reads pyproject.toml + .python-version
-   ```
-   Run every script below with `uv run python
-   .claude/skills/pdf-figure-table-parser/scripts/<name>.py ...`, from the
-   repo root. The environment lives in the repo's own `.venv/` and the Python
-   version is pinned in `pyproject.toml` -- don't create a venv anywhere
-   else. This installs `pymupdf`, `pdfplumber`, and `pillow` from PyPI -- no
-   `huggingface.co` traffic, so it works under the same network policy that
-   blocks docling.
+1. **Set up once.** `uv sync` from the repo root. Run every script as
+   `uv run python .claude/skills/pdf-figure-table-parser/scripts/<name>.py ...`
+   from the repo root; the environment is the repo's own `.venv/`.
 
-2. **Dry-run the PDF first.**
+2. **Dry-run.**
    ```bash
    uv run python .claude/skills/pdf-figure-table-parser/scripts/inspect_pdf.py in-progress/<Topic>/<paper>.pdf
    ```
-   Read the printed page count, embedded-image counts, vector-drawing
-   counts, and the list of detected captions with their page + bounding box.
-   This is where you catch problems before spending effort: zero captions
-   detected probably means the paper doesn't caption its visuals the usual
-   way (check for "Fig." abbreviations, or non-English captions -- the
-   caption regex in `pdf_parser_lib.py` is easy to extend); near-zero
-   drawing/image counts on every page probably means it's a scanned PDF.
+   Check the page count, the content area and column edges (if these look
+   wrong every crop will be wrong), per-page raster/drawing counts, and the
+   detected captions. **A `WARNING: caption numbering has gaps` line means
+   captions were filtered out**, nearly always by `--min-caption-width`
+   (default 400): a single-column caption in a two-column paper is only
+   ~200-230pt wide, and a short centered caption can be narrower still. Re-run
+   with e.g. `--min-caption-width 100` (down to 50 is fine; `find_captions`
+   already requires a leading "Figure"/"Fig."/"Table" and rejects inline
+   cross-references) and use the same value for `build_manifest.py`. Zero
+   captions at all makes the script print the threshold that would work.
 
-3. **Build the manifest.**
+3. **Build the manifest** from the repo root. `--out-dir` and
+   `--source-pdf-repo-path` are written verbatim into the manifest, so use the
+   bucket the topic *currently* sits in (see repo `CLAUDE.md`).
    ```bash
    uv run python .claude/skills/pdf-figure-table-parser/scripts/build_manifest.py \
      --pdf in-progress/<Topic>/<paper>.pdf \
      --out-dir in-progress/<Topic>/assets \
      --source-pdf-repo-path in-progress/<Topic>/<paper>.pdf
    ```
-   Run this **from the repo root** -- `--out-dir` and
-   `--source-pdf-repo-path` are repo-relative paths that get written
-   verbatim into the manifest and checked against the current directory.
-   Use the bucket the topic *currently* sits in (`in-progress/` for a new
-   topic; `done/unpublished/` or `done/published/` when re-parsing a
-   finished one), so the baked-in paths never need rewriting later -- see
-   the repo `CLAUDE.md`, "Moving a topic between buckets".
+   It finds captions (a block that starts with "Figure N"/"Table N" and isn't
+   an inline cross-reference; on a number collision it prefers a block with a
+   separator `: . | — –` after the number, then a capitalized next word, then
+   length), measures the document layout once, picks each visual's top edge
+   (a floor of preceding captions and body text, then a walk up through the
+   visual's own ink to the first real whitespace gap) and horizontal bounds
+   (the union of clip-corrected ink and text in its band, widened by the
+   caption), renders at 3x zoom, tries `pdfplumber` for table markdown (kept
+   only if rows/columns are consistent with no empty cells, otherwise
+   `parser_confidence: low`), finds a `nearby_text` snippet, and flags bad
+   crops in a `SUSPECT CROPS` block on stderr (degenerate region, or a figure
+   crop that is mostly body prose), forcing them to `low`. It writes
+   `image-manifest.json` (schema: `references/image-manifest-schema.md`) and
+   runs the quality checks.
 
-   This does all of the following automatically:
-   - Finds every caption (`find_captions` in `pdf_parser_lib.py`). A caption
-     is a block that *starts* with "Figure N"/"Table N" and isn't followed
-     immediately by a comma (that comma pattern means it's an inline
-     cross-reference like "Table 2, Figure 3, and Table 3 test the design
-     choices...", not the real caption). When two blocks collide on the same
-     number, the tie-break checks, in order: (1) whether a separator
-     (`:` `.` `|` `—` `–`, optionally after a space) splits the label from
-     the description (a real caption -- the pipe form, "Figure 1 | Overall
-     architecture.", is a common house style and without it a longer
-     cross-reference sentence on the same number wins on length), (2) whether the word
-     right after the number is capitalized (a title, as opposed to a
-     lowercase verb continuing a sentence -- "Figure 2 shows that..." is a
-     cross-reference even though it has no comma right after "2"), then (3)
-     length. This matters because a caption number sometimes sits on its own
-     line ("Figure 2\nCross-domain transfer results.", no ":"/"." at all),
-     which only tier (2) can tell apart from a same-shaped run-on sentence.
-     If a figure/table's crop ends up capturing prose from a much later page
-     instead of its own visual, suspect this collision before anything
-     else -- check `find_captions`' output for that (kind, num) by hand. A
-     caption block also has to be at least
-     `--min-caption-width` points wide (default 400) to be accepted, which
-     filters out narrow incidental matches -- **but on a two-column paper, a
-     caption that sits inside a single column can legitimately be only
-     ~200-230pt wide.** If `inspect_pdf.py` finds suspiciously few captions
-     for a paper you know has more figures/tables, check whether it's
-     two-column (see below) and rerun with e.g. `--min-caption-width 150`.
-     When it finds *zero*, it now re-runs detection with no width floor
-     itself and prints the threshold that would work — read that line
-     before doing anything else, since a 396pt caption filtered out by the
-     400 default looks exactly like a paper with no captions at all.
-   - Measures the document's own layout once (`content_area`,
-     `column_left_edges`): the rectangle its body text prints inside, and the
-     x-coordinate(s) its text columns start at. Everything below is expressed
-     relative to these rather than to page-edge constants, so the heuristics
-     travel across paper templates. `inspect_pdf.py` prints both -- if they
-     look wrong, stop, because every crop will be wrong too.
-   - Estimates the top boundary of each visual's region (`auto_crop_top`) in
-     two stages: a *floor* nothing may cross (the content area's top edge, any
-     preceding caption on the same page/column, and the lowest body-column
-     text block above the caption), then a walk upward through the visual's
-     own ink from the lowest ink above the caption, stopping at the first real
-     whitespace gap. The floor is what keeps a mid-page figure from
-     swallowing the paragraph above it; the walk is what removes the blank
-     band between the floor and the figure.
-   - Derives the left/right bounds of each visual's region (`auto_crop_hbounds`):
-     the union of every ink rect fully contained in the visual's vertical
-     band, widened by the caption's own bbox as a floor. This reads the PDF's
-     own drawing commands as ground truth for where a figure's or table's ink
-     actually is, rather than guessing from a single page-wide column-width
-     estimate -- see below for why that guess reliably breaks on two-column
-     papers. Pass `--margin-x` to force a fixed page-edge margin instead (an
-     explicit escape hatch, not needed in normal use).
-   - Renders each region to `picture-NNN.png` at 3x zoom (~216 DPI) via
-     `page.get_pixmap(clip=...)`.
-   - Attempts clean structured-table extraction via `pdfplumber` for table
-     visuals, and includes it as `table_markdown` only if the result has
-     consistent row/column counts and no empty cells -- otherwise the image
-     is the source of truth and the entry is marked `parser_confidence: low`
-     (see below on why this often fails, and what "good enough" looks like).
-   - Finds a `nearby_text` snippet: the first place elsewhere in the
-     document body that mentions the same "Figure N"/"Table N", useful for
-     a downstream step trying to understand why the visual matters.
-   - Sanity-checks every crop rectangle against the page's text
-     (`crop_warnings`) and prints a `SUSPECT CROPS` block to stderr for any
-     that fail, forcing those entries to `parser_confidence: "low"`. Two
-     things get flagged: a degenerate (near-empty) region, which almost
-     always means the caption sits *above* its visual, and a figure crop
-     whose height is mostly body prose, which means the top boundary
-     overshot. Read that block -- it is the cheap, image-free signal that a
-     crop needs a manual override, and it exists precisely so a wrong crop
-     can't ship looking confident.
-   - Writes `image-manifest.json` matching the schema in
-     `references/image-manifest-schema.md`, and runs the quality checks
-     (step 4) automatically before exiting.
+4. **Fix flagged or suspicious crops** (see the symptom index), rebuilding
+   with the override flags: `--crop-top-override`, `--crop-bottom-override`,
+   `--crop-left-override`, `--crop-right-override`, all `"page:kind:num=value"`
+   comma-separated, e.g. `"8:table:3=255,12:figure:3=60"`. Read the values off
+   `dump_blocks.py <pdf> <page> [<page>...]`, which prints every text block's
+   bbox and text top to bottom. Rebuild once with all overrides together.
 
-4. **Quality-check independently, any time.**
+5. **Visual check** when any blind spot above applies (usually it does).
+
+6. **Verify** (also after any hand edit of the manifest):
    ```bash
    uv run python .claude/skills/pdf-figure-table-parser/scripts/verify_manifest.py \
      in-progress/<Topic>/assets/image-manifest.json .
    ```
-   (The trailing `.` is the repo root the manifest's repo-relative paths
-   resolve against; it defaults to the current directory, so run this from
-   the repo root.)
-   Confirms every `file` path exists and is non-zero size, no duplicate
-   `id`s or file paths (including duplicate *content*, via checksum), and
-   every entry has the required keys. Run this again after any manual edit
-   to the manifest (e.g. a downstream agent filling in a `table_markdown`
-   by hand).
+   It confirms every `file` exists and is non-empty, there are no duplicate
+   ids/paths/contents, and every entry has the required keys.
+
+## Visual check
+
+```bash
+uv run python .claude/skills/pdf-figure-table-parser/scripts/make_review_thumbs.py \
+  in-progress/<Topic>/assets/image-manifest.json <scratchpad>/thumbs
+```
+This writes `<id>.jpg` downscaled to 900px and prints id, original size and
+caption per image. Don't open them yourself. Spawn one subagent, give it the
+folder, and tell it, per image: the expected content (from the caption), to
+read only the thumbnails, and to **report only problems as text** (clipped
+edge, neighbouring prose or another visual included, large blank margin, a
+missing legend or panel row), quoting the visible title or column headers of
+anything it flags. It can mislabel images, so cross-check a flagged one
+against its caption and pixel size, or ask the subagent to re-read just that
+file, before changing anything. Then fix with the override flags and rebuild.
 
 ## Symptom index
 
-Most of what follows is failure modes. Find your symptom here and jump
-straight to that section rather than reading the lot.
-
 | What you're seeing | Section |
 |---|---|
-| `0 visual(s) detected`, or fewer captions than the paper has | Workflow step 2 (read the printed hint first), then **Two-column papers** |
-| Crop is a few pixels tall (`SUSPECT CROPS`: degenerate) | **Multi-panel figures whose (a)/(b) sub-captions sit flush left** — the common case — or **When the automatic crop boundary gets a page wrong** for caption-above-content |
-| Crop swallowed the paragraph above the figure | **Figures that float mid-page** |
-| Crop is mostly blank margin, figure shrunk in the middle | **Clipped ink** |
-| Figure renders fine but is missing its lower half | **A caption sitting in the middle of a multi-panel figure** |
-| Table render is plausible but outer columns are cut off | **A single-column paper getting misclassified as two-column** and **Ruleless tables with no vector ink at all** — neither trips any automated check |
-| A crop landed on a *neighbouring* visual's content | **When the automatic crop boundary gets a page wrong** (`crop_warnings` cannot see this) |
-| `table_markdown` missing, table marked `parser_confidence: low` | **Why tables often end up low-confidence** — usually fine, no action needed |
-| Every page shows ~no text or drawings | Scanned PDF; this skill doesn't apply, see **Why this skill exists** |
+| Fewer captions than the paper has | Workflow step 2 (gap warning), "Two-column papers" |
+| Crop a few pixels tall (`SUSPECT CROPS`: degenerate) | "Sub-captions or table rows sit flush left", or "Caption above its content" |
+| Crop swallowed the paragraph above the figure | "Figures that float mid-page" |
+| Crop is mostly blank margin, figure shrunk in the middle | "Clipped ink" |
+| Figure renders but is missing its lower half | "A caption in the middle of a multi-panel figure" |
+| Outer table columns cut off, or a short-caption crop too narrow | "Single-column paper misclassified" and "Ruleless tables" (visual check) |
+| Crop landed on a neighbouring visual's content | "Caption above its content" (visual check) |
+| `table_markdown` missing, table `low` | "Low-confidence tables" (usually fine) |
 
-## Clipped ink: why raw drawing bboxes can't be trusted
+## Failure modes
 
-`page.get_drawings()` reports each path's bbox *before* the clipping path is
-applied, and modern papers clip constantly -- any figure that embeds a
-screenshot or a cropped photo typically places the full raster far outside
-the page and shows a window onto it. Bboxes like `x=(-310, 681)` on a 612pt
-page are completely normal, and none of that ink is visible.
+### Clipped ink
 
-Taking `min`/`max` over those bboxes, as `auto_crop_hbounds` originally did,
-stretches a figure's crop to the full page width: the render is mostly blank
-margin with the actual figure shrunk in the middle. `visible_drawing_rects`
-fixes this by replaying the clip stack from `page.get_drawings(extended=True)`
-(which additionally emits `clip`/`group` entries with a scissor rect and a
-nesting `level`) and intersecting each path with the clip actually in force.
+`page.get_drawings()` reports bboxes *before* clipping, so a figure embedding
+a cropped screenshot has paths like `x=(-310, 681)` on a 612pt page that show
+nothing. Taking min/max over them stretches the crop to the full page.
+`visible_drawing_rects` replays the clip stack from
+`get_drawings(extended=True)` and intersects each path with its clip. Placed
+rasters carry no clip info, so `visual_ink_rects` drops any image whose bbox
+isn't fully inside the page (a clipped backdrop) and gates the rest on the
+content area widened by 4% of the page width. `inspect_pdf.py` prints the raw
+and visible drawing counts per page; a large gap means the paper clips
+heavily. For a paper that genuinely runs figures into its margins, use
+`--margin-x`.
 
-Placed **raster images** get no clip information from PyMuPDF at all, so
-`visual_ink_rects` handles them separately: an image whose bbox is not fully
-inside the page is dropped outright (it is a clipped backdrop, and its bbox
-describes the source, not what shows), and the rest are gated on the
-document's `content_area` widened by 4% of the page width. That tolerance
-lets a figure bleed a little into the margin while rejecting a raster that
-claims the whole margin. A document that genuinely runs figures deep into its
-margins is the case to reach for `--margin-x` on.
+### Caption above its content
 
-`inspect_pdf.py` prints both counts per page ("N vector drawing item(s), M of
-them visible after clipping"). A large gap between the two means this paper
-clips heavily, and the crops depend on the clip-stack logic being right.
+The default bottom edge is 3pt above the caption, correct when the caption
+sits *below* the visual. For the academic-table convention of captioning
+*above*, the content sits below the caption, so the default crops the page
+header or whitespace. Fix with **both** `--crop-top-override` (just below the
+caption) and `--crop-bottom-override` (just below the last row), e.g.
+`--crop-top-override "5:table:1=326" --crop-bottom-override "5:table:1=442"`.
 
-## When the automatic crop boundary gets a page wrong
+This is a whole-paper style choice: once one table is caption-above, expect
+every table in that paper to be, and check them all against `dump_blocks.py`
+rather than fixing only the flagged ones. The sharpest form: a walk that
+overshoots past a table's caption into the *neighbouring table's* cells
+renders a plausible size, passes every check, and can even get
+`parser_confidence: high` from `pdfplumber`. Confirm each final y-range doesn't
+dip into the block above its own caption.
 
-The heuristic in step 3 assumes a fairly standard single/double-column
-academic layout. It can still misjudge unusual pages -- most often a caption
-placed *above* its visual instead of below. `build_manifest.py`'s
-`SUSPECT CROPS` block flags the cases it can detect; a crop can also be
-subtly wrong without tripping it. When a rendered image's pixel dimensions
-look implausible (e.g. absurdly short/tall, or you notice two visuals'
-regions must have overlapped because their combined heights exceed the page),
-don't open the PNG to check -- instead:
+### Sub-captions or table rows sit flush left
 
-```bash
-uv run python .claude/skills/pdf-figure-table-parser/scripts/dump_blocks.py path/to/paper.pdf <page_num>
-```
+`flush_left_blocks` identifies body prose by a block starting exactly on a
+column edge. Two things look like that but aren't prose, and both anchor the
+top floor just above the real caption, leaving a few points of height:
+- a multi-panel figure's `(a) ...`/`(b) ...` sub-captions (one paper hit
+  this on 5 of 13 figures, so check every multi-panel figure);
+- **a table's own rows**, when its caption sits below it and the rows start
+  on the column edge (9 of 19 visuals in one two-column paper).
 
-This prints every text block's bounding box and text on that page, sorted
-top to bottom -- purely textual, so it doesn't break the "never look at the
-image" rule. Use it to read off the right y-coordinate by eye (the value
-just below the last real paragraph and just above the caption), then rerun
-`build_manifest.py` with:
-
-```bash
---crop-top-override "8:table:3=255,12:figure:3=60"
-```
-
-(format: `page:kind:num=y`, comma-separated for multiple overrides).
-
-**Caption-above-content is a separate case from a merely-wrong top boundary,
-and needs both overrides together.** `build_manifest.py`'s default bottom
-boundary is always "3pt above the caption's own top edge" -- correct for the
-usual figure convention (caption below the visual), but backwards for the
-common academic-table convention of captioning *above* the table. On a page
-like that, the real table content sits *below* the caption, so leaving the
-default bottom boundary in place crops the page header or blank space above
-the caption instead of the table -- `--crop-top-override` alone can't fix
-this, since it only moves the top edge and the bottom edge is still anchored
-above the caption. Use `dump_blocks.py` to find the y-coordinate just below
-the table's last row, and pass it via `--crop-bottom-override` (same
-`page:kind:num=y` format) alongside a `--crop-top-override` set to just below
-the caption:
-
-```bash
---crop-top-override "5:table:1=326" --crop-bottom-override "5:table:1=442"
-```
-
-This convention (caption above, content below) is common enough for tables
-specifically that it's worth checking every table entry's rendered
-dimensions against `dump_blocks.py` output up front on any paper with
-ruleless/dense tables, rather than waiting for a visibly-wrong pixel size to
-notice it -- a crop that grabs the page's running header text instead of the
-table can still produce a plausible-looking, non-degenerate pixel size. In
-practice this convention tends to be a whole-paper style choice, not a
-per-table coin flip: across several papers run through this skill, once the
-*first* table on a page turned out to caption-above-content, *every* other
-table in that same paper did too (18 of 18 tables in one paper, 11 of 11 in
-another). So treat one caption-above hit as a strong signal to expect
-`--crop-top-override`/`--crop-bottom-override` on every remaining table in
-the document, not just a one-off fix for that single entry -- check the
-rest before considering the manifest done rather than waiting for each one
-to individually look wrong.
-
-**A crop that lands on an *adjacent visual's* content is the sharpest version
-of this and `crop_warnings` cannot see it at all.** The "mostly prose" check
-only recognizes body paragraphs as a problem; a table's own data rows aren't
-classified as prose, so if `auto_crop_top`'s walk overshoots past one
-table's caption into a neighboring table's cells above it, the render comes
-out a perfectly plausible, non-degenerate size and ships with
-`parser_confidence` decided purely by whether `pdfplumber` found a
-structured table in the (wrong) region -- it can even say `"high"`. This
-happened twice on one paper (two entries out of seven tables), both times on
-tables that weren't in the `SUSPECT CROPS` list. The only reliable defense
-is the practice above taken literally: when a paper captions tables above
-their content, walk *every* table entry's final top/bottom against
-`dump_blocks.py` and confirm the y-range doesn't dip into the block above
-the visual's own caption -- don't stop once the flagged ones are fixed.
+Fix with `--crop-top-override` **alone**, set above the visual's real top
+(the first panel or header row, via `dump_blocks.py`). The bottom edge is
+already right. To tell this apart from caption-above: if the real content sits
+*below* the caption, it's caption-above; if the blocks right above the caption
+are sub-captions or table rows with the visual's own text above them, it's
+this case.
 
 ### Figures that float mid-page
 
-A figure with body text above it and its caption below it used to be the
-worst case here: the top boundary anchored only on other *captions*, so with
-none above it on the page the crop started at the top-of-page margin and
-swallowed every heading and paragraph between there and the figure. This is
-now handled automatically -- `auto_crop_top`'s floor includes body-column
-text, and the ink walk closes the remaining gap -- but the mechanism is worth
-knowing, because it rests on one specific signal:
+Body-column text is identified by its left edge (`column_left_edges`);
+a figure's own text (panel labels, axis labels, callouts) is centered or
+indented at least a couple of points off it. Widening `flush_left_blocks`'
+`tol` past ~2pt classifies figure text as body text and crops figures to
+nothing; fix a page with an override instead. The upward ink walk crosses gaps
+up to 36pt (`max_gap`), so a genuinely larger internal gap loses a figure's top
+rows, and a caption less than that from the text flow can pull in a line of it.
+Both are override cases. Inline icons in running text are why the walk starts
+at the lowest ink above the caption and why the floor exists.
 
-**Body-column text is identified by its left edge, not by how it reads.** A
-paragraph or a section heading starts exactly on a column edge
-(`column_left_edges`); a figure's own internal text -- panel labels, axis
-labels, callouts, quoted model output -- is centred or indented inside the
-figure and lands at least a couple of points off it. `flush_left_blocks`
-splits them on that, plus a minimum width so a stray `(a)` at the far left of
-a figure isn't mistaken for a paragraph.
+### A caption in the middle of a multi-panel figure
 
-Two consequences to keep in mind when a page still comes out wrong:
+If the caption sits between two panel rows (say bar charts, caption, then a
+legend and a second row), the auto crop stops cleanly at the caption, renders
+a normal size, and misses the second half; the next caption on the page then
+gets a top edge inside that missing half. The tell in `dump_blocks.py`: body
+text resumes only well after the *next* caption, with figure-internal blocks
+in between. Fix both: `--crop-bottom-override` on the first figure and
+`--crop-top-override` on the second, starting where the first now ends.
 
-- Widening `flush_left_blocks`' `tol` past ~2pt starts classifying
-  figure-internal text as body text, which crops figures to nothing. Fix the
-  page with `--crop-top-override` instead.
-- The ink walk crosses gaps up to `auto_crop_top`'s `max_gap` (36pt), which
-  covers the whitespace between stacked panel rows in a multi-row figure. A
-  figure with a genuinely larger internal gap loses its top rows; one whose
-  caption is separated from the page's text flow by less than that can pull
-  in a line of it. Both are override cases, not tuning cases.
+### Two-column papers
 
-Papers that drop inline icons into running text (a model logo mid-sentence,
-say) are the reason the walk starts at the *lowest ink above the caption*
-rather than at the caption, and the reason the floor exists at all: those
-icons are real ink sitting inside body paragraphs and headings, and without
-a floor the walk would happily chain up through them.
+Two-column layouts mix full-width and single-column floats. Single-column
+captions are the ones `--min-caption-width` filters (workflow step 2).
+`auto_crop_hbounds` reads each visual's own clip-corrected ink, so a
+full-width table no longer comes out one column wide; comparing pixel widths
+across visuals (they should cluster at "one column" and "full width", not a
+continuum) is a fast text-only way to spot an outlier. `--margin-x` remains as
+a manual override.
 
-### Multi-panel figures whose (a)/(b) sub-captions sit flush left
+**A caption narrower than its figure.** A short centered caption (e.g. 200pt
+under a figure of two side-by-side 240pt panels) is classified into one column
+and clips the figure to its width. This is invisible to every automated check;
+catch it by comparing pixel width to the raster rects `inspect_pdf.py`
+prints, then fix with `--crop-left-override`/`--crop-right-override` set to the
+outer edges of those rects.
 
-This is the most common way a crop collapses, and it's worth recognizing on
-sight because the `SUSPECT CROPS` fix is a one-liner.
+### Single-column paper misclassified as two-column
 
-A multi-panel figure usually labels its panels with a line like
-`(a) Across 500 problems, the most expensive instance costs ...`, set as a
-normal text block starting **flush against the body column edge**. That is
-exactly the signal `flush_left_blocks` uses to identify body prose (see the
-previous section), so `auto_crop_top` treats the sub-caption as a body-text
-floor and anchors the region just below it — leaving a band a few points
-tall between that floor and the real caption underneath. The render comes
-out a handful of pixels high and trips the degenerate-crop warning.
+`caption_column` once classified a caption from its own width alone, so a
+short centered caption in a single-column paper looked like it lived in a
+non-existent half-page column and the table's wider cells were cut off.
+`build_manifest.py` now computes `is_two_column_doc(...)` once (a real second
+column starts past ~25% of the page width from the first, unlike the ~15-20pt
+indent of nested lists) and passes `two_column=...` through; when false,
+`caption_column` always returns `"full"`. `inspect_pdf.py` prints which way
+this went next to the column edges. Check it on any paper with a short,
+narrow-captioned table.
 
-One paper hit this on five of its thirteen figures, so expect it in batches
-rather than one-offs: if one multi-panel figure in a paper does this, check
-every other one.
+### Ruleless tables
 
-The fix is `--crop-top-override` **alone**, set above the figure's real top
-(usually just under the content area's top edge for a figure that starts a
-page). Do *not* reach for `--crop-bottom-override` here — the bottom
-boundary, 3pt above the caption, was already correct. That distinguishes
-this case from caption-above-content below, which needs both.
+A table with no drawn rules has no vector ink and no images, so its width
+used to fall back to the caption's bbox, which clips outer columns when the
+caption is shorter than the table. `auto_crop_hbounds` now also unions in
+text-block rects found in the final `[top, bottom]` band. The mirror failure
+(too *wide*) happens when a neighbour's ink or a body-width sub-caption falls
+inside the band. Either direction is a one-line fix with
+`--crop-left-override`/`--crop-right-override` (per entry; every other visual
+keeps its auto bounds). Get the x value from `dump_blocks.py` bboxes or a
+one-off `visual_ink_rects(page)` call.
 
-Telling the two apart with `dump_blocks.py`: if the real content sits
-*below* the caption, it's caption-above. If the blocks immediately above
-the caption are `(a)`/`(b)` sub-captions with the figure's axis labels and
-panel text above *them*, it's this case.
+### Low-confidence tables
 
-### A caption sitting in the middle of a multi-panel figure
+Many academic tables have no ruling lines, so `pdfplumber`'s line-based
+detection finds nothing or something fragmented. That is expected, not worth
+fighting: the schema prefers an honest `parser_confidence: low` image-only
+entry over a silently mangled cell. To push on a specific table by hand,
+lower `pdfplumber`'s word-clustering `x_tolerance` (e.g. 1.5 instead of 3) to
+split glued words like "Strongoptimizer"; this inspects text, not images, so
+it's fine.
 
-The default bottom boundary ("3pt above the caption's own top edge") assumes
-the caption is the *last* thing in the figure's region. Some multi-panel
-figures instead put the caption between two rows of sub-panels -- e.g. a
-top row of bar charts, then the caption, then a color legend and a second
-row of box plots labeled "(a) .../(b) ..." that the caption text never
-actually mentions by name. Nothing here trips `SUSPECT CROPS`: the auto crop
-stops cleanly at the caption and renders a normal-looking, correctly-sized
-image -- it's just missing the second half of the figure, and the next
-caption on the page (if any) gets an auto top boundary that starts *inside*
-that missing second half instead of above it, silently stealing content that
-belongs to the first figure.
-
-The tell is in `dump_blocks.py`'s output, not in `SUSPECT CROPS`: body-column
-text (a new section heading, a paragraph starting flush against
-`column_left_edges`) resumes only well after the *next* caption on the page,
-with figure-internal-looking blocks (panel titles, axis labels, legend
-entries) continuing in between. When that gap exists, both figures need
-manual boundaries: `--crop-bottom-override` on the first figure to extend
-through the legend/second row, and `--crop-top-override` on the second
-figure to start right where the first one now ends.
-
-## Two-column papers: what to watch for
-
-A two-column academic layout (very common for conference-style papers, less
-so for arXiv preprints in general but not rare) routinely mixes
-**full-width** floats (a wide table spanning both columns) with
-**single-column** floats (a figure or table confined to one column) on the
-same document. Two symptoms show up together and both trace back to the
-same root cause -- a single-column-width assumption baked into a heuristic:
-
-- `inspect_pdf.py` finds fewer captions than the paper actually has ->
-  the missing ones are single-column-width captions getting filtered by
-  `--min-caption-width`'s default of 400. Fix: rerun `inspect_pdf.py`/
-  `build_manifest.py` with a lower value (e.g. `150`) once you confirm
-  (`dump_blocks.py`) that the "missing" captions really are narrower,
-  single-column blocks and not noise.
-- A full-width table renders cropped to roughly one column's width, with
-  the other half cut off -> this was `auto_crop_hbounds`'s predecessor bug:
-  it derived one page-wide margin from the *median* body-text column width,
-  which is representative of the many single-column paragraphs but wrong
-  for the few floats that span both columns. `auto_crop_hbounds` now reads
-  each visual's own clip-corrected ink instead (see "Clipped ink" above), so
-  this shouldn't recur -- but if you ever see it, or the opposite symptom of
-  a figure marooned in blank margin, `--margin-x` is still there as a manual override,
-  and comparing pixel widths across all extracted visuals (they should
-  cluster into one or two consistent widths -- "one column" and "full
-  width" -- not a continuum) is a fast, image-free way to spot which entries
-  are off.
-
-The same low-`--min-caption-width` fix applies beyond two-column layouts,
-too: some single-column papers use a narrower-than-usual text column (e.g.
-~345pt instead of the ~400-480pt a US-letter/A4 page with normal margins
-usually gives you), and a small inset figure's caption can be narrower still
-if it sits beside other content rather than spanning the full column. If
-`inspect_pdf.py` finds zero or suspiciously few captions on a paper that
-isn't two-column, don't assume two-column-ness is the only possible cause --
-check the actual caption block widths with `dump_blocks.py` and lower
-`--min-caption-width` to whatever the real minimum is (down to a very low
-value like `50` is fine; the risk of noise from *other* short blocks
-matching the regex is low, since `find_captions` already requires the block
-to start with "Figure"/"Fig."/"Table" and reject inline cross-references).
-
-### A single-column paper getting misclassified as two-column
-
-`caption_column` (used by `auto_crop_top` and `auto_crop_hbounds` to keep
-same-page opposite-column visuals from contaminating each other) used to
-classify purely from a caption's own width against the raw page width, with
-no idea whether the document actually *has* two columns. A **short, centered
-caption in an otherwise single-column paper** (a one-line caption like
-"Table 4 Lifecycle operations for crystallized skills.", much narrower than
-`full_width_frac` of the page) would get its midpoint compared against the
-bare page center and misclassified as living in a "left" or "right" half-page
-column that doesn't exist -- then everything past that arbitrary midpoint
-(the table's own wider cells) got excluded from its crop, clipping both
-outer columns. This produced a normal-looking, non-degenerate image every
-time -- `crop_warnings` has no signal for "this width looks too narrow" --
-and was only caught by directly viewing the rendered PNG.
-
-Fixed by computing a whole-document `is_two_column_doc(column_left_edges(...),
-page_width)` once in `build_manifest.py` and threading it through as
-`two_column=...` to `caption_column` and everything that calls it: a real
-second column starts well past the page's midpoint (its left edge differs
-from the first column's by more than ~25% of the page width), which is
-different from the ~15-20pt gap a single-column paper's nested-list
-indentation also produces between `column_left_edges` clusters. When
-`two_column` is false, `caption_column` always returns `"full"` regardless
-of the caption's own width, so no caption on a genuinely single-column paper
-can be excluded from content past an artificial half-page line.
-`inspect_pdf.py` now prints which way this went ("-> treated as
-single-column/two-column for crop bounds") right next to the column edges --
-check it on any paper with a short, narrow-captioned table, even one that
-otherwise looks perfectly single-column.
-
-### Ruleless tables with no vector ink at all
-
-A **ruleless table** (no drawn gridlines whatsoever -- common; see "Why
-tables often end up low-confidence" below) has zero vector drawings and no
-images in its band, so `auto_crop_hbounds` used to fall back entirely to the
-caption's own bbox as both floor *and* final width. That's fine when the
-caption is as wide as the table (most captions in this repo's papers are
-full descriptive paragraphs), but a short one-line caption is frequently
-*narrower* than the table beneath it -- same root cause as the
-two-column-misclassification bug above, and it compounds with it, since a
-narrow caption is also the trigger for that one. `auto_crop_hbounds` now
-also unions in text-block rects (not just vector/image ink) found in the
-already-finalized `[top, bottom]` band, so a ruleless table's own cell text
-sets its width even with zero drawn ink to go on. Both bugs together clipped
-two single-line-caption tables in one paper down to their caption's width,
-losing entire outer columns on both sides, and both instances passed every
-automated check (`SUSPECT CROPS`, `verify_manifest.py`) -- this class of bug
-is invisible to every text-only signal this skill has and was only found by
-directly viewing the rendered PNGs. If a paper has any short, centered table
-captions, that alone is reason enough to view those specific renders once
-before calling the manifest done, hard rule or not.
-
-The mirror-image failure -- a crop coming out *too wide* rather than too
-narrow -- shows up when a neighbouring visual's ink sits inside this one's
-finalized `[top, bottom]` band and gets unioned in by mistake (e.g. a
-multi-panel figure whose sub-caption line is body-text-width, so a wide
-paragraph next to the figure reads as part of it). This produces a crop
-that's a plausible size but includes a slice of the wrong content on one
-side -- again nothing `SUSPECT CROPS` or `verify_manifest.py` can see,
-since neither checks *what* the ink is, only whether ink exists.
-
-Either direction -- too narrow or too wide -- is now a one-line fix once
-you've spotted it: `--crop-left-override "<page>:<kind>:<num>=<x>"` and/or
-`--crop-right-override "<page>:<kind>:<num>=<x>"`, same `page:kind:num=value`
-format as the vertical overrides, applied per-entry so every other visual's
-auto-derived bounds are left alone. Find the right x value the same
-text-only way as a vertical override -- `dump_blocks.py`'s per-block bboxes
-on the page, or a one-off call to `visual_ink_rects(page)` in a Python
-shell -- rather than rendering candidate crops and eyeballing them. This
-replaces hand-rolling a `visible_drawing_rects`/`render_crop` script to
-patch a single bad entry, which was the only option before these two flags
-existed.
-
-## Why tables often end up low-confidence, and why that's fine
-
-Many academic tables have no ruling lines at all (just whitespace/alignment)
--- `pdfplumber`'s line-based table detection needs actual drawn lines to
-find column/row boundaries, so it often finds nothing or something
-fragmented on these. This isn't a bug in the script, and it isn't worth
-fighting hard: this repo's manifest schema explicitly prefers an honest
-`parser_confidence: low` + image-only entry over a structured table that
-silently mangled a cell (merged headers, misaligned columns).
-`build_manifest.py` already applies this policy automatically.
-
-If you want to push further on a specific ruleless table by hand: lowering
-`pdfplumber`'s word-clustering `x_tolerance` (e.g. `page.extract_words(x_tolerance=1.5)`
-instead of the default 3) can fix words getting glued together
-(`"Strongoptimizer"` -> `"Strong"`, `"optimizer"`) on fonts with tight
-letter-spacing. This isn't wired into `build_manifest.py` because tuning it
-safely in general (without breaking cases where merging is correct) needs a
-human or agent to eyeball the *text* output per-document -- which is fine to
-do, since that's text, not image, inspection.
-
-## Files in this skill
+## Files
 
 ```
 pdf-figure-table-parser/
-├── SKILL.md                              (this file)
-├── references/
-│   └── image-manifest-schema.md          field-by-field schema docs
+├── SKILL.md
+├── references/image-manifest-schema.md   field-by-field schema docs
 └── scripts/
-    ├── pdf_parser_lib.py                 shared logic, imported by the rest
-    ├── inspect_pdf.py                    dry-run: captions + image/drawing counts
-    ├── dump_blocks.py                    manual debugging: per-page text block dump
+    ├── pdf_parser_lib.py                 shared logic
+    ├── inspect_pdf.py                    dry-run: captions, numbering gaps, image/drawing counts
+    ├── dump_blocks.py                    per-page text block dump (for override values)
     ├── build_manifest.py                 main driver: extract + write manifest
-    └── verify_manifest.py                standalone quality-check
+    ├── verify_manifest.py                standalone quality check
+    └── make_review_thumbs.py             downscaled copies for the subagent visual check
 ```

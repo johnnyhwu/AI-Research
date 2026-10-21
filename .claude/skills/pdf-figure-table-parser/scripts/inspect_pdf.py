@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
 Dry-run a PDF before extracting anything: page count, embedded raster image
-counts, vector-drawing counts per page, and every Figure/Table caption it can
-detect (with page + bounding box). Read this output as TEXT -- do not open
-the PDF or any rendered image in an image viewer / Read tool to "double
-check"; that defeats the whole point of this pipeline.
+counts, vector-drawing counts per page, every Figure/Table caption it can
+detect (with page + bounding box), and a warning when caption numbering has
+gaps. Read the output as TEXT; for a visual check of finished crops see
+SKILL.md ("Visual check").
 
 Usage:
     python inspect_pdf.py <pdf_path> [--min-caption-width N]
@@ -89,6 +89,12 @@ def main():
               "in pdf_parser_lib.find_captions), or -- if the pages above showed "
               "near-zero drawings and no text -- it's a scanned PDF needing OCR.")
         return
+
+    gaps = lib.numbering_gaps(captions)
+    if gaps:
+        print(f"\nWARNING: caption numbering has gaps -- missing {', '.join(gaps)}. "
+              f"Likely filtered by --min-caption-width={min_caption_width:g}; re-run "
+              "with a lower value (e.g. 100) and confirm with dump_blocks.py.")
 
     print(f"\n{len(captions)} visual(s) detected. Next: run build_manifest.py.")
     print("If a page's layout looks unusual (two-column, floating figures, "
