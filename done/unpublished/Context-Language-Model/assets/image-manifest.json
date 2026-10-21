@@ -1,0 +1,250 @@
+{
+  "source_pdf": "done/unpublished/Context-Language-Model/2609.37725v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1 Context Language Models (CLMs) natively manage their own context by treating context as a file. CLMs work out of the box and can be further improved through in-context learning and reinforcement learning. (a) Qualitative examples of creative context-management behaviors introduced by CLM. (b) Out of the box, CLMs improve performance at lower cost on BrowseComp-Plus, a deep-research benchmark, and Software World, where an agent swarm jointly optimizes six interdependent repositories. (c) CLMs can follow textual instructions to adopt corresponding context-management strategies (top) or evolve better strategies through a skill-evolution loop on ContextBench (bottom). (d) CLMs can explore and internalize context-management strategies through online reinforcement learning. By using a success-gated efficiency advantage for stepwise GRPO, we improve both accuracy and efficiency for CLMs simultaneously.",
+      "nearby_text": "the highest best-of-run score on all four problems (Table 1; progress curves in Figure 18). This shows that a general agent with direct context control can outperform a specialized evolutionary workflow with less fixed orchestration.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 2 Illustration of the four tasks in ContextBench and a performance comparison of CLM against baselines using GPT-5.4 with a 32K context limit.",
+      "nearby_text": "textBench, a diagnostic evaluation suite with the four synthetic tasks shown in Figure 2: Needle Retention tests selective verbatim retention, simulating the need to preserve important information over time; Sudoku Sketchpad tests surgical in-place updates to the live context by maintaining a Sudoku",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-003.png",
+      "type": "figure",
+      "page": 5,
+      "caption": "Figure 3 Qualitative examples of CLM context-management behaviors. CLMs treat context as a file and can arbitrarily edit it using general code interface.",
+      "nearby_text": "lanning or explicitly as reusable functions, with one explicit example shown in Figure 3d.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-004.png",
+      "type": "figure",
+      "page": 6,
+      "caption": "Figure 4 Comparison of standard serving and Suffix Cache Reuse (SCR). Standard serving reuses only prefix-matched cache, while SCR reuses cached states for all surviving tokens, reducing re-prefilling.",
+      "nearby_text": "the re-prefilling overhead? We introduce Suffix Cache Reuse (SCR). As shown in Figure 4, when 𝐵is replaced by 𝐵′ after an edit, SCR reuses the cached states of all surviving tokens, including 𝐶, and only reprefills the newly inserted or appended tokens",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-005.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 1 CLMs outperform specialized OpenEvolve evolutionary workflows on mathematical optimization problems. Best-of-run scores with Claude 4.6 Son- net and a 32K context limit, capped at 100 scored attempts or five hours. Arrows indicate the direc- tion of improvement; OE stands for OpenEvolve and SA for subagents.",
+      "nearby_text": "ame evaluator, CLM achieves the highest best-of-run score on all four problems (Table 1; progress curves in Figure 18). This shows that a general agent with direct context control can outperform a specialized evolutionary workflow with less fixed orchestration.",
+      "parser_confidence": "high",
+      "table_markdown": "| CLM | 2.618 | 0.03653 | 0.07758 | 0.38094 |\n| --- | --- | --- | --- | --- |\n| CLM(SA) | 2.636 | 0.03617 | 0.07758 | 0.38109 |"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-006.png",
+      "type": "figure",
+      "page": 7,
+      "caption": "Figure 5 CLMs perform better than action-based and harness-defined baselines at lower cost on coding and deep research tasks. All methods use Qwen3.6-27B with a 32K context limit and a 100-turn cap. Blue dashed lines indicate the Pareto frontier.",
+      "nearby_text": "zes. Figure 17 places Qwen3.5-9B next to Qwen3.6-27B on the three benchmarks of Figure 5. CLM leaves the decision of when and how to edit the context to the model, so its gains grow with the model’s ability to make that decision. With Qwen3.6-27B, CLM lies on the Pareto frontier of all three benchma",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-007.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Figure 6 CLMs outperform Codex-style summary harness on long-horizon repository optimization. (a) EdgeBench-10 with a 32K context budget. Curves show best-of-three scores over 12 hours for Qwen3.6-27B and Claude 4.6 Sonnet; end labels show final scores and, for Qwen3.6-27B, mean compute per trial (PF = prefix-reuse PFLOPs). (b) Software World with GPT-5.6-Sol and a 272K context budget. Six agents jointly optimize interdependent repositories and are evaluated on four unseen downstream packages; the right panel shows geometric-mean speedup over 17 evaluation tasks.",
+      "nearby_text": "urs with verifier feedback; we report the best score over three seeds per task. Figure 6 compares the base harness, Codex-style summarization, CLM, and CLMs with up to five concurrent subagents under a 32K context budget. With Qwen3.6-27B, CLM reaches 44.6 using 179 prefix-reuse PFLOPs per trial, ve",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-008.png",
+      "type": "figure",
+      "page": 9,
+      "caption": "Figure 8 Textual evolution for CLMs on KV Store (32Kbudget). Assisted evolution uses Qwen3.6- 27B with Claude Fable 5.1 as proposer; self- evolution uses Opus 5 for both roles.",
+      "nearby_text": "proposer; in self-evolution, Opus 5 serves as both the agent and the proposer. Figure 8 shows results on KV Store from ContextBench, where both settings improve over their initialization and expand the performance–cost Pareto frontier, with evolved skills that can strictly dominate the starting poi",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-009.png",
+      "type": "figure",
+      "page": 9,
+      "caption": "Figure 7 One sentence in the prompt changes the context-management policy. Natural-language instructions steer compaction timing, semantic boundaries, and backup behavior. Gray denotes no instruction and blue the instructed setting; exact prompts are in Appendix E.",
+      "nearby_text": "havior is induced by a single sentence appended to the task prompt. As shown in Figure 7, the agent adapts its context-management policy accordingly, without any change to the harness or model parameters. Measurement details are provided in Appendix E.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-010.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 2 RL results on BrowseComp-Plus with Qwen3.5-9B. Performance before and after training on OpenResearcher. The RL check- point is selected on a held-out validation set.",
+      "nearby_text": "token-level prefix matching against the previous turn. Results are reported in Table 2 and Figure 21.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-011.png",
+      "type": "figure",
+      "page": 9,
+      "caption": "Figure 9 Comparison of Suffix Cache Reuse and standard SGLang serving on BCP with Qwen3.6-27B. Left: Task accuracy and prefix-reuse FLOPs per question. Right: Server-side compute decomposition, showing the fraction of prompt tokens by compute type across all turns and turns following context edits.",
+      "nearby_text": "As shown in Figure 9, SCR effectively reduces cache re-prefilling, matching the standard SGLang serving with 65.0% of its empirical prefix-reuse FLOPs on BCP. In addition, SCR is not limited to CLMs. Serving engines commonly strip p",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-012.png",
+      "type": "figure",
+      "page": 15,
+      "caption": "Figure 10 Suffix Cache Reuse for full attention layers and linear attention layers.",
+      "nearby_text": "ntion layers. We implement Suffix Cache Reuse as a patch to SGLang. As shown in Figure 10 (left), consider a context [𝐴𝐵𝐶] in which an edit replaces 𝐵with 𝐵′. Standard serving matches only 𝐴and re-prefills 𝐵′ and 𝐶. When a new prompt arrives, Suffix Cache Reuse diffs it against the session’s previou",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-013.png",
+      "type": "figure",
+      "page": 16,
+      "caption": "Figure 11 Small-scale sensitivity study of relocated spans per edit, 𝐾. Results on 64 BrowseComp-Plus questions with Qwen3.6-27B. Left: task accuracy. Middle: prefix-reuse PFLOPs per question. Right: relocated tokens per edited request. Dashed lines show standard SGLang; hollow markers show a repeat run; the shaded column marks 𝐾=6, used elsewhere. Error bars show ±1 standard error across questions; the gray band shows ±1 standard error for standard SGLang.",
+      "nearby_text": "s over 𝐾∈{1, 2, 3, 6, 12, 64} on 64 BrowseComp-Plus questions with Qwen3.6-27B (Figure 11). Performance is robust across 𝐾, while cache-reuse gains largely saturate by",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-014.png",
+      "type": "figure",
+      "page": 16,
+      "caption": "Figure 12 Suffix Cache Reuse also benefits standard chat serving. On BrowseComp-Plus, SCR reuses cached states not only after model-driven context edits but also after reasoning tokens are stripped from prior turns in standard chat endpoints. Results use Qwen3.6-27B on 830 questions with 𝐾= 6.",
+      "nearby_text": "Figure 12 shows that this effect accounts for a significant portion of SCR’s savings on BrowseComp-Plus. Of the 7.8% of all prompt tokens reused by SCR beyond prefix-cache hits, 5.3 points come from reasoning stripping a",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-015",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-015.png",
+      "type": "figure",
+      "page": 17,
+      "caption": "Figure 13 Remaining re-prefill under Suffix Cache Reuse on BrowseComp-Plus. SCR removes most re-prefilling of unchanged suffix tokens, while substantial unchanged-prefix prefill remains due to the current hybrid-model caching behavior in SGLang. Same runs as Figure 12.",
+      "nearby_text": "A common serving bottleneck and future improvement space. Figure 13 shows that SCR removes most re- prefilling of unchanged suffix tokens after an edit. Much of the remaining redundant prefill instead comes from unchanged prefixes that standard prefix caching should ideally reu",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-016",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-016.png",
+      "type": "figure",
+      "page": 18,
+      "caption": "Figure 14 FLOPs of one Qwen3.6-27B turn for illustrative lengths (𝑃𝑡= 20,000, 𝐺𝑡= 500) and three reusable-prefix lengths 𝑅𝑡. Colors split the FLOPs actually computed by operation; gray shows the additional computation that would be required without prefix caching.",
+      "nearby_text": "Figure 14 illustrates the computation saved by prefix caching within one turn. The lengths are chosen for illustration and do not come from a particular run: a prompt of 𝑃𝑡= 20,000 tokens and a response of 𝐺𝑡= 500 tokens",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-017",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-017.png",
+      "type": "table",
+      "page": 19,
+      "caption": "Table 3 The four ContextBench tasks. All metrics are computed from the agent’s context; answers held only in files are not credited.",
+      "nearby_text": "context was managed rather than a task that cannot be solved within the budget. Table 3 summarizes the four tasks and Figure 16 shows operations from each.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-018",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-018.png",
+      "type": "figure",
+      "page": 19,
+      "caption": "Figure 15 Context pressure of every ContextBench level. Each row varies one generator setting (unit at right); the label on each point is its value. Total input is every message the environment pushes over the episode, including the task instruction and, for Sudoku, the board once per move, counted in o200k tokens; pressure is total input divided by 32,768.",
+      "nearby_text": "ches higher pressure through one generator setting, with everything else fixed (Figure 15); levels below 1× are included as controls on which keeping everything still fits.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-019",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-019.png",
+      "type": "figure",
+      "page": 20,
+      "caption": "Figure 16 Operations as the agent receives them, from the smallest level of each task, shortened where marked. Blue text is the output the agent is expected to produce in response; it is graded from the agent’s context. Needle Retention asks for no output: its needles are graded in the final context.",
+      "nearby_text": "that cannot be solved within the budget. Table 3 summarizes the four tasks and Figure 16 shows operations from each.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-020",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-020.png",
+      "type": "table",
+      "page": 21,
+      "caption": "Table 4 Excerpts of each method’s KV Store skill. Every skill gives the same four kinds of guidance for its own mechanism: how the mechanism works, what to do with each batch, how to answer a query, and how to confirm that a step worked. Blue marks the concrete instruction for using the method’s own tools; . . . marks omitted text and square brackets paraphrase code.",
+      "nearby_text": "the harness enables rather than what the model must infer about how to use it. Table 4 shows excerpts of each method’s KV Store skill. Skills are inserted at the same position relative to the task instruction for all methods, and all are released with the benchmark.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-021",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-021.png",
+      "type": "table",
+      "page": 22,
+      "caption": "Table 5 EdgeBench-10 tasks. Scores are rescaled to 0–100 by the EdgeBench judge. Start: files and lines of code in the working directory before any edit.",
+      "nearby_text": "EdgeBench-10. We use 10 of the 48 runnable public EdgeBench tasks (Table 5) with three seeds each. A run lasts 12 hours in a container without network access; each submission is graded by the EdgeBench judge on a 0–100 scale, and a run’s score is the higher of its best graded submission",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-022",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-022.png",
+      "type": "figure",
+      "page": 24,
+      "caption": "Figure 17 Qwen3.5-9B and Qwen3.6-27B. Accuracy against compute for Qwen3.5-9B (top) and Qwen3.6-27B (bottom) on BrowseComp-Plus, TerminalBench 2.1 and TBLite with a 32K context limit. Cost is prefix-reuse PFLOPs per question; dashed lines indicate the Pareto frontier.",
+      "nearby_text": "TerminalBench 2.1, TBLite and BrowseComp-Plus with models of different sizes. Figure 17 places Qwen3.5-9B next to Qwen3.6-27B on the three benchmarks of Figure 5. CLM leaves the decision of when and how to edit the context to the model, so its gains grow with the model’s ability to make that decis",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-023",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-023.png",
+      "type": "figure",
+      "page": 25,
+      "caption": "Figure 18 Best-so-far score versus evaluator-scored attempts on four open optimization problems. All runs use Claude 4.6 Sonnet with a 32K context limit and stop after 100 attempts or five hours. Lines show the best score so far, dots individual scored candidates, and insets the final-score range.",
+      "nearby_text": "the highest best-of-run score on all four problems (Table 1; progress curves in Figure 18). This shows that a general agent with direct context control can outperform a specialized evolutionary workflow with less fixed orchestration.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-024",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-024.png",
+      "type": "figure",
+      "page": 25,
+      "caption": "Figure 19 EdgeBench-10 single-repository optimization with a 128K context budget. Qwen3.6-27B, ten tasks, three seeds. End labels give final scores and mean compute per trial (PF = prefix-reuse PFLOPs); insets show the base harness.",
+      "nearby_text": "gents runs up to six concurrent subagents of 40 turns each. The 128K results in Figure 19 use a 128,000-token budget. Cost is prefix-reuse FLOPs per run, including the subagents’ computation. Results are in Figures 6(a) and 19.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-025",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-025.png",
+      "type": "figure",
+      "page": 26,
+      "caption": "Figure 20 Evolving context-management skills on ContextBench (32K budget), all four tasks. Assisted evolution (top): Qwen3.6-27B serves as the agent, while Claude Fable 5.1 proposes the skills; the x-axis shows prefix-reuse PFLOPs per task over solved runs. Self-evolution (bottom): Opus 5 serves as both the agent and the skill proposer; the x-axis shows gateway cost per task in USD. Skills are proposed based on training-split rollouts and never use the held-out evaluation set.",
+      "nearby_text": "In-context evolution. Figure 20 extends Figure 8 to all four tasks of ContextBench. In assisted evolution, starting without any context-management instruction, the selected skill raises development accuracy from 97.6% to 100.0% on Needle Rete",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-026",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-026.png",
+      "type": "figure",
+      "page": 26,
+      "caption": "Figure 21 RL training curves. Qwen3.5-9B trained on OpenResearcher and evaluated on BrowseComp-Plus with a 32K context limit, through training step 70. (a) Accuracy and prefix-reuse PFLOPs per question against training step. (b) Accuracy against compute, shaded from light to dark by training step.",
+      "nearby_text": "prefix matching against the previous turn. Results are reported in Table 2 and Figure 21.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-027",
+      "file": "done/unpublished/Context-Language-Model/assets/images/picture-027.png",
+      "type": "figure",
+      "page": 27,
+      "caption": "Figure 22 Context length awareness. Each point compares a model’s estimated context length with the provider-reported prompt length for the same 50 inputs. Panels vary the available hint: none or a token-count anchor at 25%, 50%, or 75% of the input. The dashed line indicates perfect calibration; legend values report mean absolute error (MAE) in tokens.",
+      "nearby_text": "ing lengths and ask it to estimate the number of tokens in the current context. Figure 22 compares the models’ estimated context lengths against the actual prompt lengths. Interestingly, models tend to predict recurring bucketed values in the longer-context regime, such as 6.2K, 9.8K, or 10.4K token",
+      "parser_confidence": "high"
+    }
+  ]
+}
