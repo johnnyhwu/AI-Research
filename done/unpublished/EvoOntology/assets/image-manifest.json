@@ -1,0 +1,150 @@
+{
+  "source_pdf": "done/unpublished/EvoOntology/2609.15779v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/EvoOntology/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 1,
+      "caption": "Figure 1: A self-evolving ontology layer helps data agents understand heterogeneous data.",
+      "nearby_text": "sly adapts to the underlying data and the agents that use it. As illustrated in Figure 1, the ontology consists of three components: a schema layer, which defines object types and reference rules; a content layer, which stores domain knowl- edge and data mappings; and a tool layer, which exposes exe",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/EvoOntology/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 3,
+      "caption": "Figure 2: Overview of EvoOntology. It comprises a typed content graph, its object schema, and a runtime tool interface. The builder constructs an evidence-grounded initial state, while the evolution agent refines it from historical interaction trajectories.",
+      "nearby_text": "gs and at- tach Constraints and Evidence to the objects they govern or support. Figure 2 illustrates these components through a financial-analysis example.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/EvoOntology/assets/images/picture-003.png",
+      "type": "table",
+      "page": 5,
+      "caption": "Table 2: Comparison against a memory-based persistence baseline on DDR-Bench, averaged across the four backbones. “ReAct + Memory” stores past trajectories as retrievable episodes and injects the top-k into the prompt.",
+      "nearby_text": "al. 2023), which stores past trajectories as retrievable episodes. As shown in Table 2, memory-based persistence lifts Trajectory-Wise from 69.5 to 75.8 but remains 13.7 points below EvoOntology, because episodic memory only replays what has been done and does not expose typed, composable structure",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/EvoOntology/assets/images/picture-004.png",
+      "type": "table",
+      "page": 5,
+      "caption": "Table 1: Main results on the DDR-Bench 10-K scenario. Parentheses report the gain over the Baseline result.",
+      "nearby_text": "Main Results Capability on Multi-Source Data Research. Table 1 reports DDR-Bench results across six LLM backbones. EvoOntology improves Trajectory-Wise accuracy on all six backbones, with an average gain of +17.8 points over Base- line. The improvement ranges from +4.8 on Qw",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/EvoOntology/assets/images/picture-005.png",
+      "type": "table",
+      "page": 5,
+      "caption": "Table 3: Main results on InsightBench. Parentheses report the gain over the corresponding Baseline result.",
+      "nearby_text": "Capability on Insight Mining. Table 3 reports Insight- Bench results across six backbones. EvoOntology improves",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/EvoOntology/assets/images/picture-006.png",
+      "type": "figure",
+      "page": 6,
+      "caption": "Figure 3: Primary metric on the three benchmarks under three conditions: Baseline , Initial, and Evolved (EvoOntology).",
+      "nearby_text": "ent before evolution, and Evolved uses the final ontology after self-evolution. Figure 3 reports the performance of each backbone under the three settings. To summarize the overall trend, we average the primary- metric scores across the four backbones for each benchmark and setting and compare the r",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/EvoOntology/assets/images/picture-007.png",
+      "type": "figure",
+      "page": 6,
+      "caption": "Figure 4: Primary metric across accepted evolution rounds on the three benchmarks: Traj-Wise on DDR-Bench, Insight on InsightBench, and EX on BIRD.",
+      "nearby_text": "he ontology ver- sion that would remain if no more rounds were run. As shown in Figure 4, all four backbones improve monotonically from Initial through the accepted rounds, with GPT-5.6-sol reach- ing 93.5 Traj-Wise after five accepted rounds and Claude-",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/EvoOntology/assets/images/picture-008.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 4: Main results on BIRD under Oracle Knowledge. VES is reported on a 0–100 scale. Parentheses report the gain over the corresponding Baseline result.",
+      "nearby_text": "Capability on Data Retrieval. Table 4 reports BIRD re- sults across six backbones under Oracle Knowledge. EvoOn- tology improves both EX and VES for every backbone, with average gains of 7.4 and 8.6 points. The consistent gains across both metrics in",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/EvoOntology/assets/images/picture-009.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 5: Ablation on the four steps of the evolution loop, averaged across four backbones.",
+      "nearby_text": "ectly from the diagnosis; w/o Gate accepts ev- ery candidate patch. As shown in Table 5, removing the gate causes the largest drop (−11.2 Traj-Wise), because unfiltered candidates admit regressions that the next round cannot al- ways undo. Removing the attribution step drops by −6.3, because without",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/EvoOntology/assets/images/picture-010.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 7: Ablation on the five object families of the ontology content layer on DDR-Bench, averaged across four back- bones. Terms cannot be masked in isolation and are omitted.",
+      "nearby_text": "DDR-Bench and report the average performance across four backbones. As shown in Table 7, masking Map- pings causes the largest drop (−13.4 Traj-Wise), which is consistent with the role of Mappings as the only object that grounds a Term to concrete columns and join paths. Masking Evidence drops by −8",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/EvoOntology/assets/images/picture-011.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 6: Ablation on the three editable levels of the evolution loop on DDR-Bench, averaged across four backbones.",
+      "nearby_text": "ree-level variant on DDR-Bench, averaged across the four backbones. As shown in Table 6, Tool-only evolution recovers the largest single-level gain (+13.2 over Baseline), consistent with the manifest reshaping being the dominant lever surfaced by the attribution analysis in Fig- ure 7. Content-only",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/EvoOntology/assets/images/picture-012.png",
+      "type": "figure",
+      "page": 7,
+      "caption": "Figure 5: Generalization of the evolved ontology store across backbones on DDR-Bench.",
+      "nearby_text": "accard overlap of their accepted Term-identifier sets on DDR-Bench. As shown in Figure 5a, no pair ex- ceeds 0.62 overlap, and the two Claude backbones share less with each other (0.55) than the two GPT backbones",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/EvoOntology/assets/images/picture-013.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 8: Cost of the ontology layer on DDR-Bench, averaged across the four-backbone analysis subset.",
+      "nearby_text": "number of turns per task, and the resulting total tokens per task on DDR-Bench.Table 8 shows that the Initial ontology increases average input tokens per turn from 3.2K to 4.1K because of the manifest and retrieved semantics. At the same time, the average trajectory shortens from 14.6 to 11.2 turns",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/EvoOntology/assets/images/picture-014.png",
+      "type": "figure",
+      "page": 10,
+      "caption": "Figure 6: Growth of the Content Layer across accepted evo- lution rounds on DDR-Bench under GPT-5.6-sol. The curves report the four node families and instantiated Semantic Re- lations. The right axis reports Trajectory-Wise performance.",
+      "nearby_text": "ints, and Evidence, together with instantiated Seman- tic Relations.As shown in Figure 6, most content growth oc- curs in the first three rounds. The number of Terms increases from 61 in the Initial ontology to 80 after five accepted rounds, while the per-round growth of every tracked element falls",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-015",
+      "file": "done/unpublished/EvoOntology/assets/images/picture-015.png",
+      "type": "figure",
+      "page": 10,
+      "caption": "Figure 7: Distribution of the accepted evolution gain across Content, Tool, and Schema edits on DDR-Bench, aggregated over the four-backbone analysis subset.",
+      "nearby_text": "contributed by each group is aggregated across the four backbones. As shown in Figure 7, Tool-level edits account for 57% of the cumulative gain across six accepted rounds. These edits mainly improve how existing ontology content is exposed through the manifest and MCP tools. Content-level edits co",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-016",
+      "file": "done/unpublished/EvoOntology/assets/images/picture-016.png",
+      "type": "figure",
+      "page": 11,
+      "caption": "Figure 8: Evolution of the ontology for a card-legality task. The Initial state contains general Card and Legality semantics but no explicit interpretation of legality status. The accepted patch adds a Legality Status Code Term, its Mapping and Evidence, and a Constraint that relates the status value to the requested format. Red dashed boxes mark the added or refined objects.",
+      "nearby_text": "Semantics Figure 8 presents a representative text-to-SQL case in which the agent must identify cards that are banned in a target game format. The case illustrates how a localized Content-level update extends the ontology without r",
+      "parser_confidence": "high"
+    }
+  ]
+}
