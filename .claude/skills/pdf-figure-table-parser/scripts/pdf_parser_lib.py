@@ -34,6 +34,41 @@ def page_blocks(doc):
     return out
 
 
+def _caption_blocks(page):
+    """
+    Text blocks of `page`, with one repair: PyMuPDF sometimes glues a chart's
+    own text (axis ticks, panel labels) and the caption below it into a single
+    block, so the block starts with "0 35 70%" instead of "Figure N" and
+    find_captions misses the caption. When a block doesn't start with a caption
+    label but one of its later lines does, and every line before that one is a
+    short fragment (a figure-internal label; a wrapped body paragraph has full
+    width lines and is left alone), yield just the caption lines as their own
+    block, marked with a trailing "split" element so find_captions can rank it
+    below any caption found the normal way (a wrapped paragraph beside a
+    text-wrap figure can also look like this and must never beat the real one).
+    """
+    for b in page.get_text("blocks"):
+        if b[6] != 0 or CAPTION_RE.match(b[4].strip()):
+            yield b
+            continue
+        lines = [l for blk in page.get_text("dict", clip=pymupdf.Rect(b[:4]))["blocks"]
+                 if blk["type"] == 0 for l in blk["lines"]]
+        lines = [l for l in lines if l["bbox"][1] >= b[1] - 0.5 and l["bbox"][3] <= b[3] + 0.5]
+        start = next((i for i, l in enumerate(lines)
+                      if CAPTION_RE.match("".join(s["text"] for s in l["spans"]).strip())), None)
+        if not start:
+            yield b
+            continue
+        cap = lines[start:]
+        cap_w = max(l["bbox"][2] for l in cap) - min(l["bbox"][0] for l in cap)
+        if any(l["bbox"][2] - l["bbox"][0] > 0.25 * cap_w for l in lines[:start]):
+            yield b
+            continue
+        text = "\n".join("".join(s["text"] for s in l["spans"]) for l in cap)
+        yield (min(l["bbox"][0] for l in cap), min(l["bbox"][1] for l in cap),
+               max(l["bbox"][2] for l in cap), max(l["bbox"][3] for l in cap), text, 0, 0, "split")
+
+
 def find_captions(doc, min_caption_width=400):
     """
     Locate every 'Figure N' / 'Fig. N' / 'Table N' caption in the document.
@@ -57,7 +92,7 @@ def find_captions(doc, min_caption_width=400):
     """
     candidates = {}
     for pno, page in enumerate(doc, start=1):
-        for b in page.get_text("blocks"):
+        for b in _caption_blocks(page):
             x0, y0, x1, y1, text = b[0], b[1], b[2], b[3], b[4]
             clean = text.strip()
             m = CAPTION_RE.match(clean)
@@ -96,9 +131,11 @@ def find_captions(doc, min_caption_width=400):
                 # "demonstrates"). Only used as a tie-break under "separated".
                 "title_like": (lambda w: bool(w) and w[0].isupper())(clean[m.end():].lstrip()),
             }
+            entry["split"] = len(b) > 7
             prev = candidates.get(key)
-            rank = (entry["separated"], entry["title_like"], len(entry["text"]))
-            prev_rank = (prev["separated"], prev["title_like"], len(prev["text"])) if prev else None
+            rank = (not entry["split"], entry["separated"], entry["title_like"], len(entry["text"]))
+            prev_rank = ((not prev["split"], prev["separated"], prev["title_like"], len(prev["text"]))
+                         if prev else None)
             if prev is None or rank > prev_rank:
                 candidates[key] = entry
 
