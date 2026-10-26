@@ -1,15 +1,20 @@
 # AI-Research
 
-This repo is the **content repo** (`CONTENT_REPO`) of a 3-step blog-writing
-pipeline. It holds source papers plus the output of Steps 1 and 2. Step 3
-turns an approved article into a Hugo post in a separate repo (`HUGO_REPO`,
+This repo is the **content repo** (`CONTENT_REPO`) of a 4-step blog-writing
+pipeline. It holds source papers plus the output of Steps 1 and 2. Steps 3 and
+4 turn an approved article into a Hugo post in a separate repo (`HUGO_REPO`,
 `johnnyhwu/johnnyhwu.github.io`); nothing here talks to Hugo.
 
 | Step | Role | Runs here? | Skill |
 |---|---|---|---|
 | 1 | Parser: PDF figures/tables → image manifest | Yes | `.claude/skills/pdf-figure-table-parser/` |
 | 2 | Writer + Reviewer: notes + manifest → `article.md` | Yes | `.claude/skills/blog-writer/` |
-| 3 | Publisher: `article.md` + manifest + images → Hugo post | No | n/a |
+| 3 | Planner + Reviewers: `article.md` → a reader-friendly plan (zh + en JSON) | No | n/a |
+| 4 | Publisher: plan + manifest + images → Hugo post | No | n/a |
+
+Steps 3 and 4 both run in the Hugo repo (`HUGO_REPO`'s `CLAUDE.md` describes them). The Writer skill's
+files and the `NO-MANIFEST` marker line (checked by `verify_article.py`) still say "Step 3" for "the Hugo
+side"; read that as Steps 3 and 4. The marker text is left as is on purpose, because the script matches it exactly.
 
 Working here means doing Step 1 and/or 2. **Step 1 always finishes before
 Step 2 starts.** The two skills are self-contained and the sole source of
@@ -44,14 +49,14 @@ currently sits (don't add a `parsed/` level; `done/published/SkillOpt/` is the
 one legacy exception). Many older `done/` topics predate the PDF pipeline:
 `article.md` plus a hand-curated `assets/`, no PDF, `"source_pdf": null`.
 Treat them as done. Their `feature-image-*.jpg` in `assets/images/` has no
-manifest entry on purpose; Step 3 uses it as `featuredImage`.
+manifest entry on purpose; Step 4 uses it as `featuredImage`.
 
 ### Moving a topic between buckets
 
 1. Step 2 finishes → `git mv in-progress/<TopicDir> done/unpublished/<TopicDir>`,
    as part of that task.
-2. Step 3 publishes → `git mv done/unpublished/<TopicDir> done/published/<TopicDir>`.
-   The `hugo-paper-post` skill in the other repo opens this companion PR
+2. Step 4 publishes → `git mv done/unpublished/<TopicDir> done/published/<TopicDir>`.
+   The `hugo-publisher` skill in the other repo opens this companion PR
    itself (branch `claude/mark-<topic>-published`).
 
 `git mv` doesn't rewrite file contents, and the manifest's `source_pdf` and
@@ -135,14 +140,14 @@ When the work is done and verified, publish it without asking:
 `image-manifest.json` has one entry per extracted visual, keyed by `id`
 (`img-001`, ...), with `file`, `type`, `page`, `caption`, `nearby_text`,
 `parser_confidence` and optionally `table_markdown`. The `id` is the join key:
-Step 2 uses it as the image `src` and in the `figure-map` block; Step 3
-resolves it to a real path. Field semantics:
+Step 2 uses it as the image `src` and in the `figure-map` block; Steps 3 and 4
+resolve it to a real path. Field semantics:
 `.claude/skills/pdf-figure-table-parser/references/image-manifest-schema.md`.
 Read that before writing code against the schema.
 
 `article.md` is platform-neutral Markdown: prose body, figures as
 `![alt](img-00N)` each followed by an italic caption, and one trailing
-```` ```figure-map ```` block. No Hugo front matter or shortcodes (Step 3's
+```` ```figure-map ```` block. No Hugo front matter or shortcodes (Step 4's
 job). **The prose is Traditional Chinese, Taiwan usage (台灣繁體中文)**,
 headings, alt text and captions included, written for a reader who has never
 seen the paper. Only each `figure-map` entry's `references_manifest_caption`
