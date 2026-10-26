@@ -1,10 +1,10 @@
 {
-  "source_pdf": "done/unpublished/Procedural-Graphs/2609.09153v1.pdf",
+  "source_pdf": "done/published/Procedural-Graphs/2609.09153v1.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-001.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-001.png",
       "type": "figure",
       "page": 2,
       "caption": "Figure 1 | From knowledge to procedure. A Knowledge Graph organizes facts into triplets that answer what-is questions. A Procedural Graph organizes task procedures into triplets that answer what-to-do questions.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-002.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-002.png",
       "type": "figure",
       "page": 4,
       "caption": "Figure 2 | Overview of the Procedural Graph framework. Left: procedural triplets define G. Middle: the framework localizes 𝑢𝑡and retrieves its 2-hop neighborhood G𝑡(or the full graph if matching fails); a guidance LLM translates it into guidance 𝑔𝑡for the solver. Right: the refiner proposes edits from execution trajectories. Structurally valid candidates are committed when validation performance does not decrease; rejected candidates inform subsequent proposals through rejection memory.",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-003.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-003.png",
       "type": "table",
       "page": 7,
       "caption": "Table 1 | Main results across LLMs and benchmarks. Brackets give 95% confidence intervals; the best value is highlighted.",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-004.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-004.png",
       "type": "figure",
       "page": 8,
       "caption": "Figure 3 | Ensemble cash trajectories and Kaplan–Meier survival curves across four LLMs. Bold lines and shaded areas show means and 95% confidence intervals. Vertical lines mark macroeconomic crises. Colors identify PG (blue), the baseline (red), and memory-based methods (green, orange).",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-005.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-005.png",
       "type": "table",
       "page": 9,
       "caption": "Table 2 | PG construction modes on HotpotQA and MultiChallenge. All metrics are higher-is-better.",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-006.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-006.png",
       "type": "figure",
       "page": 9,
       "caption": "Figure 4 | Mean lifespan and capital raised across ten rounds of PG self-evolution. Gray dashed lines show training results; red lines show validation results; and green diamonds show test results for the baseline and accepted checkpoints.",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-007.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-007.png",
       "type": "table",
       "page": 10,
       "caption": "Table 3 | PG usage ablation with Gemini 3.5 Flash. On fixed subsets, we report MultiChallenge accuracy, GDPval rubric score, and ALFWorld success rate (all ↑), alongside average tokens and solver steps per sample (both ↓).",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-008.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-008.png",
       "type": "table",
       "page": 19,
       "caption": "Table 4 | Comparison of representative methods along eight design dimensions. Column definitions and method-specific conventions are described in the accompanying text.",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-009.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-009.png",
       "type": "table",
       "page": 20,
       "caption": "Table 5 | Dataset statistics and splits.",
@@ -85,7 +85,7 @@
     },
     {
       "id": "img-010",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-010.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-010.png",
       "type": "table",
       "page": 21,
       "caption": "Table 6 | Memory mechanisms compared in the main experiments.",
@@ -94,7 +94,7 @@
     },
     {
       "id": "img-011",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-011.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-011.png",
       "type": "table",
       "page": 21,
       "caption": "Table 7 | Sizes of the Procedural Graphs used in the main experiments.",
@@ -103,7 +103,7 @@
     },
     {
       "id": "img-012",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-012.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-012.png",
       "type": "table",
       "page": 26,
       "caption": "Table 8 | Performance comparison on EnterpriseArena. Within each model block, higher survival, lifespan, and score and lower Tools/Mo are highlighted. Raised highlights the largest financing volume. Metric definitions are given in Appendix C.1.",
@@ -112,7 +112,7 @@
     },
     {
       "id": "img-013",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-013.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-013.png",
       "type": "table",
       "page": 29,
       "caption": "Table 9 | HotpotQA test set performance, resource, and robustness statistics. Highlighted cells mark column optima across all configurations, including the unguided baseline; ties are highlighted equally.",
@@ -121,7 +121,7 @@
     },
     {
       "id": "img-014",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-014.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-014.png",
       "type": "table",
       "page": 29,
       "caption": "Table 10 | MultiChallenge test set performance, resource, and robustness statistics. Bold blue cells mark column optima across all configurations, including the unguided baseline; ties are highlighted equally. Pale blue marks Mode 5’s second-best values where Mode 2 ranks first.",
@@ -130,7 +130,7 @@
     },
     {
       "id": "img-015",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-015.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-015.png",
       "type": "table",
       "page": 32,
       "caption": "Table 11 | PG self-evolution across ten rounds with Gemini 3.5 Flash. The Δ rows report metric changes relative to the previous best validation checkpoint. Gray rows mark rounds without a committed graph update.",
@@ -139,7 +139,7 @@
     },
     {
       "id": "img-016",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-016.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-016.png",
       "type": "figure",
       "page": 34,
       "caption": "Figure 5 | Topological evolution of the CFO Procedural Graph. Green nodes/edges [+] denote additions; red dashed nodes/edges [-] denote deletions/pruning.",
@@ -148,7 +148,7 @@
     },
     {
       "id": "img-017",
-      "file": "done/unpublished/Procedural-Graphs/assets/images/picture-017.png",
+      "file": "done/published/Procedural-Graphs/assets/images/picture-017.png",
       "type": "figure",
       "page": 35,
       "caption": "Figure 6 | Self-evolution trajectory on (a) HotpotQA and (b) MultiChallenge.",
