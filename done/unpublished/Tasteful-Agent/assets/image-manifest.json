@@ -1,0 +1,186 @@
+{
+  "source_pdf": "done/unpublished/Tasteful-Agent/2609.25804v2.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1 A decision fork from a machine-learning trajectory. The evaluated model chooses before the later losses reveal that candidate A is the better di- rection.",
+      "nearby_text": "ork, hide all later work, and ask a model to choose between the two directions. Figure 1 shows one such fork from a machine-learning trajectory.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 2 Construction and filtering of Taste-Bench. The parallel construction contrasts branches of the same task, while the detour construction contrasts an abandoned direction with the later recovery. The filtering stage removes trivial questions, whose answer can be guessed from the wording of the candidates alone, and undecidable questions, whose label is not clearly consistent with the full record of the task.",
+      "nearby_text": "that form valid questions. Figure 2 summarizes the pipeline. Mining. The trajectory pools cover two domains. The engineering pool contains 2,677 graded rollouts that we collect by running GPT-5.4 and GPT-5.5 agents on 517 SWE-bench Pro tasks [11].",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-003.png",
+      "type": "figure",
+      "page": 6,
+      "caption": "Figure 3 Model performance on Taste-Bench. The first column reports the Average defined in Section 4, followed by the research and engineering subsets. Each column shows the model names again and is sorted independently from highest to lowest within that split. Solid bars show accuracy when both candidate orders are answered correctly. The dotted extension shows the mean accuracy over the two orders. Whiskers show 95% item-bootstrap intervals for the solid-bar endpoint, and the printed values report that endpoint. Unparseable responses count as incorrect.",
+      "nearby_text": "As Figure 3 shows, the models differ widely on Taste-Bench, and none of them is close to solving it. Specifically, GPT-5.6 Sol is the best model, with an Average accuracy of 59.7%, and GPT-5.5 is close behind at 59.5%, whil",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-004.png",
+      "type": "figure",
+      "page": 6,
+      "caption": "Figure 4 Accuracy by time horizon and by reasoning budget. Each fork is annotated with a time horizon on four levels, from in prefix to more work. Left. The dark line is the mean over the 14 models, with 95% t-intervals of that mean, and the faint lines show the individual models. Right. Accuracy at the same levels under three reasoning-effort settings per model, where the whisker is the 95% bootstrap interval of one setting of one model.",
+      "nearby_text": "The left panel of Figure 4 plots accuracy over the four levels, and accuracy falls on average across models as the time horizon increases. Specifically, the mean over the 14 models falls from 62.3% at the in-prefix level to 21.0% at the m",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-005.png",
+      "type": "figure",
+      "page": 7,
+      "caption": "Figure 5 Taste-Bench against SWE- bench Verified. Each point is one model. The dashed line is the least-squares fit, red points deviate most from it, and the band marks the four highest SWE-bench Verified scores.",
+      "nearby_text": "Figure 5 shows the comparison, and the two benchmarks are only partly correlated. Specifically, the Pearson cor- relation between the Average and SWE-bench Verified is r = +0.63, so SWE-bench Verified explains R2 = 0.39",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-006.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Figure 6 Overview of distillation and advice injection. Left. We distill the reasoning of a teacher that has seen the supported candidate into a student that sees only the question. Right. At evaluation time, the student’s judgment at each fork is written as advice into the task context, and a fixed executor completes the task independently.",
+      "nearby_text": "test whether it transfers to unseen tasks and improves end-to-end task success (Figure 6). Throughout this section, the base model is Qwen3.6-27B, and training updates LoRA adapters [31].",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-007.png",
+      "type": "figure",
+      "page": 9,
+      "caption": "Figure 7 Distillation results. Left. On the 390 held-out engineering questions, scored on both or- ders as in Figure 3, the distilled student reaches a higher accuracy than the base model. Whiskers are 95% item-bootstrap intervals, and the dashed line marks the accuracy of GPT-5.6 Sol on the same ques- tions (56.9%). Right. On held-out SWE-bench Pro tasks, the executor’s success rate with student advice reaches most of the upper bound, the dashed bar, where the advice at every fork is correct.",
+      "nearby_text": "t or memorizes the answers, and the task-disjoint evaluation separates the two (Figure 7, left). On the held-out fold, we score the student and the base model with the protocol of Section 3.4. Under this protocol, the student reaches an accuracy of 47.9% and the base model 30.0%, while the mean accu",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-008.png",
+      "type": "table",
+      "page": 15,
+      "caption": "Table 1 Size of the released questions per cell. Steps is the number of trajectory steps before the fork, and words is the number of words in one candidate.",
+      "nearby_text": "ation, and a candidate fork that fails any of them is discarded. Prefix length. Table 1 reports the size of the released questions. The prefix of a question is rendered from the trajectory steps before the fork, and Appendix C describes the rendering.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-009.png",
+      "type": "figure",
+      "page": 20,
+      "caption": "Figure 8 Filtering yield per cell. Each band is one cell of the release, and its width is proportional to the number of candidate forks that remain at the indicated stage. Of the 4,657 mined candidate forks, 1,809 pass the generator rubric, 729 survive the trivial filter, and 502 questions remain in the release.",
+      "nearby_text": "Figure 8 shows the yield of the filtering per cell, and Table 2 reports the numbers of proposed and released questions for each cell. The generator rejects most candidate forks itself, because the rubric requires rejecti",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-010.png",
+      "type": "table",
+      "page": 20,
+      "caption": "Table 2 Proposed and released questions by cell. The detour research rows report the first pass and the second pass separately.",
+      "nearby_text": "Figure 8 shows the yield of the filtering per cell, and Table 2 reports the numbers of proposed and released questions for each cell. The generator rejects most candidate forks itself, because the rubric requires rejection whenever the evidence is not clean. The trivial filte",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-011.png",
+      "type": "table",
+      "page": 25,
+      "caption": "Table 3 Settings of the evaluated models.",
+      "nearby_text": "bootstrap resamples of the questions, drawn within each domain. Model settings. Table 3 lists the reasoning setting of each model. Every model receives the same prompt and the same output budget of 65,536 tokens, with default sampling parameters unless stated.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-012.png",
+      "type": "table",
+      "page": 25,
+      "caption": "Table 4 Full results of the 14 models on Taste-Bench. P and D denote the parallel and detour constructions, and Eng and Res denote the engineering and research domains. Accuracies are percentages. Unparsed is the number of responses without a parseable answer over the 1,004 presentations.",
+      "nearby_text": "lso accepted. A response without a parseable answer is scored as incorrect, and Table 4 reports the number of such responses per model. Scoring. Each question is presented twice, once in a seeded order of the two candidates and once in the reverse order, where the seeded order is fixed per question",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-013.png",
+      "type": "table",
+      "page": 26,
+      "caption": "Table 5 Number of questions per time horizon level and cell.",
+      "nearby_text": "to the more-work level. The four levels contain 158, 219, 56, and 69 questions. Table 5 reports the distribution per cell, and Table 6 reports the accuracy of every model per level.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-014.png",
+      "type": "table",
+      "page": 27,
+      "caption": "Table 6 Accuracy of every model per time horizon level. Accuracy requires both presentations to be answered correctly, as in Section 3.4.",
+      "nearby_text": "158, 219, 56, and 69 questions. Table 5 reports the distribution per cell, and Table 6 reports the accuracy of every model per level.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-015",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-015.png",
+      "type": "table",
+      "page": 27,
+      "caption": "Table 7 Accuracy under three reasoning-effort settings per model.",
+      "nearby_text": "Table 7 reports the six conditions of Section 4.4, with the accuracy over all questions and the accuracy per time horizon level. For the differences between the lowest and the highest setting in Section 4.4, the 95% inte",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-016",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-016.png",
+      "type": "table",
+      "page": 28,
+      "caption": "Table 8 Accuracy of the judges from the two candidates alone in the parallel engineering cell. Accuracies are percentages over the proposed questions and over the released questions. Agreement is the fraction of judge pairs that select the same candidate on the released questions.",
+      "nearby_text": "Table 8 reports how often each judge selects the labeled candidate in the trivial filter for the parallel engineering cell, both over all proposed questions and over the released questions. On the released questions in t",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-017",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-017.png",
+      "type": "table",
+      "page": 28,
+      "caption": "Table 9 Human review after outcome disclosure. Each reviewer assesses the same 100 questions. We exclude responses without a clear A/B preference, and label agreement is computed over the retained judgments.",
+      "nearby_text": "oth select A or B. They agree on 73 of these questions, with Cohen’s κ = 0.973. Table 9 reports the results for each reviewer.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-018",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-018.png",
+      "type": "table",
+      "page": 30,
+      "caption": "Table 10 Distillation hyperparameters.",
+      "nearby_text": "own reasoning and does not change the reasoning distribution. Hyperparameters. Table 10 lists the settings, which are the same for the two folds. Training on each fold takes about two hours on one A100 80GB GPU.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-019",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-019.png",
+      "type": "table",
+      "page": 30,
+      "caption": "Table 11 Composition of the two task-disjoint folds.",
+      "nearby_text": "of parallel and detour questions and every repository is present in both folds. Table 11 reports the composition. The two folds share no question, no task, no source trajectory, and no prefix, which we verify before training. Each student trains on one fold and is evaluated on the other; Section 5.2",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-020",
+      "file": "done/unpublished/Tasteful-Agent/assets/images/picture-020.png",
+      "type": "table",
+      "page": 33,
+      "caption": "Table 12 Per-task student decisions in the end-to-end experiment.",
+      "nearby_text": "ves the 33.7% success rate reported in Section 5.3. Per-task student decisions. Table 12 lists every task with its number of forks and the number the student answers correctly.",
+      "parser_confidence": "low"
+    }
+  ]
+}
