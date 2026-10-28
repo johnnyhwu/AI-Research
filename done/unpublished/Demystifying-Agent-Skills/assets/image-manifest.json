@@ -1,0 +1,196 @@
+{
+  "source_pdf": "done/unpublished/Demystifying-Agent-Skills/2608.14036v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1: Experimental pipelines. Top: skill versus procedural memory. We execute each task in a fixed Docker environment, collect successful and failed trajectories, and form a fixed-budget composition grid. The same trace pool is distilled either into Workflow Memory or into a reusable SKILL.md, which are then evaluated on matched tasks under the same protocol. Bottom: skill retrieval. Each task is paired with a candidate pool containing its ground-truth skill and k −1 real distractors (random, similar, or dissimilar). Matched pools are evaluated independently in three procedures: (A) embedding-based ranking without task execution, (B) explicit agent selection without Docker execution or verification, and (C) full-pool real execution with skill-use parsing after task verification. Outputs from (A) and (B) are not passed to (C).",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 3,
+      "caption": "Figure 2: Taxonomy label distribution across trajectory mixtures and experimental arms. Stacked bars show trajectory-level labels for Raw, Workflow Memory, and Skill across the six source-trajectory mixtures from 5s0f to 0s5f. Labels are grouped into three high-level categories; per-mode percentages are reported in Appendix Table 11.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-003.png",
+      "type": "table",
+      "page": 5,
+      "caption": "Table 1: Task success rates for Workflow Memory and Skill injection across trajectory mixtures. Gray rows denote Raw baselines. Green, red, and unshaded cells indicate values above, below, and equal to the corresponding Raw baseline, respectively; bold marks the row-wise maximum across mixture settings. Mixture labels denote the numbers of successful (s) and failed (f) source trajectories. Terminal-Bench-Pro rates use 130 trials per condition, with infrastructure or verifier errors counted as failures.",
+      "nearby_text": "vel taxonomy label. The three SCs group the 12 fine-grained modes summarized in Table 11. SC1 captures successful procedural anchoring, where the agent either succeeds autonomously or prior experience provides useful guidance. SC2 captures execution-layer and verification failures, including environ",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-004.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 3: Human validation of the taxonomy construc- tion pipeline. The first stage checks whether raw labels are supported by their source trajectories; the second independently maps those labels to the 12 canonical modes.",
+      "nearby_text": "the 12 canonical modes using only the taxonomy defini- tions. As summarized in Table 3, the human and LLM aggregation assignments achieve 95.8% exact agreement and Cohen’s κ = 0.952. This provides direct evidence that the taxonomy is stable beyond the judgments of a single LLM.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-005.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 2: Mechanism labels used to characterize how injected prior experience affects execution.",
+      "nearby_text": "ird, it labels the mechanism by which the skill or workflow affected execution (Table 2). The paired-comparison prompt uses a shorter transcript budget than the individual open-coding prompt because it must include up to three trajectories in the same call. The task instruction and the injected skil",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-006.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Figure 3: Skill retrieval and execution-time skill use on SkillsBench. Left: precision for the two offline diagnostics. Right: parsed actual-use precision (solid lines) and downstream success (dashed lines) for Arm 3. Curves average over random, similar, and dissimilar pool regimes; outputs are not passed between experiments.",
+      "nearby_text": "Figure 3(b) first reports the independent down- stream execution experiment. Gemini’s parsed skill-use precision is low and decreases from 16.9% to 0.7%, while task success remains comparatively flat around 36–39%. Codex",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-007.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Figure 4: Cross-framework transfer of procedural experience. Prior-experience artifacts constructed in one agent framework are evaluated in another. Dashed lines indicate the target framework’s Raw baseline.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-008.png",
+      "type": "figure",
+      "page": 11,
+      "caption": "Figure 5: Effect of outcome labels during skill creation. Panels compare skills created with outcome labels visible (normal) or withheld (no-hint) across trajectory mixtures and benchmarks. Dashed lines indicate the corresponding Raw baselines. Terminal-Bench-Pro entries use 130 trials per condition; missing or infrastructure-error trials count as failures.",
+      "nearby_text": "Figure 5 compares skills created from the same trajectory pools with and without explicit success/- failure labels for Codex and Gemini CLI. The com- plete numerical results are reported in Appendix Table 16.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-009.png",
+      "type": "table",
+      "page": 11,
+      "caption": "Table 4: Effect of pool composition and size on Skills- Bench. Entries report percentages for the indicated retrieval arm, pool composition, and pool size. Arms 2 and 3 are arithmetic means over the reported agent– model pairings. Full recall and F1 values are given in Appendix Table 15.",
+      "nearby_text": "Table 4 reports the complete size trend behind the figure. It makes explicit that similar distractors are the dominant stressor for the offline identifi- cation diagnostics, whereas Arm 3 precision col- lapses across all",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-010.png",
+      "type": "table",
+      "page": 16,
+      "caption": "Table 5: Experimental arms in the contrastive trajectory analysis.",
+      "nearby_text": "k sources: Terminal-Bench 2.0, SkillsBench, and Terminal-Bench-Pro. As shown in Table 5, the agent is evaluated under three execution arms for each selected task: Raw, Workflow memory and Skill. The workflow and skill arms are evaluated under six prior-experience compositions, ranging from all succe",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-011.png",
+      "type": "table",
+      "page": 16,
+      "caption": "Table 6: Input artifacts used by the taxonomy pipeline.",
+      "nearby_text": "To make the analysis tractable, the raw execution bundle in Table 6 is not fully mapped to the labeling prompt. Instead, the pre-processing step selectively extracts only the artifacts needed for trajectory analysis: verifier results, agent transcripts, task instructions, injecte",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-012.png",
+      "type": "table",
+      "page": 17,
+      "caption": "Table 7: Coverage statistics after manifest construction and artifact linking.",
+      "nearby_text": "on, the manifest contains 8,135 trial records. The distribution can be found in Table 7. The manifest intentionally preserves records even when some auxiliary artifacts are missing. Later labeling stages filter to trials with sufficient evidence, especially an available trajectory transcript.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-013.png",
+      "type": "table",
+      "page": 18,
+      "caption": "Table 8: Paired triple sample used for contrastive taxonomy labeling.",
+      "nearby_text": "The current paired dataset contains 528 triples. As shown in Table 8, every paired record includes all three arms. For each arm, the LLM judge receives the task instruction, the v1 taxonomy, the trial outcome, an excerpt of the agent trajectory, and the injected skill for the skil",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-014.png",
+      "type": "table",
+      "page": 20,
+      "caption": "Table 9: Oracle-status success rates across the three execution arms.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-015",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-015.png",
+      "type": "table",
+      "page": 20,
+      "caption": "Table 10: Paired success-rate deltas between execution arms.",
+      "nearby_text": "nd summarized with a 1,000-iteration bootstrap confidence interval. As shown in Table 10, the most robust aggregate difference in this taxonomy sample is not skill versus raw, but skill versus direct workflow memory. This is consistent with the paper’s broader claim: skills are useful because they d",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-016",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-016.png",
+      "type": "table",
+      "page": 23,
+      "caption": "Table 11: Contrastive skill-use taxonomy over 528 paired triples. SC abbreviates Skill-use Category, the top-level taxonomy label assigned to a trajectory; each SC groups the fine-grained modes listed in the table. Percentages are computed within each arm over the same paired-triple sample. SC1 denotes successful procedural anchoring, SC2 execution-layer and verification failures, and SC3 invocation, applicability, and boundary failures.",
+      "nearby_text": "vel taxonomy label. The three SCs group the 12 fine-grained modes summarized in Table 11. SC1 captures successful procedural anchoring, where the agent either succeeds autonomously or prior experience provides useful guidance. SC2 captures execution-layer and verification failures, including environ",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-017",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-017.png",
+      "type": "table",
+      "page": 23,
+      "caption": "Table 12: Lightweight compact procedural baselines on selected Terminal-Bench-2 tasks. Entries report downstream success for Raw, short-plan, test-first, Workflow Memory, and Skill conditions over 26 tasks with five trials per task.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-018",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-018.png",
+      "type": "table",
+      "page": 23,
+      "caption": "Table 13: Matched success and token-cost comparison. Entries are computed on the 83-task intersection with equal task weighting. Token counts are per-task averages reported in thousands (K); “pp” denotes percentage points.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-019",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-019.png",
+      "type": "table",
+      "page": 27,
+      "caption": "Table 14: Complete Arm 1 embedding-retrieval results on SkillsBench. Entries report ranking metrics from Qwen3-Embedding-0.6B using task–skill-description similarity. Top-5 is omitted for k = 5 because it covers the full candidate pool.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-020",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-020.png",
+      "type": "table",
+      "page": 28,
+      "caption": "Table 15: Complete Arm 2 and Arm 3 retrieval results on SkillsBench. Rows correspond to agent–model, distractor regime, and pool size. Arm 2 reports explicit-selection precision, recall, and F1; Arm 3 reports parsed actual-use precision, recall, F1, and downstream success. Dashes indicate excluded entries.",
+      "nearby_text": null,
+      "parser_confidence": "high",
+      "table_markdown": "| 74.4 | 75.0 | 74.7 | 18.6 | 69.4 | 29.3 | 39.2 |\n| --- | --- | --- | --- | --- | --- | --- |\n| 72.7 | 72.7 | 72.7 | 7.1 | 66.4 | 12.9 | 38.1 |\n| 80.1 | 81.8 | 81.0 | 3.6 | 66.0 | 6.8 | 39.2 |\n| 81.2 | 84.1 | 82.6 | 1.4 | 65.8 | 2.8 | 37.6 |\n| 77.4 | 83.0 | 80.1 | 0.7 | 66.0 | 1.4 | 39.0 |\n| 54.3 | 69.3 | 60.9 | 17.6 | 70.1 | 28.1 | 38.8 |\n| 61.3 | 79.5 | 69.2 | 7.0 | 67.3 | 12.6 | 38.5 |\n| 58.4 | 77.3 | 66.6 | 3.7 | 66.2 | 6.9 | 34.0 |\n| 59.3 | 76.1 | 66.7 | 1.4 | 66.2 | 2.7 | 36.7 |\n| 55.4 | 73.9 | 63.3 | 0.7 | 66.7 | 1.4 | 36.1 |\n| 74.4 | 76.1 | 75.3 | 14.6 | 63.2 | 23.7 | 34.0 |\n| 80.1 | 81.8 | 81.0 | 8.7 | 66.0 | 15.3 | 38.8 |\n| 82.4 | 83.0 | 82.7 | 5.1 | 65.5 | 9.5 | 35.6 |\n| 79.3 | 80.7 | 80.0 | 1.6 | 64.4 | 3.1 | 38.1 |\n| 83.5 | 84.1 | 83.8 | 0.7 | 61.6 | 1.5 | 34.5 |"
+    },
+    {
+      "id": "img-021",
+      "file": "done/unpublished/Demystifying-Agent-Skills/assets/images/picture-021.png",
+      "type": "table",
+      "page": 28,
+      "caption": "Table 16: Complete numerical results for the outcome-annotation ablation. Entries report downstream success for skills constructed under the indicated trajectory mixture. normal exposes source-trajectory outcomes during construction; no-hint withholds them. Terminal-Bench-Pro entries use 130 trials per condition, with missing or infrastructure-error trials counted as failures.",
+      "nearby_text": "Codex and Gemini CLI. The com- plete numerical results are reported in Appendix Table 16.",
+      "parser_confidence": "low"
+    }
+  ]
+}
