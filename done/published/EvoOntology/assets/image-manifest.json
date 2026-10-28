@@ -1,10 +1,10 @@
 {
-  "source_pdf": "done/unpublished/EvoOntology/2609.15779v1.pdf",
+  "source_pdf": "done/published/EvoOntology/2609.15779v1.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/EvoOntology/assets/images/picture-001.png",
+      "file": "done/published/EvoOntology/assets/images/picture-001.png",
       "type": "figure",
       "page": 1,
       "caption": "Figure 1: A self-evolving ontology layer helps data agents understand heterogeneous data.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/EvoOntology/assets/images/picture-002.png",
+      "file": "done/published/EvoOntology/assets/images/picture-002.png",
       "type": "figure",
       "page": 3,
       "caption": "Figure 2: Overview of EvoOntology. It comprises a typed content graph, its object schema, and a runtime tool interface. The builder constructs an evidence-grounded initial state, while the evolution agent refines it from historical interaction trajectories.",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/EvoOntology/assets/images/picture-003.png",
+      "file": "done/published/EvoOntology/assets/images/picture-003.png",
       "type": "table",
       "page": 5,
       "caption": "Table 2: Comparison against a memory-based persistence baseline on DDR-Bench, averaged across the four backbones. “ReAct + Memory” stores past trajectories as retrievable episodes and injects the top-k into the prompt.",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/EvoOntology/assets/images/picture-004.png",
+      "file": "done/published/EvoOntology/assets/images/picture-004.png",
       "type": "table",
       "page": 5,
       "caption": "Table 1: Main results on the DDR-Bench 10-K scenario. Parentheses report the gain over the Baseline result.",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/EvoOntology/assets/images/picture-005.png",
+      "file": "done/published/EvoOntology/assets/images/picture-005.png",
       "type": "table",
       "page": 5,
       "caption": "Table 3: Main results on InsightBench. Parentheses report the gain over the corresponding Baseline result.",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "done/unpublished/EvoOntology/assets/images/picture-006.png",
+      "file": "done/published/EvoOntology/assets/images/picture-006.png",
       "type": "figure",
       "page": 6,
       "caption": "Figure 3: Primary metric on the three benchmarks under three conditions: Baseline , Initial, and Evolved (EvoOntology).",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "done/unpublished/EvoOntology/assets/images/picture-007.png",
+      "file": "done/published/EvoOntology/assets/images/picture-007.png",
       "type": "figure",
       "page": 6,
       "caption": "Figure 4: Primary metric across accepted evolution rounds on the three benchmarks: Traj-Wise on DDR-Bench, Insight on InsightBench, and EX on BIRD.",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "done/unpublished/EvoOntology/assets/images/picture-008.png",
+      "file": "done/published/EvoOntology/assets/images/picture-008.png",
       "type": "table",
       "page": 6,
       "caption": "Table 4: Main results on BIRD under Oracle Knowledge. VES is reported on a 0–100 scale. Parentheses report the gain over the corresponding Baseline result.",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "done/unpublished/EvoOntology/assets/images/picture-009.png",
+      "file": "done/published/EvoOntology/assets/images/picture-009.png",
       "type": "table",
       "page": 7,
       "caption": "Table 5: Ablation on the four steps of the evolution loop, averaged across four backbones.",
@@ -85,7 +85,7 @@
     },
     {
       "id": "img-010",
-      "file": "done/unpublished/EvoOntology/assets/images/picture-010.png",
+      "file": "done/published/EvoOntology/assets/images/picture-010.png",
       "type": "table",
       "page": 7,
       "caption": "Table 7: Ablation on the five object families of the ontology content layer on DDR-Bench, averaged across four back- bones. Terms cannot be masked in isolation and are omitted.",
@@ -94,7 +94,7 @@
     },
     {
       "id": "img-011",
-      "file": "done/unpublished/EvoOntology/assets/images/picture-011.png",
+      "file": "done/published/EvoOntology/assets/images/picture-011.png",
       "type": "table",
       "page": 7,
       "caption": "Table 6: Ablation on the three editable levels of the evolution loop on DDR-Bench, averaged across four backbones.",
@@ -103,7 +103,7 @@
     },
     {
       "id": "img-012",
-      "file": "done/unpublished/EvoOntology/assets/images/picture-012.png",
+      "file": "done/published/EvoOntology/assets/images/picture-012.png",
       "type": "figure",
       "page": 7,
       "caption": "Figure 5: Generalization of the evolved ontology store across backbones on DDR-Bench.",
@@ -112,7 +112,7 @@
     },
     {
       "id": "img-013",
-      "file": "done/unpublished/EvoOntology/assets/images/picture-013.png",
+      "file": "done/published/EvoOntology/assets/images/picture-013.png",
       "type": "table",
       "page": 10,
       "caption": "Table 8: Cost of the ontology layer on DDR-Bench, averaged across the four-backbone analysis subset.",
@@ -121,7 +121,7 @@
     },
     {
       "id": "img-014",
-      "file": "done/unpublished/EvoOntology/assets/images/picture-014.png",
+      "file": "done/published/EvoOntology/assets/images/picture-014.png",
       "type": "figure",
       "page": 10,
       "caption": "Figure 6: Growth of the Content Layer across accepted evo- lution rounds on DDR-Bench under GPT-5.6-sol. The curves report the four node families and instantiated Semantic Re- lations. The right axis reports Trajectory-Wise performance.",
@@ -130,7 +130,7 @@
     },
     {
       "id": "img-015",
-      "file": "done/unpublished/EvoOntology/assets/images/picture-015.png",
+      "file": "done/published/EvoOntology/assets/images/picture-015.png",
       "type": "figure",
       "page": 10,
       "caption": "Figure 7: Distribution of the accepted evolution gain across Content, Tool, and Schema edits on DDR-Bench, aggregated over the four-backbone analysis subset.",
@@ -139,7 +139,7 @@
     },
     {
       "id": "img-016",
-      "file": "done/unpublished/EvoOntology/assets/images/picture-016.png",
+      "file": "done/published/EvoOntology/assets/images/picture-016.png",
       "type": "figure",
       "page": 11,
       "caption": "Figure 8: Evolution of the ontology for a card-legality task. The Initial state contains general Card and Legality semantics but no explicit interpretation of legality status. The accepted patch adds a Legality Status Code Term, its Mapping and Evidence, and a Constraint that relates the status value to the requested format. Red dashed boxes mark the added or refined objects.",
