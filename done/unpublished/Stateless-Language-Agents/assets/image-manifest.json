@@ -1,0 +1,132 @@
+{
+  "source_pdf": "done/unpublished/Stateless-Language-Agents/2610.07625v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Stateless-Language-Agents/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 1,
+      "caption": "Figure 1: SLA sustains research progress over long horizons. (a) On Anthropic kernel optimization, SLA finds stronger solutions and reaches the strongest baseline’s mean final performance with 14.5× fewer tokens (a 93.1% reduction); every SLA run finishes ahead of every baseline run. Thick curves show means over three runs per method; thin curves show individual runs. (b) On all four FrontierSWE tasks, SLA trails the strongest per-task baseline at 175M tokens (25% of the budget, open circles) but leads at 700M (full budget, filled circles). All results use Codex with GPT-5.5.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Stateless-Language-Agents/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 3,
+      "caption": "Figure 2: Long-horizon AutoResearch requires benchmark headroom and sustained experimentation. (a) On 26-circle packing, four methods reach nearly identical scores by 5M tokens (within 2.3 × 10−10), leaving little separation between methods. (b) In a CORAL run on a GPU kernel task, the last improvement occurs at 231M tokens, but token consumption continues to 1B. Of the final 1,500 sessions, 98% make no tool calls, showing that additional inference does not always translate to productive experiments.",
+      "nearby_text": "le packing, four methods finish within 2.3 × 10−10 of one another by 5M tokens (Figure 2(a)). A saturated benchmark measures how quickly a method reaches the ceiling, not whether it can keep converting computation into progress. As a result, design choices whose effects compound as experience accumu",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/Stateless-Language-Agents/assets/images/picture-003.png",
+      "type": "figure",
+      "page": 5,
+      "caption": "Figure 3: The SLA framework: stateful search with stateless agents. The harness owns candidates and outcomes and rebuilds a fresh and role-specific context for the Advisor each epoch and for each Worker each trial (§3.1). The Advisor turns global evidence into coordinated assignments (§3.2).",
+      "nearby_text": "framework applies stateless language agents to long-horizon automated research (Figure 3). It alternates global planning with local experimentation. Each epoch, the harness reconstructs the Advisor’s context from the research state (§3.1), and the Advisor assigns concrete experiments to parallel Wor",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/Stateless-Language-Agents/assets/images/picture-004.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 1: Anthropic VLIW SIMD kernel performance and token efficiency. Cycles at 25% (250M) and 100% (1B) of the token budget, and cumulative tokens needed to first match the strongest baseline’s full-budget cycles (NR: not reached). Codex entries are mean ± std over three runs (token counts use the mean curve); Claude Code uses one run per method. Bold: best per column; underline: second best. The last row gives SLA’s relative reduction over the strongest baseline in each column.",
+      "nearby_text": "odex over three independent runs and report means ± sample standard deviations (Table 1). The checkpoint- continuation ablations also use three independent runs per configuration and checkpoint (Table 4). Other main-result configurations use one run per method. A single long-horizon run can cost hun",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/Stateless-Language-Agents/assets/images/picture-005.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 2: FrontierSWE performance and token efficiency with Codex. Official scores (×100) at 25% (175M) and 100% (700M) of the token budget, and cumulative tokens needed to first match the strongest baseline’s full-budget score (NR: not reached). One run per method. Bold: best per column; underline: second best. The last row of each panel gives SLA’s score difference from the strongest baseline (points) and its relative token reduction: SLA trails on all four tasks at 175M but leads at 700M.",
+      "nearby_text": "n all four tasks at 25% of the budget but leads on all four at the full budget (Table 2). Short-budget evaluations would therefore miss its eventual advantage across all four tasks. These reversals motivate evaluating search methods across multiple cumulative token budgets.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/Stateless-Language-Agents/assets/images/picture-006.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 3: SOL-ExecBench and FrontierCS performance and token efficiency with Codex. SOL scores ([0, 1]) and FrontierCS task scores at 25% and 100% of each task’s token budget, and cumulative tokens needed to first match the strongest baseline’s full-budget score (NR: not reached). One run per method. Bold: best per column; underline: second best. The last row of each panel gives SLA’s relative difference from the strongest baseline.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/Stateless-Language-Agents/assets/images/picture-007.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 4: Ablations from shared SLA checkpoints. In each column, every configuration resumes from the same checkpoint (header: start →end cumulative tokens) and runs for 100M additional tokens; entries are mean ± std over three continuations. Grey values give full SLA’s progress from the checkpoint; red values give each variant’s relative drop in that progress. Bold: best per column.",
+      "nearby_text": "ion ablations also use three independent runs per configuration and checkpoint (Table 4). Other main-result configurations use one run per method. A single long-horizon run can cost hundreds to thousands of dollars, so our budget does not allow replicating every task and agent configuration.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/Stateless-Language-Agents/assets/images/picture-008.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 5: Token usage and coordination overhead. Token composition and coordinator share (SLA Advisor or SwarmResearch Shepherd) of tokens and estimated cost at the full budget, using GPT-5.5 rates of $5/$0.50/$30 per million uncached-input, cached-input, and output tokens [26]. Bold: lower share.",
+      "nearby_text": "–0.51% of total tokens, compared with 8.39–10.70% for SwarmResearch’s Shepherd (Table 5). Much of the Shepherd’s usage comes from its long-running context. In the Anthropic kernel run, its average call reads about 99K input tokens, compared with about 8K at the start of a fresh session. Because cach",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/Stateless-Language-Agents/assets/images/picture-009.png",
+      "type": "table",
+      "page": 11,
+      "caption": "Table 6: Worker scaling at fixed token budgets. Best-so-far performance and time at 25% and 100% of the token budget (1B for Anthropic kernel; 700M per FrontierSWE task) as the number of Workers W varies. FrontierSWE scores are official scores (×100); mean time is the average time per FrontierSWE task. Colored values give the change from W=1 in the same block (green: better; red: worse), and wall-clock speedup for time. Shaded: default W=3 used in all other experiments. Bold: best per column within each block.",
+      "nearby_text": "fixed budgets of 1B tokens for Anthropic kernel and 700M per FrontierSWE task (Table 6). Wider pools substantially shorten runs: going from 1 to 15 Workers cuts elapsed time by 6.6× on Anthropic kernel and mean elapsed time by 7.3× on FrontierSWE. On Anthropic kernel, the quality penalty of width l",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/Stateless-Language-Agents/assets/images/picture-010.png",
+      "type": "figure",
+      "page": 19,
+      "caption": "Figure 4: Worker model selection at matched cost. Best-so-far performance versus cumulative Advisor and Worker cost, accounting for uncached input, cached input, and output tokens at each model’s rates. All runs use a GPT-5.5 Advisor and three Workers. (a) Anthropic kernel optimization. (b) FrontierSWE Git→Zig.",
+      "nearby_text": "Figure 4 shows best-so-far performance against cumulative model cost. At $100, GPT-5.4 mini Workers achieve a higher Git→Zig score than GPT-5.5 Workers (20.88 versus 19.68), whereas GPT-5.5 Workers lead on Anthropic kern",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/Stateless-Language-Agents/assets/images/picture-011.png",
+      "type": "table",
+      "page": 19,
+      "caption": "Table 7: Sensitivity to local trials per Worker per epoch. Continuations from the shared checkpoints of Table 4, evaluated at 100M additional tokens; mean ± sample standard deviation over three runs. Three trials is the default in all other experiments. Bold marks the best mean in each column.",
+      "nearby_text": "Table 7 reports the results. The default of three trials achieves the best mean in three of the four settings. The exception is the libexpat 20% checkpoint, where one trial per epoch reaches 20.94 ± 1.39 versus 20.13 ± 0",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/Stateless-Language-Agents/assets/images/picture-012.png",
+      "type": "table",
+      "page": 20,
+      "caption": "Table 8: Reusing an older result in CORAL (Lua Native Compiler, Codex). Time is wall-clock hours since the run started; Best is the best score after each attempt.",
+      "nearby_text": "luated attempts. We relabel the agents A–D and report scores multiplied by 100. Table 8 summarizes the events below.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/Stateless-Language-Agents/assets/images/picture-013.png",
+      "type": "table",
+      "page": 21,
+      "caption": "Table 9: Duplicated work in CORAL (libexpat, Codex). Time is wall-clock hours since the run started. Bold marks a new best score.",
+      "nearby_text": "relabel the two agents involved as A and B and report scores multiplied by 100. Table 9 summarizes the events below.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/Stateless-Language-Agents/assets/images/picture-014.png",
+      "type": "figure",
+      "page": 22,
+      "caption": "Figure 5: Trace examples of experiment selection and refinement. (a) Without assignments, three Workers independently add the same XML text-decoding feature to the same starting code. None improves its score. (b) Full SLA assigns another Worker to build on a successful change, further improving the solution. Scores are multiplied by 100, as in the main results.",
+      "nearby_text": "attempt to improve the code; trial numbers identify these attempts in the logs. Figure 5 shows how Workers can duplicate effort without assignments and build on earlier improvements with Advisor guidance.",
+      "parser_confidence": "high"
+    }
+  ]
+}
