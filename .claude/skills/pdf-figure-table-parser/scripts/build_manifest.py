@@ -30,12 +30,10 @@ Optional:
     --crop-bottom-override page:kind:num=y[,page:kind:num=y...]
         Manually override the bottom boundary (default: 3pt above the
         caption's own top edge, which assumes the caption sits below its
-        visual). Needed for the common academic-table convention of
-        captioning ABOVE the table: there the real content is below the
-        caption, so both --crop-top-override (set to just below the
-        caption) and --crop-bottom-override (set to just below the table's
-        last row) are needed together. Use dump_blocks.py to find the y
-        value just below the table's last row.
+        visual). Caption-above tables are cropped automatically (see
+        --tables-caption-above); when that walk stops in the wrong place,
+        pass both --crop-top-override (just below the caption) and
+        --crop-bottom-override (just below the table's last row).
     --crop-left-override page:kind:num=x[,page:kind:num=x...]
     --crop-right-override page:kind:num=x[,page:kind:num=x...]
         Manually override the auto-detected horizontal bound(s) for
@@ -56,6 +54,16 @@ Optional:
         this fixes; a manual crop-and-check with these flags replaces the
         one-off render-to-a-temp-script workaround those sections used to
         require.
+    --tables-caption-above {auto,yes,no}
+                            Whether tables are captioned above their content
+                            (default auto). auto: if at least half of the
+                            tables without a manual override get a degenerate
+                            region from the usual caption-below crop, every
+                            such table is cropped downward from its caption
+                            instead (caption_above_crop in pdf_parser_lib.py);
+                            otherwise only the degenerate ones are. yes/no
+                            force it on or off for every table. Any manual
+                            top/bottom override for an entry wins over this.
     --zoom FLOAT           Render zoom factor (default 3.0, ~216 DPI at
                             standard letter/A4 page size).
     --margin-x FLOAT       Force a fixed horizontal crop margin in points
@@ -135,6 +143,7 @@ def main():
     ap.add_argument("--crop-bottom-override", default="")
     ap.add_argument("--crop-left-override", default="")
     ap.add_argument("--crop-right-override", default="")
+    ap.add_argument("--tables-caption-above", choices=("auto", "yes", "no"), default="auto")
     ap.add_argument("--zoom", type=float, default=3.0)
     ap.add_argument("--margin-x", type=float, default=None)
     ap.add_argument("--min-caption-width", type=float, default=400.0)
@@ -195,34 +204,84 @@ def main():
 
     ink_by_page = {}
     text_by_page = {}
-    manifest_images = []
-    warned = []
-    print(f"Detected {len(captions)} visual(s):\n")
-    for i, c in enumerate(captions, start=1):
+    body_edges = lib.body_column_edges(col_edges, two_column)
+    bottom_limit = area.y1 + 2 if area is not None else doc[0].rect.height - 40
+
+    # Vertical bounds first, for every visual, because whether the tables
+    # are captioned above their content is a whole-paper decision (see
+    # --tables-caption-above).
+    regions = []
+    for c in captions:
         page_no, kind, num = c["page"], c["kind"], c["num"]
         page = doc[page_no - 1]
         page_w = page.rect.width
-
         if page_no not in ink_by_page:
             ink_by_page[page_no] = lib.visual_ink_rects(page, area)
         ink = lib.rects_in_column(ink_by_page[page_no], c["bbox"], page_w, two_column=two_column)
-
-        if page_no not in text_by_page:
-            text_by_page[page_no] = [pymupdf.Rect(b["bbox"]) for b in all_blocks if b["page"] == page_no]
-        text_rects = lib.rects_in_column(text_by_page[page_no], c["bbox"], page_w, two_column=two_column)
-
         key = (page_no, kind, num)
+        manual = key in overrides or key in bottom_overrides
         if key in overrides:
-            top = overrides[key]
-            source = "manual override"
+            top, source = overrides[key], "manual override"
         else:
             top = lib.auto_crop_top(page_no, c["bbox"], captions_by_page, page_w,
                                     default_margin=top_margin, ink_rects=ink,
                                     barriers=barriers, text_blocks=all_blocks, kind=kind,
                                     two_column=two_column)
             source = "auto heuristic"
-
         bottom = bottom_overrides.get(key, c["bbox"][1] - 3)
+        below = None
+        if kind == "table" and not manual:
+            below = lib.caption_above_crop(page_no, c["bbox"], captions_by_page, all_blocks, ink,
+                                           body_edges, page_w, bottom_limit, two_column=two_column,
+                                           column_width=column_w)
+        above_has_ink = any(r.y0 >= top - 2 and r.y1 <= bottom + 2 for r in ink)
+        regions.append({"top": top, "bottom": bottom, "source": source, "below": below,
+                        "degenerate": kind == "table" and not manual and bottom - top < 24,
+                        "above_has_ink": above_has_ink, "ink": ink})
+
+    auto_tables = [r for c, r in zip(captions, regions)
+                   if c["kind"] == "table" and r["source"] == "auto heuristic"
+                   and (c["page"], c["kind"], c["num"]) not in bottom_overrides]
+    n_degenerate = sum(r["degenerate"] for r in auto_tables)
+    if args.tables_caption_above == "auto":
+        above_doc = bool(auto_tables) and n_degenerate * 2 >= len(auto_tables)
+    else:
+        above_doc = args.tables_caption_above == "yes"
+    if above_doc:
+        print(f"Tables are captioned above their content ({n_degenerate}/{len(auto_tables)} "
+              "degenerate caption-below regions); cropping them downward from the caption.\n")
+    for r in regions:
+        below = r["below"]
+        if below is None:
+            continue
+        use_below = above_doc or (args.tables_caption_above == "auto" and r["degenerate"])
+        # A paper that captions most tables above can still caption one below:
+        # keep the caption-below region when it holds the table's rules and
+        # the region under the caption doesn't, or when what sits under the
+        # caption is too short to be a table (one line of text).
+        if (use_below and args.tables_caption_above == "auto" and not r["degenerate"]
+                and ((r["above_has_ink"] and not below["has_ink"])
+                     or below["bottom"] - below["top"] < 24)):
+            use_below = False
+        if use_below:
+            r["top"], r["bottom"] = below["top"], below["bottom"]
+            r["source"] = f"auto caption-above, stopped at {below['stop']}"
+
+    manifest_images = []
+    warned = []
+    print(f"Detected {len(captions)} visual(s):\n")
+    for i, (c, reg) in enumerate(zip(captions, regions), start=1):
+        page_no, kind, num = c["page"], c["kind"], c["num"]
+        page = doc[page_no - 1]
+        page_w = page.rect.width
+        ink = reg["ink"]
+        key = (page_no, kind, num)
+        top, bottom, source = reg["top"], reg["bottom"], reg["source"]
+
+        if page_no not in text_by_page:
+            text_by_page[page_no] = [pymupdf.Rect(b["bbox"]) for b in all_blocks if b["page"] == page_no]
+        text_rects = lib.rects_in_column(text_by_page[page_no], c["bbox"], page_w, two_column=two_column)
+
         if args.margin_x is not None:
             left, right = args.margin_x, page_w - args.margin_x
             hsource = "explicit --margin-x"
@@ -259,7 +318,9 @@ def main():
             table_md = try_table_markdown(args.pdf, page_no, rect)
             confidence = "high" if table_md else "low"
 
-        problems = lib.crop_warnings(rect, page_no, prose, kind=kind)
+        problems = lib.crop_warnings(rect, page_no, prose, kind=kind,
+                                     text_blocks=all_blocks, ink_rects=ink_by_page[page_no],
+                                     caption_bbox=c["bbox"])
         if problems:
             confidence = "low"
             warned.append((f"img-{i:03d}", page_no, c["label"], problems))

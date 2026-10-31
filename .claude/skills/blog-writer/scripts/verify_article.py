@@ -29,6 +29,9 @@ Checks:
   - visible captions (*圖 N — / *表 N —) numbered 1, 2, 3... in article order,
     and the paper's own "Table N" / "Figure N" labels kept out of the prose
     (only the caption's source note, or a "論文 Table N" pointer, may use them)
+  - every 〈...〉 section pointer names a heading that exists, and no
+    relative pointer (下一節, 上一節, 前一節) that breaks when sections move
+  - one spelling per word: 占/佔, 裡/裏, 著/着 not mixed
 
 Usage:
     python verify_article.py path/to/article.md [--manifest path/to/image-manifest.json]
@@ -145,6 +148,34 @@ def check_figure_labels(body, warnings):
             "article's own 表 N / 圖 N, and write the paper's number only as \"論文 Table N\". "
             + " | ".join(hits[:5])
         )
+
+
+SECTION_REF_RE = re.compile(r"〈([^〉]+)〉")
+RELATIVE_REF_RE = re.compile(r"(下一節|上一節|前一節)")
+HEADING_LINE_RE = re.compile(r"^#{1,6}\s+(.*)$", re.MULTILINE)
+VARIANT_PAIRS = [("占", "佔"), ("裡", "裏"), ("著", "着")]
+
+
+def check_cross_references(prose, warnings):
+    """〈heading〉 pointers resolve; no relative pointers; one spelling per word."""
+    body = CODE_FENCE_RE.sub(" ", prose)
+    headings = {h.strip() for h in HEADING_LINE_RE.findall(body)}
+    dangling = sorted({r for r in SECTION_REF_RE.findall(body) if r.strip() not in headings})
+    if dangling:
+        warnings.append(
+            f"{len(dangling)} 〈...〉 pointer(s) name no heading -- copy the heading text exactly: "
+            + " | ".join(dangling[:5])
+        )
+    rel = [body[max(0, m.start() - 12):m.end() + 6].replace("\n", " ").strip()
+           for m in RELATIVE_REF_RE.finditer(body)]
+    if rel:
+        warnings.append(
+            f"{len(rel)} relative pointer(s) -- name the section as 〈heading〉 instead, so the "
+            "pointer survives a reorder: " + " | ".join(rel[:5])
+        )
+    for a, b in VARIANT_PAIRS:
+        if a in body and b in body:
+            warnings.append(f"both {a} and {b} appear -- pick one spelling for the whole article.")
 
 
 def load_manifest_ids_and_captions(path):
@@ -264,6 +295,7 @@ def main():
     check_raw_notation(text, warnings)
     check_half_width_punctuation(text, warnings)
     check_figure_labels(prose, warnings)
+    check_cross_references(prose, warnings)
 
     visible = VISIBLE_CHAR_RE.findall(prose)
     cjk = CJK_RE.findall(prose)
