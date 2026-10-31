@@ -1,11 +1,11 @@
-# Image reference convention + figure-map schema
+# Figure/table reference convention + figure-map schema
 
 The authoritative spec for how `article.md` refers to visuals.
 
 The Writer doesn't know final image paths (Step 3 decides them in the Hugo
 repo) and must never embed a parser filename like `picture-003.png`. The body
 references the manifest `id`; a machine-readable block at the end gives Step 3
-everything it needs to do the real match. The Reviewer reads only the body.
+everything it needs to do the real match.
 
 ## In the article body
 
@@ -20,6 +20,27 @@ everything it needs to do the real match. The Reviewer reads only the body.
 - **Italic caption line**: Writer-authored Traditional Chinese, not a copy of
   the manifest's English caption.
 
+### Tables
+
+A table that reproduces one of the paper's tables is a visual like any other
+and gets a numbered caption line, whether it is the manifest image or a
+Markdown table built from the notes' numbers:
+
+```markdown
+| 方法 | 1B cycles ↓ |
+| --- | --- |
+| SLA | 1112.0 ± 8.9 |
+*表 2 — Anthropic kernel 的主結果。（來源：原始論文 Table 1。）*
+```
+
+Use the Markdown table when the notes give the numbers (it is searchable and
+the reader can copy it), the image when they only discuss the table. Don't do
+both for one table. A Markdown table has no `figure-map` entry; only images do.
+
+A table the Writer builds to explain something (an A/B comparison, a summary
+of steps) is not a paper table: no caption, no number. Point at it by its
+section heading.
+
 ### Numbering
 
 Number the visible captions (`圖 3 —`, `表 1 —`) **sequentially in the
@@ -30,9 +51,9 @@ a figure is missing. Step 3 joins on the manifest `id`, never on the label.
 
 The paper's own number appears in exactly two places: the caption's source note
 (`（來源：原始論文 Table 9。）`) and, where the prose must name the original, as
-`論文 Table 9`. Everywhere else, prose points at embedded visuals by the
-article's label (`表 4`). Mixing the two schemes in prose is a real review
-finding: a reader sees "Table 9" and "表 9" and can't tell which is meant.
+`論文 Table 9`. Everywhere else, prose points at captioned visuals by the
+article's label (`表 4`). Mixing the two schemes is a real review finding: a
+reader sees "Table 9" and "表 9" and can't tell which is meant.
 `verify_article.py` warns on both a non-sequential caption number and a bare
 `Table N`/`Figure N` in prose.
 

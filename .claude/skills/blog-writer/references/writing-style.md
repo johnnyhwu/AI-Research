@@ -104,17 +104,30 @@ Correct, well-voiced prose can still be hard to follow. Mechanical checks:
 - **Every abstract mechanism gets one concrete example**: a number, a
   before/after, a situation an engineer recognizes.
 - **A/B comparisons go in a table or parallel bullets**, not running prose.
-- **Concise `## 前言` and `## 結論`**, each its own heading. 前言 states the
-  point and scope in a couple of short paragraphs; 結論 is a quick recap, not a
-  re-argument. If either runs as long as a body section, trim it.
-- **One `#` in the whole file** (the title). All other top-level sections,
-  including any tangential theme, are `##`; that theme's sub-topics are `###`
-  under one `##`, never sibling `##`s (which flattens them into an unrelated
-  wall; this shipped wrong once).
+- **Heading shape** (one `#`, 前言/結論, themes at `##` with `###`
+  sub-topics) is in `SKILL.md`, step 3.
 - **One home per explanation.** If a recap section and a deep-dive section
   cover the same concept, explain it fully in one and point to it from the
-  other in a line. Cross-references name a heading that exists, and visuals are
-  referred to by the article's own 表 N / 圖 N (see `figure-map-schema.md`).
+  other in a line.
+- **Point at sections by their exact heading,** written as 〈heading〉, never
+  as 下一節 / 上一節 / 前一節 (sections move during review, relative pointers
+  don't follow). Visuals are referred to by the article's own 表 N / 圖 N.
+  `verify_article.py` checks both.
+
+## Provenance: paper fact, inference, made-up example
+
+Notes often tag where a statement comes from: the paper, the note-taker's own
+inference, a made-up example, or something the paper leaves unclear. Keep
+every tag, because a reader must be able to tell what the paper showed from
+what someone guessed. But one tag per sentence, phrased the same way each
+time, turns into a refrain ("我的推論", "論文沒講清楚" a dozen times).
+
+- Say once in `## 前言` how the article marks these, e.g. 「文中標（推論）的
+  是筆記作者的推測，標（自編）的是為了說明自己舉的例子，其餘都是論文內容。」
+- In the body, use those short parenthetical tags, and only on the inference
+  or example itself, not on the sentences around it.
+- Collect "the paper doesn't say" gaps in the limitations section where you
+  can, rather than ending every concept section on one.
 
 ## Cross-document structural repetition
 
@@ -152,6 +165,9 @@ expected. Make it navigable, not short:
 - **Use `---` breaks and sub-headings** between major movements.
 - **Hang everything on a narrative spine** (see `writer-reviewer-spec.md`) rather
   than appending in note order.
+- **Reference sections (concept deep-dives, a glossary, limitations) sit
+  before `## 結論`,** so the recap comes right after the material it
+  recaps, not after 100 lines of reference.
 
 ## The natural voice
 

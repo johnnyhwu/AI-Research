@@ -582,6 +582,119 @@ def auto_crop_top(page_no, caption_bbox, captions_by_page, page_width,
     return max(floor, top - pad)
 
 
+def body_column_edges(col_edges, two_column):
+    """
+    The x where real body text starts: the leftmost `column_left_edges` value,
+    plus the rightmost one in a two-column paper. The edges in between are
+    list indents or a wide table's first column, which must not count as
+    "body text resumes here" for `caption_above_crop`.
+    """
+    if not col_edges:
+        return []
+    return [min(col_edges), max(col_edges)] if two_column else [min(col_edges)]
+
+
+HEADING_RE = re.compile(r"^(?:\d+|[A-Z])(?:\.\d+)*\.?\s+[A-Z]")
+
+
+def reads_as_text_flow(block, column_width):
+    """
+    Whether a block that starts on a body column edge is body text resuming
+    (a paragraph or a numbered section heading) rather than a table cell that
+    happens to start on the margin. A table's first column ("benchmark", a
+    row label) and its number-heavy rows also sit flush left, so alignment
+    alone stops a caption-above crop after the header row.
+    """
+    text = block["text"]
+    if HEADING_RE.match(text) and len(text) < 120:
+        return True
+    width = block["bbox"][2] - block["bbox"][0]
+    if column_width and width < 0.6 * column_width:
+        return False
+    tokens = text.split()
+    words = [t for t in tokens if re.fullmatch(r"[A-Za-z][a-z'’\-]+[,.;:]?", t)]
+    return len(tokens) >= 8 and len(words) >= 0.6 * len(tokens)
+
+
+def caption_above_crop(page_no, caption_bbox, captions_by_page, text_blocks, ink_rects,
+                       body_edges, page_width, bottom_limit, two_column=True,
+                       column_width=None, max_gap=40.0, pad=4.0, edge_tol=2.0):
+    """
+    The region of a visual whose caption sits ABOVE it (the academic-table
+    convention), as a dict with "top", "bottom", "stop" (why the walk ended,
+    for the build log) and "has_ink"; None if nothing follows the caption.
+
+    Walks down from the caption through text blocks and ink, absorbing
+    anything within `max_gap` of the region so far, and stops before the
+    first hard boundary below the caption: another caption, a block that
+    starts exactly on a body column edge (`body_edges`) and reads as prose or
+    a section heading (`reads_as_text_flow`), or `bottom_limit` (the content
+    area's bottom, so the page number stays out). A gap threshold alone can't
+    do this: in one paper the gap between a table's two sub-panels (16.5pt)
+    was smaller than the gap from the table's last row to the next caption
+    (16.8pt).
+
+    When the boundary is a *figure* caption, that figure sits between this
+    visual and its caption, so the walk has swallowed it. The region is then
+    cut at its largest internal whitespace gap (the lowest one, on a near-tie),
+    which in practice is the gap between the table's last row and the
+    figure's first panel.
+
+    Ink counts as content, so a booktabs bottom rule a few points under the
+    last row ends up inside the crop instead of just outside it.
+    """
+    cap_y1 = caption_bbox[3]
+    target_col = caption_column(caption_bbox, page_width, two_column=two_column)
+
+    def same_column(bbox):
+        if target_col == "full":
+            return True
+        col = caption_column(bbox, page_width, two_column=two_column)
+        return col == "full" or col == target_col
+
+    stop, reason = bottom_limit, "content-area bottom"
+    for other in captions_by_page.get(page_no, []):
+        if other["bbox"] != caption_bbox and same_column(other["bbox"]) and cap_y1 < other["bbox"][1] < stop:
+            stop, reason = other["bbox"][1], f"{other['kind']} caption {other['text'][:30]!r}"
+    items = []
+    for b in text_blocks:
+        if b["page"] != page_no or not same_column(b["bbox"]) or b["bbox"][1] < cap_y1 - 1:
+            continue
+        if (any(abs(b["bbox"][0] - e) <= edge_tol for e in body_edges)
+                and reads_as_text_flow(b, column_width)):
+            if b["bbox"][1] < stop:
+                stop, reason = b["bbox"][1], f"body text {b['text'][:30]!r}"
+        else:
+            items.append((b["bbox"][1], b["bbox"][3], False))
+    items += [(r.y0, r.y1, True) for r in ink_rects if r.y0 >= cap_y1 - 1]
+
+    bottom, has_ink, spans = cap_y1, False, []
+    for y0, y1, is_ink in sorted(items):
+        if y1 > stop:
+            break
+        if y0 > bottom + max_gap:
+            reason = f"{y0 - bottom:.0f}pt gap"
+            break
+        if spans and y0 <= spans[-1][1]:
+            spans[-1][1] = max(spans[-1][1], y1)
+        else:
+            spans.append([y0, y1])
+        bottom = max(bottom, y1)
+        has_ink = has_ink or is_ink
+    if bottom - cap_y1 < 1:
+        return None
+    if reason.startswith("figure caption") and len(spans) > 1:
+        gaps = [(spans[i + 1][0] - spans[i][1], spans[i][1]) for i in range(len(spans) - 1)]
+        # Near-ties go to the lowest gap: row spacing inside a table is about
+        # as wide as the table-to-figure gap, and cutting too high loses rows.
+        widest = max(g for g, _ in gaps)
+        bottom = max(y for g, y in gaps if g >= widest - 2)
+        reason += ", cut at the largest gap above it"
+        has_ink = any(is_ink and y1 <= bottom for _, y1, is_ink in items)
+    return {"top": cap_y1 + 2, "bottom": min(bottom + pad, stop - 1), "stop": reason,
+            "has_ink": has_ink}
+
+
 def auto_crop_hbounds(page, top, bottom, caption_bbox, ink_rects=None, text_rects=None,
                       pad=8.0, min_width=40.0, band_tol=2.0, col_tol=15.0, two_column=True):
     """
@@ -662,7 +775,9 @@ def auto_crop_hbounds(page, top, bottom, caption_bbox, ink_rects=None, text_rect
     return max(0.0, x0 - pad), min(page_w, x1 + pad)
 
 
-def crop_warnings(rect, page_no, prose, kind="figure", min_dim=24.0, prose_frac=0.25):
+def crop_warnings(rect, page_no, prose, kind="figure", min_dim=24.0, prose_frac=0.25,
+                  text_blocks=None, ink_rects=None, caption_bbox=None, near_ink=3.0,
+                  min_cut_frac=0.25):
     """
     Text-only sanity checks on a crop rectangle, so a wrong region gets
     flagged instead of silently shipped as a confident-looking PNG (this
@@ -688,6 +803,15 @@ def crop_warnings(rect, page_no, prose, kind="figure", min_dim=24.0, prose_frac=
       away and swallowed the paragraph above the figure. Figures only:
       a table's own rows legitimately read as prose, so the check would fire
       on every correctly-cropped table.
+    - A top or bottom edge that cuts through a text block (`text_blocks`)
+      with at least `min_cut_frac` of the block on each side, or ink
+      (`ink_rects`, e.g. a table's closing rule) within `near_ink` points
+      outside an edge. Both are what a too-tight manual override looks like;
+      neither changes the crop's size enough for any other check to notice.
+      A block crossing both edges is text wrapped beside the visual, not a
+      cut, and ink inside the caption's own band (`caption_bbox`, e.g. a rule
+      under the caption) is not part of the visual. Skipped for a degenerate
+      crop, which is already flagged.
     """
     warnings = []
     if rect.width < min_dim or rect.height < min_dim:
@@ -696,7 +820,8 @@ def crop_warnings(rect, page_no, prose, kind="figure", min_dim=24.0, prose_frac=
                         "+ --crop-bottom-override) or this is a multi-panel figure whose "
                         "(a)/(b) sub-captions were read as body text and floored the crop "
                         "(fix: --crop-top-override alone, above the figure's real top). "
-                        "Check which with dump_blocks.py; see SKILL.md")
+                        "Caption-above tables are normally detected automatically, so for a "
+                        "table check why that didn't fire. Check with dump_blocks.py; see SKILL.md")
     if kind != "table" and rect.height > 0:
         covered = 0.0
         for b in prose or []:
@@ -709,6 +834,35 @@ def crop_warnings(rect, page_no, prose, kind="figure", min_dim=24.0, prose_frac=
             warnings.append(f"{covered / rect.height:.0%} of the crop height is body prose -- "
                             "the top boundary probably overshot; check dump_blocks.py "
                             "and pass --crop-top-override")
+
+    if warnings and rect.height < min_dim:
+        return warnings
+
+    def h_overlap(x0, x1):
+        return min(x1, rect.x1) - max(x0, rect.x0) > 1.0
+
+    for b in text_blocks or []:
+        x0, y0, x1, y1 = b["bbox"]
+        if b["page"] != page_no or not h_overlap(x0, x1) or (y0 < rect.y0 and y1 > rect.y1):
+            continue
+        for edge, name in ((rect.y0, "top"), (rect.y1, "bottom")):
+            if y0 < edge < y1 and min(edge - y0, y1 - edge) >= min_cut_frac * (y1 - y0):
+                warnings.append(f"crop {name} edge (y={edge:.1f}) cuts through text block "
+                                f"y=({y0:.1f},{y1:.1f}): {b['text'][:40]!r}")
+    cap_y0, cap_y1 = (caption_bbox[1], caption_bbox[3]) if caption_bbox else (None, None)
+    for r in ink_rects or []:
+        if not h_overlap(r.x0, r.x1):
+            continue
+        if cap_y0 is not None and r.y1 >= cap_y0 - 1 and r.y0 <= cap_y1 + 1:
+            continue
+        if rect.y1 < r.y0 <= rect.y1 + near_ink:
+            warnings.append(f"ink at y={r.y0:.1f} sits just below the crop bottom "
+                            f"(y={rect.y1:.1f}) -- likely a cut table rule; lower the bottom edge")
+            break
+        if rect.y0 - near_ink <= r.y1 < rect.y0:
+            warnings.append(f"ink at y={r.y1:.1f} sits just above the crop top "
+                            f"(y={rect.y0:.1f}) -- likely a cut rule or axis; raise the top edge")
+            break
     return warnings
 
 
