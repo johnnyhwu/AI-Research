@@ -32,6 +32,8 @@ Checks:
   - every 〈...〉 section pointer names a heading that exists, and no
     relative pointer (下一節, 上一節, 前一節) that breaks when sections move
   - one spelling per word: 占/佔, 裡/裏, 著/着 not mixed
+  - if --manifest names a source PDF: a `**來源**：` line with a link to the paper sits right under the title
+    (without it the published post has no link to the paper it walks through)
 
 Usage:
     python verify_article.py path/to/article.md [--manifest path/to/image-manifest.json]
@@ -267,6 +269,15 @@ def main():
                 )
     elif not no_manifest_mode and fm_ids:
         warnings.append("No --manifest given -- skipped cross-checking figure-map ids/captions against the manifest.")
+
+    if args.manifest:
+        with open(args.manifest, encoding="utf-8") as f:
+            source_pdf = json.load(f).get("source_pdf")
+        head = "\n".join(text.lstrip().split("\n")[:6])
+        if source_pdf and not re.search(r"^\*\*來源\*\*：.*\]\(https?://", head, re.M):
+            warnings.append("No `**來源**：[<paper title>](<link>)` line under the title. Take the link from the notes, "
+                            "or build it from an arXiv-style PDF filename (2607.01874v1.pdf); with neither, say so "
+                            "in the PR Notes.")
 
     # Rough CJK-density check on the prose, excluding the figure-map block itself.
     prose = text[: fm_match.start()] if fm_match else text

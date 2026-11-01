@@ -39,6 +39,9 @@ reader who knows the source fills in gaps the article leaves open.
 >    is fine if the article marks it as made up.
 > 5. **Figures**: a figure or table the article embeds that the notes never
 >    mention, or one the notes call out that the article leaves out.
+> 6. **Inconsistency**: the same quantity stated two incompatible ways in the
+>    article (a count of items in one place that does not add up with its
+>    breakdown elsewhere), even if each matches some line of the notes.
 >
 > Do not comment on the trailing `figure-map` block.
 >
