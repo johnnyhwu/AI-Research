@@ -16,7 +16,8 @@ notes. Reviewer B guards the last; Reviewer A guards the first two.
 
 1. **Never read the source PDF or open any image.** The only sources of fact
    are the notes/chatlog file and the `caption` / `page` / `type` /
-   `nearby_text` fields of `image-manifest.json`. If the notes are
+   `nearby_text` fields of `image-manifest.json` (plus the PDF's *filename*, for
+   the arXiv id in the source line). If the notes are
    underspecified, write around the gap and flag it; don't peek.
 2. **Prose is Traditional Chinese, Taiwan usage (台灣繁體中文)**: headings,
    alt text and visible captions included. The one exception is each
@@ -65,6 +66,10 @@ Say which case applies when you report.
      as the last section, with any concept deep-dive, glossary or
      limitations section placed before it;
    - exactly one `#`; independent themes at `##` with sub-topics at `###`;
+   - for a paper, a source line right under the title:
+     `**來源**：[<paper title>](https://arxiv.org/abs/<id>)（<institutions>，<year/month>）`, taken from the
+     notes; if they give no link, an arXiv-style PDF filename (`2607.01874v1.pdf`) is the id. The published post
+     links the paper only through this line;
    - formal definitions and every symbol in LaTeX (`writing-style.md`);
    - figures as `![alt](img-00N)` plus an italic caption, and paper data
      tables as Markdown tables with the same kind of caption, numbered in
@@ -141,7 +146,7 @@ Say which case applies when you report.
 - The topic is moved and the task finished per the repo `CLAUDE.md`. The PR
   Notes list: rounds per reviewer and any early stop; coverage items left out
   on purpose, with reasons; rebuilt non-text elements from step 1; unreferenced
-  manifest entries.
+  manifest entries; a paper with no source link.
 
 ## Files
 
