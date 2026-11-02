@@ -1,0 +1,276 @@
+{
+  "source_pdf": "done/unpublished/ThinkingBox-Bench/2608.19741v4.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1: (A) THINKINGBOX runs multi-turn interactions among a simulated user, an LLM agent, and isolated MCP-compatible tools, then evaluates terminal state, side effects, and dialogue with executable judges. More detailed pipeline can be found in Figure 2 (B) Across 507 tasks and 20 attempts per task, pass@20 is much higher than pass@1, while all-20 success is much lower. This reveals a discovery–reliability gap: a model may be able to discover at least one successful trajec- tory across multiple attempts (pass@20), yet fail to reproduce that success reliably across repeated attempts (all-20 success). Full results can be found in Table 4",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 2: Overview of THINKINGBOX. The sandbox orchestrates the interaction among a simulated user, LLM agents, isolated domain tools, side-effect extraction, and executable judges. The same trajectory-level verdict supports benchmark evaluation, failure analysis, and agent training.",
+      "nearby_text": "nts. Tool actions are executed against an isolated session of the task backend. Figure 2 further illustrates the THINKINGBOX pipeline. Each such specification naturally induces a finite-horizon Partially Observable Markov Decision Process (POMDP)",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-003.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 1: Comparison with representative agent benchmarks. △denotes partial or indirect sup- port. THINKINGBOX-BENCH focuses on stateful business-domain workflows where the final verdict checks backend state, side effects, and user dialogue, while exposing tasks through MCP servers.",
+      "nearby_text": "Table 1 positions THINKINGBOX-BENCH relative to representative agent and tool-use benchmarks. Prior work has made major progress on executable evaluation for code, web, desktop, app, and API settings (Jimenez et al., 202",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-004.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 2: Key statistics for the THINKINGBOX-BENCH domains.",
+      "nearby_text": "We evaluate the models in Table 21 (OpenAI, 2026; 2025) with temperature 1.0 (if available), medium reasoning effort, a 4096-token limit per response, and no fixed seed. Each model– configuration pair has five attempts per task (820 attempts). Pa",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-005.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 3: Representative THINKINGBOX-BENCH scenario patterns. Each scenario is instantiated as a concrete task with an initial backend state, available MCP-compatible tools, and executable checks.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-006.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 4: THINKINGBOX-BENCH pass@1 (%) by domain, micro-averaged over repeated N = 20 trials per task. ± indicates standard error across tasks. Size denotes total/activated parameters for MoE models; bold/underline indicate best/second-best within each group. See Appendix C.4 for additional training details and Appendix D.1 for complete inference intervals.",
+      "nearby_text": "Table 4 reports the current THINKINGBOX-BENCH leaderboard, reported as domain level and bench- mark level averages, together with their standard error; details on the hierarchical error analysis can be found in Appendix",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-007.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 5: Failure mode breakdown (%) on THINKINGBOX-BENCH. Values show each model’s dis- tribution over dominant failure types; Appendix D.4 provides complete failure example trajectories.",
+      "nearby_text": "e signatures are observable diagnostics rather than unique causal explanations. Table 5 reports the resulting per-model distribution.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-008.png",
+      "type": "table",
+      "page": 16,
+      "caption": "Table 6: Composition of the 507-task evaluation set. Every case has executable backend-state checks. “Backend only” cases use no additional response rubric, whereas “Backend + rubric” cases also impose a binary final-response requirement.",
+      "nearby_text": "All 507 cases include executable backend-state evaluation. Table 6 partitions them into 477 backend- only cases and 30 cases that additionally check a required property of the final response. The table also summarizes the task families represented in each domain.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-009.png",
+      "type": "table",
+      "page": 17,
+      "caption": "Table 7: Artifacts in a final THINKINGBOX-BENCH case and the corresponding construction or review question.",
+      "nearby_text": "dary, every case is converted into the common task world x = (b0, g, T , U, C). Table 7 lists the concrete artifacts reviewed for each final case.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-010.png",
+      "type": "table",
+      "page": 18,
+      "caption": "Table 8: Representative evaluator targets drawn from the final task families. These are outcome conditions, not prescribed action sequences.",
+      "nearby_text": "Table 8 gives representative, task-aligned examples of what the judge observes.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-011.png",
+      "type": "table",
+      "page": 19,
+      "caption": "Table 9: Azure API inference parameters for the agent, fixed GPT-5.4-mini simulated user, and fixed GPT-5.4-mini response judge.",
+      "nearby_text": "patible Chat Completions interface. We use the inference configuration shown in Table 9.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-012.png",
+      "type": "table",
+      "page": 19,
+      "caption": "Table 10: vLLM serving parameters for the locally hosted Qwen-series models.",
+      "nearby_text": "ts do not rely on an external model API. We show the vLLM serving parameters in Table 10.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-013.png",
+      "type": "table",
+      "page": 20,
+      "caption": "Table 11: Agent RL configurations. All three runs optimize the executable THINKINGBOX verdict with token-mean GRPO. Group counts are scheduled; timeout-censored LoRA groups are dropped without replacement.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-014.png",
+      "type": "table",
+      "page": 25,
+      "caption": "Table 12: Agreement with human judgments on the 120-case review sample.",
+      "nearby_text": "92/120 cases, Claude Opus 5 on 96/120, and the final pipeline labels on 94/120 (Table 12). These comparisons describe the label-balanced review sample, not population- wide accuracy, and do not establish an accuracy benefit from debate.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-015",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-015.png",
+      "type": "table",
+      "page": 25,
+      "caption": "Table 13: Human confirmation by final automatic label. Intervals are approximate 95% Wilson intervals.",
+      "nearby_text": "Confirmation differed substantially by automatic label (Table 13). Both reviewers confirmed all 60 sampled Grounded labels, including the 59 initially labeled Grounded by both judges. In contrast, reviewers A and B confirmed 32/60 (53.3%) and 30/60 (50.0%) sampled Ungrounded",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-016",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-016.png",
+      "type": "table",
+      "page": 26,
+      "caption": "Table 14: Automatic grounding labels by archived assistant/run group and domain. Percentages include Disputed cases in the denominator.",
+      "nearby_text": "Table 14 reports the distribution by archived assistant/run group and domain. Ungrounded rates ranged from 0.39% in Qwen3.6-27B interactions to 23.88% in GPT-5.2 interactions. GPT-5.2 and Mistral-Large-3 together contrib",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-017",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-017.png",
+      "type": "figure",
+      "page": 27,
+      "caption": "Figure 3: Automatic Ungrounded rates by archived run and domain. Cells show percentages and Ungrounded/all-turn counts, including Disputed turns in denominators.",
+      "nearby_text": "Figure 3 shows the 75 run–domain combinations. For example, GPT-5.2 interactions had Un- grounded rates of 33.0% in retail (58/176 turns) and 32.3% in consulting (85/263), above their respective domain averages. These su",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-018",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-018.png",
+      "type": "table",
+      "page": 29,
+      "caption": "Table 15: Repeated-trial discovery and reliability on THINKINGBOX-BENCH. The window next to the metrics denotes a 95% task-cluster bootstrap confidence interval. passˆ20 uses the plug-in estimator in Equation 9; pass@20 requires at least one observed success. 0/20 and 20/20 means the number of tasks that have never been passed, and has always passed during all 20 attempts.",
+      "nearby_text": "estimates, we substitute px for θx. The pass@1 confidence intervals reported in Table 15 use task-cluster bootstrap percentile intervals, resampling tasks while retaining all N = 20 outcomes within each sampled task; no separate within-task variance is added.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-019",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-019.png",
+      "type": "figure",
+      "page": 30,
+      "caption": "Figure 4: Pass@k progression of models used for evaluation",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-020",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-020.png",
+      "type": "figure",
+      "page": 31,
+      "caption": "Figure 5: passˆk progression of models used for evaluation",
+      "nearby_text": "Replacing θxi with pxi = Cxi/N gives the estimator plotted in Figure 5:",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-021",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-021.png",
+      "type": "table",
+      "page": 32,
+      "caption": "Table 16: Retrospective evaluator ablation study. The first block counts failed trials that neverthe- less appear complete under weaker response- or action-level evaluators. The second block reports evidence exposed by our executable database comparison.",
+      "nearby_text": "additionally requires the final tool response not to contain an explicit error. Table 16 analyzes 79,853 failed trials among 121,680 valid recorded trials over the common task set and 12 models.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-022",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-022.png",
+      "type": "figure",
+      "page": 33,
+      "caption": "Figure 6: Domain failure-rate heatmap (%) on THINKINGBOX-BENCH. Each cell is 100 −pass@1 within the domain; darker red indicates higher failure rate.",
+      "nearby_text": "Figure 6 visualizes the interaction between model and domain obscured by a single overall score. Kimi-K3 has the lowest failure rate on retail, Claude Opus 5 on auto insurance, neobank support, and consulting, and GPT-5.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-023",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-023.png",
+      "type": "table",
+      "page": 33,
+      "caption": "Table 17: Failure distribution (%) by domain on THINKINGBOX-BENCH, aggregated over the 15 models with available failure classifications. Each row reports percentages over failed trials in that domain.",
+      "nearby_text": "Table 17 reports the same four failure categories as Table 5, but grouped by domain rather than model. Auto insurance has the highest Wrong State Update share, while travel/hospitality and neobank internal IT support are",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-024",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-024.png",
+      "type": "table",
+      "page": 34,
+      "caption": "Table 18: Average trajectory-level interaction counts on THINKINGBOX-BENCH. All columns are mean counts per trial, computed from parsed traces. Write calls are tool calls whose names indicate state-changing actions such as create, update, cancel, refund, or modify.",
+      "nearby_text": "Table 18 shows that longer trajectories or more tool calls do not by themselves imply better com- pletion. GLM-5.1 produces the longest traces (44.86 messages), while Qwen3.8-27B makes the most tool calls (12.11), yet bo",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-025",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-025.png",
+      "type": "table",
+      "page": 34,
+      "caption": "Table 19: Average token usage per model turn and average model turns per trial by model and domain. Each cell reports “Tokens/Turn x Turns”, with tokens in thousands; both averages use trials with token metadata. Tokens include input context and output tokens for each model invocation, with cached input counted once.",
+      "nearby_text": "Table 19 shows that a model invocation processes roughly 12–41K tokens on average because each turn includes accumulated context, tool schemas, and interaction history. Travel has the highest per- turn usage for most mod",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-026",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-026.png",
+      "type": "table",
+      "page": 39,
+      "caption": "Table 20: HumanEval+ pass@1 (%) for dated OpenAI snapshots. Published values are from the September 16, 2026 EvalPlus leaderboard snapshot. Direct prompt and THINKINGBOX use one attempt per task; brackets give 95% task-bootstrap intervals.",
+      "nearby_text": "Harness check. Every published score in Table 20 lies inside its sandbox run’s 95% interval. Sandbox-minus-control differences have no consistent sign (−3.66 to +4.27 points), and none of their paired intervals excludes zero. We use four dated OpenAI snapshots",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-027",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-027.png",
+      "type": "table",
+      "page": 40,
+      "caption": "Table 21: Pass@1 and all-five success (%). THINKINGBOX-BENCH pass@1 comes from Table 15 (N = 20); HumanEval+ uses five attempts per task. Brackets give 95% task-cluster intervals. Claude request settings and returned model IDs are unverified; † additionally marks Opus 4.6’s unusually repetitive outputs.",
+      "nearby_text": "We evaluate the models in Table 21 (OpenAI, 2026; 2025) with temperature 1.0 (if available), medium reasoning effort, a 4096-token limit per response, and no fixed seed. Each model– configuration pair has five attempts per task (820 attempts). Pa",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-028",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-028.png",
+      "type": "table",
+      "page": 40,
+      "caption": "Table 22: Interpreter minus no-interpreter pass@1, in percentage points, with paired 95% task- cluster intervals. Usage counts attempts with at least one interpreter call, out of 820. Claude settings are unverified as noted in Table 21.",
+      "nearby_text": "ion. Interpreter-minus-no-interpreter pass@1 ranges from −0.98 to +1.71 points (Table 22). Only o3-pro’s paired interval excludes zero, but it uses the tool in just 25/820 attempts; its gain does not isolate the effect of execution. Opus 4.6 uses it in 49/820 attempts, versus 820/820 for five other",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-029",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-029.png",
+      "type": "figure",
+      "page": 41,
+      "caption": "Figure 7: Estimated cost per successful attempt against pass@1, colored by vendor. Points ringed in blue are the Pareto cost frontier, the dashed staircase traces the best pass@1 obtainable at or below each price and shades the region it dominates. Four models in Table 23 lie off-scale to the right.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-030",
+      "file": "done/unpublished/ThinkingBox-Bench/assets/images/picture-030.png",
+      "type": "table",
+      "page": 42,
+      "caption": "Table 23: Campaign-cost estimates for eighteen models, as per Equation 14, sorted by cost per successful attempt.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    }
+  ]
+}
