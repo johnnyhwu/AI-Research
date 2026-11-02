@@ -1,0 +1,123 @@
+{
+  "source_pdf": "done/unpublished/TASR/2606.13814v3.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/TASR/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Fig. 1. The TASR loop. The retriever ranks candidate paragraphs against the question once; each round reveals the next-ranked paragraph and calls the LLM. The raw answer is normalized to ˜ar and compared with the previous round’s ˜ar−1. The first answer- token logit margin mr is isotonically calibrated on the tune split (offline) and compared against 0.25. TASR fires when both checks pass; otherwise the loop continues until the 5-round budget is exhausted. §3.4 provides a worked example.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/TASR/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 5,
+      "caption": "Fig. 2. Left: Logit margin distribution by correctness on the Qwen HotpotQA- distractor tune split (n=500, 100 questions × 5 rounds). Correct answers (blue) have mean margin 6.71 nats vs. 3.96 for incorrect (red), a 2.75-nat separation. Right: Reli- ability diagram: P(EM=1) in five equal-size margin buckets (n=100 each). The margin is monotonically informative.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/TASR/assets/images/picture-003.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 1. Model serving configurations. All endpoints expose an OpenAI-compatible API at temperature 0 with top-5 logprobs.",
+      "nearby_text": "mpatible endpoints at temperature 0 with the top-5 logprobs returned per token. Table 1 summarizes the weight precision, KV cache dtype, and serving stack for each model. The distractor grid contains six cells; the open-domain ex- tension adds nine more (§5.6). As a scale stress test (§5.8) we addit",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/TASR/assets/images/picture-004.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 2. Macro results across the 3 × 2 grid (n=6 cells, 300 eval questions per cell).",
+      "nearby_text": "Table 2 reports macro F1 and macro calls across the six distractor cells. TASR reaches 57.40 F1 at 3.13 calls, exceeding fixed-k=3 by +3.42 F1 at +0.13 calls and retaining 94.8% of fixed-k=5’s F1 at 62.6% of its calls. T",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/TASR/assets/images/picture-005.png",
+      "type": "figure",
+      "page": 9,
+      "caption": "Fig. 3. F1 vs. calls. Left: distractor, 3-model macro (red star) with the Nemotron-550B overlay. Right: open-domain BM25, 3-model macro with the Nemotron-550B overlay. TASR sits above fixed-k=3 in both panels.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/TASR/assets/images/picture-006.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 3. Per-cell TASR results. ∆F1 vs. fixed-k=3; bold CIs exclude zero.",
+      "nearby_text": "Table 3 reports the TASR rule against fixed-k=5 and against the budget- matched fixed-k=3 baseline in each cell. Three cells show a statistically signif- icant lift over fixed-k=3 (qwen_hp, gemma_hp, gemma_2w), while the",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/TASR/assets/images/picture-007.png",
+      "type": "figure",
+      "page": 10,
+      "caption": "Fig. 4. Per-model Pareto breakdown. Top: Distractor cells (HotpotQA, 2Wiki). Blue/green circles = fixed-k=3; red stars = TASR. Bottom: Open-domain cells (lines = fixed-k frontier; stars = TASR). Gemma shows the largest TASR gains; Devstral is the near-tie case. Nemotron-550B (fourth column, both rows) ties fixed-k at fewer calls.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/TASR/assets/images/picture-008.png",
+      "type": "table",
+      "page": 12,
+      "caption": "Table 4. Class-conditional Cohen’s d (correct vs. incorrect on EM) by split. Positive ∆means the signal strengthens on evaluation. Qwen shown as representative; Devstral and Gemma show the same ordering.",
+      "nearby_text": "Table 4 reports per-signal class-conditional Cohen’s d (correct vs. incorrect rows on the EM metric) on both the tuning split (100 questions) and the held-out eval- uation split (300 questions), computed across all three",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/TASR/assets/images/picture-009.png",
+      "type": "table",
+      "page": 12,
+      "caption": "Table 5. Open-domain BM25 results (300 eval Qs/cell). Calibration locked from dis- tractor tune split. ∆F1 & CIs: paired bootstrap (1,000×, seed 42) vs. k=3.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/TASR/assets/images/picture-010.png",
+      "type": "table",
+      "page": 13,
+      "caption": "Table 6. Dense retrieval, 9 cells across two retriever families. Same 300 eval Qs/cell; calibration locked from BM25-distractor tune split. ∆F1 & CIs vs. fixed-k=3.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/TASR/assets/images/picture-011.png",
+      "type": "table",
+      "page": 14,
+      "caption": "Table 7. Scale stress test: Nemotron-3-Ultra-550B (55B active, NVFP4, vLLM). Cal- ibration locked from its own 100-question distractor tune split. ∆F1 & CIs: paired bootstrap (1,000×, seed 42) vs. fixed-k=3.",
+      "nearby_text": "t once on its 100- question distractor tune split and never refit on eval data. Table 7 reports the results.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/TASR/assets/images/picture-012.png",
+      "type": "table",
+      "page": 14,
+      "caption": "Table 8. Cross-model evidence for Gemma’s overconfidence pattern. Raw and cali- brated margins are means across each model’s open-domain cells. ∆F1 is TASR minus fixed-k=3, macro across respective cells.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/TASR/assets/images/picture-013.png",
+      "type": "figure",
+      "page": 15,
+      "caption": "Fig. 5. Verbalized confidence distributions under two prompt variants and the uniform reference. The canonical prompt collapses to 96.5% mass on confidence = 5 (entropy 0.182 nats); the confidence-first variant spreads to 62.7% (0.839 nats) but remains far below the 1.609-nat maximum.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    }
+  ]
+}
