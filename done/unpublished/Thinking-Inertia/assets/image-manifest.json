@@ -1,0 +1,114 @@
+{
+  "source_pdf": "done/unpublished/Thinking-Inertia/2610.11765v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Thinking-Inertia/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 1,
+      "caption": "Figure 1: No-thinking controls do not guarantee response-level no-thinking. (Left) On a representative MMLU question, DeepSeek-V4-Flash and Qwen3-235B-A22B are asked for only the final option, yet expose question-relevant pre-answer text. Appendix Figure E.1 confirms the instruction’s clear answer-only reading. (Right) Under native no- thinking, green ETR and orange visible-length bars across the six benchmarks show Boolean tasks closer to answer-only than multiple-choice and open-ended tasks.",
+      "nearby_text": "ndependent semantic sanity check, we ask GPT to explain the instruction used in Figure 1: “Give the final answer directly without any reasoning.” It defines this as returning only the result without explanation and gives answer-only examples (Figure E.1). This reading matches M5 and the high ETR obs",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Thinking-Inertia/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 2: Surface proxies fail to identify response-level no-thinking. (a) Three common proxies: 1. prompt-side control, 2. special reasoning tokens (e.g., <think>), and 3. generation token length. (b) On the same algebra question, disabling the thinking mode, omitting special thinking tokens, or producing a short output can each leave a visible inferential step before the final answer. These cases motivate sepa- rately evaluating strict answer-only compliance, pre-answer relevance, and visible explicit inference.",
+      "nearby_text": "iderations motivate explicit control over reasoning behavior. As illustrated in Figure 2 (a), current fron- tier systems expose native thinking switches and reasoning-effort settings, while users can request direct answers through prompting [25, 46, 8].",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/Thinking-Inertia/assets/images/picture-003.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 3: Response-centric metrics for measuring no-thinking. Top: the LLM inference process. A ques- tion Q is wrapped by an intervention S(·) to form the model input S(Q), which the model π maps to a response decomposed into pre-answer text T and final answer A. We evaluate the visible response through three levels: strict answer-only compliance (ETR), question–pre-answer relevance (QRel.), and LLM judge explicit inference (EIR); accuracy independently evaluates A. Bottom: six representative response cases to the same question “42 + 79 =?” vary in length, relevance, and inferential content while sharing the same final answer. Case 1 is answer-only (empty T), whereas Cases 2–6 use the non-empty-T labels from the mu- tually exclusive rubric in Table 1: Cases 2 and 4 are explicit reasoning, Cases 3 and 5 are generic/off-topic, and Case 6 is relevant non-inferential. Table 1 additionally defines paraphrase-only and unclear; represen- tative real outputs are provided in Appendix F.1.",
+      "nearby_text": "ay. We therefore ground our analysis in the response-centric framework shown in Figure 3.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/Thinking-Inertia/assets/images/picture-004.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 1: Blinded LLM-judge instruction and rubric for non-empty pre-answer text T. Empty T is handled separately and counts as no visible explicit inference.",
+      "nearby_text": ", and QRel. are hidden. It returns one of the five mutually exclusive labels in Table 1, together with an exact supporting span from Ti. The span records the evidence for the selected label and makes the decision auditable, but does not enter the metric. Table 1 presents the judge instruction and ru",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/Thinking-Inertia/assets/images/picture-005.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 2: Six-mode question-irrelevant prompt intervention spectrum. Modes shown in gray (THINK- ON, COT) still elicit thinking behavior and serve as thinking-side references; the remaining modes (THINK-OFF, SOFT, STRICT, PREFIX) form the no-think intervention space, ranging from the native no- thinking baseline to increasingly strong semantic suppression.",
+      "nearby_text": "To systematically cover the possible setups, we design a six-mode spectrum (Table 2) that organizes modes along a single axis of no-think intensity, ranging from (−) for thinking-encouraging modes and (0) for the native no-thinking mode to (+++) for the strongest suppression. All modes share the",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/Thinking-Inertia/assets/images/picture-006.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 3: LLM baselines for evaluation.",
+      "nearby_text": "an be tested by intervention rather than inferred from output length or format. Table 3 spans the Qwen3 family (4B, 32B, and 235B), DeepSeek-V4-Flash, and proprietary frontier models from OpenAI and Google, covering both model families and scales. The three Qwen3 sizes support a within-family scal-",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/Thinking-Inertia/assets/images/picture-007.png",
+      "type": "figure",
+      "page": 9,
+      "caption": "Figure 4: Think-on (M1), Think-off (M2), and Step-by-step (M3) across six models and three answer- space families. Rows show modes; the columns pair ETR bars with EIR points (left) and QRel. bars with visible pre-answer length for the four models with complete length traces (right). Gray dashed segments mark six-model means for ETR and QRel.; black triangles connected by dark lines mark the mean EIR; colored marks follow the model legend.",
+      "nearby_text": "Figure 4 compares M1 (THINK-ON), M2 (THINK-OFF), and M3 (STEP-BY-STEP) across six models and three answer-space families (Bool, MCQ, and Open-ended). The left panels pair ETR with EIR, while the right panels pair QRel. w",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/Thinking-Inertia/assets/images/picture-008.png",
+      "type": "figure",
+      "page": 10,
+      "caption": "Figure 5: On Open-ended tasks, strict answer-only prompting exposes a trade-off between answer-only compliance and task accuracy. Columns show Bool, MCQ, and Open-ended answer spaces; rows show Acc., ETR, QRel., and EIR. M2 is the native no-thinking baseline; M4 and M5 add increasingly strong natural-language constraints, while M6 forms a separate structural prefix-forcing branch. Colored lines show individual models; the black line and gray band show the mean and one standard deviation. For ETR, these summaries include only models with a disabled-thinking condition.",
+      "nearby_text": "Accuracy varies more across interventions as the answer space opens. Figure 5 compares the four no- think variants (M2, M4, M5, and M6) across the three answer-space families. Across these variants, Bool accuracy remains nearly flat at around 85%, MCQ accuracy varies modestly, and Open-en",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/Thinking-Inertia/assets/images/picture-009.png",
+      "type": "table",
+      "page": 12,
+      "caption": "Table 4: No-thinking behavior varies by domain even under the same four-choice answer interface. Following the official MMLU subject-area split [14], we report Humanities, Social Sciences, and STEM and omit the heterogeneous Other category. The % column gives each area’s share of the full MMLU test split; for each model, the remaining columns report Acc., ETR, QRel., and EIR under M2.",
+      "nearby_text": "Higher accuracy does not imply easier no-thinking. Table 4 fixes the answer interface to four-choice MCQ and varies the MMLU subject area. Across all four models, STEM combines the highest accuracy with the lowest ETR (0.3–36.4%), arguing against a simple positive relati",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/Thinking-Inertia/assets/images/picture-010.png",
+      "type": "figure",
+      "page": 12,
+      "caption": "Figure 6: Changing only the answer space reshapes no-thinking behavior on the same questions. We rewrite matched numeric-answer items from MMLU and MMLU-Pro for Qwen3-32B under M2 from MCQ into Boolean or open-ended forms. The four panels report Acc., ETR, QRel., and EIR on the same answer- space variants; red values give the change from the MCQ form, computed before rounding.",
+      "nearby_text": "Changing only the answer interface reshapes no-thinking behavior. Figure 6 rewrites the matched numeric-answer subset of MMLU/MMLU-Pro for Qwen3-32B under M2 from its original MCQ form into Boolean verification or open-ended generation. The Boolean rewrite leaves accuracy nearly unchan",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/Thinking-Inertia/assets/images/picture-011.png",
+      "type": "table",
+      "page": 14,
+      "caption": "Table 5: Human and LLM-judge explicit-inference rates across the six sampled M2/M5 answer-space cells. All entries use the all-output de- nominator within each cell; the Human mean row averages the five annotator-specific rates.",
+      "nearby_text": "and 96.7% with the indepen- dent Claude Opus 4.8 judge across all 600 outputs. Table 5 further shows that the corresponding all- output rates closely track the human mean across the six sampled M2/M5 answer-space cells; Ap- pendix D.3 provides the per-annotator agreement and reliability statistics.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/Thinking-Inertia/assets/images/picture-012.png",
+      "type": "table",
+      "page": 14,
+      "caption": "Table 6: Human relevance calibration on the unified 600-output sample. Each entry is an item-level Spearman correlation over all 600 outputs; empty T re- ceives relevance score 1 and QRel. 0, and the final column reports the mean across annotators.",
+      "nearby_text": "where ties receive their average rank. Table 6 reports every ρa and their arithmetic mean ¯ρ = 1",
+      "parser_confidence": "low"
+    }
+  ]
+}
