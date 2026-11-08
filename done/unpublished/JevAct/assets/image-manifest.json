@@ -1,0 +1,105 @@
+{
+  "source_pdf": "done/unpublished/JevAct/2610.38620v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/JevAct/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 1,
+      "caption": "Figure 1: passˆ3 results from Table 2.",
+      "nearby_text": "east-once results are mixed. Airline effects are smaller and vary by agent (see Figure 1). Because JevAct adds compiled checks and revision opportunities, these comparisons evaluate the full harness, not the judge in isolation.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/JevAct/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 2: JevAct. Offline (top), an LLM compiles the policy into checks. Online (bottom), the agent’s proposal goes through four stages: (1) propose, (2) trigger, (3) check when required, and (4) commit or revise. Proposals without a write call or hand-off are executed as in ReAct. A flagged proposal is discarded, and the LLM proposes again with temporary feedback.",
+      "nearby_text": "Components. Our method JevAct has four main components, as illustrated in Figure 2. (1) Deci- sion loop: Similar to a ReAct agent, every step is composed of four stages: propose, trigger, check, and commit or revise. The trigger selects a check for a write call or hand-off; other proposals pro",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/JevAct/assets/images/picture-003.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 1: Checks per benchmark, with the number of compiled items (dropped items in parentheses).",
+      "nearby_text": "Table 1 summarizes which checks are active on each benchmark. The hand-off check is disabled on τ 2-bench Airline because, in offline tests, it flagged 26% of hand-offs in otherwise solved episodes.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/JevAct/assets/images/picture-004.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 2: Main results (%). pass@3: tasks solved in at least one of three runs. passˆ3: tasks solved in all three runs. Both arms use the same LLM and differ only in the harness; the higher value of each pair is in bold.",
+      "nearby_text": "Llama 3.3 70B, Mistral Small 3.2 24B, and Gemma 4 31B are tested on BFCL only (Table 2). Within each comparison, the ReAct and JevAct arms use the same agent model. Agent calls use temperature 0 and a maximum of 4,096 output tokens; the GPT-4.1 user simulator on τ 2-bench also runs at temperature 0",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/JevAct/assets/images/picture-005.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 3: Single-trial write-gate ablation on Airline with GPT-4.1 as the agent. The experiment uses the same configuration as Table 2 (code checks, Kev-27B, and R = 2).",
+      "nearby_text": "ns per task. The single-trial Airline component ablation is reported as passˆ1 (Table 3). With c of n runs of a task solved, we report, averaged over tasks (Chen et al., 2021; Yao et al., 2024),",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/JevAct/assets/images/picture-006.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 4: The same JevAct write gate on τ 2-Airline with different judges answering its compiled questions. Each LLM judge uses its own label-free list of dropped questions. Judge cost per task is estimated from logged requests and tokens; see Section A.6. ReAct is run separately for each block; only the first block’s baseline is shown (the GPT-4.1 baseline for the Kev-size block is 52.7%). Best judge per block and column in bold.",
+      "nearby_text": "-question list. Table 5 varies judge size with the checks and thresholds fixed; Table 4 also changes the dropped- question list for alternative LLM judges.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/JevAct/assets/images/picture-007.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 5: Judge size ablation. JevAct uses Kev-0.8B, Kev-9B or Kev-27B; compiled checks, thresholds and dropped checklist steps (all set with Kev-27B) are fixed across arms. On Airline the judge answers the write gate’s questions; on Telecom it also answers the hand-off checklist. Best value of each row and metric is in bold.",
+      "nearby_text": "tion, each alternative LLM judge uses its own label-free dropped-question list. Table 5 varies judge size with the checks and thresholds fixed; Table 4 also changes the dropped- question list for alternative LLM judges.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/JevAct/assets/images/picture-008.png",
+      "type": "table",
+      "page": 13,
+      "caption": "Table 6: The offline compilation workflow. “Logged” calls and hand-offs come from development runs. Tele- com step 6 also includes a separate prerequisite-extraction call.",
+      "nearby_text": "e generation, one logged call and result per read tool to show the JSON shapes. Table 6 lists the steps. Steps 1–5 build the write gate; step 6 builds the hand-off checklist.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/JevAct/assets/images/picture-009.png",
+      "type": "table",
+      "page": 17,
+      "caption": "Table 7: Offline replay of the same 609 telecom hand-off states for each Kev size.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/JevAct/assets/images/picture-010.png",
+      "type": "table",
+      "page": 17,
+      "caption": "Table 8: Offline comparison on the same 260 labeled Airline write calls.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/JevAct/assets/images/picture-011.png",
+      "type": "table",
+      "page": 18,
+      "caption": "Table 9: Mean tokens per run, in thousands, for the runs in Table 2. Agent usage is logged; Kev input is logged on τ 2-bench and rebuilt on BFCL. Drafts sent back and checks not rebuilt are counts per run.",
+      "nearby_text": "gents: it sends back 0.08 drafts per run for Opus 4.6 and 0.03 for Qwen3.8-27B (Table 9).",
+      "parser_confidence": "low"
+    }
+  ]
+}
