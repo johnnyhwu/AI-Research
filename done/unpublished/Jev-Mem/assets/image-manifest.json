@@ -1,0 +1,42 @@
+{
+  "source_pdf": "done/unpublished/Jev-Mem/2609.23986v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Jev-Mem/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1: Workflow of agentic memory.",
+      "nearby_text": "Figure 1 demonstrates the workflow of agnetic memory. Let an agent maintain an evolving mem- ory Mt. At interaction step t, a query qt retrieves relevant evidence",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Jev-Mem/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 2: Overview of Jev-Mem. A lightweight System-One control plane manages memory construction and adaptive retrieval, while System Two is reserved for complex reasoning and answer synthesis.",
+      "nearby_text": "ion between fast memory control and delib- erative reasoning. As illustrated in Figure 2, the ar- chitecture consists of three components: a System- One controller, a shared memory data plane, and a System-Two reasoning model. Rather than relying on an autoregressive LLM to manage every mem- ory ope",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/Jev-Mem/assets/images/picture-003.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 1: Performance on the LoCoMo benchmark evaluated using the LLM-as-a-Judge metric. Higher scores indicate better performance. LLM model is based on gpt-4o-mini.",
+      "nearby_text": "Table 1 summarizes the performance of Jev-Mem and the baselines on LoCoMo. Jev-Mem achieves the highest overall LLM-as-a-Judge score of 0.777, compared with 0.700 for the strongest baseline, corresponding to an 11.0% rel",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/Jev-Mem/assets/images/picture-004.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 2: System efficiency comparison with total mem- ory build time (in seconds) and average query latency (in seconds).",
+      "nearby_text": "Table 2 compares the system efficiency of Jev-Mem with the baselines in terms of total memory con- struction time and average query latency. Jev-Mem achieves substantial improvements in both stages. Its total memory buil",
+      "parser_confidence": "low"
+    }
+  ]
+}
