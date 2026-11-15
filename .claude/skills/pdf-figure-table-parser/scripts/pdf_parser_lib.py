@@ -885,6 +885,29 @@ def find_nearby_text(blocks, caption_bboxes, label, window_before=80, window_aft
     return None
 
 
+def document_zoom(narrow_width_pt, min_zoom=3.0, target_px=1600, max_zoom=8.0):
+    """
+    Pick ONE render zoom for the whole paper so its narrowest normal visual (a
+    single column in a two-column paper, the text width otherwise) comes out
+    about `target_px` wide.
+
+    A fixed 3x left single-column crops ~750px wide, which a ~766 CSS px blog
+    column on a 2x display enlarges about twice: blurry, text worst. The zoom
+    must stay uniform within a paper, not chosen per crop: Step 4 sizes each
+    image as px_width / widest_px_width so text renders at the same size across
+    a post, which only works while pixel width is proportional to width on the
+    page. Clamped to [min_zoom, max_zoom]. Returns (zoom, reason).
+    """
+    if not narrow_width_pt or narrow_width_pt <= 0:
+        return min_zoom, "min (no column width)"
+    z = target_px / narrow_width_pt
+    if z <= min_zoom:
+        return min_zoom, f"min (column {narrow_width_pt:.0f}pt)"
+    if z > max_zoom:
+        return max_zoom, f"capped at {max_zoom:g} (column {narrow_width_pt:.0f}pt)"
+    return z, f"{target_px}px across a {narrow_width_pt:.0f}pt column"
+
+
 def render_crop(page, rect, out_path, zoom=3.0):
     mat = pymupdf.Matrix(zoom, zoom)
     pix = page.get_pixmap(matrix=mat, clip=rect)

@@ -68,12 +68,23 @@ Blind spots that no automated check catches:
    Per visual it picks a top edge (a floor of preceding captions and body
    text, then a walk up through the visual's own ink), horizontal bounds (the
    union of clip-corrected ink and text in its band, widened by the caption),
-   renders at 3x zoom, tries `pdfplumber` for `table_markdown` (kept only when
+   renders it, tries `pdfplumber` for `table_markdown` (kept only when
    clean, otherwise `parser_confidence: low`), and finds a `nearby_text`
    snippet. Tables captioned above their content are detected and cropped
    downward automatically ("Caption above its content"). Every line of the
    log names how each edge was chosen. Bad crops land in a `SUSPECT CROPS`
    block on stderr and are forced to `low`.
+
+   **Render resolution.** The whole paper is rendered at one zoom, chosen so
+   a single column (two-column paper) or the text width (single-column
+   paper) comes out about 1600px wide (`Render zoom ...` in the log; about
+   6.8x for a two-column arXiv paper, full-width visuals then come out about
+   3400px). A fixed 3x made single-column crops ~750px, which a ~766 CSS px
+   blog column on a 2x screen enlarges about twice, so they looked blurry.
+   Keep the zoom uniform within a paper: Step 4 sizes each image by its
+   pixel width relative to the post's widest, which only works while pixel
+   width stays proportional to width on the page. `--target-width-px`,
+   `--zoom` (the minimum) and `--max-zoom` tune it.
 
 4. **Fix flagged or suspicious crops** (symptom index below) with
    `--crop-top-override`, `--crop-bottom-override`, `--crop-left-override`,

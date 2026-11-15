@@ -1,0 +1,222 @@
+{
+  "source_pdf": "done/unpublished/DecisionRAG/2610.35868v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 1,
+      "caption": "Figure 1. Capability asymmetry: a simple retriever bottlenecks a",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-002.png",
+      "type": "figure",
+      "page": 3,
+      "caption": "Figure 2. Retrieval by matching versus retrieval by decisions. (a) BM25 and (b) dense retrieval match query terms or embeddings and",
+      "nearby_text": "We propose DecisionRAG, which retrieves by navigating instead of searching (Figure 2). Most corpora have an in- herent structure of topics, documents, sections, and pas- sages, which humans exploit to find information efficiently (Pirolli & Card, 1999). DecisionRAG leverages this struc- ture thr",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-003.png",
+      "type": "figure",
+      "page": 4,
+      "caption": "Figure 3. The two judgment modes of a decision model, each",
+      "nearby_text": "inary judgments and multiple-choice judgments, both against a shared context s (Figure 3).",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-004.png",
+      "type": "figure",
+      "page": 5,
+      "caption": "Figure 4. Analytical model: sequential stages grow with the",
+      "nearby_text": "st. With b = 100, even 109 passages need only five decisions, about one second (Figure 4). Cost, in contrast, grows with the number of judgments: b children for each of the k nodes kept per level. Equation (4) bounds the sequential depth rather than the total compute, but because each level keeps on",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-005.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 1. Overview of the four retrieval benchmarks: MultiDoc2Dial (Feng et al., 2021), ConditionalQA (Sun et al., 2022), MTRAG (Katsis et al., 2025) and Natural Questions (Kwiatkowski et al., 2019) in its DAPR version (Wang et al., 2024).",
+      "nearby_text": "dialogues over 413 pages to open-domain questions over 108,626 Wikipedia pages (Table 1). Unless stated otherwise, we use the pretrained Jev decision model (TypeSafe’s Jev 1.13, typesafe/jev-1.13) (TypeSafe AI, 2026), without task-specific fine-tuning or a conven- tional first-stage retriever. We al",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-006.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 2. Retrieval without task-specific training on four benchmarks (%).",
+      "nearby_text": "R@k and report conventional re- trieval metrics on corresponding benchmarks in Table 2. Ad- ditional metrics are reported in the appendix (Appendix C).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-007.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 3. Answer quality of one generator (Qwen3.5-27B) given",
+      "nearby_text": "top five pas- sages to the same generator model, Qwen3.5-27B (Sec- tion 4.4 and Table 3). The largest improvement occurs on MTRAG, where DecisionRAG increases judged answer correctness from 39.4% with Qwen3-Reranker to 44.1%. Adding dense candidates raises correctness further to 47.3%, compared with",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-008.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 4. Retrieval with task-trained methods (%).",
+      "nearby_text": "e dropped rather than truncated. The DecisionRAG (8B trained) model reported in Table 4 instead continues the general 8B model with LoRA (rank 64, α = 128, on the attention and MLP projections of every layer) and a fully trained head, both at learning rate 10−4, for one epoch over 30% of the MultiDo",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-009.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 5. Median latency (seconds) and API cost per query. De-",
+      "nearby_text": "ts, task-trained systems and the full MTRAG comparison; cost and latency are in Table 5 and Appendix F. Rows named as in Table 2 are the same configurations. A dash denotes a result or measurement that is unavailable, never a zero. Open-weight judge results are in Table 17.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-010.png",
+      "type": "figure",
+      "page": 8,
+      "caption": "Figure 5. Hit@1 on Natural Questions as the candidate pool grows, with all N candidates scored in one request (150 questions).",
+      "nearby_text": "rom the gold paragraph and hard negatives retrieved by BM25, SPLADE-v3, and e5 (Figure 5). Shared- context binary judgments consistently outperform scoring each candidate in a separate request, and multiple-choice ranking performs best within its 255-option limit. Beyond that limit, multiple-choice",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-011.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 6. The same hierarchy, decided by generation versus deci-",
+      "nearby_text": "enerating the decisions token-by-token brings no consis- tent gain in accuracy (Table 6): GPT-5 leads DecisionRAG by 4.1 Hit@1 points on ConditionalQA, a gap that adding dense candidates closes, and trails it by 6.0 points on Natural Questions, while being 34 to 145 times slower and 21 to 25 times m",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-012.png",
+      "type": "figure",
+      "page": 9,
+      "caption": "Figure 6. Hit@1 on Natural Questions when a fixed pool of 200",
+      "nearby_text": "we fix the pool at 200 candidates and split it into requests of varying sizes (Figure 6). Hit@1 increases from",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-013.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 7. Multiple-choice ranking on design data (%; Multi- Doc2Dial: 1,832 turns, ConditionalQA: 285 questions). Multiple- choice ranking reorders the top 20 passages, with only these pas- sages in its context (Appendix B.6).",
+      "nearby_text": "- Doc2Dial R@1 from 50.1% to 51.3% and ConditionalQA Hit@1 from 71.9% to 76.5% (Table 7). Both configurations include additional dense retrieval candidates.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-014.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 8. Jev reranking the dense top 100 versus DecisionRAG with",
+      "nearby_text": "Navigating the hierarchy outperforms reranking the re- triever’s candidates (Table 8): Hit@1 rises by 7.7 points on ConditionalQA (95% CI: [2.6, 13.3]) and by 7.0 points on Natural Questions ([3.4, 10.8]), while MultiDoc2Dial",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-015",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-015.png",
+      "type": "figure",
+      "page": 10,
+      "caption": "Figure 7. Recall@10 (left axis) and Jev cost per query (right axis)",
+      "nearby_text": "clusters that DecisionRAG keeps up to flat scoring of all 108,626 page titles (Figure 7). Recall@10 rises steeply up to about 10% of the clusters and then stays level: keeping 15% matches flat scoring (86.2% versus 84.5%) at a fifth of the cost (2.3¢ versus 12.1¢ per query) and a third of the laten",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-016",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-016.png",
+      "type": "table",
+      "page": 10,
+      "caption": "Table 9. Page budget on MultiDoc2Dial (validation, with multiple-",
+      "nearby_text": "@10 improves from 81.0% to 83.6%, while R@1 increases only from 46.9% to 47.4% (Table 9). The larger budget increases API cost by 83% and median latency by 28%. Exploring more pages therefore primarily improves evidence coverage, with diminishing returns for the top-ranked passage.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-017",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-017.png",
+      "type": "table",
+      "page": 16,
+      "caption": "Table 10. MultiDoc2Dial validation (4,201 turns), passage recall by passage ID (%). Dense: Qwen3-Embedding-8B; BGE: bge-reranker- v2-m3. †Published results, not rerun.",
+      "nearby_text": "DCG@10 uses DAPR’s relevance judgments (Wang et al., 2024). Dense and BGE as in Table 10.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-018",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-018.png",
+      "type": "table",
+      "page": 17,
+      "caption": "Table 11. ConditionalQA development set, retrieval from all 652 pages (%). Page metrics use 285 questions and paragraph metrics the 271",
+      "nearby_text": "s for ConditionalQA, evaluated with nDCG@10 (Wang et al., 2024) (last column of Table 11). On the same 271 questions, DecisionRAG’s nDCG@10 exceeds dense retrieval with Qwen3-Reranker by +5.3 points (95% interval [1.3, 9.2]) and GPT-5 by +4.0 [0.3, 7.8], and its DAPR R@10 exceeds GPT-5 by +8.2 [4.0,",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-019",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-019.png",
+      "type": "table",
+      "page": 17,
+      "caption": "Table 12. MTRAG, 188 labeled turns, against gold and judged-relevant passages (%); identical texts count once. The remaining nine",
+      "nearby_text": "- query baselines (R@5 34.2 versus 32.5 for the best baseline; Appendix A.3 and Table 12).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-020",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-020.png",
+      "type": "table",
+      "page": 18,
+      "caption": "Table 13. MultiDoc2Dial passage context and page memory on 297 design turns (%).",
+      "nearby_text": "The configurations in Table 13 use 297 turns from 50 complete training dialogues, six-turn input, title-only page descriptions, ten newly selected pages, no help-center routing and no choice step, so their scores are not comparable to the mai",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-021",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-021.png",
+      "type": "table",
+      "page": 19,
+      "caption": "Table 14. Last-stage design comparisons (%). Primary metric: R@1 (MultiDoc2Dial), Hit@1 (ConditionalQA), R@5 (MTRAG-UN).",
+      "nearby_text": "g either reorders the top 20 (order) or moves only its pick to rank one (top1). Table 14 reports the design-set comparisons, at three pages on MultiDoc2Dial and ConditionalQA and ten pages on MTRAG-UN. The design sets are 1,832 turns from 300 MultiDoc2Dial training dialogues, the 285 of the 300 Cond",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-022",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-022.png",
+      "type": "table",
+      "page": 20,
+      "caption": "Table 15. Online timing per query. n: timed queries; W: complete retrieval after initialization; H: retrieval and scoring with saved dense",
+      "nearby_text": "se candidates with up to 16 API calls in flight; its timing and cost (rows R in Table 15) exclude dense retrieval and use a seeded sample of 1,000 validation turns on MultiDoc2Dial and the full evaluation sets elsewhere. Because hardware and samples differ across systems, latency ratios are not cont",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-023",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-023.png",
+      "type": "table",
+      "page": 20,
+      "caption": "Table 16. Median latency of the locally served baselines (seconds per query, RTX 3090 unless noted; BM25 on CPU), including encoding",
+      "nearby_text": "Baseline timing. Locally served baselines (Table 16) are timed per query after model and index loading and warm-up, with GPU synchronization, on an RTX 3090 (BM25 on CPU). Dense top-100 + Qwen3-Reranker is timed on one RTX A6000 on seeded samples of 48, 50, 24 an",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-024",
+      "file": "done/unpublished/DecisionRAG/assets/images/picture-024.png",
+      "type": "table",
+      "page": 21,
+      "caption": "Table 17. Open-weight judges (%). General: trained without MultiDoc2Dial or ConditionalQA data; + MD2D + CQA (LoRA): the",
+      "nearby_text": "measurement that is unavailable, never a zero. Open-weight judge results are in Table 17.",
+      "parser_confidence": "low"
+    }
+  ]
+}
