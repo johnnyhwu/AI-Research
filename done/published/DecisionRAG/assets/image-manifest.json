@@ -1,10 +1,10 @@
 {
-  "source_pdf": "done/unpublished/DecisionRAG/2610.35868v1.pdf",
+  "source_pdf": "done/published/DecisionRAG/2610.35868v1.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-001.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-001.png",
       "type": "figure",
       "page": 1,
       "caption": "Figure 1. Capability asymmetry: a simple retriever bottlenecks a",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-002.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-002.png",
       "type": "figure",
       "page": 3,
       "caption": "Figure 2. Retrieval by matching versus retrieval by decisions. (a) BM25 and (b) dense retrieval match query terms or embeddings and",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-003.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-003.png",
       "type": "figure",
       "page": 4,
       "caption": "Figure 3. The two judgment modes of a decision model, each",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-004.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-004.png",
       "type": "figure",
       "page": 5,
       "caption": "Figure 4. Analytical model: sequential stages grow with the",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-005.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-005.png",
       "type": "table",
       "page": 6,
       "caption": "Table 1. Overview of the four retrieval benchmarks: MultiDoc2Dial (Feng et al., 2021), ConditionalQA (Sun et al., 2022), MTRAG (Katsis et al., 2025) and Natural Questions (Kwiatkowski et al., 2019) in its DAPR version (Wang et al., 2024).",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-006.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-006.png",
       "type": "table",
       "page": 7,
       "caption": "Table 2. Retrieval without task-specific training on four benchmarks (%).",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-007.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-007.png",
       "type": "table",
       "page": 7,
       "caption": "Table 3. Answer quality of one generator (Qwen3.5-27B) given",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-008.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-008.png",
       "type": "table",
       "page": 8,
       "caption": "Table 4. Retrieval with task-trained methods (%).",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-009.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-009.png",
       "type": "table",
       "page": 8,
       "caption": "Table 5. Median latency (seconds) and API cost per query. De-",
@@ -85,7 +85,7 @@
     },
     {
       "id": "img-010",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-010.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-010.png",
       "type": "figure",
       "page": 8,
       "caption": "Figure 5. Hit@1 on Natural Questions as the candidate pool grows, with all N candidates scored in one request (150 questions).",
@@ -94,7 +94,7 @@
     },
     {
       "id": "img-011",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-011.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-011.png",
       "type": "table",
       "page": 9,
       "caption": "Table 6. The same hierarchy, decided by generation versus deci-",
@@ -103,7 +103,7 @@
     },
     {
       "id": "img-012",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-012.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-012.png",
       "type": "figure",
       "page": 9,
       "caption": "Figure 6. Hit@1 on Natural Questions when a fixed pool of 200",
@@ -112,7 +112,7 @@
     },
     {
       "id": "img-013",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-013.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-013.png",
       "type": "table",
       "page": 9,
       "caption": "Table 7. Multiple-choice ranking on design data (%; Multi- Doc2Dial: 1,832 turns, ConditionalQA: 285 questions). Multiple- choice ranking reorders the top 20 passages, with only these pas- sages in its context (Appendix B.6).",
@@ -121,7 +121,7 @@
     },
     {
       "id": "img-014",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-014.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-014.png",
       "type": "table",
       "page": 10,
       "caption": "Table 8. Jev reranking the dense top 100 versus DecisionRAG with",
@@ -130,7 +130,7 @@
     },
     {
       "id": "img-015",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-015.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-015.png",
       "type": "figure",
       "page": 10,
       "caption": "Figure 7. Recall@10 (left axis) and Jev cost per query (right axis)",
@@ -139,7 +139,7 @@
     },
     {
       "id": "img-016",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-016.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-016.png",
       "type": "table",
       "page": 10,
       "caption": "Table 9. Page budget on MultiDoc2Dial (validation, with multiple-",
@@ -148,7 +148,7 @@
     },
     {
       "id": "img-017",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-017.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-017.png",
       "type": "table",
       "page": 16,
       "caption": "Table 10. MultiDoc2Dial validation (4,201 turns), passage recall by passage ID (%). Dense: Qwen3-Embedding-8B; BGE: bge-reranker- v2-m3. †Published results, not rerun.",
@@ -157,7 +157,7 @@
     },
     {
       "id": "img-018",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-018.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-018.png",
       "type": "table",
       "page": 17,
       "caption": "Table 11. ConditionalQA development set, retrieval from all 652 pages (%). Page metrics use 285 questions and paragraph metrics the 271",
@@ -166,7 +166,7 @@
     },
     {
       "id": "img-019",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-019.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-019.png",
       "type": "table",
       "page": 17,
       "caption": "Table 12. MTRAG, 188 labeled turns, against gold and judged-relevant passages (%); identical texts count once. The remaining nine",
@@ -175,7 +175,7 @@
     },
     {
       "id": "img-020",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-020.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-020.png",
       "type": "table",
       "page": 18,
       "caption": "Table 13. MultiDoc2Dial passage context and page memory on 297 design turns (%).",
@@ -184,7 +184,7 @@
     },
     {
       "id": "img-021",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-021.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-021.png",
       "type": "table",
       "page": 19,
       "caption": "Table 14. Last-stage design comparisons (%). Primary metric: R@1 (MultiDoc2Dial), Hit@1 (ConditionalQA), R@5 (MTRAG-UN).",
@@ -193,7 +193,7 @@
     },
     {
       "id": "img-022",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-022.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-022.png",
       "type": "table",
       "page": 20,
       "caption": "Table 15. Online timing per query. n: timed queries; W: complete retrieval after initialization; H: retrieval and scoring with saved dense",
@@ -202,7 +202,7 @@
     },
     {
       "id": "img-023",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-023.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-023.png",
       "type": "table",
       "page": 20,
       "caption": "Table 16. Median latency of the locally served baselines (seconds per query, RTX 3090 unless noted; BM25 on CPU), including encoding",
@@ -211,7 +211,7 @@
     },
     {
       "id": "img-024",
-      "file": "done/unpublished/DecisionRAG/assets/images/picture-024.png",
+      "file": "done/published/DecisionRAG/assets/images/picture-024.png",
       "type": "table",
       "page": 21,
       "caption": "Table 17. Open-weight judges (%). General: trained without MultiDoc2Dial or ConditionalQA data; + MD2D + CQA (LoRA): the",
