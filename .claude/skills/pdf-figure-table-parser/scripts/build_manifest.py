@@ -64,8 +64,17 @@ Optional:
                             otherwise only the degenerate ones are. yes/no
                             force it on or off for every table. Any manual
                             top/bottom override for an entry wins over this.
-    --zoom FLOAT           Render zoom factor (default 3.0, ~216 DPI at
-                            standard letter/A4 page size).
+    --zoom FLOAT           Minimum render zoom (default 3.0, ~216 DPI). The
+                            paper is rendered at one zoom that makes a single
+                            column (two-column paper) or the text width
+                            (single-column paper) about --target-width-px wide,
+                            capped at --max-zoom (document_zoom in
+                            pdf_parser_lib.py). One zoom per paper, never per
+                            crop: Step 4 sizes images by relative pixel width.
+                            A fixed 3x left single-column crops ~750px wide,
+                            blurry on a 2x display.
+    --target-width-px INT  Target width of the narrowest normal visual (default 1600).
+    --max-zoom FLOAT       Upper bound on the zoom (default 8.0).
     --margin-x FLOAT       Force a fixed horizontal crop margin in points
                             from each page edge for every visual, overriding
                             the default per-visual drawing/image-based
@@ -145,6 +154,8 @@ def main():
     ap.add_argument("--crop-right-override", default="")
     ap.add_argument("--tables-caption-above", choices=("auto", "yes", "no"), default="auto")
     ap.add_argument("--zoom", type=float, default=3.0)
+    ap.add_argument("--target-width-px", type=int, default=1600)
+    ap.add_argument("--max-zoom", type=float, default=8.0)
     ap.add_argument("--margin-x", type=float, default=None)
     ap.add_argument("--min-caption-width", type=float, default=400.0)
     args = ap.parse_args()
@@ -206,6 +217,12 @@ def main():
     text_by_page = {}
     body_edges = lib.body_column_edges(col_edges, two_column)
     bottom_limit = area.y1 + 2 if area is not None else doc[0].rect.height - 40
+
+    narrow_w = column_w if two_column else (area.width if area is not None else None)
+    zoom, zoom_reason = lib.document_zoom(narrow_w, min_zoom=args.zoom,
+                                          target_px=args.target_width_px,
+                                          max_zoom=args.max_zoom)
+    print(f"Render zoom {zoom:.2f} ({zoom_reason}), used for every visual.", file=sys.stderr)
 
     # Vertical bounds first, for every visual, because whether the tables
     # are captioned above their content is a whole-paper decision (see
@@ -307,7 +324,7 @@ def main():
 
         fname = f"picture-{i:03d}.png"
         fpath = os.path.join(images_dir, fname)
-        w, h = lib.render_crop(page, rect, fpath, zoom=args.zoom)
+        w, h = lib.render_crop(page, rect, fpath, zoom=zoom)
 
         nearby = lib.find_nearby_text(all_blocks, caption_bboxes, c["label"])
         entry_type = "table" if kind == "table" else "figure"
@@ -339,7 +356,8 @@ def main():
 
         manifest_images.append(entry)
         print(f"  {entry['id']}: page {page_no} {kind} {num} -> {fname} "
-              f"({w}x{h}px, crop-top={top:.1f} via {source}, hbounds via {hsource}, confidence={confidence})")
+              f"({w}x{h}px, crop-top={top:.1f} via {source}, "
+              f"hbounds via {hsource}, confidence={confidence})")
 
     manifest = {
         "source_pdf": args.source_pdf_repo_path,
