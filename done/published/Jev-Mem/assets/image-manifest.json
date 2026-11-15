@@ -1,10 +1,10 @@
 {
-  "source_pdf": "done/unpublished/Jev-Mem/2609.23986v1.pdf",
+  "source_pdf": "done/published/Jev-Mem/2609.23986v1.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Jev-Mem/assets/images/picture-001.png",
+      "file": "done/published/Jev-Mem/assets/images/picture-001.png",
       "type": "figure",
       "page": 2,
       "caption": "Figure 1: Workflow of agentic memory.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Jev-Mem/assets/images/picture-002.png",
+      "file": "done/published/Jev-Mem/assets/images/picture-002.png",
       "type": "figure",
       "page": 4,
       "caption": "Figure 2: Overview of Jev-Mem. A lightweight System-One control plane manages memory construction and adaptive retrieval, while System Two is reserved for complex reasoning and answer synthesis.",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Jev-Mem/assets/images/picture-003.png",
+      "file": "done/published/Jev-Mem/assets/images/picture-003.png",
       "type": "table",
       "page": 8,
       "caption": "Table 1: Performance on the LoCoMo benchmark evaluated using the LLM-as-a-Judge metric. Higher scores indicate better performance. LLM model is based on gpt-4o-mini.",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/Jev-Mem/assets/images/picture-004.png",
+      "file": "done/published/Jev-Mem/assets/images/picture-004.png",
       "type": "table",
       "page": 8,
       "caption": "Table 2: System efficiency comparison with total mem- ory build time (in seconds) and average query latency (in seconds).",
