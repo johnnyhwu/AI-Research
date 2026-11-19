@@ -1,10 +1,10 @@
 {
-  "source_pdf": "done/unpublished/Is-Bash-All-You-Need/2609.11999v1.pdf",
+  "source_pdf": "done/published/Is-Bash-All-You-Need/2609.11999v1.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-001.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-001.png",
       "type": "figure",
       "page": 2,
       "caption": "Figure 1: Five interfaces formed from shell execution, typed tools, persistent synthesized tools, and restricted programs over typed tools.",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-002.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-002.png",
       "type": "figure",
       "page": 2,
       "caption": "Figure 2: Benchmark environments and task types.",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-003.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-003.png",
       "type": "table",
       "page": 3,
       "caption": "Table 1: Score: effort-weighted checkpoint rate (TheAgentCompany) or mean rubric score (APEX-Agents); pass rate: fully solved fraction; both with 95% bootstrap CIs. Token columns: means/task in thousands; input includes cache-read; total = input + output. $/task: mean estimated inference cost at GitHub Copilot list rates; time/task: mean wall-clock minutes.",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-004.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-004.png",
       "type": "figure",
       "page": 4,
       "caption": "Figure 3: Score (%) versus total tokens/task (log scale). Logos: models; fills: interfaces; vertical bars: 95% bootstrap CIs. Higher-left is better.",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-005.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-005.png",
       "type": "table",
       "page": 4,
       "caption": "Table 2: Tool use statistics. # Tool calls/task: median tool calls/task. Tool tokens/task: median tool-name, argument, and result tokens/task; excludes context/cache effects and is not billed usage. Internal Bash/PTC operations excluded; only returned results count. Success: calls reporting success; repeated: exact tool-and-argument repeats within a task.",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-006.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-006.png",
       "type": "figure",
       "page": 5,
       "caption": "Figure 4: Mean paired score differences (pp) from Tool-only: Bash (blue), PTC (orange). Bins: mean Tool-only calls across models; bands: 95% bootstrap CIs; N: task-model pairs/bin. Budget-clipped counts are lower bounds.",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-007.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-007.png",
       "type": "figure",
       "page": 5,
       "caption": "Figure 5: Static shell-command shares by executable family, pooled across models (Table 11). Bars: 12 families plus other, summing to 100% per benchmark/interface.",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-008.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-008.png",
       "type": "table",
       "page": 5,
       "caption": "Table 3: Shell statistics. Cmds/call: median commands. LOC: lines of code. Composed: calls with pipe, logical-operator, substitution, control-flow, heredoc, multiline, or nontrivial- redirect markers; loop: control-flow markers. Failed: failures. Repair: failures whose next call shares the first command.",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-009.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-009.png",
       "type": "table",
       "page": 6,
       "caption": "Table 6: Programmatic tool calling composition and token efficiency. Comp. ratio: per-task typed calls per PTC exe- cution. Deltas: PTC minus Tool-only, paired by task and model; tool calls count; uncached input tokens; cache-read tokens; output tokens.",
@@ -85,7 +85,7 @@
     },
     {
       "id": "img-010",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-010.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-010.png",
       "type": "table",
       "page": 6,
       "caption": "Table 4: Tool synthesis reuse statistics and success rates. Created: distinct agent-authored root Python paths, exclud- ing seeds, initializers, and dependencies. Invoked: tools used from creation onward; cross-task reuse: used in later tasks. Percentages divide by created tools. Reuse success: success- ful calls of synthesized tools; fresh success: successful calls of fresh shell commands.",
@@ -94,7 +94,7 @@
     },
     {
       "id": "img-011",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-011.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-011.png",
       "type": "table",
       "page": 6,
       "caption": "Table 5: Paired differences of Bash+Synthesis minus Bash, pooled across models. Subset: whether synthesized tools are invoked; N: number of tasks in the corresponding subset. ∆ score: task-score difference; ∆tokens: total-token difference.",
@@ -103,7 +103,7 @@
     },
     {
       "id": "img-012",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-012.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-012.png",
       "type": "table",
       "page": 9,
       "caption": "Table 7: TheAgentCompany’s 60 typed tools by service: callable functions for PTC; JSON tools for Tool-only and Bash+Tool.",
@@ -112,7 +112,7 @@
     },
     {
       "id": "img-013",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-013.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-013.png",
       "type": "table",
       "page": 9,
       "caption": "Table 8: APEX-Agents’ 20 typed tools across 8 non-shell servers. Except filesystem, each pairs an action-dispatched tool with a schema tool.",
@@ -121,7 +121,7 @@
     },
     {
       "id": "img-014",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-014.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-014.png",
       "type": "figure",
       "page": 10,
       "caption": "Figure 6: Mean score (%) across models by domain. Dots: interface/domain arms; colors: interfaces; N: tasks/domain. TheAgent- Company’s other pools bm, ml, qa, and research.",
@@ -130,7 +130,7 @@
     },
     {
       "id": "img-015",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-015.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-015.png",
       "type": "table",
       "page": 10,
       "caption": "Table 9: Mean score difference: mean paired A minus B in percentage points (positive favors A); brackets: 95% bootstrap CIs. Paired N: task-model pairs; wins / ties / losses: pair counts summing to N.",
@@ -139,7 +139,7 @@
     },
     {
       "id": "img-016",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-016.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-016.png",
       "type": "table",
       "page": 11,
       "caption": "Table 10: Bash metrics for recoverable-command calls by model/interface. Calls/task: median per shell-using task; Cmds/call: median heuristic static commands (minimum one), excluding embedded code and loop iterations. Brackets: 25th/75th percentiles. Other columns: nonexclusive call percentages per benchmark/model/interface, using source-text markers including embedded code. Composed: any listed style, substitution, or redirection with multiple commands. Pipe: |, not ||; and/or: && or ||; loop: for, while, until, if, case, or select; heredoc: «; multi-line: multiple submitted lines. Markers do not establish execution.",
@@ -148,7 +148,7 @@
     },
     {
       "id": "img-017",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-017.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-017.png",
       "type": "table",
       "page": 11,
       "caption": "Table 11: Static command families for Figure 5: heuristic classification by executable; unmatched commands form other.",
@@ -157,7 +157,7 @@
     },
     {
       "id": "img-018",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-018.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-018.png",
       "type": "table",
       "page": 12,
       "caption": "Table 12: Top Bash+Synthesis tools ranked by usage. Uses: distinct invoking task-model pairs, pooled across models, not raw calls. Substitute: closest typed-tool surface (heuristic); dash: no direct counterpart.",
@@ -166,7 +166,7 @@
     },
     {
       "id": "img-019",
-      "file": "done/unpublished/Is-Bash-All-You-Need/assets/images/picture-019.png",
+      "file": "done/published/Is-Bash-All-You-Need/assets/images/picture-019.png",
       "type": "figure",
       "page": 13,
       "caption": "Figure 7: Failure shares among trajectories with score < 1, pooled across models. Rows: 14 root-cause categories ordered by cross-benchmark frequency; columns: benchmark/interface percentages summing to 100%; N: failed trajectories/arm.",
