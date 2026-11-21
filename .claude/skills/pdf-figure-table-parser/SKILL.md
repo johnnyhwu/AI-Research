@@ -127,6 +127,8 @@ row" is often just a table without one; check for ink below with
 | Crop a few points tall (`degenerate`) | "Sub-captions or table rows sit flush left"; for a table, "Caption above its content" |
 | `crop ... edge cuts through text block` / `ink ... sits just below/above` | "Edges that cut content" |
 | Crop swallowed the paragraph above the figure | "Figures that float mid-page" |
+| Figure's own top row missing (legend, `(a)` panel titles, a numbered case header) | "Figures that float mid-page" |
+| `body prose` flag on a qualitative-example figure | "Figures that float mid-page" (often a false positive) |
 | Crop mostly blank margin, figure shrunk in the middle | "Clipped ink" |
 | Figure missing its lower half | "A caption in the middle of a multi-panel figure" |
 | Outer table columns cut off, or too wide | "Two-column papers", "Ruleless tables" (visual check) |
@@ -188,6 +190,19 @@ column edge, which is how it's told apart from body text. Don't widen
 The upward ink walk crosses gaps up to 36pt, so a larger internal gap loses a
 figure's top rows, and a caption less than that from the text flow can pull in
 a line of it. Both are override cases.
+
+Losing the top row is the more common failure, and the build log doesn't flag
+it: a legend row, `(a)`/`(b)` panel titles, or the numbered header of an
+appendix case study ("03 Retrieving an event …") sits above a gap and gets
+cut. For every figure, compare `crop-top` with the first non-prose block
+after the preceding caption or body text in `dump_blocks.py`; if that block
+is above `crop-top`, override to just above it. In one 2026 paper this hit 8
+of 13 figures. Dump every figure page in one `dump_blocks.py` call.
+
+The reverse false positive: case-study figures full of question and option
+text ("A. … 87.8%") trip the `% of the crop height is body prose` check. When
+`dump_blocks.py` shows that text sits between the figure's own header and its
+caption, the crop is fine; leave it `low` and note it.
 
 ### Clipped ink
 

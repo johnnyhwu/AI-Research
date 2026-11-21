@@ -56,7 +56,12 @@ Say which case applies when you report.
    shortlist, rule 6) and any element that didn't survive as text (an
    `[embedded content: ...]` diagram, a lost image). Rebuild such an element
    only from what the notes state elsewhere, never by guessing what it showed,
-   and list it in the PR Notes.
+   and list it in the PR Notes. Typical slips Reviewer B catches here: a
+   total count the notes never give ("10 格"), a label for a row or panel the
+   notes never describe, a concrete layout the notes mark as inference. If a
+   running example survives only as totals (no per-cell values), say so where
+   it is introduced, and never word later passages as if a table were on the
+   page ("這一列", "顯示 0").
 
 2. **Match callouts to manifest ids** by caption content, never by assuming
    the numbers line up.
@@ -91,7 +96,17 @@ Say which case applies when you report.
    - a term defined two different ways, or used before its definition;
    - a pointer to a section by anything other than its exact heading;
    - a claim with no concrete example; an A/B contrast left as prose;
-   - the same hedge or opener repeated 3+ times.
+   - the same hedge or opener repeated 3+ times;
+   - a "paper doesn't say" gap stated in full both in place and in the
+     limitations section (see `writing-style.md`, Provenance);
+   - pipeline words in reader-facing text (筆記、筆記作者、筆記未載明): the
+     reader has no notes; write 本文 / 本文作者, or drop it;
+   - a sentence you added to explain something (e.g. why two methods give
+     different numbers) that names a cause the notes don't state.
+
+   When fixing a Reviewer A finding by *adding* an explanation, keep it to
+   what the notes say; the final fidelity check most often catches exactly
+   these added sentences.
 
 5. **Review, in two phases.** Both reviewers are fresh subagents with no
    memory of this conversation, given file paths and the prompts in

@@ -71,8 +71,12 @@ reader who knows the source fills in gaps the article leaves open.
 > claim about what a method "does" with no concrete example; an A/B
 > comparison left as prose instead of a table/parallel bullets; a missing or
 > unheaded 前言/結論, an intro that stalls, or a conclusion that re-argues the
-> whole piece; reference material (a glossary, concept deep-dives) placed
-> between the main argument and the 結論. The article should be Traditional
+> whole piece; reference material (a glossary, concept deep-dives) placed in
+> the middle of the main argument or after the 結論 (house layout: reference
+> sections sit after the main argument and before `## 結論`, which is always
+> last; that order is intended, don't flag it). Do not ask for data the
+> article says it doesn't have (e.g. per-cell values of an example given only
+> as totals); flag only wording that implies the data is on the page. The article should be Traditional
 > Chinese (Taiwan usage), so flag English, Simplified Chinese, or
 > AI-sounding translationese, and half-width , ; : ? ! in Chinese prose
 > (headings and table cells included; digit-to-digit thousands separators
