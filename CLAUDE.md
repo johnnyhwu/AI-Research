@@ -105,7 +105,8 @@ When the work is done and verified, publish it without asking:
 3. Commit as `Add <TopicDir> article (parse + write), move to unpublished`
    (adapt the verb for other tasks).
 4. Push and open the PR with `gh pr create --base main`. The body has a
-   `## Summary` (what ran, parser flags or overrides used) and a `## Notes`
+   `## Summary` (what ran, parser flags or overrides used, the `Render zoom`
+   from the build log and the crops' pixel-width range) and a `## Notes`
    section (low-confidence crops, plus the items `blog-writer`'s
    "Definition of done" lists).
 5. Report the PR URL.

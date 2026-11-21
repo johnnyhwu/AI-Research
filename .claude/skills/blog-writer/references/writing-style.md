@@ -126,8 +126,12 @@ time, turns into a refrain ("我的推論", "論文沒講清楚" a dozen times).
   是筆記作者的推測，標（自編）的是為了說明自己舉的例子，其餘都是論文內容。」
 - In the body, use those short parenthetical tags, and only on the inference
   or example itself, not on the sentences around it.
-- Collect "the paper doesn't say" gaps in the limitations section where you
-  can, rather than ending every concept section on one.
+- Give each "the paper doesn't say" gap one home. Keep it in place when the
+  surrounding explanation needs it; otherwise put it only in the limitations
+  section. The limitations section then states in full only the gaps that
+  live nowhere else, plus a short pointer table (留白 → 〈section〉) for the
+  rest, and the 前言 describes that split accurately. Vary the wording
+  (論文沒說明／並未交代／不清楚) so no single phrase repeats a dozen times.
 
 ## Cross-document structural repetition
 
