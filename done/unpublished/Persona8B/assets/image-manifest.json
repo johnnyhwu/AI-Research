@@ -1,0 +1,285 @@
+{
+  "source_pdf": "done/unpublished/Persona8B/2608.04205v1.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/Persona8B/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 3,
+      "caption": "Figure 1: Overview of the MatrAIx simulated-user evaluation framework. Evaluators describe the target audience, and MatrAIx retrieves matching personas from Persona 8B to form an evaluation cohort. The four environments define how these persona agents interact, while MatrAIx Applications provides the task specifications they execute. Shared telemetry and task-owned verification preserve the evidence needed for subgroup and population-level reporting.",
+      "nearby_text": "uration. We also report trial-level verifier results and cohort-level analyses. Figure 1 shows how the three components form the end-to-end evaluation pipeline.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/Persona8B/assets/images/picture-002.png",
+      "type": "table",
+      "page": 6,
+      "caption": "Table 1: Persona 8B schema overview. Dimension counts refer to emitted categorical attributes. Sources provide different kinds and strengths of grounding; they do not imply direct population estimates for every value.",
+      "nearby_text": "logy, capability, behavior, and lifestyle attributes under one typed interface (Table 1). It was designed to support both population queries, such as selecting by age, region, language, expertise, or accessibility needs, and model-facing persona conditioning. Public sources inform both the schema an",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/Persona8B/assets/images/picture-003.png",
+      "type": "table",
+      "page": 7,
+      "caption": "Table 2: Composition of the public Persona 1M coreset. “Human-grounded” identifies the origin of a record, not a guarantee that every extracted field is a verified fact. These counts mirror the Composition table of the dataset card (footnote ∗), which is the authoritative record for the release.",
+      "nearby_text": "s a release design choice rather than an estimate of a real-world source ratio. Table 2 reports the exact composition, and Appendix C.3 provides the sampling and calibration procedure.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/Persona8B/assets/images/picture-004.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 3: Application-task coverage. Counts are unique specifications on the repository’s main branch together with the batch collections on its synthetic-task branches; individually contributed tasks still under review on open pull requests are not counted. “Other” aggregates more than 25 additional domains.",
+      "nearby_text": "que task speci- fications: 621 Survey, 371 AI Chatbot, 12 Web, and 6 App tasks (Table 3). Appendix F describes the inventory and distinguishes available, implemented, executed, and reported tasks.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/Persona8B/assets/images/picture-005.png",
+      "type": "figure",
+      "page": 10,
+      "caption": "Figure 2: Meal-planning chatbot task and persona-outcome analysis. (A) The task protocol, outcome measures, and persona cohort. The cohort supports comparisons across its sampled subgroups and persona-agent models, but it is not weighted to represent a real population. (B) Association between each of 82 persona dimensions and whether the persona agent selected the modal adherence response in the GPT 5.5 condition, measured using Cramér’s 𝑉. The three largest associations are labeled. Empty nesters reported a higher likelihood of following the plan than career changers (66% versus 46%), but no association remained significant after Benjamini–Hochberg correction (best 𝑞= 0.51). These differences are therefore descriptive rather than confirmed persona effects. Appendix F.7 reports how the same subgroups differed in their conversation paths.",
+      "nearby_text": "ents use the same persona information when interacting with the same assistant. Figure 2 summarizes the study design and examines whether persona attributes are associated with the agent’s stated likelihood of following the resulting meal plan. Appendix F.7 reports the correspond- ing conversation-p",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/Persona8B/assets/images/picture-006.png",
+      "type": "figure",
+      "page": 11,
+      "caption": "Figure 3: Controlled behavioral adherence across four environments. (a) Each cell pools five personas declaring one pole of an attribute and five declaring the opposite pole; 10/10 means that all five positive personas expressed the target and all five negative personas expressed the opposite value. (b) Overall successful-trial share by environment and the number of strong attributes, defined as at least four of five successes in both arms. An LLM judge evaluates the recorded trajectory or artifact. Overall, 366 of 400 trials succeed.",
+      "nearby_text": "each meet this threshold for 9 of 10 attributes, compared with 6 of 10 for App. Figure 3 summarizes the results; Appendices I and I.2 provide the design, judge evidence, and per-cell breakdown.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/Persona8B/assets/images/picture-007.png",
+      "type": "figure",
+      "page": 24,
+      "caption": "Figure 4: Complete three-layer taxonomy of the Persona 8B schema. The left column gives the five top-level groups and their attribute totals; the middle column gives 16 subgroups; and the right column gives all 55 conceptual categories with counts. The hierarchy covers exactly 1,290 attributes and excludes latent or helper variables used only by the generation graph.",
+      "nearby_text": "ema at a high level. The complete three-layer taxonomy appears in Appendix B.1 (Figure 4). Appendix B.3 maps the schema groups to their grounding sources and roles. The full dependency graph appears in Appendix C.1 (Figure 5).",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/Persona8B/assets/images/picture-008.png",
+      "type": "table",
+      "page": 25,
+      "caption": "Table 4: Complete index of the 43 schema categories. Counts sum to 1,290 attributes. Examples are labels from the authoritative dimension catalog; the complete attribute-level mapping is supplied as supp_material/persona_taxonomy_mapping.csv.",
+      "nearby_text": "Table 4 indexes all 43 schema categories used by the dimension catalog and questionnaire interface. The complete attribute-level mapping, including stable index, field identifier, label, schema category, and all three co",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/Persona8B/assets/images/picture-009.png",
+      "type": "table",
+      "page": 26,
+      "caption": "Table 5: Detailed schema-to-source grounding map. The mapping records source families and their roles in schema design, prior estimation, dependency construction, compatibility rules, or downstream validation.",
+      "nearby_text": "alue sets follow measurement conventions from the source families catalogued in Table 5. Census and labor instruments inform categories for education, occupation, and household structure; public-opinion surveys inform response scales for values and attitudes; and developer-ecosystem surveys inform t",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/Persona8B/assets/images/picture-010.png",
+      "type": "figure",
+      "page": 27,
+      "caption": "Figure 5: The full persona DAG. All 1,308 graph nodes and 6,999 directed edges. Nodes are placed left to right by the topological order used in Equation 5 and grouped vertically into one lane per schema category, with lanes ordered by their mean topological position; marker area scales with a node’s directed degree. Edges are drawn as translucent curves, so darker bands mark the depen- dency bundles that connect demographic and educational roots to downstream expertise, interest, and behavior dimensions.",
+      "nearby_text": "grounding sources and roles. The full dependency graph appears in Appendix C.1 (Figure 5).",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/Persona8B/assets/images/picture-011.png",
+      "type": "table",
+      "page": 28,
+      "caption": "Table 6: One child dimension through the local CPD (illustrative). english_proficiency conditioned on primary_language = English and region = North America. The prior alone would give Native a 15% share; the two dependency factors raise it to 75%, and the compatibility mask removes None outright rather than merely making it unlikely. Num- bers illustrate Equation 4 and are not the deployed parameter values.",
+      "nearby_text": "A worked example. Table 6 runs one child dimension through Equation 4 for the parent context primary_language = English, region = North America, with both factor exponents 𝜆𝑎,𝑖= 1 and 𝜖small enough to ignore. The values are illustrative a",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/Persona8B/assets/images/picture-012.png",
+      "type": "table",
+      "page": 29,
+      "caption": "Table 7: Detailed post-processing accounting for the audited baseline. Human and synthetic remaining counts have different scopes until the final row.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/Persona8B/assets/images/picture-013.png",
+      "type": "table",
+      "page": 31,
+      "caption": "Table 8: Declared composition of the 355 released volunteer records. Shares are of the records answering each dimension, so the denominator differs by row. Computed from the public release, so the table matches what a reader downloading the dataset obtains.",
+      "nearby_text": "Table 8 states the declared composition on six dimensions, and figure 7 is its graphical form; the numbers are stated once, here.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/Persona8B/assets/images/picture-014.png",
+      "type": "figure",
+      "page": 31,
+      "caption": "Figure 6: How much of the 1,290-item instrument the volunteer subset exercises. Each vertical bar is the median coverage of one interface category’s items, sorted, for all 43 categories. Labels carry the category’s leaf name, dropping the group prefix (Interests, Behavior, and so on) that would otherwise repeat under every bar. The vertical axis starts at 88.5% rather than zero because the finding is how narrow the range is, from 89.3% (Time, under Behavior) to 92.4% (Agent Adoption, under Developer; both extremes are named on their bars), which a zero-based axis would render as 43 nearly identical bars. The dashed line marks the 91.3% category median. The narrow range indicates that missingness is not concentrated in a small set of categories. Separately, 272 of the 355 records answer every one of the 1,290 items and the remaining 83 answer between 520 and 1,186.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-015",
+      "file": "done/unpublished/Persona8B/assets/images/picture-015.png",
+      "type": "figure",
+      "page": 32,
+      "caption": "Figure 7: Declared composition of the volunteer subset on six core dimensions. Shares are computed among records answering each item, so each panel’s denominator differs; unanswered items remain null and are never imputed. The plotted values correspond to Table 8.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-016",
+      "file": "done/unpublished/Persona8B/assets/images/picture-016.png",
+      "type": "figure",
+      "page": 34,
+      "caption": "Figure 8: The MatrAIx Playground. A user browses the persona population a, inspects and filters individual persona records b, configures a study over a persona cohort c, runs an interactive evaluation of the system under test d, and reads the aggregated population-level report e, all without writing code.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-017",
+      "file": "done/unpublished/Persona8B/assets/images/picture-017.png",
+      "type": "table",
+      "page": 35,
+      "caption": "Table 9: Large template-based task collections. Members of a collection are separate task specifications but reuse a common contract and verifier pattern.",
+      "nearby_text": "ed. The resulting total is the 1,010 unique specifications reported in Table 3; Table 9 below exposes the batch contribution behind that total without repeating the environment- by-domain inventory.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-018",
+      "file": "done/unpublished/Persona8B/assets/images/picture-018.png",
+      "type": "table",
+      "page": 36,
+      "caption": "Table 10: Logical components of an application-task contract.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-019",
+      "file": "done/unpublished/Persona8B/assets/images/picture-019.png",
+      "type": "table",
+      "page": 36,
+      "caption": "Table 11: Environment-specific inputs and artifacts. App covers desktop and mobile native applications, including Linux, macOS, and iOS.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-020",
+      "file": "done/unpublished/Persona8B/assets/images/picture-020.png",
+      "type": "figure",
+      "page": 38,
+      "caption": "Figure 9: Move-transition graphs for the meal-planning chat study, by economic motivation. 1,000 GPT-5.5 persona conver- sations, 500 per stratum, one fixed assistant; 13,120 move transitions in total. A conversation averages six exchanges and fourteen moves, so it traverses the graph in loops rather than one pass; edges curving back up the page are those returns. Each panel draws only its own moves and transitions and lays itself out, so shape differences reflect the data. Black edges trace each step’s most frequent successor; every drawn edge carries its transition count, and a pair of moves with no edge between them co-occurred fewer than the panel’s count floor of about 90 transitions.",
+      "nearby_text": "Figure 9 draws the full move-transition graphs of the meal-planning chat study of Figure 2: the 1,000 GPT-5.5 conversations, split by economic motivation, the persona dimension the route scan ranks first (Cramér’s 𝑉= 0.1",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-021",
+      "file": "done/unpublished/Persona8B/assets/images/picture-021.png",
+      "type": "figure",
+      "page": 39,
+      "caption": "Figure 10: The News+ subscription task: the contract, and whether personas deviate downstream. (A) The executable contract: a live iOS app the persona must actually browse, the submission the verifier enforces (the price as read from the screen and a non-empty list of noticed titles, so a trial cannot pass by guessing about a product it never opened), and the cohort, which crosses two persona dimensions fully and leaves the rest unconstrained. (B) The same panel as Figure 2, at the opposite end of the cost gradient: each schema dimension as one dot, grouped into the same six families and placed by its association (Cramér’s 𝑉) with whether the persona gave the modal experience rating (GPT-5.5 arm; the declared outcome, one subscription in 24, cannot carry a per-dimension test). At this cohort size, only 44 of the 82 dimensions have two levels with six or more personas to test. The descriptive gradients run in plausible directions: personas who strongly prefer reading over watching give the modal rating more often than those with no preference (89 versus 14 percent). However, none survives Benjamini–Hochberg correction (best 𝑞= 0.11): the free text, not the binary, is where this run’s persona signal lives.",
+      "nearby_text": null,
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-022",
+      "file": "done/unpublished/Persona8B/assets/images/picture-022.png",
+      "type": "table",
+      "page": 40,
+      "caption": "Table 12: Complete primary-outcome results for the eight validation tasks. Range is the largest minus smallest model share in percentage points. The 𝑞column reports a three-arm 𝜒2 test after Benjamini–Hochberg correction across the eight tasks (∗∗∗𝑞< 0.001, ∗𝑞< 0.05; ns otherwise).",
+      "nearby_text": "approximately one thousand personas per model; the two App tasks use 24 and 20. Table 12 gives each task’s declared primary outcome and the observed three-arm result. The cohort-integrity exception for the meal-planning GPT 5.5 arm is reported below.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-023",
+      "file": "done/unpublished/Persona8B/assets/images/picture-023.png",
+      "type": "table",
+      "page": 40,
+      "caption": "Table 13: Product-level conclusions under three agent models on identical cohorts. Denominators are trials in which the field was answered. Notion aggregates its three paid tiers against the free tier. †The meal-planning GPT 5.5 arm did not run the declared cohort and is not comparable with the other two arms.",
+      "nearby_text": "Table 13 reports one product-facing measure for each task and exposes the numerator and answered denominator behind every rate.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-024",
+      "file": "done/unpublished/Persona8B/assets/images/picture-024.png",
+      "type": "table",
+      "page": 41,
+      "caption": "Table 14: Rank correlation between model arms’ orderings of the same persona subgroups. Significance marks are ordered GPT / Opus / Haiku (• significant after correction, ◦not). A flat arm has no ordering to compare. †The GPT arm has a cohort-integrity exception. ‡App rows contain only three to eight personas per subgroup.",
+      "nearby_text": "nd no single-arm rate is estimated precisely. This is also why the News+ row of Table 14 carries no usable rank correlation: Haiku 4.5 subscribed nobody in any of the six segments, so there is no ordering for another arm to agree with. At this cohort size, the binary conversion rate has limited valu",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-025",
+      "file": "done/unpublished/Persona8B/assets/images/picture-025.png",
+      "type": "table",
+      "page": 41,
+      "caption": "Table 15: Persona fidelity across all three model pairs. Cohen’s 𝜅corrects raw agreement for each model’s answer distribution. GPT and Opus age-band matches are indistinguishable from uniform guessing (𝑞= 0.84 and 𝑞= 0.85); Haiku matches 1,000 of 1,000 trials.",
+      "nearby_text": "Table 15 reports the complete paired-agreement counts and age-band self-report result.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-026",
+      "file": "done/unpublished/Persona8B/assets/images/picture-026.png",
+      "type": "table",
+      "page": 42,
+      "caption": "Table 16: Persona adherence per attribute and environment, both acting agents. Each environment is split into two sub-columns: Opus 4.8 (left) and GPT-5.6-sol (right), under the same Opus 4.8 judge. Each cell shows two groups of five persona icons—the left group the positive cohort, the right group the negative cohort. A filled icon (x) marks a persona whose behavior expressed the declared value (for the negative cohort, correctly expressed the opposite value—target suppressed); a faint icon (x) marks one that did not. More filled icons is better in both groups. Overall Opus 366/400 = 91.5% (33/40 cells strong, ≥4 filled per group) vs. GPT-5.6-sol 317/400 = 79.2%.",
+      "nearby_text": "Table 16 reports per-attribute adherence for two acting agents side by side—Opus 4.8 and GPT-5.6-sol—under an otherwise identical 400-trial protocol (same personas, tasks, environments, and the same Opus 4.8 judge). This",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-027",
+      "file": "done/unpublished/Persona8B/assets/images/picture-027.png",
+      "type": "table",
+      "page": 43,
+      "caption": "Table 17: Cited judge evidence, Survey environment. For each attribute, the behavior the judge identified in a positive persona (declared value) versus its matched negative persona (opposite value). Excerpts are quoted from the trial trajectories.",
+      "nearby_text": "otocol requires each verdict to cite verbatim behavior from the trajectory, and Table 17 reproduces that evidence for the Survey environment, where the signal is cleanest. For each attribute it pairs the behavior the judge read off a positive persona against that off its matched negative persona. Th",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-028",
+      "file": "done/unpublished/Persona8B/assets/images/picture-028.png",
+      "type": "table",
+      "page": 44,
+      "caption": "Table 18: Extraction-quality metrics. Higher scores indicate better extraction quality.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-029",
+      "file": "done/unpublished/Persona8B/assets/images/picture-029.png",
+      "type": "table",
+      "page": 44,
+      "caption": "Table 19: Paired LLM-judge results on all 1,000 extractions. Δ is GPT minus Claude; ≤1 is the proportion of paired scores that differ by at most one point.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-030",
+      "file": "done/unpublished/Persona8B/assets/images/picture-030.png",
+      "type": "table",
+      "page": 45,
+      "caption": "Table 20: Human evaluation and within-one agreement on the 100-persona subset. H–H compares all 15 pairs of human raters; GPT–H and Claude–H compare each LLM judge with the six-rater human mean.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-031",
+      "file": "done/unpublished/Persona8B/assets/images/picture-031.png",
+      "type": "table",
+      "page": 45,
+      "caption": "Table 21: Capability comparison across representative agent benchmarks, simulation systems, and synthetic-sampling meth- ods. Systems, left to right: AgentBench (Liu et al., 2024), GAIA (Mialon et al., 2024), WebArena (Zhou et al., 2024a), WebShop (Yao et al., 2022), Mind2Web (Deng et al., 2023), AppWorld (Trivedi et al., 2024), ToolLLM (Qin et al., 2024), BenchFlow (BenchFlow, 2025), 𝜏-bench (Yao et al., 2025), Generative Agents (Park et al., 2023), SOTOPIA (Zhou et al., 2024b), OASIS (Yang et al., 2024), and Silicon sampling (Argyle et al., 2023). A check (\u0013) indicates explicit support in the published system; a cross (\u0017) indicates the capability is not stated. Dimensions read as follows: product-as-SUT evaluation treats the product, not the agent, as the subject under test; persona conditioning instantiates a user from a sampled population profile; behavioral grounding verifies that behavior tracks a target attribute rather than confounders; native-device execution covers real mobile/desktop apps beyond API demos; reproducible reporting separates verifier facts from reporting policy; trajectory inspection exposes per-trial traces; end-to-end validation closes the persona–task–product loop; silicon sampling substitutes simulated respondents for survey/UX pre-studies; reproducible cohorts deterministically re-instantiate the same cohort; and multi-agent simulation denotes persistent multi-agent social worlds (a deliberate non-goal for MatrAIx). The matrix compares capability coverage rather than providing an overall ranking.",
+      "nearby_text": "Table 21 places MatrAIx against representative agent benchmarks, simulation systems, and synthetic-sampling methods on the ca- pabilities that decide whether a system can evaluate a product against a modelled population.",
+      "parser_confidence": "low"
+    }
+  ]
+}
