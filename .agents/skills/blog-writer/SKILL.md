@@ -17,8 +17,11 @@ notes. Reviewer B guards the last; Reviewer A guards the first two.
 1. **Never read the source PDF or open any image.** The only sources of fact
    are the notes/chatlog file and the `caption` / `page` / `type` /
    `nearby_text` fields of `image-manifest.json` (plus the PDF's *filename*, for
-   the arXiv id in the source line). If the notes are
-   underspecified, write around the gap and flag it; don't peek.
+   the arXiv id in the source line). If the notes are underspecified, write
+   around the gap and flag it; don't peek. When Step 1 ran earlier in the same
+   conversation, **never** carry details remembered from Step 1's
+   `dump_blocks.py` or visual-check logs (such as sub-panel counts, positions,
+   or examples not mentioned in the notes) into prose, alt text, or captions.
 2. **Prose is Traditional Chinese, Taiwan usage (台灣繁體中文)**: headings,
    alt text and visible captions included. The one exception is each
    `figure-map` entry's `references_manifest_caption`, verbatim from the
@@ -93,7 +96,11 @@ Say which case applies when you report.
    notes for the review responses. Then read the draft once against this list,
    which is what reviewers flagged most often:
    - the same content explained in full twice (keep one, point to it);
-   - a term defined two different ways, or used before its definition;
+   - a term defined two different ways, or a key metric/acronym used before a
+     brief plain-language gloss (even if the notes define it later; keep the
+     gloss grounded in the notes without inventing facts);
+   - a point tagged `（推論）` in a later section that is mentioned earlier
+     without the tag;
    - a pointer to a section by anything other than its exact heading;
    - a claim with no concrete example; an A/B contrast left as prose;
    - the same hedge or opener repeated 3+ times;

@@ -160,10 +160,13 @@ override for an entry always wins.
 Check the `stopped at` reason against `dump_blocks.py`. Failures seen across
 37 papers: a text-heavy table whose rows start on the margin and read as prose
 (crop stops after a row or two), a table with no gap before the next figure or
-the page bottom (crop too tall), and two tables side by side in one
-single-column paper (each crop spans both; fix with left/right overrides). For
-a manual fix, set **both** `--crop-top-override` (just below the caption) and
-`--crop-bottom-override` (just below the last row).
+the page bottom (crop too tall), two tables side by side in one single-column
+paper (each crop spans both; fix with left/right overrides), and a right-side
+`wrapfigure`/`wraptable` in a single-column paper where left-side body prose
+floors `crop-top` or extends `crop-bottom` (fix with top/bottom/left/right
+overrides). On a caption-above table, passing `--crop-bottom-override` alone
+keeps the auto `crop-top` below the caption; pass `--crop-top-override` too
+only when the top edge itself needs adjustment.
 
 ### Edges that cut content
 
