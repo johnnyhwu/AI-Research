@@ -1,0 +1,303 @@
+{
+  "source_pdf": "done/unpublished/MemoProAgent/2610.22671v2.pdf",
+  "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
+  "images": [
+    {
+      "id": "img-001",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-001.png",
+      "type": "figure",
+      "page": 2,
+      "caption": "Figure 1 Reactive vs. memory-driven proactive assistance, and what success requires. (a) In the reactive paradigm, memory supplies what to answer to an explicit query. (b) In the proactive paradigm no query is given: memory is what makes a reminder warranted, and the assistant must also decide when to speak. (c) Success demands the right memory at the right time—with oracle memory delivered in-window a frontier model reaches 96%, but dropping either",
+      "nearby_text": "Central to this shift is the changing role of memory (Figure 1). In the reactive paradigm, memory supplies what to say: it augments the user’s query with related context to ground and personalize the answer (Lewis",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-002",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-002.png",
+      "type": "table",
+      "page": 4,
+      "caption": "Table 1 Proactive assistance settings, by what the system is given and what the evaluation measures. Query-free: no explicit user query at inference. Personal memory: kind and typical length of persistent user context. Retrieval: relevant evidence must be found rather than supplied in context. Timing: response timing is graded. Content × Timing: the evaluation separates content failures from timing failures. ✓yes, ◦partially, ✗no. †Concurrent work (arXiv, July 2026).",
+      "nearby_text": "tive assistants differ in how much of what to say is handed to them in advance (Table 1). In most settings the evidence licensing a response is given, so",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-003",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-003.png",
+      "type": "figure",
+      "page": 5,
+      "caption": "Figure 2 Statistics of the MemoProBench evaluation set: (a) scene and (b) reminder-reason distributions, and (c) trigger-window and video durations.",
+      "nearby_text": "is only ∼0.19% of it, so the relevant evidence is hard to find (Appendix D.4). Figure 2 shows the distributions of scenes and reminder reasons, and the trigger-window and video durations (on average, trigger-window/video ratio ∼0.33). Figure 3 shows two samples; more are given in Appendix D.2. The",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-004",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-004.png",
+      "type": "table",
+      "page": 5,
+      "caption": "Table 2 Memory history statistics.",
+      "nearby_text": "see Ap- pendix D.3 for the event types and rendered examples). As summarized in Table 2, each history spans about a year and is long (∼618K tokens), while the target evidence is only ∼0.19% of it, so the relevant evidence is hard to find (Appendix D.4). Figure 2 shows the distributions of scenes and",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-005",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-005.png",
+      "type": "figure",
+      "page": 6,
+      "caption": "Figure 3 Two MemoProBench samples. Each card shows frames from the trigger window, the user memory that justifies an intervention (episodic memories with their age, or semantic memories), and the reference reminder. The memories shown are high-level event descriptions; in the benchmark they are rendered into the caption stream that the system receives as input (Appendix D.3). More examples are in Appendix D.2.",
+      "nearby_text": "gger-window and video durations (on average, trigger-window/video ratio ∼0.33). Figure 3 shows two samples; more are given in Appendix D.2. The benchmark also includes 150 negative clips, constructed by removing the target memory from the user history, on which nothing in memory warrants an interven",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-006",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-006.png",
+      "type": "figure",
+      "page": 7,
+      "caption": "Figure 4 High-level prompt structure of the two paradigms. The paradigms differ only in the visual input: (a) the sliding window keeps a fixed number of the most recent frames and moves with the stream, whereas (b) the streaming context accumulates frames until the chunk limit. A memory method fills exactly one of two slots: a static [MEMORY] in the system prompt, or a per-decision <evidence> retrieved from an <observe> round. Methods without <evidence> skip the Observe round. Full prompts are in Appendices A and B.",
+      "nearby_text": "her. Under both paradigms, the agent can see its own past intervention history. Figure 4 summarizes the prompt structure of both paradigms and where each memory method enters it; full prompts are in Appendix A for MemoProAgent and Appendix B for the baselines.",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-007",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-007.png",
+      "type": "table",
+      "page": 8,
+      "caption": "Table 3 Straightforward solutions (sliding-window, window size = 4), Perfect (%). For RAG baselines, we report the best result across all evaluated k values; full breakdown in Table 20.",
+      "nearby_text": ", 10, 30, 50} and report the best).4 Results under the windowed paradigm are in Table 3.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-008",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-008.png",
+      "type": "table",
+      "page": 9,
+      "caption": "Table 4 Content × timing on Qwen3.8-27B and GPT-5.3-Chat (Perfect, %; n = 150 clips). Given supplies evidence only inside the trigger window; not leaves timing to the model.",
+      "nearby_text": "eves at every step and leaves timing to the model, the fully realistic setting. Table 4 reports Perfect on the four cells for both Qwen3.8-27B and GPT-5.3-Chat.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-009",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-009.png",
+      "type": "table",
+      "page": 11,
+      "caption": "Table 5 Performance comparison on MemoProBench under the windowed (top) and streaming (bottom) paradigms (%; fires/clip is a count). Perfect (shaded) is the primary metric; the remaining columns are a breakdown. None-history, All-history, and Summary baselines are omitted here; they reach at most 6.1% Perfect on any backbone (Table 3); full breakdowns are in Appendix J. For RAG baselines, we report the best result across all evaluated k values.",
+      "nearby_text": "ion. Standard RAG helps only marginally: for Qwen3.8-27B it lifts Hit to 42.5% (Table 5), so the right content is sometimes surfaced, yet Perfect reaches only 7.0%; even the strongest",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-010",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-010.png",
+      "type": "figure",
+      "page": 12,
+      "caption": "Figure 6 Why Standard RAG fails on Qwen3.8-27B. (a) As k increases (arrows), Standard RAG yields modest Hit gains at the cost of sharply more over-triggering, whereas MemoProAgent (with or without RL) behaves more selectively (relatively high Hit, low over-trigger). (b) Perfect collapses while (c) fires per clip rises with k. Here k is swept over",
+      "nearby_text": "We compare MemoProAgent against a range of baselines in Table 5, and Figure 6 further visualizes Qwen3.8- 27B with Standard RAG under different retrieval depths k. Two clear trends emerge. First, simply wrapping a base model in the MemoProAgent harness—without any training—already improve",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-011",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-011.png",
+      "type": "figure",
+      "page": 12,
+      "caption": "Figure 7 Further probing of MemoProAgent (Qwen3.8-27B, windowed vs. streaming): (a) zero-shot generalization to Epic-Kitchens (Perfect, %); (b) false-trigger rate on negative clips (%, lower is better); (c) ablation.",
+      "nearby_text": "tion, its behavior on negative samples, and the contribution of each component (Figure 7). Generalization. Transferred without adaptation to 100 samples from the unseen Epic-Kitchens dataset, the harness lifts Perfect from at most 11.0 (always-on RAG) to 41.0 windowed and 37.0 streaming, and the Ego",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-012",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-012.png",
+      "type": "table",
+      "page": 17,
+      "caption": "Table 6 Shared Gate prompt used by MemoProAgent.",
+      "nearby_text": "identical in the windowed and streaming implementations. Its prompt is given in Table 6; the candidate memory in the user message contains the retrieved passages, standing rules, and episodic triples.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-013",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-013.png",
+      "type": "table",
+      "page": 18,
+      "caption": "Table 7 Windowed input and policy prompts. Braced fields are filled at runtime.",
+      "nearby_text": "dently, while prior interventions are passed explicitly through Already spoken. Table 7 shows the visual input and the two-round policy prompt.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-014",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-014.png",
+      "type": "table",
+      "page": 19,
+      "caption": "Table 8 Streaming input and policy prompts. Braced fields are filled at runtime.",
+      "nearby_text": "limit, the program keeps the latest four turns and starts a new context chunk. Table 8 gives the corresponding retained input and two-round policy prompt.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-015",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-015.png",
+      "type": "table",
+      "page": 19,
+      "caption": "Table 9 Windowed inputs and prompts for None, All-history, and Summary. Braced fields are filled at runtime.",
+      "nearby_text": "n one call; they differ only in the memory block appended to the system prompt (Table 9). Previously fired reminders are supplied through Already spoken.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-016",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-016.png",
+      "type": "table",
+      "page": 20,
+      "caption": "Table 10 Windowed Standard RAG input and two-round prompt.",
+      "nearby_text": "Standard RAG instead uses two rounds (Table 10). The first round describes the four-frame window. That description retrieves the top-k raw memory passages, with no gate or refinement. The second round adds those passages and previous reminders to the same co",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-017",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-017.png",
+      "type": "table",
+      "page": 20,
+      "caption": "Table 11 Streaming inputs and standing-task prompts for None and Summary.",
+      "nearby_text": "no memory, whereas Summary places one clip-level summary in the standing task (Table 11). Both make a direct reminder decision from the current streaming state.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-018",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-018.png",
+      "type": "table",
+      "page": 21,
+      "caption": "Table 12 Qwen streaming Standard RAG input and two-round prompt.",
+      "nearby_text": "ming Standard RAG follows the same two-round order as its windowed counterpart (Table 12). The first round describes the CURRENT/latest frame using the retained context. This description",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-019",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-019.png",
+      "type": "table",
+      "page": 21,
+      "caption": "Table 13 Adaptation of the streaming baselines to VideoLLM-online and MMDuet2.",
+      "nearby_text": "aming state, while a separate current-frame observer supplies raw RAG passages. Table 13 summarizes these adaptations.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-020",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-020.png",
+      "type": "figure",
+      "page": 22,
+      "caption": "Figure 8 The MemoProBench data construction pipeline. We scan a target object over the full Ego4D clip, merge visible segments separated by at most 8 s into a single appearance, and use its first and last visible timestamps to define the trigger window (Step 1). An LLM proposes episodic and semantic memory evidence, which is iteratively checked by a worth-triggering gate to form a grounded memory bubble (Step 2). We then condition a categorized event timeline on a personalized persona and render its events into a stream of visual-action and conversation captions (Step 3), before model QC and human review (Step 4).",
+      "nearby_text": "and a plausible long-term memory in which that piece is embedded. Our pipeline (Figure 8) builds this in a bottom-up manner as below.5",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-021",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-021.png",
+      "type": "figure",
+      "page": 24,
+      "caption": "Figure 9 Trigger-window and video durations in the evaluation set. Boxes span the interquartile range, the line marks the median, and the diamond marks the mean.",
+      "nearby_text": "Figure 9 reports the temporal scale of the samples, breaking down both the ground-truth trigger window and the full video duration by scene (Figure 9a) and by reminder reason (Figure 9b). Across categories the trigger wi",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-022",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-022.png",
+      "type": "figure",
+      "page": 25,
+      "caption": "Figure 10 Representative examples from the evaluation set. Each card shows the user memory that justifies the reminder (episodic memories with their age, or semantic memories), the reminder MemoProAgent issues with its firing time, and frames sampled around the firing time. Examples continue in Figure 11.",
+      "nearby_text": "To give a concrete sense of the task, Figure 10 and Figure 11 present representative examples from the evaluation set. Each card pairs the user memory that justifies the reminder with the reminder MemoProAgent issues and video frames sampled around its firin",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-023",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-023.png",
+      "type": "figure",
+      "page": 26,
+      "caption": "Figure 11 Representative examples from the evaluation set (continued from Figure 10).",
+      "nearby_text": "To give a concrete sense of the task, Figure 10 and Figure 11 present representative examples from the evaluation set. Each card pairs the user memory that justifies the reminder with the reminder MemoProAgent issues and video frames sampled around its firing time, illust",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-024",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-024.png",
+      "type": "table",
+      "page": 28,
+      "caption": "Table 14 Prompt used to generate the Summary memory. Braced fields are filled at runtime.",
+      "nearby_text": "shows apples available to purchase. The summary is generated with the prompt in Table 14.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-025",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-025.png",
+      "type": "table",
+      "page": 29,
+      "caption": "Table 16 Content × timing on Qwen3.8-27B under the streaming paradigm (Perfect, %; n = 150 clips). Given supplies evidence only inside the trigger window; not leaves timing to the model.",
+      "nearby_text": "is catastrophic. The same trend holds under the streaming paradigm (Appendix E, Table 16).",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-026",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-026.png",
+      "type": "table",
+      "page": 29,
+      "caption": "Table 15 RQ1 under the streaming paradigm, Perfect (%).",
+      "nearby_text": "same conclusion holds under the streaming paradigm on Qwen3.8-27B (Appendix E, Table 15), confirming that the difficulty is not an artifact of one paradigm.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-027",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-027.png",
+      "type": "figure",
+      "page": 29,
+      "caption": "Figure 12 Applying MemoProAgent to a frontier model (GPT-5.3-Chat, windowed paradigm). Per- fect (%) for straightforward memory baselines versus the MemoProAgent harness (inference-only, no training).",
+      "nearby_text": "GPT-5.3-Chat in MemoProAgent (inference-only) reaches 38% Perfect (Appendix F, Figure 12). This is because the harness delivers structured, gated memory, surfacing the right evidence only when it is worth intervening, so the generator no longer has to sift the relevant cue from a long, noisy memory",
+      "parser_confidence": "high"
+    },
+    {
+      "id": "img-028",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-028.png",
+      "type": "table",
+      "page": 30,
+      "caption": "Table 17 GPT-4o prompt for reminder-content evaluation. Braced fields are filled at runtime.",
+      "nearby_text": "We use GPT-4o to evaluate each emitted reminder in both paradigms. As shown in Table 17, the input",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-029",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-029.png",
+      "type": "table",
+      "page": 30,
+      "caption": "Table 18 Episodic–semantic memory construction pipeline.",
+      "nearby_text": "e, while the semantic layer stores durable facts that recur across experiences. Table 18 summarizes the construction pipeline.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-030",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-030.png",
+      "type": "table",
+      "page": 31,
+      "caption": "Table 19 Examples of episodic and semantic memory graph construction.",
+      "nearby_text": "Table 19 illustrates how episodic and semantic information is represented and later reached from a visible object.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-031",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-031.png",
+      "type": "table",
+      "page": 32,
+      "caption": "Table 20 Full performance comparison on MemoProBench under the windowed paradigm (breakdown, %; fires/clip is a count). For RAG baselines, we report the best result across all evaluated k values.",
+      "nearby_text": "g., 83.9% Hit for GPT-5.3-Chat) but fire almost everywhere (99.9% over-trigger; Table 20). The few memories relevant to the current scene are buried in a long, distractor-rich history, and such simple means cannot tell when they warrant an intervention. Standard RAG helps only marginally: for Qwen3.",
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-032",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-032.png",
+      "type": "table",
+      "page": 32,
+      "caption": "Table 21 Full performance comparison on MemoProBench under the streaming paradigm (breakdown, %; fires/clip is a count). For RAG baselines, we report the best result across all evaluated k values.",
+      "nearby_text": null,
+      "parser_confidence": "low"
+    },
+    {
+      "id": "img-033",
+      "file": "done/unpublished/MemoProAgent/assets/images/picture-033.png",
+      "page": 10,
+      "type": "figure",
+      "caption": "Figure 5 Overview of MemoProAgent. The agent proactively observes the current environment and uses the observed entities to retrieve episodic and semantic memories. A gate selects and refines evidence worth surfacing, and the generator combines it with the observation to decide whether and what to say. Unlike Standard RAG, which fills <evidence> with top-k raw passages at every step (Figure 4), MemoProAgent fills it with refined evidence only when it is worth intervening on, and with none otherwise.",
+      "nearby_text": "Generator loop. At each decision point, the generator follows a two-round agentic loop: observe -> retrieve -> gate -> decide (Figure 5). Memory construction. We organize the user's long-term memory as a graph with two layers: an episodic layer and a semantic layer.",
+      "parser_confidence": "high"
+    }
+  ]
+}
