@@ -18,7 +18,7 @@ Usage:
 
     (Paths include the topic's bucket -- in-progress/, done/unpublished/ or
     done/published/ -- because they are baked into the manifest verbatim.
-    See the repo CLAUDE.md's topic-directory section.)
+    See the repo AGENTS.md's topic-directory section.)
 
 Optional:
     --crop-top-override page:kind:num=y[,page:kind:num=y...]

@@ -42,12 +42,12 @@ Blind spots that no automated check catches:
 ## Workflow
 
 1. **Set up once.** `uv sync` from the repo root. Run every script as
-   `uv run python .claude/skills/pdf-figure-table-parser/scripts/<name>.py ...`
+   `uv run python .agents/skills/pdf-figure-table-parser/scripts/<name>.py ...`
    from the repo root.
 
 2. **Dry-run.**
    ```bash
-   uv run python .claude/skills/pdf-figure-table-parser/scripts/inspect_pdf.py in-progress/<Topic>/<paper>.pdf
+   uv run python .agents/skills/pdf-figure-table-parser/scripts/inspect_pdf.py in-progress/<Topic>/<paper>.pdf
    ```
    Check the page count, content area, column edges and detected captions.
    **`WARNING: caption numbering has gaps`** means captions were filtered out,
@@ -58,9 +58,9 @@ Blind spots that no automated check catches:
 
 3. **Build the manifest** from the repo root. `--out-dir` and
    `--source-pdf-repo-path` are written verbatim into the manifest, so use the
-   bucket the topic *currently* sits in (repo `CLAUDE.md`).
+   bucket the topic *currently* sits in (repo `AGENTS.md`).
    ```bash
-   uv run python .claude/skills/pdf-figure-table-parser/scripts/build_manifest.py \
+   uv run python .agents/skills/pdf-figure-table-parser/scripts/build_manifest.py \
      --pdf in-progress/<Topic>/<paper>.pdf \
      --out-dir in-progress/<Topic>/assets \
      --source-pdf-repo-path in-progress/<Topic>/<paper>.pdf
@@ -98,14 +98,14 @@ Blind spots that no automated check catches:
 
 6. **Verify** (also after any hand edit of the manifest):
    ```bash
-   uv run python .claude/skills/pdf-figure-table-parser/scripts/verify_manifest.py \
+   uv run python .agents/skills/pdf-figure-table-parser/scripts/verify_manifest.py \
      in-progress/<Topic>/assets/image-manifest.json .
    ```
 
 ## Visual check
 
 ```bash
-uv run python .claude/skills/pdf-figure-table-parser/scripts/make_review_thumbs.py \
+uv run python .agents/skills/pdf-figure-table-parser/scripts/make_review_thumbs.py \
   in-progress/<Topic>/assets/image-manifest.json <scratchpad>/thumbs
 ```
 This writes `<id>.jpg` downscaled to 900px and prints id, size and caption.

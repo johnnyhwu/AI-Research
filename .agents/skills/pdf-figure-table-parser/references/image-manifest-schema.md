@@ -1,7 +1,7 @@
 # image-manifest.json schema
 
 What `build_manifest.py` writes. Step 2 (`blog-writer`) and Step 3 (the Hugo
-repo) both consume it; see the repo `CLAUDE.md` for the pipeline.
+repo) both consume it; see the repo `AGENTS.md` for the pipeline.
 
 ```json
 {
@@ -25,7 +25,7 @@ repo) both consume it; see the repo `CLAUDE.md` for the pipeline.
   downstream. Never reuse or renumber.
 - **`file`**, **`source_pdf`**: repo-relative paths against the bucket the
   topic sat in when the parser ran. They go stale when the directory moves
-  buckets, so every move rewrites them (repo `CLAUDE.md`, "Moving a topic
+  buckets, so every move rewrites them (repo `AGENTS.md`, "Moving a topic
   between buckets"). The `picture-NNN.png` filename carries no meaning; use
   `caption`, never the filename, to tell which figure it is.
 - **`type`**: `"figure"` | `"table"` | `"diagram"` | `"other"`. The builder

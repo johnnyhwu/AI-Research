@@ -6,7 +6,7 @@ description: Use this skill whenever you need to write or revise article.md for 
 # Blog Writer (Step 2: Writer + Reviewers)
 
 The complete spec for Step 2 of this repo's pipeline (see the repo
-`CLAUDE.md`). This file plus `references/` is all there is.
+`AGENTS.md`). This file plus `references/` is all there is.
 
 The goal is an article that is **easy to read** (structure, order, layout),
 **easy to understand** (logic, explanation), and **loses nothing** from the
@@ -85,8 +85,8 @@ Say which case applies when you report.
 
 4. **Self-check before any review.**
    ```bash
-   python .claude/skills/blog-writer/scripts/verify_article.py <dir>/article.md --manifest <dir>/assets/image-manifest.json
-   python .claude/skills/blog-writer/scripts/coverage_check.py <dir>/<notes> <dir>/article.md [--skip-heading 索引]
+   python .agents/skills/blog-writer/scripts/verify_article.py <dir>/article.md --manifest <dir>/assets/image-manifest.json
+   python .agents/skills/blog-writer/scripts/coverage_check.py <dir>/<notes> <dir>/article.md [--skip-heading 索引]
    ```
    Fix every `verify_article.py` warning. For each coverage item, either add
    it or note why it is left out (reworded, meta-commentary); keep these
@@ -127,7 +127,7 @@ Say which case applies when you report.
    responses file (one line per finding: `B3 fixed, see change C`, or why it
    was left, and for every deletion where that content now lives), then:
    ```bash
-   python .claude/skills/blog-writer/scripts/make_delta.py <scratch>/article.r<N>.md <dir>/article.md \
+   python .agents/skills/blog-writer/scripts/make_delta.py <scratch>/article.r<N>.md <dir>/article.md \
      --out <scratch>/delta.r<N>.md --responses <scratch>/responses.r<N>.md \
      --manifest <dir>/assets/image-manifest.json [--notes <dir>/<notes>]
    ```
@@ -158,7 +158,7 @@ Say which case applies when you report.
 - Every body image `src` is a manifest `id` the notes mention (or the file
   carries the `NO-MANIFEST` note), the `figure-map` is valid and complete, and
   there is no Hugo syntax. `verify_article.py` passes.
-- The topic is moved and the task finished per the repo `CLAUDE.md`. The PR
+- The topic is moved and the task finished per the repo `AGENTS.md`. The PR
   Notes list: rounds per reviewer and any early stop; coverage items left out
   on purpose, with reasons; rebuilt non-text elements from step 1; unreferenced
   manifest entries; a paper with no source link.
