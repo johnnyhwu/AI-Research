@@ -33,6 +33,10 @@ reach for (avoid → use):
 | 文件 (a file) | 檔案 |
 | 默认 | 預設 |
 | 优化 | 優化 (check no simplified variant slipped in) |
+| 串行 | 循序 / 依序 |
+| 端到端 | 端對端 |
+| 並行 | 平行 |
+| 調用 | 呼叫 |
 
 Also avoid mainland-flavored wording such as 走查 (use 逐步試算 / 逐步演算).
 If a term feels like it came from a Simplified-Chinese tech doc, look for the

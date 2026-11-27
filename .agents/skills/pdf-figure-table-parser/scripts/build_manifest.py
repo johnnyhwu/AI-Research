@@ -236,8 +236,10 @@ def main():
             ink_by_page[page_no] = lib.visual_ink_rects(page, area)
         ink = lib.rects_in_column(ink_by_page[page_no], c["bbox"], page_w, two_column=two_column)
         key = (page_no, kind, num)
-        manual = key in overrides or key in bottom_overrides
-        if key in overrides:
+        manual_top = key in overrides
+        manual_bottom = key in bottom_overrides
+        manual = manual_top or manual_bottom
+        if manual_top:
             top, source = overrides[key], "manual override"
         else:
             top = lib.auto_crop_top(page_no, c["bbox"], captions_by_page, page_w,
@@ -247,18 +249,18 @@ def main():
             source = "auto heuristic"
         bottom = bottom_overrides.get(key, c["bbox"][1] - 3)
         below = None
-        if kind == "table" and not manual:
+        if kind == "table" and not manual_top:
             below = lib.caption_above_crop(page_no, c["bbox"], captions_by_page, all_blocks, ink,
                                            body_edges, page_w, bottom_limit, two_column=two_column,
                                            column_width=column_w)
         above_has_ink = any(r.y0 >= top - 2 and r.y1 <= bottom + 2 for r in ink)
-        regions.append({"top": top, "bottom": bottom, "source": source, "below": below,
+        regions.append({"key": key, "top": top, "bottom": bottom, "source": source, "below": below,
                         "degenerate": kind == "table" and not manual and bottom - top < 24,
                         "above_has_ink": above_has_ink, "ink": ink})
 
     auto_tables = [r for c, r in zip(captions, regions)
                    if c["kind"] == "table" and r["source"] == "auto heuristic"
-                   and (c["page"], c["kind"], c["num"]) not in bottom_overrides]
+                   and r["key"] not in bottom_overrides]
     n_degenerate = sum(r["degenerate"] for r in auto_tables)
     if args.tables_caption_above == "auto":
         above_doc = bool(auto_tables) and n_degenerate * 2 >= len(auto_tables)
@@ -271,18 +273,25 @@ def main():
         below = r["below"]
         if below is None:
             continue
+        has_manual_bottom = r["key"] in bottom_overrides
         use_below = above_doc or (args.tables_caption_above == "auto" and r["degenerate"])
         # A paper that captions most tables above can still caption one below:
         # keep the caption-below region when it holds the table's rules and
         # the region under the caption doesn't, or when what sits under the
         # caption is too short to be a table (one line of text).
         if (use_below and args.tables_caption_above == "auto" and not r["degenerate"]
+                and not has_manual_bottom
                 and ((r["above_has_ink"] and not below["has_ink"])
                      or below["bottom"] - below["top"] < 24)):
             use_below = False
         if use_below:
-            r["top"], r["bottom"] = below["top"], below["bottom"]
-            r["source"] = f"auto caption-above, stopped at {below['stop']}"
+            r["top"] = below["top"]
+            if has_manual_bottom:
+                r["bottom"] = bottom_overrides[r["key"]]
+                r["source"] = "auto caption-above+manual bottom override"
+            else:
+                r["bottom"] = below["bottom"]
+                r["source"] = f"auto caption-above, stopped at {below['stop']}"
 
     manifest_images = []
     warned = []

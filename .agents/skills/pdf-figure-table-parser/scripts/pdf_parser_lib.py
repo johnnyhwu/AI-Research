@@ -13,7 +13,7 @@ import os
 
 import pymupdf
 
-CAPTION_RE = re.compile(r"^(Figure|Fig\.?|Table)\s+(\d+)", re.IGNORECASE)
+CAPTION_RE = re.compile(r"^(Figure|Fig\.?|Table)\s*(\d+)\b", re.IGNORECASE)
 
 
 def norm(text):
@@ -618,7 +618,7 @@ def reads_as_text_flow(block, column_width):
 
 def caption_above_crop(page_no, caption_bbox, captions_by_page, text_blocks, ink_rects,
                        body_edges, page_width, bottom_limit, two_column=True,
-                       column_width=None, max_gap=40.0, pad=4.0, edge_tol=2.0):
+                       column_width=None, max_gap=40.0, pad=8.0, edge_tol=2.0):
     """
     The region of a visual whose caption sits ABOVE it (the academic-table
     convention), as a dict with "top", "bottom", "stop" (why the walk ended,

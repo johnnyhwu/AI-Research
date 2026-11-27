@@ -32,6 +32,14 @@ degrade.
   context. It uses only the figures and tables the notes mention.
 - **Image pixels stay out of the main context** in both steps; a visual check
   goes through a subagent on downscaled copies.
+- **Isolate Step 1 when running Step 1 + Step 2 together.** When a single
+  request triggers both steps ("開始處理 `<dir>`", or "開始產生 blog" with no
+  manifest yet), run Step 1 (`pdf-figure-table-parser`) in a dedicated subagent
+  and have it return only a concise summary (render zoom, pixel-width range,
+  parser flags/overrides, low-confidence list, and verification status). This
+  keeps `dump_blocks.py` and build logs out of the main context (saving tokens)
+  and physically prevents Step 1 PDF text from leaking into Step 2's prose, alt
+  text, or captions.
 - **Fail loud.** A manifest id that doesn't exist is a bug to surface, never
   to paper over.
 
