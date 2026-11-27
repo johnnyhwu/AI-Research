@@ -1,10 +1,10 @@
 {
-  "source_pdf": "done/unpublished/VideoJev/2610.18615v1.pdf",
+  "source_pdf": "done/published/VideoJev/2610.18615v1.pdf",
   "generated_by": "pdf-figure-table-parser skill (pymupdf caption-anchored region render)",
   "images": [
     {
       "id": "img-001",
-      "file": "done/unpublished/VideoJev/assets/images/picture-001.png",
+      "file": "done/published/VideoJev/assets/images/picture-001.png",
       "type": "figure",
       "page": 1,
       "caption": "Figure 1 VideoJev: structured visual decisions with shared computation. Top: temporal intervals and textual options share a candidate-scoring interface; Cached inference reuses the video prefix for arriving queries, while Joint inference scores each query group in one forward pass. Bottom: prediction quality versus model forward latency at both model",
@@ -13,7 +13,7 @@
     },
     {
       "id": "img-002",
-      "file": "done/unpublished/VideoJev/assets/images/picture-002.png",
+      "file": "done/published/VideoJev/assets/images/picture-002.png",
       "type": "figure",
       "page": 3,
       "caption": "Figure 2 VideoJev: direct candidate scoring with shared visual computation. (a) Temporal intervals, represented by timestamps, and textual options share an input format. (b) Cached inference prefills the video once and processes each query suffix separately; Joint inference processes each query group in one causal language-model forward pass. Both modes share the backbone and scorer. (c) Temporal scores yield an event span; option scores select an answer. Scores and the reference interval are illustrative.",
@@ -22,7 +22,7 @@
     },
     {
       "id": "img-003",
-      "file": "done/unpublished/VideoJev/assets/images/picture-003.png",
+      "file": "done/published/VideoJev/assets/images/picture-003.png",
       "type": "table",
       "page": 6,
       "caption": "Table 1 Video temporal grounding. Generative models use Instruct mode by default; VideoJev uses Joint inference. The superscript TL marks TimeLens-Bench refined annotations. Bold marks the best value and underline the second best. Appendix A details the evaluation settings.",
@@ -31,7 +31,7 @@
     },
     {
       "id": "img-004",
-      "file": "done/unpublished/VideoJev/assets/images/picture-004.png",
+      "file": "done/published/VideoJev/assets/images/picture-004.png",
       "type": "table",
       "page": 8,
       "caption": "Table 2 Multiple-choice Video QA. Molmo2 uses a 32K context; Nemotron uses 128K. Bold marks the best value and underline the second best. Appendix A details the evaluation settings.",
@@ -40,7 +40,7 @@
     },
     {
       "id": "img-005",
-      "file": "done/unpublished/VideoJev/assets/images/picture-005.png",
+      "file": "done/published/VideoJev/assets/images/picture-005.png",
       "type": "table",
       "page": 8,
       "caption": "Table 3 Isolating architectural gains with an autoregressive control. VideoJev-4B and an autoregressive Qwen3.5-4B are both fine-tuned in a single stage on exactly the same post-training data. † denotes the VideoJev-4B Single-stage (100%) variant from Table 8. The two models share the same training and evaluation settings.",
@@ -49,7 +49,7 @@
     },
     {
       "id": "img-006",
-      "file": "done/unpublished/VideoJev/assets/images/picture-006.png",
+      "file": "done/published/VideoJev/assets/images/picture-006.png",
       "type": "table",
       "page": 8,
       "caption": "Table 4 Cached inference versus Joint inference.",
@@ -58,7 +58,7 @@
     },
     {
       "id": "img-007",
-      "file": "done/unpublished/VideoJev/assets/images/picture-007.png",
+      "file": "done/published/VideoJev/assets/images/picture-007.png",
       "type": "table",
       "page": 9,
       "caption": "Table 5 Joint versus single-task training. VideoJev-4B is trained on temporal grounding (TG), video question answering (QA), or both.",
@@ -67,7 +67,7 @@
     },
     {
       "id": "img-008",
-      "file": "done/unpublished/VideoJev/assets/images/picture-008.png",
+      "file": "done/published/VideoJev/assets/images/picture-008.png",
       "type": "table",
       "page": 9,
       "caption": "Table 6 Effect of Soft IoU supervision in VideoJev-4B. Soft IoU augments the grounding BCE objective; QA retains cross-entropy. Deltas are relative to BCE/CE only (baseline). Both variants use two-stage training.",
@@ -76,7 +76,7 @@
     },
     {
       "id": "img-009",
-      "file": "done/unpublished/VideoJev/assets/images/picture-009.png",
+      "file": "done/published/VideoJev/assets/images/picture-009.png",
       "type": "table",
       "page": 9,
       "caption": "Table 7 Effect of the final-layer MLP in VideoJev-4B.",
@@ -85,7 +85,7 @@
     },
     {
       "id": "img-010",
-      "file": "done/unpublished/VideoJev/assets/images/picture-010.png",
+      "file": "done/published/VideoJev/assets/images/picture-010.png",
       "type": "table",
       "page": 10,
       "caption": "Table 8 Two-stage versus single-stage adaptation of VideoJev-4B. The baseline warms up the head on 30% of videos and jointly adapts on the remaining 70%; single-stage training directly adapts on all videos with the full objectives.",
@@ -94,7 +94,7 @@
     },
     {
       "id": "img-011",
-      "file": "done/unpublished/VideoJev/assets/images/picture-011.png",
+      "file": "done/published/VideoJev/assets/images/picture-011.png",
       "type": "figure",
       "page": 10,
       "caption": "Figure 3 Multi-query efficiency at 4B. Mean forward time for 1–10 queries per video on Charades (a) and Video-Holmes [6] (b); shading shows 95% confidence intervals. Solid/dotted lines use Cached inference (dotted: multi- token generation); dashed lines use Joint inference. End labels pair ten-query latency with separately evaluated full-benchmark Charades mIoU or LVBench accuracy; quality settings follow the source evaluations in Appendix A.2.",
@@ -103,7 +103,7 @@
     },
     {
       "id": "img-012",
-      "file": "done/unpublished/VideoJev/assets/images/picture-012.png",
+      "file": "done/published/VideoJev/assets/images/picture-012.png",
       "type": "figure",
       "page": 11,
       "caption": "Figure 4 Confidence calibration on Video QA. Points show mean confidence and observed accuracy in equal- width bins containing at least 20 questions; all bins contribute to ECE. The dashed diagonal denotes perfect calibration. MLVU uses seven-task-balanced weights; the other benchmarks weight questions equally. Curves use the reported per-benchmark predictions.",
@@ -112,7 +112,7 @@
     },
     {
       "id": "img-013",
-      "file": "done/unpublished/VideoJev/assets/images/picture-013.png",
+      "file": "done/published/VideoJev/assets/images/picture-013.png",
       "type": "figure",
       "page": 20,
       "caption": "Figure 5 Qwen3.5-4B Direct inference. (a) Queries branch independently from a shared video cache. (b) All option predictions are read in one causal forward. Both modes use batch size 1, restrict logits to valid option tokens, and leave answer slots empty; [readout] marks a logit readout, not inserted text.",
@@ -121,7 +121,7 @@
     },
     {
       "id": "img-014",
-      "file": "done/unpublished/VideoJev/assets/images/picture-014.png",
+      "file": "done/published/VideoJev/assets/images/picture-014.png",
       "type": "figure",
       "page": 20,
       "caption": "Figure 6 Joint inference grounds six Charades queries in one forward; three readouts are shown in order. Both models match the one-second transition, while VideoJev-35B-A3B locates adjacent actions more precisely.",
@@ -130,7 +130,7 @@
     },
     {
       "id": "img-015",
-      "file": "done/unpublished/VideoJev/assets/images/picture-015.png",
+      "file": "done/published/VideoJev/assets/images/picture-015.png",
       "type": "figure",
       "page": 21,
       "caption": "Figure 7 Localizing a compound jump-rope event on ActivityNet Captions. VideoJev-35B-A3B more closely matches the annotated interval.",
@@ -139,7 +139,7 @@
     },
     {
       "id": "img-016",
-      "file": "done/unpublished/VideoJev/assets/images/picture-016.png",
+      "file": "done/published/VideoJev/assets/images/picture-016.png",
       "type": "figure",
       "page": 21,
       "caption": "Figure 8 Retrieving a preparation sequence amid vlog distractors on QVHighlights. Both models match the annotated interval.",
@@ -148,7 +148,7 @@
     },
     {
       "id": "img-017",
-      "file": "done/unpublished/VideoJev/assets/images/picture-017.png",
+      "file": "done/published/VideoJev/assets/images/picture-017.png",
       "type": "figure",
       "page": 21,
       "caption": "Figure 9 Joint inference answers 18 questions over a 3,665.5-second LVBench video in one forward. Two readouts test caption retrieval and weather recognition; the caption detail is enlarged for display.",
@@ -157,7 +157,7 @@
     },
     {
       "id": "img-018",
-      "file": "done/unpublished/VideoJev/assets/images/picture-018.png",
+      "file": "done/published/VideoJev/assets/images/picture-018.png",
       "type": "figure",
       "page": 22,
       "caption": "Figure 10 Recognizing an event relation on LongVideoBench. Both models select the annotated answer from six options.",
@@ -166,7 +166,7 @@
     },
     {
       "id": "img-019",
-      "file": "done/unpublished/VideoJev/assets/images/picture-019.png",
+      "file": "done/published/VideoJev/assets/images/picture-019.png",
       "type": "figure",
       "page": 22,
       "caption": "Figure 11 Counting five recurring scenes amid unrelated footage on MLVU. Each frame pair shows one occurrence. Both models select the annotated answer, with different option scores.",
@@ -175,7 +175,7 @@
     },
     {
       "id": "img-020",
-      "file": "done/unpublished/VideoJev/assets/images/picture-020.png",
+      "file": "done/published/VideoJev/assets/images/picture-020.png",
       "type": "figure",
       "page": 22,
       "caption": "Figure 12 An intent-inference disagreement on LVBench: VideoJev-4B interprets the interaction as courtesy, while VideoJev-35B-A3B selects the annotated arrest intent.",
@@ -184,7 +184,7 @@
     },
     {
       "id": "img-021",
-      "file": "done/unpublished/VideoJev/assets/images/picture-021.png",
+      "file": "done/published/VideoJev/assets/images/picture-021.png",
       "type": "figure",
       "page": 23,
       "caption": "Figure 13 A shared failure on small-object counting in Video-MME. Both models miss the annotated answer of four books; the book detail is enlarged for display.",
