@@ -3,7 +3,7 @@
 This repo is the **content repo** (`CONTENT_REPO`) of a 4-step blog-writing
 pipeline. It holds source papers plus the output of Steps 1 and 2. Steps 3 and
 4 turn an approved article into a Hugo post in a separate repo (`HUGO_REPO`,
-`johnnyhwu/johnnyhwu.github.io`, whose `CLAUDE.md` describes them); nothing
+`johnnyhwu/johnnyhwu.github.io`, whose `AGENTS.md` describes them); nothing
 here talks to Hugo.
 
 | Step | Role | Runs here? | Skill |
